@@ -166,3 +166,24 @@ export const pricingPlans = [
     isFeatured: false,
   },
 ];
+
+export const problemsData = [
+  {
+    id: 1,
+    title: "استهداف خاطئ",
+    description: "إعلاناتك تظهر لأشخاص غير مهتمين بخدماتك مما يهدر ميزانيتك.",
+    icon: "target-off", // سنستخدم أيقونة مناسبة
+  },
+  {
+    id: 2,
+    title: "ضعف البيانات",
+    description: "اتخاذ قرارات تسويقية بناءً على التخمين وليس الأرقام الحقيقية.",
+    icon: "bar-chart",
+  },
+  {
+    id: 3,
+    title: "محتوى ضعيف",
+    description: "رسائل تسويقية لا تلمس نقاط الألم لدى العميل ولا تدفعه للشراء.",
+    icon: "edit-3",
+  }
+];
