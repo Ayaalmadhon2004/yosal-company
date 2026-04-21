@@ -1,6 +1,10 @@
+import Services from "./sections/Services";
+
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+    // استبدلنا flex-col بـ block لضمان عدم تداخل التنسيقات
+    <div className="block w-full bg-zinc-50 font-sans dark:bg-black">
+      <Services/>
     </div>
   );
 }
