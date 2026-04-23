@@ -1,11 +1,11 @@
-"use client"
+"use client"; // إضافة التوجيه لتمكين الـ Hooks
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { AppButton } from '../ui/AppButton' // تأكدي من صحة المسار
-import { cn } from '@/lib/utils'
-import { Menu, X, ChevronDown } from 'lucide-react'
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { AppButton } from '../ui/AppButton';
+import { cn } from '@/lib/utils';
+import { Menu, X, ChevronDown } from 'lucide-react';
 
 const navLinks = [
   { name: 'الرئيسية', href: '/' },
@@ -14,12 +14,13 @@ const navLinks = [
     name: 'خدماتنا', 
     href: '/services',
     dropdown: [
+      // تحديث الروابط لتطابق الـ Slugs في ملف servicesData.ts
       { name: 'تحسين محركات البحث', href: '/services/seo' },
-      { name: 'صناعة المحتوى والفيديو', href: '/services/content' },
+      { name: 'صناعة المحتوى والفيديو', href: '/services/content-creation' },
       { name: 'إنشاء هوية بصرية', href: '/services/branding' },
-      { name: 'تطوير مواقع إلكترونية', href: '/services/web-dev' },
-      { name: 'التخطيط الاستراتيجي', href: '/services/strategy' },
-      { name: 'إدارة منصات التواصل', href: '/services/social' },
+      { name: 'تطوير مواقع إلكترونية', href: '/services/web-development' },
+      { name: 'التخطيط الاستراتيجي', href: '/services/strategic-planning' },
+      { name: 'إدارة منصات التواصل', href: '/services/social-media' },
     ]
   },
   { name: 'أعمالنا', href: '#portfolio' },
@@ -33,6 +34,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
 
+  // التأكد من أن المكون تم تحميله في المتصفح لتجنب أخطاء الـ Hydration
   useEffect(() => {
     setMounted(true);
     const handleScroll = () => {
@@ -77,15 +79,13 @@ export default function Navbar() {
                 <Link 
                   href={link.href} 
                   className={cn(
-                    "text-gray-300 hover:text-[#F58220] transition-all duration-300 font-medium flex items-center gap-1 pb-1 text-[15px]",
-                    index === 0 && "text-[#F58220]" 
+                    "text-gray-300 hover:text-[#F58220] transition-all duration-300 font-medium flex items-center gap-1 pb-1 text-[15px]"
                   )}
                 >
                   {link.name}
                   {link.dropdown && <ChevronDown size={14} className="group-hover/item:rotate-180 transition-transform" />}
                   <span className={cn(
-                    "absolute -bottom-1 right-0 h-[2px] bg-[#F58220] transition-all group-hover/item:w-full",
-                    index === 0 ? "w-full" : "w-0" 
+                    "absolute -bottom-1 right-0 h-[2px] bg-[#F58220] transition-all group-hover/item:w-full w-0"
                   )}></span>
                 </Link>
 
@@ -97,7 +97,7 @@ export default function Navbar() {
                         <Link
                           key={item.name}
                           href={item.href}
-                          className="block px-6 py-3 text-sm text-gray-300 hover:bg-white/5 hover:text-[#F58220] border-b border-white/5 last:border-0 transition-colors"
+                          className="block px-6 py-3 text-sm text-gray-300 hover:bg-white/5 hover:text-[#F58220] border-b border-white/5 last:border-0 transition-colors text-right"
                         >
                           {item.name}
                         </Link>
@@ -172,5 +172,5 @@ export default function Navbar() {
         </ul>
       </div>
     </nav>
-  )
+  );
 }
