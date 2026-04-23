@@ -25,7 +25,7 @@ const navLinks = [
   },
   { name: 'أعمالنا', href: '#portfolio' },
   { name: 'الباقات', href: '#packages' },
-  { name: 'المدونة', href: '#blog' },
+  { name: 'المدونة', href: '/blog' },
   { name: 'تواصل معنا', href: '#contact' },
 ];
 

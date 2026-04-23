@@ -1,16 +1,29 @@
-import { testimonialsData } from "@/lib/data";
+import React from "react";
 import { Star, ChevronRight, ChevronLeft } from "lucide-react";
+// استيراد النوع (Interface) لضمان توافق البيانات
+import { Testimonial } from "@/constants/servicesData";
 
-export default function Testimonials() {
+interface TestimonialsProps {
+  data: Testimonial[];
+}
+
+export default function Testimonials({ data }: TestimonialsProps) {
+  // إذا لم تكن هناك شهادات لهذه الخدمة، لا نعرض القسم
+  if (!data || data.length === 0) return null;
+
   return (
     <section className="py-24 bg-brand-dark text-white" dir="rtl">
       <div className="container mx-auto px-6 max-w-7xl text-center">
         <h2 className="text-4xl font-black mb-4">ماذا يقول عملاؤنا</h2>
         <p className="text-body text-gray-400 mb-16">ثقة شركائنا هي سر نجاحنا المستمر</p>
 
+        {/* عرض الشهادات الممررة ديناميكياً */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {testimonialsData.map((item) => (
-            <div key={item.id} className="bg-brand-navy/30 p-8 rounded-[32px] border border-white/5 text-right flex flex-col justify-between transition-all hover:border-brand-orange/20">
+          {data.map((item) => (
+            <div 
+              key={item.id} 
+              className="bg-brand-navy/30 p-8 rounded-[32px] border border-white/5 text-right flex flex-col justify-between transition-all hover:border-brand-orange/20"
+            >
               <div>
                 <div className="flex gap-1 mb-6 justify-start">
                   {[...Array(5)].map((_, i) => (
@@ -35,6 +48,7 @@ export default function Testimonials() {
           ))}
         </div>
 
+        {/* أزرار التنقل (يمكنك تفعيلها لاحقاً باستخدام Swiper أو Slider) */}
         <div className="flex justify-center gap-4">
           <button className="p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-brand-orange transition-all">
             <ChevronRight className="h-5 w-5" />

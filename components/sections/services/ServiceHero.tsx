@@ -25,7 +25,6 @@ export default function ServiceHero({
     <section className="relative pt-32 pb-20 px-6 overflow-hidden bg-[#1A1C2E]">
       <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         
-        {/* النصوص - الجهة اليمنى */}
         <div className="order-2 lg:order-1 text-right" dir="rtl">
           <span className="inline-block px-4 py-1 rounded-full bg-[#F58220]/10 text-[#F58220] text-xs font-bold mb-6 tracking-widest uppercase">
             {badge}
@@ -46,7 +45,6 @@ export default function ServiceHero({
           </div>
         </div>
 
-        {/* الصورة والإحصائيات - الجهة اليسرى */}
         <div className="order-1 lg:order-2 relative">
           <div className="relative rounded-[40px] overflow-hidden border border-white/10 shadow-2xl">
             <Image 
@@ -58,7 +56,6 @@ export default function ServiceHero({
             />
           </div>
           
-          {/* كرت الإحصائيات العائم */}
           {stats && (
             <div className="absolute -bottom-10 -right-10 bg-[#F58220] p-8 rounded-[30px] shadow-2xl max-w-[220px] text-right" dir="rtl">
               <div className="text-4xl font-black text-white mb-2">{stats.value}</div>
