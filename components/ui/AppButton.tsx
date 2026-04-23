@@ -7,14 +7,21 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-[#F58220] text-white hover:bg-[#d96d10] hover:shadow-[0_0_20px_rgba(245,130,32,0.3)]",
-        outline: "border-2 border-[#F58220] text-[#F58220] hover:bg-[#F58220] hover:text-white",
+        // الزر الكريمي بتوهج برتقالي (الزر الرئيسي في الهوية)
+        primary: "bg-[#F3EADA] text-[#F58220] shadow-[0_0_20px_rgba(245,130,32,0.4)] hover:shadow-[0_0_30px_rgba(245,130,32,0.6)] hover:scale-[1.02]",
+        
+        // زر "شاهد أعمالنا" (إطار برتقالي خفيف وخلفية داكنة)
+        outline: "border-2 border-[#F58220]/50 bg-[#1A1C2E]/50 text-white hover:bg-[#F58220]/10 hover:border-[#F58220]",
+        
+        // زر بلون البرتقالي الكامل (اختياري لبعض الأقسام)
+        orange: "bg-[#F58220] text-white hover:bg-[#E0721B] shadow-lg",
+        
         ghost: "text-white hover:bg-white/10",
       },
       size: {
-        sm: "h-9 px-5 text-sm rounded-full",
-        md: "h-11 px-8 text-base rounded-full",
-        lg: "h-14 px-10 text-lg rounded-full",
+        sm: "h-9 px-5 text-sm rounded-xl",
+        md: "h-12 px-8 text-base rounded-xl",
+        lg: "h-14 px-10 text-lg rounded-2xl", // للـ Hero و CTA
       },
     },
     defaultVariants: {

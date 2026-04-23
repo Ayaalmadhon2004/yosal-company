@@ -1,4 +1,4 @@
-import { AppCard, AppCardHeader, AppCardTitle, AppCardDescription, AppCardContent } from "@/components/AppCard";
+import { AppCard, AppCardHeader, AppCardTitle, AppCardDescription, AppCardContent } from "@/components/ui/AppCard";
 import { AppButton } from "@/components/ui/AppButton"; 
 import { servicesData } from "@/lib/data";
 import { 

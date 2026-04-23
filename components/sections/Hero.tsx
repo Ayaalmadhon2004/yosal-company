@@ -1,4 +1,4 @@
-import ContactForm from "@/components/ContactForm";
+import ContactForm from "@/components/form/ContactForm";
 import { MessageCircle } from "lucide-react";
 
 export default function Hero() {

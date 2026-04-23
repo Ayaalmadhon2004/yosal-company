@@ -1,4 +1,4 @@
-import { AppCard } from "@/components/AppCard";
+import { AppCard } from "@/components/ui/AppCard";
 import { problemsData } from "@/lib/data";
 import { Target, BarChart3, PenTool } from "lucide-react";
 

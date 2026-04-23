@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { 
   Send, Globe, Share2, Camera, User, X, Mail 
 } from "lucide-react";
-import ChatSystem from "@/components/ChatSystem"; // تأكدي من صحة المسار
+import ChatSystem from "@/components/layout/ChatSystem"; 
 
 export default function Footer() {
   const [mounted, setMounted] = useState(false);

@@ -1,15 +1,15 @@
-import CTA from "./sections/CTA";
-import Faqs from "./sections/Faqs";
-import Footer from "./sections/Footer";
-import Hero from "./sections/Hero";
-import Portfolio from "./sections/Portfolio";
-import Pricing from "./sections/Pricing";
-import Problems from "./sections/Problems";
-import ReadySection from "./sections/ReadySection";
-import Services from "./sections/Services";
-import Stats from "./sections/Stats";
-import Testimonials from "./sections/Testimonials";
-import WhyUs from "./sections/WhyUs";
+import CTA from "../components/sections/CTA";
+import Faqs from "../components/sections/Faqs";
+import Footer from "../components/layout/Footer";
+import Hero from "../components/sections/Hero";
+import Portfolio from "../components/sections/Portfolio";
+import Pricing from "../components/sections/Pricing";
+import Problems from "../components/sections/Problems";
+import ReadySection from "../components/sections/ReadySection";
+import Services from "../components/sections/Services";
+import Stats from "../components/sections/Stats";
+import Testimonials from "../components/sections/Testimonials";
+import WhyUs from "../components/sections/WhyUs";
 
 export default function Home() {
   return (

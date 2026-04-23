@@ -1,4 +1,4 @@
-import ReadyForm from "@/components/ReadyForm";
+import ReadyForm from "@/components/form/ReadyForm";
 
 export default function ReadySection() {
   return (
