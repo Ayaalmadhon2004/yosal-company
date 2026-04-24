@@ -73,12 +73,17 @@ export default function Footer() {
           <div className="md:col-span-2 text-right">
             <h4 className="text-white font-bold mb-6">قانوني</h4>
             <ul className="space-y-4 text-gray-400 text-sm">
-              <li className="hover:text-white cursor-pointer">الخصوصية</li>
+
+              <li>
+              <Link href="/private" className="text-gray-400 hover:text-[#F58220] transition-colors text-sm">الخصوصية</Link>
+              </li>
+
               <li>
                 <Link href="/terms" className="text-gray-400 hover:text-[#F58220] transition-colors text-sm">
                   الشروط والأحكام
                 </Link>
               </li>
+
             </ul>
           </div>
 
