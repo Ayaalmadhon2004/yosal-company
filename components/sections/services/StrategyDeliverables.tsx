@@ -1,24 +1,21 @@
 import React from "react";
 
-// تعريف الواجهة لتطابق هيكل البيانات في خدماتنا
 interface DeliverableItem {
   title: string;
   desc: string;
-  icon: any; // لاستقبال مكونات lucide-react كأيقونات ديناميكية
+  icon: any; 
 }
 
 interface StrategyDeliverablesProps {
-  items?: DeliverableItem[]; // علامة الاستفهام تمنع الخطأ في حال كانت البيانات قيد التحميل
+  items?: DeliverableItem[]; 
 }
 
 export default function StrategyDeliverables({ items = [] }: StrategyDeliverablesProps) {
-  // حماية إضافية لمنع انهيار المكون في حال عدم وجود بيانات
   if (!items || items.length === 0) return null;
 
   return (
     <section className="py-24 px-6 bg-[#1A1C2E]">
       <div className="max-w-[1200px] mx-auto text-center">
-        {/* العناوين الرئيسية للقسم */}
         <div className="mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             ما الذي ستحصل عليه؟

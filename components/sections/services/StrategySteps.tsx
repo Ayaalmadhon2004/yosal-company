@@ -1,13 +1,11 @@
 import React from "react";
 
-// تعريف واجهة البيانات لكل خطوة
 interface StepItem {
-  number?: string; // اختياري لأننا يمكننا استخدام index+1 تلقائياً
+  number?: string; 
   title: string;
   description: string;
 }
 
-// تعريف الـ Props للمكون
 interface ServiceStepsProps {
   sectionTitle: string;
   steps: StepItem[];
@@ -30,7 +28,6 @@ export default function ServiceSteps({ sectionTitle, steps }: ServiceStepsProps)
                 {step.number || index + 1}
               </div>
 
-              {/* بطاقة المحتوى */}
               <div className="bg-[#1F2136] p-8 rounded-[24px] border border-white/5 h-full transition-all duration-300 group-hover:border-[#F58220]/30 group-hover:bg-[#1F2136]/80">
                 <h3 className="text-xl font-bold text-white mb-4">
                   {step.title}

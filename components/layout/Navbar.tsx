@@ -9,7 +9,7 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 
 const navLinks = [
   { name: 'الرئيسية', href: '/' },
-  { name: 'من نحن', href: '#about' },
+  { name: 'من نحن', href: '/about' },
   { 
     name: 'خدماتنا', 
     href: '/services',

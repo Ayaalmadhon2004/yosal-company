@@ -44,7 +44,9 @@ export default async function ServicePage({
         }
         steps={data.steps} 
       />
+
       {data.featuresSection && <WhyChooseUs data={data.featuresSection} />}
+      
       <Testimonials data={data.testimonials}/>
       <Faqs data={data.faqs}/>
       <ReadyResults/>

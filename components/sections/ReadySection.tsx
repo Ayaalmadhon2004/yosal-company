@@ -1,6 +1,11 @@
 import ReadyForm from "@/components/form/ReadyForm";
 
-export default function ReadySection() {
+interface ReadySectionProps {
+  variant?: "style1" | "style2";
+  className?: string;
+}
+
+export default function ReadySection({ variant = "style1", className }: ReadySectionProps) {
   return (
     <section className="bg-brand-dark py-24" dir="rtl">
       <div className="container mx-auto px-6 max-w-7xl">
