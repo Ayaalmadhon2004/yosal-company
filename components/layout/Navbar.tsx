@@ -22,7 +22,7 @@ const navLinks = [
       { name: 'إدارة منصات التواصل', href: '/services/social-media' },
     ]
   },
-  { name: 'أعمالنا', href: '#portfolio' },
+  { name: 'أعمالنا', href: '/portfolio' },
   { name: 'الباقات', href: '/packages' },
   { name: 'المدونة', href: '/blog' },
   { name: 'تواصل معنا', href: '/contact' },
