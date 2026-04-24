@@ -28,13 +28,11 @@ export default function Footer() {
   return (
     <footer className="bg-[#1A1C2E] text-white py-16 border-t border-white/5 relative w-full" dir="rtl">
       
-      {/* استدعاء نظام الدردشة المنفصل الذي يحتوي على الأزرار العائمة */}
       <ChatSystem />
 
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
 
-          {/* القسم الأول: اللوجو والوصف */}
           <div className="md:col-span-4 text-right flex flex-col items-start">
             <div className="mb-6">
               <Link href="/">
@@ -63,7 +61,6 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* القسم الثاني: روابط سريعة */}
           <div className="md:col-span-2 text-right">
             <h4 className="text-white font-bold mb-6">روابط سريعة</h4>
             <ul className="space-y-4 text-gray-400 text-sm">
@@ -73,12 +70,15 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* القسم الثالث: قانوني */}
           <div className="md:col-span-2 text-right">
             <h4 className="text-white font-bold mb-6">قانوني</h4>
             <ul className="space-y-4 text-gray-400 text-sm">
               <li className="hover:text-white cursor-pointer">الخصوصية</li>
-              <li className="hover:text-white cursor-pointer">الشروط</li>
+              <li>
+                <Link href="/terms" className="text-gray-400 hover:text-[#F58220] transition-colors text-sm">
+                  الشروط والأحكام
+                </Link>
+              </li>
             </ul>
           </div>
 
