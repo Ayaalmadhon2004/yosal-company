@@ -1,6 +1,6 @@
 import { AppCard, AppCardHeader, AppCardTitle, AppCardDescription, AppCardContent } from "@/components/ui/AppCard";
 import { AppButton } from "@/components/ui/AppButton";
-import { pricingPlans } from "@/lib/data";
+import { pricingPlans } from "@/constants/siteData";
 import { Check } from "lucide-react";
 
 export default function Pricing() {

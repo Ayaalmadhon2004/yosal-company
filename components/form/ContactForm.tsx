@@ -1,41 +1,57 @@
 "use client";
+import { useState } from "react";
 
 export default function ContactForm() {
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    // هان بنحط الـ Fetch للـ API اللي رح تعمله زميلتك (Back)
+    setTimeout(() => setLoading(false), 2000); 
+  };
+
   return (
-    <div className="bg-brand-navy border border-brand-orange/20 p-8 rounded-[40px] shadow-2xl w-full border-primary">
-      <div className="bg-blue p-6 rounded-3xl mb-8 border border-white/5">
-        <h4 className="text-brand-orange font-bold text-center mb-2">عرض خاص</h4>
-        <p className="text-white text-sm font-bold text-center mb-2">احصل على تقييم مجاني لمتجرك/مشروعك</p>
-        <p className="text-gray-400 text-[11px] text-center leading-relaxed">
-          سنقوم بإعطائك المعلومات الكافية لمعرفة خطوتك القادمة في التسويق الإلكتروني عن طريق تحليل سريع لنقاط الضعف والقوة.
-        </p>
+    <form onSubmit={handleSubmit} className="bg-[#1a1f3d] p-8 rounded-3xl shadow-xl max-w-4xl mx-auto border border-gray-700">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* الاسم */}
+        <div className="space-y-2">
+          <label className="text-white text-sm">الاسم بالكامل</label>
+          <input type="text" className="w-full bg-[#0f1225] border border-gray-600 rounded-lg p-3 text-white focus:border-orange-500 outline-none" required />
+        </div>
+        
+        {/* الخدمة المطلوبة - Dropdown */}
+        <div className="space-y-2">
+          <label className="text-white text-sm">الخدمة المطلوبة</label>
+          <select className="w-full bg-[#0f1225] border border-gray-600 rounded-lg p-3 text-white focus:border-orange-500 outline-none">
+            <option>التخطيط الاستراتيجي</option>
+            <option>تطوير المواقع</option>
+            <option>الهوية البصرية</option>
+          </select>
+        </div>
+
+        {/* الميزانية المتوقعة */}
+        <div className="space-y-2">
+          <label className="text-white text-sm">الميزانية المتوقعة ($)</label>
+          <input type="number" className="w-full bg-[#0f1225] border border-gray-600 rounded-lg p-3 text-white focus:border-orange-500 outline-none" placeholder="2000" />
+        </div>
+
+        {/* رقم الجوال */}
+        <div className="space-y-2">
+          <label className="text-white text-sm">رقم الجوال</label>
+          <input type="tel" className="w-full bg-[#0f1225] border border-gray-600 rounded-lg p-3 text-white focus:border-orange-500 outline-none" placeholder="+966" />
+        </div>
       </div>
 
-      <form className="space-y-6" dir="rtl">
-        <div className="space-y-2">
-          <label className="text-white text-sm block pr-2">الاسم الكامل</label>
-          <input 
-            type="text" 
-            placeholder="أدخل اسمك هنا ...." 
-            className="w-full bg-brand-dark border rounded-xl border-primary px-4 py-4 text-sm outline-none focus:border-brand-orange/50 transition-all text-white"
-          />
-        </div>
+      {/* تفاصيل المشروع */}
+      <div className="mt-6 space-y-2">
+        <label className="text-white text-sm">وصف المشروع بالتفصيل</label>
+        <textarea rows={4} className="w-full bg-[#0f1225] border border-gray-600 rounded-lg p-3 text-white focus:border-orange-500 outline-none" placeholder="اشرح لنا فكرتك..."></textarea>
+      </div>
 
-        <div className="space-y-2">
-          <label className="text-white text-sm block pr-2">رقم الهاتف</label>
-          <input 
-            type="tel" 
-            placeholder="أدخل رقم الهاتف 05xxxxxxxxx" 
-            className="w-full bg-brand-dark border border-primary rounded-xl px-4 py-4 text-sm outline-none focus:border-brand-orange/50 transition-all text-white text-end"
-          />
-        </div>
-
-        <button className="w-full bg-brand-orange text-white font-bold py-5 rounded-xl shadow-[0_10px_20px_rgba(245,130,32,0.25)] hover:scale-[1.02] active:scale-95 transition-all">
-          أحصل على التقييم
-        </button>
-
-        <p className="text-[10px] text-gray-500 text-center">نحن نحترم خصوصيتك، بياناتك آمنة معنا.</p>
-      </form>
-    </div>
+      <button disabled={loading} className="w-full mt-8 bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2">
+        {loading ? "جاري الإرسال..." : "إرسال طلبك الآن +"}
+      </button>
+    </form>
   );
 }

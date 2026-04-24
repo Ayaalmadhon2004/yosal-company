@@ -1,5 +1,22 @@
 // lib/data.ts
-import { Service, PortfolioProject, AgencyStat } from "@/types";
+import { Testimonial, FAQ } from "@/types";
+
+export const allTestimonials: Testimonial[] = [
+  {
+    id: 1,
+    name: "anonymous",
+    role: "مالكة مطعم",
+    content: "متجري لم يكن لينجح لولا اني قابلت وكالة يوصل...",
+    avatarLetter: "R"
+  },
+  {
+    id: 2,
+    name: "anonymous",
+    role: "المدير التنفيذي لشركة حلول برمجية",
+    content: "تعجبت من سرعة الاداء و قياساتهم الدقيقة...",
+    avatarLetter: "T"
+  }
+];
 
 export const servicesData: Service[] = [
   {
@@ -58,6 +75,7 @@ export const servicesData: Service[] = [
   }
 ];
 
+//without api
 export const statsData = [
   { id: 1, count: "597+", title: "استراتيجية", desc: "تكريمات وجوائز تم حصدها في مجالات الابتكار المعماري والتقني." },
   { id: 2, count: "643+", title: "متجر إلكتروني", desc: "منصات تجارية متكاملة تم تطويرها لتعزيز تجربة التسوق الرقمي." },
@@ -92,6 +110,7 @@ export const pricingPlans = [
   },
 ];
 
+//without api
 export const problemsData = [
   {
     id: 1,
@@ -134,6 +153,7 @@ export const portfolioData = [
   }
 ];
 
+// withput api 
 export const whyUsData = [
   {
     id: 1,
@@ -187,7 +207,7 @@ export const testimonialsData = [
     avatarLetter: "A"
   }
 ];
-
+//without api
 export const faqsData = [
   {
     id: 1,
@@ -208,5 +228,43 @@ export const faqsData = [
     id: 4,
     question: "هل هناك ضمانات لتحقيق النتائج؟",
     answer: "نحن نلتزم بمنهجية قائمة على البيانات (Data-Driven)، ونقدم تقارير دورية شفافة توضح تطور الأداء والنمو المحقق."
+  }
+];
+
+
+export const contactHeroData = {
+  title: "جاهز نساعدك لتنمو",
+  highlightText: "رقمياً",
+  description: "اختر الطريقة المناسبة للتواصل وسنرد عليك بأسرع وقت ممكن. فريقنا المتخصص ينتظر سماع رؤيتك القادمة.",
+  image: "/assets/contactUs.png", // تأكدي من المسار
+};
+
+export const contactMethods = [
+  {
+    id: 1,
+    title: "تواصل عبر واتساب",
+    desc: "للحصول على استجابة فورية من فريقنا.",
+    action: "ابدأ المحادثة الآن",
+    link: "https://wa.me/yournumber", // سيتم ربطه لاحقاً بـ API (Back)
+    icon: "MessageSquare",
+    color: "bg-green-500",
+  },
+  {
+    id: 2,
+    title: "احجز استشارة مجانية",
+    desc: "حدد موعداً لمناقشة تفاصيل مشروعك.",
+    action: "اختر موعدك",
+    link: "https://calendly.com/your-link", // سيتم ربطه لاحقاً بـ API (Back)
+    icon: "Calendar",
+    color: "bg-orange-500",
+  },
+  {
+    id: 3,
+    title: "أرسل إيميل مباشر",
+    desc: "للمراسلات الرسمية وطلبات العروض.",
+    action: "info@yoosel.com",
+    link: "mailto:info@yoosel.com", // سيتم ربطه لاحقاً بـ API (Back)
+    icon: "Mail",
+    color: "bg-blue-500",
   }
 ];

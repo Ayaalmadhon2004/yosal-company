@@ -14,7 +14,6 @@ const navLinks = [
     name: 'خدماتنا', 
     href: '/services',
     dropdown: [
-      // تحديث الروابط لتطابق الـ Slugs في ملف servicesData.ts
       { name: 'تحسين محركات البحث', href: '/services/seo' },
       { name: 'صناعة المحتوى والفيديو', href: '/services/content-creation' },
       { name: 'إنشاء هوية بصرية', href: '/services/branding' },
@@ -26,7 +25,7 @@ const navLinks = [
   { name: 'أعمالنا', href: '#portfolio' },
   { name: 'الباقات', href: '#packages' },
   { name: 'المدونة', href: '/blog' },
-  { name: 'تواصل معنا', href: '#contact' },
+  { name: 'تواصل معنا', href: '/contact' },
 ];
 
 export default function Navbar() {

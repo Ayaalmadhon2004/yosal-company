@@ -9,10 +9,6 @@ import Testimonials from "@/components/sections/Testimonials";
 import Faqs from "@/components/sections/Faqs";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 
-/**
- * صفحة الخدمة الديناميكية
- * تم استخدام await params لضمان التوافق مع تحديثات Next.js 15 الأخيرة.
- */
 export default async function ServicePage({ 
   params 
 }: { 

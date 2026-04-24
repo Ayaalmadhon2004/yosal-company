@@ -1,68 +1,95 @@
 import Image from "next/image";
-import { Feature } from "@/constants/servicesData";
+
+interface Feature {
+  title: string;
+  description: string;
+  icon: any;
+}
 
 interface WhyChooseUsProps {
   data: {
     title: string;
+    image: string | string[];
     features: Feature[];
-    image: string;
+    stats?: { value: string; label: string };
   };
 }
 
 export default function WhyChooseUs({ data }: WhyChooseUsProps) {
+  if (!data) return null;
+
   return (
-    <section className="py-24 bg-[#1A1C2E] text-white" dir="rtl">
-      <div className="container mx-auto px-6 max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <section className="py-24 bg-[#1A1C2E] overflow-hidden">
+      <div className="container mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           
-          {/* الجانب الأيمن: الصورة مع العناصر الثابتة (Static Elements) */}
-          <div className="relative h-[450px] rounded-3xl overflow-hidden shadow-2xl group">
-            <Image 
-              src={data.image} 
-              alt={data.title}
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            
-            {/* البطاقة البرتقالية الثابتة (Static) */}
-            <div className="absolute bottom-6 right-6 bg-[#FF8A00] p-5 rounded-2xl shadow-xl z-10 text-center min-w-[140px]">
-              <span className="block text-4xl font-black text-white">+99%</span>
-              <span className="text-xs font-bold text-white/90 mt-1 block">نسبة رضا العملاء</span>
-            </div>
-          </div>
-
-          {/* الجانب الأيسر: النصوص الديناميكية */}
-          <div className="text-right">
-            <h2 className="text-4xl lg:text-5xl font-black mb-12 leading-tight">
-              {/* تلوين كلمة "يوصل" تلقائياً إذا وجدت في العنوان */}
-              {data.title.includes("يوصل") ? (
-                <>
-                  {data.title.split("يوصل")[0]}
-                  <span className="text-[#FF8A00]">يوصل</span>
-                  {data.title.split("يوصل")[1]}
-                </>
-              ) : data.title}
+          {/* الجانب الأيمن: النصوص والمميزات */}
+          <div dir="rtl">
+            <h2 className="text-4xl lg:text-5xl font-black text-white mb-12 leading-tight">
+              {data.title.split(' ').map((word, i) => 
+                word === "يوصل" || word === "هوياتهم؟" ? 
+                <span key={i} className="text-[#FF8A00]"> {word}</span> : ` ${word}`
+              )}
             </h2>
-
-            <div className="space-y-10">
+            
+            <div className="space-y-8">
               {data.features.map((feature, index) => (
-                <div key={index} className="flex items-start gap-6 group">
-                  {/* أيقونة ثابتة التصميم، متغيرة الشكل */}
-                  <div className="flex-shrink-0 w-14 h-14 bg-[#252841] border border-white/5 rounded-2xl flex items-center justify-center group-hover:border-[#FF8A00] transition-all duration-300 transform group-hover:-rotate-6">
+                <div key={index} className="flex gap-6 group">
+                  <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-[#FF8A00]/20 transition-colors shrink-0">
                     <feature.icon className="w-7 h-7 text-[#FF8A00]" />
                   </div>
-
                   <div>
-                    <h3 className="text-2xl font-bold mb-2 group-hover:text-[#FF8A00] transition-colors">
-                      {feature.title}
-                    </h3>
-                    <p className="text-gray-400 text-lg leading-relaxed max-w-md italic font-light">
-                      {feature.description}
-                    </p>
+                    <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
+                    {feature.description && (
+                      <p className="text-gray-400 leading-relaxed max-w-md">
+                        {feature.description}
+                      </p>
+                    )}
                   </div>
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* الجانب الأيسر: الصور (مفردة أو مزدوجة) */}
+          <div className="relative h-[450px] rounded-3xl overflow-hidden shadow-2xl group">
+            {Array.isArray(data.image) ? (
+              /* عرض مصفوفة الصور (كما في تصميم البراندنج) */
+              <div className="grid grid-cols-2 h-full gap-2 bg-[#1A1C2E]">
+                {data.image.map((imgSrc, index) => (
+                  <div key={index} className="relative h-full w-full">
+                    {imgSrc && (
+                      <Image 
+                        src={imgSrc} 
+                        alt={`${data.title} - ${index}`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              /* عرض صورة واحدة (كما في تصميم البرمجة) */
+              data.image && (
+                <Image 
+                  src={data.image} 
+                  alt={data.title}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              )
+            )}
+
+            {/* بطاقة الإحصائيات البرتقالية */}
+            {data.stats && (
+              <div className="absolute bottom-8 right-8 bg-[#FF8A00] p-6 rounded-3xl shadow-xl z-20 animate-pulse-slow">
+                <div className="text-3xl font-black text-white">{data.stats.value}</div>
+                <div className="text-sm text-white/90 font-bold">{data.stats.label}</div>
+              </div>
+            )}
           </div>
 
         </div>

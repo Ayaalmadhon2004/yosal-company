@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { portfolioData } from "@/lib/data";
+import { portfolioData } from "@/constants/siteData";
 
 export default function Portfolio() {
   return (

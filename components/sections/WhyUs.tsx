@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { whyUsData } from "@/lib/data";
+import { whyUsData } from "@/constants/siteData";
 import { BarChart3, MapPin, FileText, UserCheck } from "lucide-react";
 
 export default function WhyUs() {

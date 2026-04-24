@@ -1,5 +1,5 @@
 import { AppCard } from "@/components/ui/AppCard";
-import { problemsData } from "@/lib/data";
+import { problemsData } from "@/constants/siteData";
 import { Target, BarChart3, PenTool } from "lucide-react";
 
 export default function Problems() {

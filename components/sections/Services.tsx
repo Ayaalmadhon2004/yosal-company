@@ -1,6 +1,6 @@
 import { AppCard, AppCardHeader, AppCardTitle, AppCardDescription, AppCardContent } from "@/components/ui/AppCard";
 import { AppButton } from "@/components/ui/AppButton"; 
-import { servicesData } from "@/lib/data";
+import { servicesData } from "@/constants/servicesData";
 import { 
   Monitor, Search, Layout, Share2, Rocket, 
   PenTool, Video, MessageSquare, TrendingUp, Check 

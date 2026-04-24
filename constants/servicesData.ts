@@ -1,99 +1,9 @@
-import { 
-  TrendingUp, Layout, BrainCircuit, Target, 
-  Search, Share2, Palette, Globe, Video, ShieldCheck 
-} from "lucide-react";
-
-// --- الواجهات (Interfaces) ---
-// تأكدي من وجود export هنا لحل مشكلة الصورة الأخيرة
-export interface Feature {
-  title: string;
-  description: string;
-  icon: any;
-}
-
-export interface FAQ {
-  id: number;
-  question: string;
-  answer: string;
-}
-
-export interface Testimonial {
-  id: number;
-  name: string;
-  role: string;
-  content: string;
-  avatarLetter: string;
-}
-
-export interface ServiceData {
-  hero: {
-    badge: string;
-    title: string;
-    highlightText: string;
-    description: string;
-    image: string;
-    stats?: { value: string; label: string };
-  };
-  testimonials: Testimonial[];
-  faqs: FAQ[];
-  comparison: {
-    challenges: string[];
-    solutions: string[];
-  };
-  featuresSection?: {
-    title: string;
-    features: Feature[];
-    image: string;
-  };
-  deliverables: {
-    title: string;
-    desc: string;
-    icon: any; 
-  }[];
-  steps: {
-    number: string;
-    title: string;
-    desc: string;
-  }[];
-}
-
-// --- البيانات المشتركة ---
-
-const allTestimonials: Testimonial[] = [
-  {
-    id: 1,
-    name: "anonymous",
-    role: "مالكة مطعم",
-    content: "متجري لم يكن لينجح لولا اني قابلت وكالة يوصل افضل قرار قمت به هو انني اهتممت بالحضور الرقمي و استمعت لنصيحة المسوقة ندى رئيسة فريق التسويق لدى وكالة يوصل",
-    avatarLetter: "R"
-  },
-  {
-    id: 2,
-    name: "anonymous",
-    role: "المدير التنفيذي لشركة حلول برمجية",
-    content: "تعجبت من سرعة الاداء و قياساتهم الدقيقة، خطة المحتوى كانت جديدة بالنسبة لي ولم اقتنع بها اولا، لكنني وثقت برشا كاتبة خطة المحتوى و كان هذا قرار لا أندم عليه",
-    avatarLetter: "T"
-  },
-  {
-    id: 3,
-    name: "anonymous",
-    role: "مؤسسة منتج تجميل",
-    content: "عجبني تقسيم الفرق و بنية الوكالة كأنها شركة كبيرة بامكانيات عادية و لكن النتائج كانت لا مثيل لها، اخترنا يوصل بسبب السعر المنافس و ابهرتنا بنتيجة تنافس وكالات اسعارها باهضة",
-    avatarLetter: "S"
-  },
-  {
-    id: 4,
-    name: "anonymous",
-    role: "مدير متجر إلكتروني",
-    content: "فريق التصوير جدا لطيفين و مبدعين حبيت تعاملهم معنا و سرعتهم بالانجاز كانت الفكرة غريبة اننا نصور قدام الزباين لكن النتائج اثبتت انه يستحق العناء، شكرا لوكالة يوصل",
-    avatarLetter: "A"
-  }
-];
-
-// --- تصدير البيانات الرئيسية ---
+import { ServiceData } from "@/types";
+import { allTestimonials } from "./siteData";
+import { BrainCircuit, Target, TrendingUp, Search, Layout, Palette ,Code2,BarChart3 ,Globe,Share2,Video ,} from "lucide-react";
 
 export const servicesData: Record<string, ServiceData> = {
-  "strategic-planning": {
+"strategic-planning": {
     hero: {
       badge: "STRATEGIC PLANNING",
       title: "حول رؤيتك إلى",
@@ -122,8 +32,10 @@ export const servicesData: Record<string, ServiceData> = {
       ]
     },
     deliverables: [
-      { title: "مؤشرات الأداء", desc: "تحديد معايير واضحة للنجاح.", icon: TrendingUp },
-      { title: "خارطة الطريق", desc: "جدول زمني مفصل للمهام.", icon: Target }
+      { title: "تحليل السوق العميق", desc: "دراسة المنافسين، اتجاهات المستهلكين، وفجوات السوق.", icon: Search },
+      { title: "مؤشرات الأداء (KPIs)", desc: "تحديد معايير واضحة للنجاح تمكنك من قياس كل خطوة.", icon: TrendingUp },
+      { title: "التدريب والتمكين", desc: "تدريب فريقك على تنفيذ الاستراتيجية بفعالية.", icon: BrainCircuit },
+      { title: "خارطة الطريق الاستراتيجية", desc: "جدول زمني مفصل يحدد المهام والميزانيات.", icon: Map }
     ],
     steps: [
       { number: "1", title: "الاكتشاف", desc: "فهم أهدافك الحالية وتحدياتك." },
@@ -139,25 +51,31 @@ export const servicesData: Record<string, ServiceData> = {
       highlightText: "منصة رقمية",
       description: "بناء مواقع وتطبيقات ويب سريعة وآمنة تعزز حضورك الرقمي وتجربة عملائك.",
       image: "/assets/Web Development.png",
-      stats: { value: "100%", label: "توافق مع المعايير" }
+      stats: { value: "+99%", label: "نسبة رضا العملاء" }
     },
     testimonials: allTestimonials,
     faqs: [
-      { id: 1, question: "كم يستغرق بناء موقع إلكتروني؟", answer: "تعتمد المدة على حجم المشروع، المواقع التعريفية تستغرق 2-4 أسابيع، والمتاجر الكبيرة 6-10 أسابيع." },
-      { id: 2, question: "هل تقدمون خدمات الدعم الفني بعد الإطلاق؟", answer: "نعم، نوفر باقات صيانة ودعم فني لضمان استقرار الموقع وتحديثه." },
-      { id: 3, question: "هل موقعي سيكون متوافقاً مع محركات البحث؟", answer: "بالتأكيد، نلتزم بكود نظيف ومعايير SEO التقنية الأساسية." }
+      { id: 1, question: "كم يستغرق بناء موقع إلكتروني؟", answer: "تعتمد المدة على حجم المشروع، عادة من 4 إلى 8 أسابيع." },
+      { id: 2, question: "هل الموقع متوافق مع محركات البحث؟", answer: "نعم، نلتزم بكود نظيف ومعايير SEO التقنية الأساسية." }
     ],
     comparison: {
       challenges: ["بطء التحميل", "تصميم قديم", "صعوبة الإدارة"],
       solutions: ["منصات فائقة السرعة", "تصاميم عصرية", "لوحة تحكم كاملة"]
     },
     featuresSection: {
-      title: "لماذا تختار يوصل لتطوير منصتك؟",
-      image: "/assets/Web Development.png",
+      title: "لماذا يختار المحترفون يوصل؟",
+      image: "/assets/Coding.png",
       features: [
-        { title: "أداء فائق", description: "مواقع سريعة جداً تضمن بقاء الزائر.", icon: Globe },
-        { title: "أمان مطلق", description: "حماية بياناتك وعملائك هي أولويتنا.", icon: ShieldCheck },
-        { title: "تجربة مستخدم", description: "واجهات سهلة تزيد من معدل التحويل.", icon: Layout }
+        { 
+          title: "أكواد نظيفة وقابلة للتوسع", 
+          description: "نكتب أكواد برمجية تتبع أفضل الممارسات، مما يسهل عملية تطوير الموقع في المستقبل.", 
+          icon: Code2 
+        },
+        { 
+          title: "تركيز كامل على الأداء", 
+          description: "نحن لا نصمم مواقع جميلة فحسب، بل نصمم أدوات عمل فعالة تزيد من أرباحك.", 
+          icon: BarChart3 
+        }
       ]
     },
     deliverables: [
@@ -211,38 +129,31 @@ export const servicesData: Record<string, ServiceData> = {
   "branding": {
     hero: {
       badge: "BRANDING",
-      title: "اصنع لنفسك",
-      highlightText: "هوية لا تُنسى",
+      title: "نبني هويتك",
+      highlightText: "لتترك أثراً لا يُنسى",
       description: "نصمم هويات بصرية تعبر عن قيم مشروعك وتخلق انطباعاً دائماً لدى جمهورك.",
-      image: "/assets/identity branding work.png",
+      image: "/assets/identity-branding-work.png",
       stats: { value: "+50", label: "هوية بصرية" }
     },
     testimonials: allTestimonials,
-    faqs: [
-        { id: 1, question: "كم تستغرق رؤية النتائج الأولى؟", answer: "تظهر النماذج الأولية خلال 7-10 أيام عمل." },
-        { id: 2, question: "هل تشمل الخدمة التصوير الفوتوغرافي؟", answer: "نعم، نوفر جلسات تصوير احترافية للمنتجات كجزء من بناء الهوية." },
-        { id: 3, question: "ما هي المنصات التي تديرونها؟", answer: "ندير الهوية عبر كافة منصات التواصل الاجتماعي والمطبوعات." }
-    ],
-    comparison: {
-      challenges: ["هوية مشتتة", "عدم وضوح الرسالة", "شعار غير احترافي"],
-      solutions: ["نظام بصري متكامل", "تموضع استراتيجي", "تصميم عصري"]
-    },
+    faqs: [],
+    comparison: { challenges: [], solutions: [] },
     featuresSection: {
-      title: "لماذا يوصل هي الأفضل لبناء علامتك؟",
-      image: "/assets/identity branding work.png",
+      title: "لماذا يختارنا الرواد لتطوير هوياتهم؟",
+      // تمرير الصورتين (المصممة والحقيبة) ليتطابق مع التصميم
+      image: ["/assets/brand-bag.png", "/assets/designer-sketching.png"], 
       features: [
-        { title: "فهم عميق", description: "نترجم قيمك إلى ألوان وخطوط تحكي قصتك.", icon: Palette },
-        { title: "دليل شامل", description: "نسلمك Brand Book يضمن ثبات هويتك مستقبلاً.", icon: Layout },
-        { title: "تميز بصري", description: "نصمم ما يجعلك تبرز وسط المنافسين.", icon: BrainCircuit }
+        { title: "إبداع بلا حدود", description: "فريقنا يضم نخبة من المصممين الذين يمزجون الفن بالاستراتيجية.", icon: Palette },
+        { title: "ثبات وتناغم بصري", description: "نضمن لك نظاماً يعمل بسلاسة من البطاقة وحتى اللوحات الإعلانية.", icon: Share2 }
       ]
     },
     deliverables: [
-      { title: "تصميم الشعار", desc: "ابتكار رمز يعبر عن جوهرك.", icon: Palette },
-      { title: "الهوية البصرية", desc: "الألوان والخطوط والمطبوعات.", icon: Layout }
+      { title: "تصميم الهوية", desc: "ابتكار نظام بصري متكامل.", icon: Palette },
+      { title: "دليل البراند", desc: "كتيب إرشادات استخدام الهوية.", icon: Layout }
     ],
     steps: [
-      { number: "1", title: "الابتكار", desc: "رسم المفاهيم الأولية للهوية." },
-      { number: "2", title: "التطوير", desc: "تحويل الفكرة لنظام بصري متكامل." }
+      { number: "1", title: "الاستشارة", desc: "فهم فلسفة العلامة التجارية." },
+      { number: "2", title: "التصميم", desc: "تحويل الأفكار إلى هوية بصرية ملموسة." }
     ]
   },
 

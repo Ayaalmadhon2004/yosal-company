@@ -30,7 +30,7 @@ export default function ServicesHero() {
             </div>
           </div>
 
-           <div className="flex-1 relative group">
+          <div className="flex-1 relative group">
             <div className="relative w-full aspect-square max-w-[500px] mx-auto">
               <div className="absolute inset-0 bg-gradient-to-tr from-[#F58220]/20 to-transparent blur-3xl rounded-full" />
               

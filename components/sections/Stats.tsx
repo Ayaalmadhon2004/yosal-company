@@ -1,4 +1,4 @@
-import { statsData } from "@/lib/data";
+import { statsData } from "@/constants/siteData";
 import { Video, Code2, ShoppingBag, Lightbulb } from "lucide-react";
 
 export default function Stats() {
