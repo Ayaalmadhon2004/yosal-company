@@ -1,7 +1,7 @@
-import PortfolioHero from "@/components/sections/PortfolioHero";
-import PortfolioGrid from "@/components/sections/PortfolioGrid";
-import ImpactStats from "@/components/sections/ImpactStats";
-import SuccessNumbers from "@/components/sections/SuccessNumbers";
+import PortfolioHero from "@/components/sections/portfolio/PortfolioHero";
+import PortfolioGrid from "@/components/sections/portfolio/PortfolioGrid";
+import ImpactStats from "@/components/sections/portfolio/ImpactStats";
+import SuccessNumbers from "@/components/sections/portfolio/SuccessNumbers";
 import ReadyResult from "@/components/sections/ReadyResults";
 
 export default function PortfolioPage() {

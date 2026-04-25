@@ -1,8 +1,7 @@
 import CTA from "../components/sections/CTA";
 import Faqs from "../components/sections/Faqs";
-import Footer from "../components/layout/Footer";
 import Hero from "../components/sections/Hero";
-import Portfolio from "../components/sections/Portfolio";
+import Portfolio from "../components/sections/portfolio/Portfolio";
 import Pricing from "../components/sections/Pricing";
 import Problems from "../components/sections/Problems";
 import ReadySection from "../components/sections/ReadySection";
@@ -25,7 +24,6 @@ export default function Home() {
       <CTA/>
       <Faqs/>
       <ReadySection/>
-      <Footer/> 
     </div>
   );
 }

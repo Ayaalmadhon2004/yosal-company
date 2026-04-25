@@ -9,7 +9,6 @@ export default function ImpactStats() {
           <ArrowLeft className="w-5 h-5" />
         </button>
 
-        {/* شريط الإحصائيات الداكن */}
         <div className="bg-[#12162b] rounded-[2.5rem] p-12 grid grid-cols-1 md:grid-cols-3 gap-12 border border-gray-800/50">
           <div className="text-center">
             <h4 className="text-4xl font-black text-white mb-2">+50M</h4>

@@ -4,20 +4,14 @@ import Link from "next/link";
 import { Calendar, Clock, Share2, Bookmark, ArrowRight } from "lucide-react";
 import { MOCK_POSTS } from "@/constants/blogData";
 
-// تحويل الدالة إلى async واستقبال params كـ Promise
 export default async function BlogPostPage({ 
   params 
 }: { 
   params: Promise<{ slug: string }> 
 }) {
-  
-  // فك الـ Promise للحصول على الـ slug
-  const { slug } = await params;
-
-  // البحث عن المقال بناءً على الـ slug الصحيح
+    const { slug } = await params;
   const post = MOCK_POSTS.find((p) => p.slug === slug);
 
-  // حالة في حال عدم وجود المقال
   if (!post) {
     return (
       <div className="min-h-screen bg-[#0a0d1d] flex items-center justify-center text-white">
@@ -109,7 +103,6 @@ export default async function BlogPostPage({
         </aside>
       </section>
 
-      {/* 3. مقالات قد تهمك */}
       <section className="bg-[#0c1026] py-20 border-t border-gray-800/50">
         <div className="container mx-auto px-6">
           <div className="flex justify-between items-center mb-12">

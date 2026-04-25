@@ -9,47 +9,56 @@ import Testimonials from "@/components/sections/Testimonials";
 import Faqs from "@/components/sections/Faqs";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 
-export default async function ServicePage({ 
-  params 
-}: { 
-  params: Promise<{ slug: string }> 
-}) {
+export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const data = servicesData[slug as keyof typeof servicesData];
+
   if (!data) {
     notFound();
   }
 
+  const isContentCreation = slug === "content-creation";
+
+  // المصفوفة التي تسمح بظهور قسم "لماذا يوصل" فقط لخدمات معينة
+  const showWhyChooseUs = ["strategic-planning", "seo", "social-media"].includes(slug);
+
   return (
-    <main className="min-h-screen bg-[#1A1C2E]">
+    <main className="min-h-screen bg-[#0F111A]">
       <ServiceHero 
         badge={data.hero.badge}
         title={data.hero.title}
         highlightText={data.hero.highlightText}
         description={data.hero.description}
         mainImage={data.hero.image}
-      />
-      <MarketComparison 
-        challenges={data.comparison.challenges} 
-        solutions={data.comparison.solutions} 
-      />
-      <StrategyDeliverables items={data.deliverables} />
-      <StrategySteps 
-        sectionTitle={
-          slug === "strategic-planning" 
-            ? "رحلة بناء استراتيجيتك" 
-            : slug === "web-development" 
-            ? "رحلة بناء منصتك الرقمية" 
-            : "خطوات تنفيذ الخدمة"
-        }
-        steps={data.steps} 
+        stats={data.hero.stats}
       />
 
-      {data.featuresSection && <WhyChooseUs data={data.featuresSection} />}
+      {data.comparison && (
+        <MarketComparison 
+          challenges={data.comparison.challenges || []} 
+          solutions={data.comparison.solutions || []} 
+        />
+      )}
+
+      {data.deliverables && (
+        <StrategyDeliverables />
+      )}
+
+      {data.steps && (
+        <StrategySteps 
+          sectionTitle={isContentCreation ? "رحلتنا نحو التميز" : "خطوات تنفيذ الخدمة"}
+          steps={data.steps} 
+        />
+      )}
+
+      {/* التعديل الجوهري هنا: يظهر فقط إذا كان الـ slug ضمن القائمة المسموحة */}
+      {showWhyChooseUs && data.featuresSection && (
+        <WhyChooseUs data={data.featuresSection} />
+      )}
       
-      <Testimonials data={data.testimonials}/>
-      <Faqs data={data.faqs}/>
-      <ReadyResults/>
+      {data.testimonials && <Testimonials data={data.testimonials}/>}
+      {data.faqs && <Faqs data={data.faqs}/>}
+      {!isContentCreation && <ReadyResults />}
     </main>
   );
 }

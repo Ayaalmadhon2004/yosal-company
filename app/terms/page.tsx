@@ -1,6 +1,6 @@
-import TermsHero from "@/components/sections/TermsHero";
-import TermsContent from "@/components/sections/TermsContent";
-import LegalCards from "@/components/sections/LegalCards";
+import TermsHero from "@/components/sections/terms/TermsHero";
+import TermsContent from "@/components/sections/terms/TermsContent";
+import LegalCards from "@/components/sections/terms/LegalCards";
 import ReadyResults from "@/components/sections/ReadyResults";
 
 export default function TermsPage() {

@@ -1,12 +1,20 @@
+"use client";
 import Image from "next/image";
+import { ServiceHeroProps } from "@/types/services"; // استيراد التايبس
 
-export default function ServiceHero({ data }: ServiceHeroProps) {
-  if (!data?.hero) return null;
-  const { badge, title, highlightText, description, image, stats } = data.hero;
-  const isValidImage = typeof image === "string" && image.trim() !== "";
+export default function ServiceHero({ 
+  badge, 
+  title, 
+  highlightText, 
+  description, 
+  mainImage, 
+  stats 
+}: ServiceHeroProps) {
+  
+  const isValidImage = typeof mainImage === "string" && mainImage.trim() !== "";
 
   return (
-    <section className="relative pt-32 pb-20 overflow-hidden bg-[#0F111A]">
+    <section className="relative pt-32 pb-20 overflow-hidden bg-[#1A1C2E]">
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           
@@ -27,7 +35,7 @@ export default function ServiceHero({ data }: ServiceHeroProps) {
             <div className="relative rounded-[40px] overflow-hidden border border-white/10 shadow-2xl aspect-square">
               {isValidImage ? (
                 <Image 
-                  src={image} 
+                  src={mainImage} 
                   alt={title} 
                   fill
                   priority 

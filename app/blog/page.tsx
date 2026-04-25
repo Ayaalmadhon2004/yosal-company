@@ -3,15 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { Search, Calendar, Clock, ArrowLeft } from "lucide-react";
 import ReadyResults from "@/components/sections/ReadyResults";
-
-// 1. استيراد البيانات من الملف الموحد الذي أنشأناه
 import { MOCK_POSTS } from "@/constants/blogData";
 
 export default function BlogPage() {
   return (
     <main className="min-h-screen bg-[#0a0d1d] pt-32 pb-20 text-right" dir="rtl">
       
-      {/* 1. قسم الـ Hero (العنوان والوصف) */}
       <section className="max-w-6xl mx-auto px-6 mb-20 flex flex-col md:flex-row items-center gap-10">
         <div className="flex-1 space-y-6">
           <span className="text-orange-500 font-bold text-sm bg-orange-500/10 px-4 py-1 rounded-full">أفكار وإلهام</span>
@@ -23,7 +20,6 @@ export default function BlogPage() {
           </p>
         </div>
         
-        {/* سكشن المقال المميز (جانب الـ Hero) - نستخدم أول مقال كمثال مميز */}
         <div className="flex-1 relative w-full h-[300px] rounded-[2.5rem] overflow-hidden border border-gray-800 group">
           <Image 
             src={MOCK_POSTS[0].image} 
@@ -39,7 +35,6 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* 2. نظام الفلترة والبحث */}
       <section className="max-w-6xl mx-auto px-6 mb-12">
         <div className="bg-[#12162b] p-4 rounded-[2rem] border border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar w-full md:w-auto">

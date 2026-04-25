@@ -1,71 +1,82 @@
 import React from "react";
-import { AlertTriangle, CheckCircle2 } from "lucide-react";
+import { AlertTriangle, Sparkles } from "lucide-react";
 
-// تعريف الـ Props لضمان أمان البيانات (TypeScript)
 interface MarketComparisonProps {
-  challenges?: string[]; // علامة الاستفهام تضمن عدم الانهيار إذا كانت المصفوفة غائبة
+  challenges?: string[];
   solutions?: string[];
   challengeTitle?: string;
   solutionTitle?: string;
 }
 
 export default function MarketComparison({ 
-  challenges = [], // قيم افتراضية لمنع خطأ .map of undefined
+  challenges = [], 
   solutions = [], 
-  challengeTitle = "تحديات السوق الحالية", 
-  solutionTitle = 'حلول "يوصل" المبتكرة' 
+  challengeTitle = "محتوى ممل؟", 
+  solutionTitle = "رواية قصصية ملهمة" 
 }: MarketComparisonProps) {
 
-  // حماية إضافية: إذا لم توجد بيانات، لا يظهر السكشن
   if (!challenges.length && !solutions.length) return null;
 
   return (
-    <section className="py-24 px-6 bg-[#1A1C2E]">
-      <div className="max-w-[1200px] mx-auto overflow-hidden rounded-[40px] border border-white/5 shadow-2xl flex flex-col md:flex-row">
-        
-        {/* قسم التحديات - الخلفية الداكنة */}
-        <div className="flex-1 p-10 md:p-16 bg-[#1F2136]">
-          <div className="flex items-center gap-4 mb-10 justify-end md:justify-start flex-row-reverse md:flex-row">
-            <h3 className="text-2xl font-bold text-white tracking-tight">{challengeTitle}</h3>
-            <AlertTriangle className="text-red-400/80 w-8 h-8" />
-          </div>
+    <section className="py-24 px-6 bg-[#0F111A]">
+      <div className="max-w-[1200px] mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 items-stretch">
           
-          <ul className="space-y-8" dir="rtl">
-            {challenges.map((item, index) => (
-              <li key={index} className="flex items-start gap-4 text-gray-400 group">
-                <span className="flex-shrink-0 w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-sm font-bold group-hover:border-[#F58220]/50 transition-colors">
-                  {index + 1}
-                </span>
-                <p className="text-lg leading-relaxed pt-0.5">{item}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* قسم الحلول - الخلفية المشرقة مع تأثير الإضاءة */}
-        <div className="flex-1 p-10 md:p-16 bg-[#161829] relative overflow-hidden">
-          {/* Glow Effect المقتبس من التصميم */}
-          <div className="absolute top-0 right-0 w-full h-full bg-[#F58220]/10 blur-[100px]" />
-          
-          <div className="relative z-10">
-            <div className="flex items-center gap-4 mb-10 justify-end md:justify-start flex-row-reverse md:flex-row">
-              <h3 className="text-2xl font-bold text-white tracking-tight">{solutionTitle}</h3>
-              <CheckCircle2 className="text-[#F58220] w-8 h-8" />
+          {/* كرت التحديات (المشكلة) */}
+          <div className="group relative p-10 md:p-16 rounded-[40px] bg-[#1A1C2E] border border-white/5 transition-all duration-500 hover:border-red-500/20 flex flex-col justify-center text-right" dir="rtl">
+            <div className="mb-8 flex justify-start">
+              <div className="p-4 rounded-2xl bg-red-500/10 border border-red-500/20">
+                <AlertTriangle className="text-red-400 w-8 h-8" />
+              </div>
             </div>
+            
+            <h3 className="text-3xl font-black text-white mb-6 leading-tight">
+              {challengeTitle}
+            </h3>
+            
+            <p className="text-gray-400 text-lg leading-relaxed font-medium">
+              أغلب العلامات التجارية تغرق في بحر التقليد. فيديوهات مكررة، نصوص ضعيفة، وتصميمات لا تعبر عن الروح الحقيقية للبراند، مما يؤدي لضياع ميزانيات التسويق دون عائد حقيقي.
+            </p>
 
-            <ul className="space-y-8" dir="rtl">
-              {solutions.map((item, index) => (
-                <li key={index} className="flex items-start gap-4 text-white group">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-[#F58220] flex items-center justify-center shadow-[0_0_20px_rgba(245,130,32,0.4)] transition-transform group-hover:scale-110">
-                    <CheckCircle2 size={16} className="text-[#161829] stroke-[3px]" />
-                  </span>
-                  <p className="text-lg font-medium leading-relaxed pt-0.5">{item}</p>
-                </li>
+            {/* عرض التحديات بشكل نصي مدمج أو نقاط مخفية */}
+            <div className="mt-8 flex flex-wrap gap-3 justify-start">
+              {challenges.map((item, index) => (
+                <span key={index} className="px-4 py-2 rounded-full bg-white/5 text-gray-500 text-sm border border-white/5">
+                  {item}
+                </span>
               ))}
-            </ul>
+            </div>
           </div>
-        </div>
 
+          {/* كرت الحلول (القوة) */}
+          <div className="group relative p-10 md:p-16 rounded-[40px] bg-[#1A1C2E] border border-[#FF8A00]/20 shadow-[0_20px_50px_rgba(255,138,0,0.1)] transition-all duration-500 hover:scale-[1.02] flex flex-col justify-center text-right" dir="rtl">
+            {/* تأثير الإضاءة (Glow) المقتبس من التصميم */}
+            <div className="absolute -top-20 -right-20 w-64 h-64 bg-[#FF8A00]/10 blur-[100px] rounded-full" />
+            
+            <div className="mb-8 flex justify-start relative z-10">
+              <div className="p-4 rounded-2xl bg-[#FF8A00]/10 border border-[#FF8A00]/20">
+                <Sparkles className="text-[#FF8A00] w-8 h-8" />
+              </div>
+            </div>
+            
+            <h3 className="text-3xl font-black text-white mb-6 leading-tight relative z-10">
+              {solutionTitle}
+            </h3>
+            
+            <p className="text-gray-300 text-lg leading-relaxed font-medium relative z-10">
+              في <span className="text-[#FF8A00]">"يوصل"</span>، نكسر القالب. ندمج بين استراتيجيات التسويق الحديثة وفنون الإنتاج السينمائي لنخلق محتوى لا يُشاهد فقط، بل يُشارك ويُخلد في ذاكرة المنصات الرقمية.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-3 justify-start relative z-10">
+              {solutions.map((item, index) => (
+                <span key={index} className="px-4 py-2 rounded-full bg-[#FF8A00]/10 text-[#FF8A00] text-sm border border-[#FF8A00]/20 font-bold">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
-import PackagesHero from "@/components/sections/PackagesHero";
-import PricingCards from "@/components/sections/PricingCards";
-import FAQSection from "@/components/sections/FAQSection";
-import CustomPlanSection from "@/components/sections/CustomPlanSection";
+import PackagesHero from "@/components/sections/packages/PackagesHero";
+import PricingCards from "@/components/sections/packages/PricingCards";
+import FAQSection from "@/components/sections/packages/FAQSection";
+import CustomPlanSection from "@/components/sections/packages/CustomPlanSection";
 import ReadyResults from "@/components/sections/ReadyResults";
 
 export default function PackagesPage() {

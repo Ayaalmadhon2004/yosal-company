@@ -1,9 +1,9 @@
-import PrivacyHero from "@/components/sections/PrivacyHero";
-import PrivacyGrid from "@/components/sections/PrivacyGrid";
-import PrivacyContact from "@/components/sections/PrivacyContact";
-import PrivacySidebar from "@/components/sections/PrivacySidebar";
-import PrivacyIntroduction from "@/components/sections/PrivacyIntroduction";
-import DataCollectionSection from "@/components/sections/DataCollectionSection";
+import PrivacyHero from "@/components/sections/privacy/PrivacyHero";
+import PrivacyGrid from "@/components/sections/privacy/PrivacyGrid";
+import PrivacyContact from "@/components/sections/privacy/PrivacyContact";
+import PrivacySidebar from "@/components/sections/privacy/PrivacySidebar";
+import PrivacyIntroduction from "@/components/sections/privacy/PrivacyIntroduction";
+import DataCollectionSection from "@/components/sections/privacy/DataCollectionSection";
 
 export default function PrivatePage() {
   return (
