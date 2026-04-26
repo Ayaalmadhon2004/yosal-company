@@ -19,9 +19,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   const isContentCreation = slug === "content-creation";
 
-  // المصفوفة التي تسمح بظهور قسم "لماذا يوصل" فقط لخدمات معينة
-  const showWhyChooseUs = ["strategic-planning", "seo", "social-media"].includes(slug);
-
+  const currentService = servicesData[slug];
+  
   return (
     <main className="min-h-screen bg-[#0F111A]">
       <ServiceHero 
@@ -51,9 +50,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         />
       )}
 
-      {/* التعديل الجوهري هنا: يظهر فقط إذا كان الـ slug ضمن القائمة المسموحة */}
-      {showWhyChooseUs && data.featuresSection && (
-        <WhyChooseUs data={data.featuresSection} />
+      {currentService.featuresSection && (
+        <WhyChooseUs data={currentService.featuresSection} />
       )}
       
       {data.testimonials && <Testimonials data={data.testimonials}/>}

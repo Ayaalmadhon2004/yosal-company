@@ -120,7 +120,6 @@ export default function Navbar() {
           </AppButton>
         </div>
 
-        {/* Mobile Menu Button */}
         <div className="lg:hidden flex items-center">
           <button 
             onClick={() => setIsOpen(!isOpen)}
@@ -131,7 +130,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu Content */}
       <div className={cn(
         "lg:hidden absolute top-full left-0 w-full bg-[#1A1C2E] border-b border-white/10 transition-all duration-500 overflow-hidden shadow-2xl",
         isOpen ? "max-h-[80vh] opacity-100 overflow-y-auto" : "max-h-0 opacity-0"

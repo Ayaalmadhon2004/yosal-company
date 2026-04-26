@@ -2,26 +2,33 @@ import { ServiceData } from "@/types";
 import { allTestimonials } from "./siteData";
 import { 
   BrainCircuit, Target, TrendingUp, Search, Layout, Palette, 
-  Code2, BarChart3, Globe, Share2, Video, Link2, Settings2, Map 
+  Code2, BarChart3, Globe, Share2, Video, Link2, Settings2, Map, 
+  ShieldCheck,
+  Zap
 } from "lucide-react";
 
 export const servicesData: Record<string, ServiceData> = {
   "strategic-planning": {
     title: "ما الذي ستحصل عليه؟",
     hero: {
-      badge: "STRATEGIC PLANNING",
-      title: "حول رؤيتك إلى",
-      highlightText: "واقع ملموس",
-      description: "نحن لا نصمم خططاً فقط، بل نبني مسارات نمو مستدامة تعتمد على البيانات الدقيقة والتحليل العميق للسوق.",
-      image: "/assets/futurePlan.png",
-      stats: { value: "92%", label: "معدل تحقيق الأهداف" }
+    badge: "STRATEGIC PLANNING",
+    title: "حول رؤيتك إلى",
+    highlightText: "واقع ملموس",
+    subtitle:"نحن لا نصمم خططاً فقط، بل نبني مسارات نمو مستدامة. خدمات التخطيط  الاستراتيجي  لدينا تعتمد على البيانات الدقيقة والتحليل العميق للسوق لضمان تفوقك التنافسي.",
+    description: "نحن لا نصمم خططاً فقط، بل نبني مسارات نمو مستدامة تعتمد على البيانات الدقيقة والتحليل العميق للسوق لضمان تفوقك التنافسي.",
+    image: "/assets/futurePlan.png",
+    stats: { value: "92%", label: "معدل تحقيق الأهداف الاستراتيجية لعملائنا في السنة الأولى" },
+    buttons: [
+      { label: "ابدأ رحلتك الآن", type: "primary" },
+      { label: " احجز استشارة مجانية", type: "secondary" }
+    ]
     },
     layoutType: "big-right",
     deliverables: [
-      { title: "خارطة الطريق الاستراتيجية", desc: "جدول زمني مفصل يحدد المهام والميزانيات والمسؤوليات بشكل دقيق وعملي.", icon: Map },
       { title: "تحليل السوق العميق", desc: "دراسة شاملة للمنافسين واتجاهات المستهلكين وفجوات السوق المتاحة حالياً.", icon: Search },
-      { title: "التدريب والتمكين", desc: "تأهيل فريقك وتزويده بالأدوات اللازمة لتنفيذ الاستراتيجية بفعالية واستدامة.", icon: BrainCircuit },
-      { title: "مؤشرات الأداء KPIs", desc: "تحديد معايير واضحة للنجاح تمكنك من قياس كل خطوة في مشروعك بدقة.", icon: Target }
+      { title: "مؤشرات الأداء KPIs", desc: "تحديد معايير واضحة للنجاح تمكنك من قياس كل خطوة في مشروعك بدقة.", icon: Target },
+      { title: "خارطة الطريق الاستراتيجية", desc: "جدول زمني مفصل يحدد المهام والميزانيات والمسؤوليات بشكل دقيق وعملي.", icon: Map },
+      { title: "التدريب والتمكين", desc: "تأهيل فريقك وتزويده بالأدوات اللازمة لتنفيذ الاستراتيجية بفعالية واستدامة.", icon: BrainCircuit }
     ],
     testimonials: allTestimonials,
     faqs: [
@@ -41,9 +48,19 @@ export const servicesData: Record<string, ServiceData> = {
         answer: "خططنا مرنة وقابلة للتعديل لمواكبة المتغيرات الطارئة بفعالية." 
       }
     ],
-    comparison: {
-      challenges: ["قرارات مبنية على الحدس", "تشتت الموارد"],
-      solutions: ["نماذج معتمدة على AI", "خارطة طريق دقيقة"]
+    "comparison": {
+      "challengeTitle": "تحديات السوق الحالية",
+      "challenges": [
+        "قرارات مبنية على الحدس بدلاً من البيانات الواقعية.",
+        "تشتت الموارد في مشاريع لا تخدم الرؤية طويلة المدى.",
+        "عدم القدرة على مواكبة التغيرات السريعة في سلوك المستهلك."
+      ],
+      "solutionTitle": "حلول \"يوصل\" المبتكرة",
+      "solutions": [
+        "نماذج تنبؤية تعتمد على الذكاء الاصطناعي لتحليل السوق.",
+        "خارطة طريق تنفيذية توزع الموارد بذكاء لتعظيم العائد.",
+        "تطوير مرونة مؤسسية تمكنك من الريادة في أي ظرف اقتصادي."
+      ]
     },
     featuresSection: {
       title: "لماذا يوصل هي خيارك الأمثل للتخطيط؟",
@@ -77,19 +94,46 @@ export const servicesData: Record<string, ServiceData> = {
   "web-development": {
     title: "خدماتنا في الإنتاج",
     hero: {
-      badge: "WEB DEVELOPMENT",
-      title: "نحول رؤيتك إلى",
-      highlightText: "منصة رقمية",
-      description: "بناء مواقع وتطبيقات ويب سريعة وآمنة تعزز حضورك الرقمي وتجربة عملائك.",
-      image: "/assets/Web Development.png",
-      stats: { value: "+99%", label: "نسبة رضا العملاء" }
+    badge: "WEB DEVELOPMENT",
+    title: "نصمم لك تجربة",
+    highlightText: "رقمية استثنائية",
+    subtitle: "مواقع فائقة السرعة، آمنة، ومتوافقة مع كافة الشاشات.",
+    description: "نبني مواقع إلكترونية بأحدث التقنيات العالمية تضمن لك سرعة تحميل خيالية وتجربة مستخدم ترفع نسبة التحويل والمبيعات بشكل ملحوظ.",
+    image: "/assets/webDev.png",
+    stats: { value: "100%", label: "توافق تام مع معايير جوجل" },
+    buttons: [
+      { label: "ابدأ مشروعك", type: "primary" },
+      { label: "استشارة تقنية", type: "secondary" }
+    ]
+  },
+    featuresSection: {
+      title: "القوة التقنية خلف موقعك",
+      image: "/assets/web-feature.png",
+      features: [
+        { 
+          title: "سرعة تحميل خارقة", 
+          description: "موقع يفتح بلمح البصر، مما يحسن تجربة المستخدم والـ SEO.", 
+          icon: Zap 
+        },
+        { 
+          title: "برمجة نظيفة ومخصصة", 
+          description: "كود برمجي خالي من الأخطاء ومهيأ للتوسع المستقبلي.", 
+          icon: Code2 
+        },
+        { 
+          title: "أمان وحماية شاملة", 
+          description: "تأمين بياناتك وعملائك بأحدث معايير التشفير العالمية.", 
+          icon: ShieldCheck 
+        }
+      ],
+      stats: { value: "100%", label: "أداء تقني متكامل" }
     },
     layoutType: "equal",
     deliverables: [
-      { title: "تجربة المستخدم (UX)", desc: "واجهات عصرية تضمن سهولة التصفح وتحويل الزوار إلى عملاء دائمين لشركتك.", icon: Globe },
-      { title: "براند مخصص", desc: "تصميم واجهات مستخدم فريدة تعكس هوية علامتك التجارية وتميزك عن منافسيك.", icon: Layout },
-      { title: "تطوير المنصات", desc: "بناء أنظمة برمجية متطورة وقابلة للتوسع باستخدام أحدث التقنيات البرمجية العالمية.", icon: Code2 },
-      { title: "التحليل والتدقيق", desc: "فحص شامل لأداء الموقع وتجربة المستخدم لضمان خلوه من المشاكل التقنية.", icon: BarChart3 }
+      { title: "تصميم متجاوب", desc: "موقعك سيبدو مذهلاً سواء تم  فتحه من هاتف، تابلت أو كمبيوتر ", icon: Globe },
+      { title: "سرعة التحميل ", desc: "نستخدم أحدث التقنيات لضمان تحميل الموقع في أقل من ثانيتين.", icon: Layout },
+      { title: "تجربة مستخدم UI/UX", desc: "دراسة دقيقة لرحلة العميل لضمان سهولة الوصول وتحقيق الأهداف.", icon: Code2 },
+      { title: "ميزات مخصصة", desc: "برمجة حلول خاصة تلبي احتياجات      عملك الفريدة مهما كانت معقدة.", icon: BarChart3 }
     ],
     testimonials: allTestimonials,
     faqs: [
@@ -109,8 +153,18 @@ export const servicesData: Record<string, ServiceData> = {
         answer: "نعم، نوفر حلول استضافة سريعة وآمنة مع شهادات حماية SSL عالمية." 
       }
     ],
-    comparison: { challenges: [], solutions: [] },
-    featuresSection: { title: "", image: "", features: [] },
+    "comparison": {
+      "challengeTitle": "حسابات صامتة",
+      "challengeDescription": "غياب التفاعل يقلل من ثقة العملاء في علامتك التجارية",
+      "challenges": [
+      ],
+      "solutionTitle": "من السكون إلى التأثير",
+      "solutionDescription": "هل تشعر أن منشوراتك تذهب في مهب الريح؟ نحن لا نكتفي بالنشر فقط، بل نبني لك استراتيجية تحول المتابعين العابرين إلى سفراء حقيقيين لعلامتك التجارية من خلال تفاعل مستمر وعلاقة وطيدة.",
+      "solutions": [
+        "صناعة محتوى يحاكي اهتمامات جمهورك",
+        "إدارة الردود والرسائل باحترافية",
+      ]
+    },
     steps: [
       { number: "1", title: "التخطيط والدراسة", desc: "فهم متطلباتك، تحليل المنافسين، ورسم الهيكل العام للموقع." },
       { number: "2", title: "تصميم الواجهات", desc: "ابتكار تصميم بصري فريد يعكس هوية علامتك التجارية." },
@@ -122,18 +176,23 @@ export const servicesData: Record<string, ServiceData> = {
   "seo": {
     title: "خدماتنا في تحسين محركات البحث",
     hero: {
-      badge: "SEO OPTIMIZATION",
-      title: "اجعل موقعك",
-      highlightText: "مغناطيساً للعملاء",
-      description: "نركز على جودة الزيارات التي تتحول إلى عائد استثماري حقيقي لعملك.",
-      image: "/assets/analysis.png",
-      stats: { value: "+245%", label: "زيادة الظهور" }
-    },
+    badge: "SEO OPTIMIZATION",
+    title: "تصدر النتائج الأولى",
+    highlightText: "وضاعف مبيعاتك",
+    subtitle: "استراتيجيات أرشفة تجعلك الخيار الأول لعملائك.",
+    description: "نعمل على تحسين ظهور موقعك في محركات البحث لضمان وصول العملاء المستهدفين إليك بأقل التكاليف وبأعلى جودة من الزيارات العضوية.",
+    image: "/assets/seo.png",
+    stats: { value: "Top 3", label: "في نتائج البحث المستهدفة" },
+    buttons: [
+      { label: "حلل موقعك مجاناً", type: "primary" },
+      { label: "خطط الأسعار", type: "secondary" }
+    ]
+  },
     layoutType: "big-left",
     deliverables: [
       { title: "بحث الكلمات المفتاحية", desc: "نستهدف الكلمات الربحية ذات التنافسية المناسبة لضمان أسرع النتائج.", icon: Search },
-      { title: "بناء الروابط (Link Building)", desc: "بناء شبكة روابط خلفية من مواقع عربية وعالمية مرموقة لرفع تقييم موقعك.", icon: Link2 },
       { title: "On-Page التقني و SEO", desc: "إصلاح أخطاء الموقع، تحسين السرعة، وهيكلة المخططات (Schema) لظهور مميز.", icon: Settings2 },
+      { title: "بناء الروابط (Link Building)", desc: "بناء شبكة روابط خلفية من مواقع عربية وعالمية مرموقة لرفع تقييم موقعك.", icon: Link2 },
       { title: "تحليل الـ ROI", desc: "نركز على جودة الزيارات التي تتحول إلى عائد استثماري حقيقي لعملك.", icon: BarChart3 }
     ],
     testimonials: allTestimonials,
@@ -154,28 +213,20 @@ export const servicesData: Record<string, ServiceData> = {
         answer: "الـ SEO يمنحك ظهوراً عضوياً ومستداماً ومجانياً، بينما الإعلانات تتوقف بتوقف الدفع." 
       }
     ],
-    comparison: { challenges: [], solutions: [] },
-    featuresSection: {
-      title: "لماذا يوصل هي خيارك للأرشفة والظهور؟",
-      image: "/assets/analysis.png",
-      features: [
-        { 
-          title: "استراتيجيات SEO متقدمة", 
-          description: "نطبق أحدث تقنيات التحسين التي تضمن توافق موقعك مع تحديثات جوجل المستمرة.", 
-          icon: Settings2 
-        },
-        { 
-          title: "تحليل دقيق للمنافسين", 
-          description: "ندرس نقاط قوة وضعف منافسيك لنمنحك الأفضلية والسيادة في مجالك.", 
-          icon: Search 
-        },
-        { 
-          title: "نتائج ملموسة ومستدامة", 
-          description: "لا نهدف للظهور المؤقت، بل نبني لك حضوراً قوياً ينمو مع مرور الوقت.", 
-          icon: TrendingUp 
-        }
-      ]
-    },
+      "comparison": {
+        "challengeTitle": "لماذا لا ينمو موقعك؟",
+        "challengeDescription": "قد تمتلك أفضل منتج أو خدمة، ولكن إذا كنت مختبئاً في الصفحة الثانية من جوجل، فأنت تخسر 90% من مبيعاتك المحتملة لصالح منافسيك.",
+        "challenges": [
+          "محتوى لا يستهدف نية الباحث.",
+          "مشاكل تقنية تعيق زحف العناكب.",
+        ],
+        "solutionTitle": "الحل: منهجية \"يوصل\"",
+        "solutionDescription": "نحن لا نكتفي بزيادة الترتيب، بل نركز على جودة الزيارات التي تتحول إلى عائد استثماري حقيقي لعملك.",
+        "solutions": [
+          "تحليل معمق للمنافسين والثغرات.",
+          "روابط خلفية ذات سلطة وموثوقية."
+        ]
+      },
     steps: [
       { number: "1", title: "التدقيق التقني", desc: "كشف كافة العوائق التي تمنع جوجل من فهم موقعك." },
       { number: "2", title: "هندسة المحتوى", desc: "كتابة مقالات وصفحات تخدم المستخدم وتتصدر الكلمات." },
@@ -187,19 +238,24 @@ export const servicesData: Record<string, ServiceData> = {
   "social-media": {
     title: "حلول متكاملة لإدارة المنصات", // من وحي ركائز الخدمة
     hero: {
-      badge: "SOCIAL MEDIA MANAGEMENT",
-      title: "نصنع حضوراً",
-      highlightText: "يترك أثراً",
-      description: "ندير منصاتك باحترافية تحول المتابعين إلى عملاء مخلصين لعلامتك التجارية من خلال محتوى إبداعي واستراتيجيات نمو مدروسة.",
-      image: "/assets/social-media.png",
-      stats: { value: "+150%", label: "معدل زيادة التفاعل" }
-    },
+    badge: "SOCIAL MEDIA MANAGEMENT",
+    title: "اجعل حضورك الرقمي",
+    highlightText: "نابضاً بالحياة",
+    subtitle: "إدارة تفاعلية تبني مجتمعاً وفياً لعلامتك التجارية.",
+    description: "نحول منصاتك الاجتماعية إلى قنوات بيع وتواصل فعالة من خلال محتوى إبداعي واستراتيجيات تفاعل مدروسة تزيد من انتشارك.",
+    image: "/assets/socialMedia.png",
+    stats: { value: "150%", label: "متوسط زيادة التفاعل العضوي" },
+    buttons: [
+      { label: "ابدأ رحلتك معنا", type: "primary" },
+      { label: "مشاهدة باقاتنا", type: "secondary" }
+    ]
+  },
     layoutType: "equal",
     deliverables: [
-      { title: "إدارة الحملات الإعلانية", desc: "تصميم وإدارة حملات ممولة تستهدف جمهورك بدقة لتحقيق أعلى عائد على الإنفاق.", icon: TrendingUp },
-      { title: "التفاعل وخدمة العملاء", desc: "بناء علاقة قوية مع جمهورك من خلال الرد السريع والاحترافي على التعليقات.", icon: Share2 },
-      { title: "تحليل الأداء والتقارير", desc: "تزويدك بتقارير دورية شفافة توضح نمو المنصات ومدى تحقق الأهداف.", icon: BarChart3 },
-      { title: "جدولة ونشر المحتوى", desc: "ضمان الاستمرارية والتواجد في الأوقات المثالية لجمهورك عبر كافة المنصات.", icon: Target }
+      { title: "جدولة المحتوى الذكية", desc: "نخطط وننفذ تقويمًا شهريًا يضمن تواجدك في الأوقات الأكثر فاعلية لجمهورك المستهدف.", icon: TrendingUp },
+      { title: "إعلانات الممول", desc: "حملات إعلانية دقيقة تستهدف عملاءك المحتملين بأقل تكلفة وأعلى عائد.", icon: Share2 },
+      { title: "إدارة المجتمعات", desc: "خلق حوار مستمر مع المتابعين وتحويل التعليقات إلى فرص بيع.", icon: BarChart3 },
+      { title: "تحليلات الأداء", desc: "تقارير دورية مفصلة تشرح نمو الحسابات وتأثير المحتوى على أهدافك التجارية.", icon: Target }
     ],
     steps: [
       { 
@@ -241,43 +297,39 @@ export const servicesData: Record<string, ServiceData> = {
         answer: "عبر تقارير شهرية تشمل زيادة التفاعل، نمو المتابعين، وعدد التحويلات الفعلي." 
       }
     ],
-    comparison: {
-      challenges: ["تفاعل منخفض ومحتوى عشوائي", "غياب الهوية البصرية الموحدة", "ردود متأخرة على العملاء"],
-      solutions: ["استراتيجية نمو تعتمد على البيانات", "تصاميم احترافية متناغمة", "إدارة نشطة وتفاعل فوري"]
-    },
-    featuresSection: {
-      title: "لماذا يوصل هي خيارك للإبداع الرقمي؟",
-      image: "/assets/social-media.png",
-      features: [
-        { 
-          title: "محتوى إبداعي فريد", 
-          description: "نصمم ونكتب محتوى مخصص يبرز شخصية علامتك التجارية ويجذب جمهورك.", 
-          icon: Palette 
-        },
-        { 
-          title: "إدارة تفاعلية نشطة", 
-          description: "نتواجد دائماً للرد على جمهورك وبناء مجتمع مخلص حول علامتك التجارية.", 
-          icon: Share2 
-        },
-        { 
-          title: "نمو مبني على البيانات", 
-          description: "نحلل كل تفاعل وكل حملة لنضمن تحسين الأداء المستمر وتحقيق الأهداف.", 
-          icon: BarChart3 
-        }
-      ]
-    },
+    "comparison": {
+    "challengeTitle": "حسابات صامتة",
+    "challengeDescription": "غياب التفاعل يقلل من ثقة العملاء في علامتك التجارية، ويجعل تواجدك الرقمي مجرد أرقام بلا قيمة فعلية.",
+    "challenges": [
+      "غياب التفاعل يقلل من ثقة العملاء.",
+      "منشورات تذهب في مهب الريح دون استجابة.",
+      "فقدان الاتصال المباشر مع الجمهور المستهدف."
+    ],
+    "solutionTitle": "مجتمع حي (من السكون إلى التأثير)",
+    "solutionDescription": "هل تشعر أن منشوراتك تذهب في مهب الريح؟ نحن لا نكتفي بالنشر فقط، بل نبني لك استراتيجية تحول المتابعين العابرين إلى سفراء حقيقيين لعلامتك التجارية من خلال تفاعل مستمر وعلاقة وطيدة.",
+    "solutions": [
+      "صناعة محتوى يحاكي اهتمامات جمهورك.",
+      "إدارة الردود والرسائل باحترافية.",
+      "تفاعل مستمر يبني علاقة وطيدة ومستدامة مع جمهورك."
+    ]
+  },
   },
 
   "branding": {
     title: "ركائز الهوية المتكاملة",
     hero: {
-      badge: "BRANDING",
-      title: "نبني هويتك",
-      highlightText: "لتترك أثراً لا يُنسى",
-      description: "نصمم هويات بصرية تعبر عن قيم مشروعك وتخلق انطباعاً دائماً لدى جمهورك.",
-      image: "/assets/identity-branding-work.png",
-      stats: { value: "+50", label: "هوية بصرية" }
-    },
+    badge: "BRANDING & IDENTITY",
+    title: "بصمة بصرية فريدة",
+    highlightText: "تحكي قصتك",
+    subtitle: "تصميم هويات تعكس القيم وتصنع الثقة.",
+    description: "نبتكر لك هوية بصرية متكاملة وشعاراً يجمع بين البساطة والعمق، ليترك انطباعاً قوياً يدوم في ذاكرة كل من يرى علامتك التجارية.",
+    image: "/assets/branding.png",
+    stats: { value: "50+", label: "براند تم تطويره بنجاح" },
+    buttons: [
+      { label: "صمم هويتك الآن", type: "primary" },
+      { label: "كتالوج الأعمال", type: "secondary" }
+    ]
+  },
     layoutType: "big-left",
     deliverables: [
       { title: "لوحة الألوان", desc: "تحديد مجموعة ألوان متناغمة تعبر عن قيم مشروعك وتخلق انطباعاً نفسياً إيجابياً.", icon: Share2 },
@@ -285,6 +337,15 @@ export const servicesData: Record<string, ServiceData> = {
       { title: "الخطوط الطباعية", desc: "اختيار وتصميم خطوط فريدة تعزز شخصية العلامة التجارية وتسهل عملية القراءة.", icon: Layout },
       { title: "ابتكار الشعار والرمز", desc: "تصميم رمز فريد يختصر قصة علامتك التجارية ويعلق في أذهان جمهورك.", icon: Palette }
     ],
+    featuresSection: {
+    title: "القوة التقنية خلف موقعك",
+    image: "/assets/web-feature.png",
+    features: [
+      { title: "سرعة تحميل خارقة", description: "موقع يفتح بلمح البصر، مما يحسن تجربة المستخدم والـ SEO.", icon: Zap },
+      { title: "برمجة نظيفة ومخصصة", description: "كود برمجي خالي من الأخطاء ومهيأ للتوسع المستقبلي.", icon: Code2 },
+      { title: "أمان وحماية شاملة", description: "تأمين بياناتك وعملائك بأحدث معايير التشفير العالمية.", icon: ShieldCheck }
+    ]
+  },
     testimonials: allTestimonials,
     faqs: [
       { 
@@ -303,27 +364,38 @@ export const servicesData: Record<string, ServiceData> = {
         answer: "نعم، الهوية المتكاملة تشمل تصميم القرطاسية، المطبوعات التجارية، وأي تطبيقات بصرية أخرى تحتاجها علامتك التجارية." 
       }
     ],
-    comparison: { challenges: [], solutions: [] },
-    featuresSection: { title: "", image: "", features: [] },
+    "comparison": {
+      "challengeTitle": "هوية غير مرئية؟",
+      "challengeDescription": "بدون هوية بصرية قوية، يظل مشروعك مجرد اسم في قائمة طويلة من المنافسين، غير قادر على التميز أو بناء ثقة دائمة مع الجمهور.",
+      "challenges": [],
+      "solutionTitle": "بناء حضور استثنائي",
+      "solutionDescription": "نمنحك نظاماً بصرياً متكاملاً يجعل علامتك التجارية محفورة في ذاكرة العميل، يعكس جودة خدماتك ويمنحك السلطة في مجالك.",
+      "solutions": []
+    },
     steps: []
   },
 
   "content-creation": {
     title: "خدماتنا في الإنتاج",
-    hero: {
-      badge: "إنتاج المحتوى والفيديو",
-      title: "صناعة المحتوى",
-      highlightText: "والفيديو الإبداعي",
-      description: "نحول الأفكار المجردة إلى تجارب بصرية تخطف الأنفاس ونبني قصصاً تعلق في أذهان جمهورك.",
-      image: "/assets/professional film production studio.png", 
-      stats: { value: "+95%", label: "تفاعل" }
-    },
+   hero: {
+    badge: "CONTENT CREATION",
+    title: "محتوى يخطف الأنظار",
+    highlightText: "ويترك أثراً",
+    subtitle: "قصص بصرية وسينمائية تروي هوية علامتك التجارية.",
+    description: "ندمج بين الإبداع الفني وعلم النفس التسويقي لننتج محتوى مرئياً ونصياً يرسخ في ذاكرة جمهورك ويحقق أهدافك البيعية.",
+    image: "/assets/contentCreation.png",
+    stats: { value: "24/7", label: "دعم فني وإبداعي متواصل" },
+    buttons: [
+      { label: "اطلب محتواك الآن", type: "primary" }
+      // هنا مثلاً يوجد زر واحد فقط كما في بعض التصاميم
+    ]
+  },
     layoutType: "big-right",
     deliverables: [
-      { title: "كتابة السيناريو", desc: "نصوص إبداعية وسيناريوهات مدروسة تخاطب جمهورك المستهدف وتجذب اهتمامه.", icon: Share2 },
-      { title: "الإنتاج المرئي والسينمائي", desc: "تصوير إعلانات وأفلام وثائقية بأحدث المعدات والتقنيات السينمائية.", icon: Video },
-      { title: "مونتاج وتلوين", desc: "معالجة احترافية للفيديو لضمان مظهر سينمائي مبهر وتجربة مشاهدة فريدة.", icon: Settings2 },
-      { title: "التصميم الجرافيكي", desc: "إضافة لمسات بصرية متحركة تعزز من قوة الرسالة التسويقية وتجذب الانتباه.", icon: Palette }
+      { title: "الإنتاج المرئي والسينمائي", desc: "من الإعلانات التجارية إلى الأفلام الوثائقية القصيرة، نستخدم أحدث التقنيات لتقديم جودة هوليوود لعلامتك التجارية.", icon: Share2 },
+      { title: "كتابة السيناريو", desc:"الكلمة هي الأساس. نكتب نصوصاً تلمس المشاعر وتحرك العقول.", icon: Video },
+      { title:" التصميم الجرافيكي", desc: "هوية بصرية متكاملة لكل محتوى ننتجه تجذب الأنظار وتبرز علامتك.", icon: Settings2 },
+      { title: "مونتاج وتلوين", desc: "اللمسة النهائية التي تفرق بين الفيديو العادي والفيلم الاحترافي، مع مؤثرات بصرية وصوتية غامرة.", icon: Palette }
     ],
     testimonials: allTestimonials,
     faqs: [
@@ -343,8 +415,14 @@ export const servicesData: Record<string, ServiceData> = {
         answer: "يتم التسليم بجودة 4K وبأحجام تتناسب مع مختلف منصات التواصل الاجتماعي." 
       }
     ],
-    comparison: { challenges: [], solutions: [] },
-    featuresSection: { title: "", image: "", features: [] },
+    "comparison": {
+          "challengeTitle": "محتوى ممل؟",
+          "challengeDescription": "أغلب العلامات التجارية تغرق في بحر التقليد؛ فيديوهات مكررة، نصوص ضعيفة، وتصاميم لا تعبر عن الروح الحقيقية للبراند، مما يؤدي لضياع ميزانيات التسويق دون عائد حقيقي.",
+          "challenges": [],
+          "solutionTitle": "رواية قصصية ملهمة",
+          "solutionDescription": "في \"يوصل\"، نكسر القالب. ندمج بين استراتيجيات التسويق الحديثة وفنون الإنتاج السينمائي لنخلق محتوى لا يُشاهد فقط، بل يُشارك ويُخلد في ذاكرة المنصات الرقمية.",
+          "solutions": []
+    },
     steps: [
       { number: "1", title: "العصف الذهني", desc: "نحلل هويتك ونولد أفكاراً خارج الصندوق تناسب جمهورك المستهدف." },
       { number: "2", title: "رسم المخطط", desc: "كتابة السيناريو ورسم \"Storyboards\" لتخيل النتيجة قبل التنفيذ." },
@@ -353,3 +431,61 @@ export const servicesData: Record<string, ServiceData> = {
     ]
   },
 };
+
+
+export const serviceData = [
+  {
+    id: "seo",
+    slug: "seo",
+    title: "تحسين محركات البحث",
+    description: "تصدّر نتائج البحث الأولى واجذب زيارات مستهدفة دون الحاجة لإعلانات مكلفة.",
+    iconName: "search",
+    features: ["ظهور في الصفحة الأولى", "زيادة الوصول العضوي", "تحسين تجربة المستخدم"],
+    isFeatured: false
+  },
+  {
+    id: "branding",
+    slug: "branding",
+    title: "بناء علامة تجارية وهوية مميزة",
+    description: "نخلق هوية تعكس قيم علامتك التجارية وتترك انطباعاً لا ينسى لدى جمهورك.",
+    iconName: "pen-tool",
+    features: ["تصميم شعار احترافي", "أدلة استخدام الهوية", "تصاميم سوشيال ميديا"],
+    isFeatured: false
+  },
+  {
+    id: "strategic-planning",
+    slug: "strategic-planning",
+    title: "استراتيجيات التسويق والخطط التسويقية",
+    description: "نصمم خرائط طريق مخصصة لتحقيق أهدافك التجارية بأعلى كفاءة ممكنة.",
+    iconName: "trending-up",
+    features: ["تحليل السوق بدقة", "تحديد الفئات المستهدفة", "وضع ميزانيات ذكية"],
+    isFeatured: false
+  },
+  {
+    id: "social-media",
+    slug: "social-media",
+    title: "إدارة منصات التواصل",
+    description: "نبني مجتمعاً متفاعلاً حول علامتك التجارية عبر كافة المنصات الاجتماعية.",
+    iconName: "message-square",
+    features: ["تفاعل يومي مباشر", "حملات إعلانية ممولة", "تقارير أداء شهرية"],
+    isFeatured: false
+  },
+  {
+    id: "web-development",
+    slug: "web-development",
+    title: "تطوير المواقع",
+    description: "بناء مواقع سريعة ومتجاوبة تحول الزوار إلى عملاء دائمين لشركتك.",
+    iconName: "monitor",
+    features: ["سرعة تحميل فائقة", "تحويل عالي (CRO)", "دعم فني متكامل"],
+    isFeatured: true // التميز كما في الصورة
+  },
+  {
+    id: "content-creation",
+    slug: "content-creation",
+    title: "صناعة المحتوى والفيديو",
+    description: "نحول قصصك إلى تجارب بصرية مبهرة تجذب الجمهور وتحقق الانتشار.",
+    iconName: "video",
+    features: ["فيديوهات موشن جرافيك", "كتابة محتوى إبداعي", "إنتاج وتصوير احترافي"],
+    isFeatured: false
+  }
+];

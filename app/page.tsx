@@ -5,7 +5,7 @@ import Portfolio from "../components/sections/portfolio/Portfolio";
 import Pricing from "../components/sections/Pricing";
 import Problems from "../components/sections/Problems";
 import ReadySection from "../components/sections/ReadySection";
-import Services from "../components/sections/Services";
+import Services from "../components/sections/services/Services";
 import Stats from "../components/sections/Stats";
 import Testimonials from "../components/sections/Testimonials";
 import WhyUs from "../components/sections/WhyUs";
@@ -23,7 +23,7 @@ export default function Home() {
       <Testimonials/>
       <CTA/>
       <Faqs/>
-      <ReadySection/>
+      <ReadySection />
     </div>
   );
 }

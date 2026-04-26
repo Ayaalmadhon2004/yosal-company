@@ -11,7 +11,7 @@ export default function PortfolioPage() {
       <PortfolioGrid />
       <ImpactStats />
       <SuccessNumbers />
-      <ReadyResult />
+      <ReadyResult variant="style2"/>
     </main>
   );
 }

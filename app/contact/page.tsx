@@ -2,6 +2,7 @@ import Image from "next/image";
 import { contactHeroData, contactMethods } from "@/constants/siteData";
 import ContactForm from "@/components/form/ContactForm";
 import { MessageSquare, Calendar, Mail } from "lucide-react";
+import { AppButton } from "@/components/ui/AppButton";
 
 export default function ContactPage() {
   const icons: any = { MessageSquare, Calendar, Mail };
@@ -14,7 +15,13 @@ export default function ContactPage() {
             {contactHeroData.title} <span className="text-orange-500">{contactHeroData.highlightText}</span> 🚀
           </h1>
           <p className="text-gray-400 text-lg leading-relaxed mb-8">{contactHeroData.description}</p>
-          <button className="bg-orange-500 text-white px-8 py-3 rounded-full font-bold">ابدأ رحلتك الآن</button>
+          <AppButton
+              variant="orange" // نستخدم الـ Variant المخصص للون البرتقالي الكامل
+              size="lg" // حجم كبير ليتناسب مع الدعوة لاتخاذ إجراء (CTA) كما في الصورة
+              className="rounded-full font-bold px-8 py-3" // نحافظ على التنسيقات الخاصة بالشكل من كودك القديم
+            >
+              ابدأ رحلتك الآن
+          </AppButton>
         </div>
         <div className="relative w-full md:w-1/2 h-[400px]">
           <Image src={contactHeroData.image} alt="Contact" fill className="object-contain rounded-2xl" />

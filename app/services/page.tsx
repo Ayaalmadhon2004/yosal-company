@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { AppButton } from "@/components/ui/AppButton";
-import Services from "@/components/sections/Services";
+import Services from "@/components/sections/services/Services";
 import ReadyResults from "@/components/sections/ReadyResults";
 
 export default function ServicesHero() {
@@ -22,12 +22,6 @@ export default function ServicesHero() {
               نحن لا نقدم مجرد خدمات، بل نصمم تجارب رقمية متكاملة تهدف لنقل علامتك التجارية إلى آفاق جديدة من التميز والابتكار.
             </p>
 
-            <div className="flex flex-wrap gap-4">
-              <AppButton size="lg" className="px-10">
-                ابدأ مشروعك الآن
-              </AppButton>
-              <div className="h-[2px] w-24 bg-[#F58220] self-center opacity-50" />
-            </div>
           </div>
 
           <div className="flex-1 relative group">
@@ -41,7 +35,6 @@ export default function ServicesHero() {
                   fill
                   className="object-cover"
                 />
-                {/* طبقة تظليل خفيفة */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1A1C2E]/60 to-transparent" />
               </div>
             </div>
@@ -51,7 +44,7 @@ export default function ServicesHero() {
       </div>
 
       <Services/>
-      <ReadyResults/>
+      <ReadyResults variant="style1"/>
     </section>
   );
 }

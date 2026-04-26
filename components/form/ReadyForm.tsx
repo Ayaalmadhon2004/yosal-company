@@ -1,5 +1,7 @@
 "use client";
 
+import { AppButton } from "../ui/AppButton";
+
 export default function ReadyForm() {
   return (
     <div className="bg-brand-navy border border-white/5 p-8 lg:p-10 rounded-[45px] shadow-2xl w-full max-w-2xl">
@@ -46,13 +48,14 @@ export default function ReadyForm() {
           />
         </div>
 
-        {/* الزر البرتقالي الرئيسي */}
-        <button 
+        <AppButton 
           type="submit"
-          className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white font-black py-5 rounded-2xl text-lg shadow-[0_10px_25px_rgba(245,130,32,0.3)] transition-all active:scale-95"
+          variant="orange"
+          size="lg"
+          className="w-full font-black py-7 rounded-3xl text-xl shadow-[0_10px_25px_rgba(245,130,32,0.3)] transition-all"
         >
           أحصل على التقييم
-        </button>
+        </AppButton>
 
         <p className="text-[11px] text-gray-500 text-center leading-relaxed">
           لن نشارك بياناتك مع أي طرف خارجي. أمانك أولويتنا.

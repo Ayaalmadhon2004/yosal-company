@@ -5,9 +5,10 @@ import { cn } from "@/lib/utils";
 
 const plans = [
   {
-    name: "متكاملة",
+    name: "متكاملة (الاستمرارية)",
     price: "4999",
     description: "حلول تسويقية شاملة للمؤسسات الكبرى",
+    whatsappUrl: "https://wa.link/g0xols", // رابط باقة الاستمرارية
     features: [
       { text: "إدارة جميع المنصات الرقمية", included: true },
       { text: "محتوى يومي + إنتاج فيديو احترافي", included: true },
@@ -17,9 +18,10 @@ const plans = [
     isPopular: false,
   },
   {
-    name: "احترافية",
+    name: "احترافية (الصعود)",
     price: "2499",
     description: "الخيار الأمثل للنمو السريع والتوسع",
+    whatsappUrl: "https://wa.link/9my46r", // رابط باقة الصعود
     features: [
       { text: "إدارة 4 منصات للتواصل الاجتماعي", included: true },
       { text: "16 منشوراً + 4 فيديوهات Reel", included: true },
@@ -29,9 +31,10 @@ const plans = [
     isPopular: true,
   },
   {
-    name: "اقتصادية",
+    name: "اقتصادية (الإنطلاق)",
     price: "999",
     description: "مثالية للشركات الناشئة والمشاريع الصغيرة",
+    whatsappUrl: "https://wa.link/3tvfov", // رابط باقة الإنطلاق
     features: [
       { text: "إدارة منصتين للتواصل الاجتماعي", included: true },
       { text: "8 منشورات شهرياً", included: true },
@@ -51,9 +54,9 @@ export default function PricingCards() {
             <div
               key={index}
               className={cn(
-                "relative p-8 rounded-[2.5rem] border transition-all duration-500 hover:translate-y-[-10px]",
-                plan.isPopular 
-                  ? "bg-[#1A1C2E] border-[#F58220] ring-1 ring-[#F58220] shadow-[0_0_40px_rgba(245,130,32,0.15)]" 
+                "relative p-8 rounded-[2.5rem] border transition-all duration-500 hover:translate-y-[-10px] flex flex-col",
+                plan.isPopular
+                  ? "bg-[#1A1C2E] border-[#F58220] ring-1 ring-[#F58220] shadow-[0_0_40px_rgba(245,130,32,0.15)]"
                   : "bg-[#12162b] border-gray-800 hover:border-gray-700"
               )}
             >
@@ -72,7 +75,7 @@ export default function PricingCards() {
                 </div>
               </div>
 
-              <div className="space-y-4 mb-10">
+              <div className="space-y-4 mb-10 flex-grow">
                 {plan.features.map((feature, idx) => (
                   <div key={idx} className="flex items-center gap-3">
                     {feature.included ? (
@@ -94,14 +97,20 @@ export default function PricingCards() {
                 ))}
               </div>
 
-              <button className={cn(
-                "w-full py-4 rounded-2xl font-bold transition-all",
-                plan.isPopular
-                  ? "bg-[#F58220] text-white hover:bg-[#d46d1a]"
-                  : "bg-transparent border border-gray-700 text-white hover:border-[#F58220] hover:text-[#F58220]"
-              )}>
+              {/* تحويل الزر إلى رابط واتساب خارجي */}
+              <a
+                href={plan.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(
+                  "w-full py-4 rounded-2xl font-bold transition-all text-center block",
+                  plan.isPopular
+                    ? "bg-[#F58220] text-white hover:bg-[#d46d1a]"
+                    : "bg-transparent border border-gray-700 text-white hover:border-[#F58220] hover:text-[#F58220]"
+                )}
+              >
                 اشترك الآن
-              </button>
+              </a>
             </div>
           ))}
         </div>

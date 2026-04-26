@@ -22,8 +22,6 @@ export default function WhyChooseUs({ data }: WhyChooseUsProps) {
     <section className="py-24 bg-[#1A1C2E] overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          
-          {/* الجانب الأيمن: النصوص والمميزات */}
           <div dir="rtl">
             <h2 className="text-4xl lg:text-5xl font-black text-white mb-12 leading-tight">
               {data.title.split(' ').map((word, i) => 
@@ -51,10 +49,8 @@ export default function WhyChooseUs({ data }: WhyChooseUsProps) {
             </div>
           </div>
 
-          {/* الجانب الأيسر: الصور (مفردة أو مزدوجة) */}
           <div className="relative h-[450px] rounded-3xl overflow-hidden shadow-2xl group">
             {Array.isArray(data.image) ? (
-              /* عرض مصفوفة الصور (كما في تصميم البراندنج) */
               <div className="grid grid-cols-2 h-full gap-2 bg-[#1A1C2E]">
                 {data.image.map((imgSrc, index) => (
                   <div key={index} className="relative h-full w-full">
@@ -71,7 +67,6 @@ export default function WhyChooseUs({ data }: WhyChooseUsProps) {
                 ))}
               </div>
             ) : (
-              /* عرض صورة واحدة (كما في تصميم البرمجة) */
               data.image && (
                 <Image 
                   src={data.image} 
@@ -83,7 +78,6 @@ export default function WhyChooseUs({ data }: WhyChooseUsProps) {
               )
             )}
 
-            {/* بطاقة الإحصائيات البرتقالية */}
             {data.stats && (
               <div className="absolute bottom-8 right-8 bg-[#FF8A00] p-6 rounded-3xl shadow-xl z-20 animate-pulse-slow">
                 <div className="text-3xl font-black text-white">{data.stats.value}</div>

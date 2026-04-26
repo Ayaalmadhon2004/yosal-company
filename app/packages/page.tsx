@@ -11,7 +11,7 @@ export default function PackagesPage() {
       <PricingCards />
       <FAQSection />
       <CustomPlanSection />
-      <ReadyResults/>
+      <ReadyResults variant="style2"/>
     </main>
   );
 }

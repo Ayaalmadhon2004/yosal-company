@@ -18,9 +18,7 @@ export default function ChatSystem() {
 
   return (
     <>
-      {/* الأزرار العائمة */}
       <div className="fixed bottom-6 right-6 flex flex-col gap-4 z-[999]">
-        {/* زر الواتساب */}
         <button 
           onClick={() => setActiveView(activeView === "whatsapp" ? "none" : "whatsapp")}
           className="w-14 h-14 bg-[#22C55E] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
@@ -28,7 +26,6 @@ export default function ChatSystem() {
           <MessageCircle className="h-7 w-7 text-white" />
         </button>
 
-        {/* زر الدردشة المباشرة */}
         <button 
           onClick={() => setActiveView(activeView === "chat" ? "none" : "chat")}
           className="w-14 h-14 bg-[#FF8A33] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
@@ -37,7 +34,6 @@ export default function ChatSystem() {
         </button>
       </div>
 
-      {/* نافذة الدردشة المباشرة */}
       {activeView === "chat" && (
         <div className="fixed bottom-24 right-6 w-80 md:w-96 bg-white rounded-3xl shadow-2xl z-[1000] overflow-hidden flex flex-col animate-in slide-in-from-bottom-5 duration-300">
           <div className="bg-[#FF8A33] p-5 flex items-center justify-between">
@@ -68,7 +64,6 @@ export default function ChatSystem() {
         </div>
       )}
 
-      {/* مودال الواتساب (Fullscreen Overlay) */}
       {activeView === "whatsapp" && (
         <div className="fixed inset-0 bg-white z-[1100] flex items-center justify-center p-6 animate-in fade-in duration-300">
           <div className="text-center max-w-sm">
@@ -80,7 +75,7 @@ export default function ChatSystem() {
               نحن هنا للإجابة على استفساراتك ومساعدتك في اختيار الخدمة الأنسب لنمو مشروعك.
             </p>
             <Link 
-              href="https://wa.me/yournumber" 
+              href="https://wa.me/qr/YDPUM4DFRP4NP1" 
               className="bg-[#22C55E] text-white block py-4 rounded-2xl font-bold text-lg shadow-lg hover:bg-[#1eb353] transition-colors"
             >
               فتح محادثة واتساب

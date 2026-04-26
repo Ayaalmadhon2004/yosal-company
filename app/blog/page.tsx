@@ -124,7 +124,7 @@ export default function BlogPage() {
         </div>
       </section>
 
-      <ReadyResults/>
+      <ReadyResults variant="style2"/>
 
     </main>
   );

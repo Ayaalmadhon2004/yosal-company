@@ -4,7 +4,8 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from 'next/link';
 import { 
-  Send, Globe, Share2, Camera, User, X, Mail 
+  Send, Globe, Share2, Camera, User, X, Mail, 
+  Zap
 } from "lucide-react";
 import ChatSystem from "@/components/layout/ChatSystem"; 
 
@@ -64,9 +65,27 @@ export default function Footer() {
           <div className="md:col-span-2 text-right">
             <h4 className="text-white font-bold mb-6">روابط سريعة</h4>
             <ul className="space-y-4 text-gray-400 text-sm">
-              <li className="hover:text-[#FF8A33] cursor-pointer">الرئيسية</li>
-              <li className="hover:text-[#FF8A33] cursor-pointer">خدماتنا</li>
-              <li className="hover:text-[#FF8A33] cursor-pointer font-bold text-[#FF8A33]">تواصل معنا</li>
+              <li>
+                <Link href="/" className="hover:text-[#FF8A33] transition-colors">الرئيسية</Link>
+              </li>
+              <li>
+                <Link href="/services" className="hover:text-[#FF8A33] transition-colors">خدماتنا</Link>
+              </li>
+              <li>
+                <Link href="/portfolio" className="hover:text-[#FF8A33] transition-colors">أعمالنا</Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-[#FF8A33] transition-colors">من نحن</Link>
+              </li>
+              <li>
+                <Link href="/packages" className="hover:text-[#FF8A33] transition-colors">الباقات</Link>
+              </li>
+              <li>
+                <Link href="/blog" className="hover:text-[#FF8A33] transition-colors">المدونة</Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-[#FF8A33] font-bold text-[#FF8A33] transition-colors">تواصل معنا</Link>
+              </li>
             </ul>
           </div>
 
@@ -87,22 +106,31 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* القسم الرابع: النشرة البريدية */}
           <div className="md:col-span-4">
-            <div className="bg-[#252841] p-8 rounded-[32px] border border-white/5 relative">
-              <h3 className="text-lg font-black mb-3">كُن أول من يصله الإلهام</h3>
-              <div className="flex gap-2 bg-[#1A1C2E] p-1.5 rounded-2xl border border-white/10">
+            <div className="bg-[#252841] p-8 rounded-[32px] border border-white/5 relative overflow-hidden">
+              {/* أيقونة الزينة (البرق) */}
+              <div className="absolute -top-2 -left-2 bg-[#FF8A33]/10 p-4 rounded-full blur-xl"></div>
+              <Zap className="text-[#FF8A33] mb-4 h-6 w-6" />
+              
+              <h3 className="text-lg font-black mb-4">كُن أول من يصله الإلهام</h3>
+              
+              <div className="flex items-center gap-2 bg-[#1A1C2E] p-1.5 rounded-2xl border border-white/10 group focus-within:border-[#FF8A33]/50 transition-all">
+                <div className="pr-4">
+                   <Mail className="h-5 w-5 text-gray-500 group-focus-within:text-[#FF8A33] transition-colors" />
+                </div>
                 <input 
                   type="email" 
                   placeholder="البريد الإلكتروني" 
-                  className="bg-transparent flex-grow px-4 py-2 text-sm outline-none text-white"
+                  className="bg-transparent flex-grow py-2 text-sm outline-none text-white placeholder:text-gray-600"
                 />
-                <button className="bg-[#FF8A33] p-3 rounded-xl hover:bg-opacity-90 transition-all">
+                <button className="bg-[#FF8A33] p-3 rounded-xl hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#FF8A33]/20">
                   <Send className="h-5 w-5 rotate-180" />
                 </button>
               </div>
+              <p className="text-[10px] text-gray-500 mt-4 text-center">بشراكتك معنا، أنت توافق على سياسة الخصوصية الخاصة بنا.</p>
             </div>
           </div>
+
         </div>
 
         {/* الحقوق */}

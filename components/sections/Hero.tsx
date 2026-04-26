@@ -1,7 +1,11 @@
 import ContactForm from "@/components/form/ContactForm";
 import { MessageCircle } from "lucide-react";
+import { AppButton } from "../ui/AppButton";
 
 export default function Hero() {
+  // الروابط المباشرة بناءً على بياناتك
+  const WHATSAPP_LINK = "https://wa.link/4ddhsa"; // رابط استشارة مجانية
+
   return (
     <section className="relative min-h-screen flex items-center bg-brand-dark overflow-hidden pt-20 pb-12" dir="rtl">
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-orange/5 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/4" />
@@ -19,7 +23,7 @@ export default function Hero() {
             
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] mb-8 font-cairo">
               نصيغ الفخامة <br />
-              الرقمية لتقود علامتك <br />
+               الرقمية لتقود علامتك <br />
               <span className="text-brand-orange">لمكانتها المستحقة</span>
             </h1>
             
@@ -29,14 +33,30 @@ export default function Hero() {
             </p>
             
             <div className="flex flex-wrap gap-4 justify-start">
-              <button className="bg-white/5 border text-white px-10 py-5 rounded-2xl btn-text flex items-center gap-3 border-white/10 hover:bg-white/10 transition-all ">
-                <span>واتساب</span>
-                <MessageCircle className="w-6 h-6 text-[#25D366]" />
-              </button>
+              {/* زر واتساب - مرتبط برابط الاستشارة */}
+              <AppButton
+                  variant="outline"
+                  size="lg"
+                  className="rounded-full px-10 py-7 flex items-center gap-3 border-white/10"
+                  asChild
+                >
+                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+                      <span>واتساب</span>
+                      <MessageCircle className="w-6 h-6 text-[#25D366]" />
+                    </a>
+              </AppButton>
 
-              <button className="bg-brand-orange text-white px-10 py-5 rounded-2xl btn-text hover:scale-105 transition-all shadow-[0_10px_30px_rgba(245,130,32,0.3)]">
-                ابدأ رحلتك الآن
-              </button>
+              {/* زر ابدأ رحلتك الآن - مرتبط برابط الاستشارة */}
+              <AppButton
+                variant="orange"
+                size="lg"
+                className="rounded-full px-10 py-7 shadow-[0_10px_30px_rgba(245,130,32,0.3)] hover:scale-105"
+                asChild
+              >
+                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+                  ابدأ رحلتك الآن
+                </a>
+              </AppButton>
             </div>
           </div>
 

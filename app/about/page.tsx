@@ -11,7 +11,7 @@ export default function AboutPage() {
       <VisionMissionSection />
       <WhyUsSection />
       <TeamSection />
-      <ReadyResults />
+      <ReadyResults variant="style2"/>
     </main>
   );
 }

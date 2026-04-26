@@ -1,3 +1,5 @@
+import { AppButton } from "../ui/AppButton";
+
 export default function CTA() {
   return (
     <section className="py-20 bg-brand-dark" dir="rtl">
@@ -13,9 +15,13 @@ export default function CTA() {
               لا تترك نمو مشروعك للصدفة. انضم لأكثر من 200 علامة تجارية تثق بنا في إدارة وجودها الرقمي.
             </p>
             
-            <button className="bg-white text-brand-orange px-10 py-4 rounded-2xl btn-text hover:bg-gray-100 transition-all transform hover:scale-105 shadow-xl">
+            <AppButton
+              variant="primary" // يعطي خلفية #F3EADA مع نص برتقالي وظل متوهج
+              size="lg"         // حجم كبير ليناسب أهمية حجز الاستشارة
+              className="rounded-2xl px-10 py-4 shadow-xl hover:scale-105 transition-all"
+            >
               احجز استشارة مجانية
-            </button>
+            </AppButton>
           </div>
 
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl" />
