@@ -1,16 +1,35 @@
+import { Suspense } from "react";
+import dynamic from 'next/dynamic';
 import { getDashboardData } from "@/lib/api";
-import CTA from "../components/sections/CTA";
-import Faqs from "../components/sections/Faqs";
-import Hero from "../components/sections/Hero";
-import Portfolio from "../components/sections/portfolio/Portfolio";
-import Pricing from "../components/sections/Pricing";
-import Problems from "../components/sections/Problems";
-import ReadySection from "../components/sections/ReadySection";
-import Services from "../components/sections/services/Services";
-import Stats from "../components/sections/Stats";
-import Testimonials from "../components/sections/Testimonials";
-import WhyUs from "../components/sections/WhyUs";
 import { faqsData } from "@/constants/siteData";
+import Hero from "../components/sections/Hero";
+
+const SkeletonLoader = () => (
+  <div className="animate-pulse container mx-auto px-6 py-20">
+    <div className="h-12 w-1/3 bg-white/5 rounded-2xl mb-8" />
+    <div className="h-96 w-full bg-white/5 rounded-[40px]" />
+  </div>
+);
+
+const Problems = dynamic(() => import("../components/sections/Problems"), { ssr: true });
+const Services = dynamic(() => import("../components/sections/services/Services"), { 
+  ssr: true,
+  loading: () => <SkeletonLoader />
+});
+const Portfolio = dynamic(() => import("../components/sections/portfolio/Portfolio"), { 
+  ssr: true,
+  loading: () => <SkeletonLoader />
+});
+const WhyUs = dynamic(() => import("../components/sections/WhyUs"), { ssr: true });
+const Stats = dynamic(() => import("../components/sections/Stats"), { ssr: true });
+const Pricing = dynamic(() => import("../components/sections/Pricing"), { ssr: true });
+const Testimonials = dynamic(() => import("../components/sections/Testimonials"), { 
+  ssr: true,
+  loading: () => <SkeletonLoader />
+});
+const CTA = dynamic(() => import("../components/sections/CTA"), { ssr: true });
+const Faqs = dynamic(() => import("../components/sections/Faqs"), { ssr: true });
+const ReadySection = dynamic(() => import("../components/sections/ReadySection"), { ssr: true });
 
 export default async function Home() {
   const dashboardData = await getDashboardData();
@@ -24,18 +43,50 @@ export default async function Home() {
   };
 
   return (
-    <div className="block w-full bg-zinc-50 font-sans dark:bg-black">
+    <main className="block w-full bg-zinc-50 font-sans dark:bg-black">
       <Hero />
-      <Problems />
-      <Services data={data.services} />
-      <Portfolio data={data.projects} />
-      <WhyUs />
-      <Stats data={data.statistics} />
-      <Pricing data={data.packages} />
-      <Testimonials data={data.testimonials} />
-      <CTA />
-      <Faqs data={faqsData} />
-      <ReadySection />
-    </div>
+      
+      <div className="space-y-4">
+        <Suspense fallback={<SkeletonLoader />}>
+          <Problems />
+        </Suspense>
+
+        <Suspense fallback={<SkeletonLoader />}>
+          <Services data={data.services} />
+        </Suspense>
+
+        <Suspense fallback={<SkeletonLoader />}>
+          <Portfolio data={data.projects} />
+        </Suspense>
+
+        <Suspense fallback={<SkeletonLoader />}>
+          <WhyUs />
+        </Suspense>
+
+        <Suspense fallback={<SkeletonLoader />}>
+          <Stats data={data.statistics} />
+        </Suspense>
+
+        <Suspense fallback={<SkeletonLoader />}>
+          <Pricing data={data.packages} />
+        </Suspense>
+
+        <Suspense fallback={<SkeletonLoader />}>
+          <Testimonials data={data.testimonials} />
+        </Suspense>
+
+        <Suspense fallback={<SkeletonLoader />}>
+          <CTA />
+        </Suspense>
+
+        <Suspense fallback={<SkeletonLoader />}>
+          <Faqs data={faqsData} />
+        </Suspense>
+
+        <Suspense fallback={<SkeletonLoader />}>
+          <ReadySection />
+        </Suspense>
+      </div>
+    </main>
   );
 }
