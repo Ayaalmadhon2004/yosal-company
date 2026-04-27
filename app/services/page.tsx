@@ -2,6 +2,7 @@ import Image from "next/image";
 import { AppButton } from "@/components/ui/AppButton";
 import Services from "@/components/sections/services/Services";
 import ReadyResults from "@/components/sections/ReadyResults";
+import { servicesData } from "@/constants/siteData";
 
 export default function ServicesHero() {
   return (
@@ -43,7 +44,7 @@ export default function ServicesHero() {
         </div>
       </div>
 
-      <Services/>
+      <Services data={servicesData}/>
       <ReadyResults variant="style1"/>
     </section>
   );

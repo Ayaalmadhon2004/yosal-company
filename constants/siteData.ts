@@ -1,15 +1,5 @@
 // lib/data.ts
-import { Testimonial, FAQ } from "@/types";
-
-export interface Service {
-  id: number;
-  title: string;
-  description: string; 
-  iconName: string;    
-  features: string[];  
-  isFeatured: boolean; 
-  ctaText: string;     
-}
+import { Testimonial, Service} from "@/types";
 
 export const allTestimonials: Testimonial[] = [
   {
@@ -45,57 +35,63 @@ export const allTestimonials: Testimonial[] = [
 export const servicesData: Service[] = [
   {
     id: 1,
-    title: "استراتيجيات التسويق والخطط التسويقية",
-    description: "نصمم خرائط طريق مخصصة لتحقيق أهدافك التجارية بأعلى كفاءة ممكنة.",
+    title: "الاستراتيجيات والخطط التسويقية",
+    slug: "marketing-strategies",
+    description: "طرق مخصصة لتحقيق أهدافك التجارية بأعلى كفاءة ممكنة من خلال تحليل دقيق للسوق والمنافسين.",
     iconName: "trending-up",
-    features: ["تحليل السوق بدقة", "تحديد الفئات المستهدفة", "وضع ميزانيات ذكية"],
-    isFeatured: false,
+    features: ["تحليل السوق والمنافسين", "تحديد الجمهور المستهدف", "بناء قمع المبيعات (Sales Funnel)"],
+    isFeatured: true,
     ctaText: "اطلب الخدمة"
   },
   {
     id: 2,
-    title: "بناء علامة تجارية وهوية بصرية تميزك في السوق",
-    description: "نخلق هوية تعكس قيم علامتك التجارية وتترك انطباعاً لا ينسى لدى جمهورك.",
-    iconName: "pen-tool",
-    features: ["تصميم شعار احترافي", "أدلة استخدام الهوية", "تصاميم سوشيال ميديا"],
+    title: "إدارة الحملات الإعلانية",
+    slug: "ads-management",
+    description: "إدارة احترافية للحملات الممولة على منصات التواصل الاجتماعي وجوجل لضمان أفضل عائد على الاستثمار.",
+    iconName: "rocket",
+    features: ["إعلانات Meta (فيسبوك وانستقرام)", "حملات Google Ads", "تحسين معدل التحويل (CRO)"],
     isFeatured: false,
-    ctaText: "اطلب الخدمة"
+    ctaText: "ابدأ حملتك الآن"
   },
   {
     id: 3,
-    title: "تحسين محركات البحث",
-    description: "تصدر نتائج البحث الأولى واجذب زيارات مستهدفة دون الحاجة لإعلانات مكلفة.",
-    iconName: "search",
-    features: ["ظهور في الصفحة الأولى", "زيادة الوصول العضوي", "تحسين تجربة المستخدم"],
+    title: "تحسين محركات البحث (SEO)",
+    slug: "seo-services",
+    description: "نساعدك على تصدر النتائج الأولى في جوجل لزيادة الزيارات المجانية لموقعك بشكل مستدام.",
+    iconName: "search-zoom",
+    features: ["تحسين الكلمات المفتاحية", "الـ SEO التقني للمواقع", "بناء الروابط الخلفية (Backlinks)"],
     isFeatured: false,
-    ctaText: "اطلب الخدمة"
+    ctaText: "تصدر النتائج"
   },
   {
     id: 4,
-    title: "صناعة المحتوى والفيديو",
-    description: "نحول قصصك إلى تجارب بصرية مبهرة تجذب الجمهور وتحقق الانتشار.",
-    iconName: "video",
-    features: ["فيديوهات موشن جرافيك", "كتابة محتوى إبداعي", "إنتاج وتصوير احترافي"],
+    title: "صناعة المحتوى الإبداعي",
+    slug: "content-creation",
+    description: "كتابة محتوى يأسر القلوب ويقنع العقول، من منشورات التواصل الاجتماعي إلى مقالات المدونة.",
+    iconName: "pen-tool",
+    features: ["كتابة محتوى تسويقي (Copywriting)", "إعداد سيناريوهات الفيديو", "تخطيط التقويم المحتوي"],
     isFeatured: false,
-    ctaText: "اطلب الخدمة"
+    ctaText: "احصل على محتواك"
   },
   {
     id: 5,
-    title: "تطوير المواقع",
-    description: "بناء مواقع سريعة ومتجاوبة تحول الزوار إلى عملاء دائمين لشركتك.",
-    iconName: "layout",
-    features: ["سرعة تحميل فائقة", "تحويل عالي (CRO)", "دعم فني متكامل"],
-    isFeatured: true, // المميزة في التصميم
-    ctaText: "اطلب الخدمة"
+    title: "إدارة منصات التواصل الاجتماعي",
+    slug: "social-media-management",
+    description: "بناء مجتمع متفاعل حول علامتك التجارية من خلال إدارة يومية واحترافية لكافة منصاتك.",
+    iconName: "share",
+    features: ["الرد على التعليقات والرسائل", "تحليل الأداء الأسبوعي", "زيادة التفاعل العضوي"],
+    isFeatured: false,
+    ctaText: "أدر منصاتك"
   },
   {
     id: 6,
-    title: "إدارة منصات التواصل",
-    description: "نبني مجتمعاً متفاعلاً حول علامتك التجارية عبر كافة المنصات الاجتماعية.",
-    iconName: "message-square",
-    features: ["تفاعل يومي مباشر", "حملات إعلانية ممولة", "تقارير أداء شهرية"],
+    title: "تحليل البيانات والتقارير",
+    slug: "data-analysis",
+    description: "تحويل الأرقام إلى قرارات مدروسة من خلال تقارير دورية توضح نقاط القوة وفرص النمو.",
+    iconName: "monitor",
+    features: ["إعداد لوحات تحكم (Dashboards)", "تتبع سلوك المستخدمين", "توصيات تطوير الأداء"],
     isFeatured: false,
-    ctaText: "اطلب الخدمة"
+    ctaText: "حلل بياناتك"
   }
 ];
 

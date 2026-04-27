@@ -6,13 +6,25 @@ export interface FAQ {
   answer: string;
 }
 
+// تحديث تعريف التقييمات
 export interface Testimonial {
   id: number;
   name: string;
-  job_title: string; 
-  comment: string;    // الباك إيند ببعت comment مش content
-  rating: number;     // رقم من 1-5
-  avatar_url: string; // الرابط المباشر للصورة
+  role: string; // أضيفي هذا السطر ليختفي خطأ الصورة 1
+  content: string;
+  avatarLetter: string;
+}
+
+// تحديث تعريف الخدمات
+export interface Service {
+  id: number;
+  title: string;
+  description: string; // تأكدي أنها description وليست brief ليختفي خطأ الصورة 3
+  iconName: string;
+  features: string[];
+  isFeatured: boolean;
+  ctaText: string;
+  slug: string; // أضيفي الـ slug لأنه مستخدم في الروابط
 }
 
 export interface Feature {
