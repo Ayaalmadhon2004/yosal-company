@@ -140,7 +140,7 @@ export const servicesData: Record<string, any> = {
     highlightText: "رقمية استثنائية",
     subtitle: "مواقع فائقة السرعة، آمنة، ومتوافقة مع كافة الشاشات.",
     description: "نبني مواقع إلكترونية بأحدث التقنيات العالمية تضمن لك سرعة تحميل خيالية وتجربة مستخدم ترفع نسبة التحويل والمبيعات بشكل ملحوظ.",
-    image: "/assets/webDev.png",
+    image: "/assets/Web Development.png",
     stats: { value: "100%", label: "توافق تام مع معايير جوجل" },
     buttons: [
       { label: "ابدأ مشروعك", type: "primary" },
@@ -195,17 +195,21 @@ export const servicesData: Record<string, any> = {
       }
     ],
     "comparison": {
-      "challengeTitle": "حسابات صامتة",
-      "challengeDescription": "غياب التفاعل يقلل من ثقة العملاء في علامتك التجارية",
-      "challenges": [
-      ],
-      "solutionTitle": "من السكون إلى التأثير",
-      "solutionDescription": "هل تشعر أن منشوراتك تذهب في مهب الريح؟ نحن لا نكتفي بالنشر فقط، بل نبني لك استراتيجية تحول المتابعين العابرين إلى سفراء حقيقيين لعلامتك التجارية من خلال تفاعل مستمر وعلاقة وطيدة.",
-      "solutions": [
-        "صناعة محتوى يحاكي اهتمامات جمهورك",
-        "إدارة الردود والرسائل باحترافية",
-      ]
-    },
+    "challengeTitle": "هل تعاني من حسابات صامتة؟",
+    "challengeDescription": "غياب التفاعل ليس مجرد قلة أرقام، بل هو فقدان تدريجي لثقة عملائك في حيوية علامتك التجارية.",
+    "challenges": [
+        "منشورات باهتة لا تحرك ساكناً لدى الجمهور",
+        "تجاهل التعليقات والرسائل يقتل فرص البيع",
+        "خسارة مستمرة للمتابعين بسبب غياب القيمة"
+    ],
+    "solutionTitle": "الحل الاحترافي مع يوصل",
+    "solutionDescription": "نحن لا نكتفي بالنشر فقط، بل نبني استراتيجية (من السكون إلى التأثير) تحول المتابعين العابرين إلى سفراء حقيقيين لعلامتك التجارية.",
+    "solutions": [
+        "صناعة محتوى تفاعلي يحاكي اهتمامات جمهورك",
+        "إدارة ذكية للردود تبني علاقة وطيدة مع العميل",
+        "تحليل مستمر للبيانات لضمان أعلى معدلات وصول"
+    ]
+      },
     steps: [
       { number: "1", title: "التخطيط والدراسة", desc: "فهم متطلباتك، تحليل المنافسين، ورسم الهيكل العام للموقع." },
       { number: "2", title: "تصميم الواجهات", desc: "ابتكار تصميم بصري فريد يعكس هوية علامتك التجارية." },
@@ -222,7 +226,7 @@ export const servicesData: Record<string, any> = {
     highlightText: "وضاعف مبيعاتك",
     subtitle: "استراتيجيات أرشفة تجعلك الخيار الأول لعملائك.",
     description: "نعمل على تحسين ظهور موقعك في محركات البحث لضمان وصول العملاء المستهدفين إليك بأقل التكاليف وبأعلى جودة من الزيارات العضوية.",
-    image: "/assets/seo.png",
+    image: "/assets/analysis.png",
     stats: { value: "Top 3", label: "في نتائج البحث المستهدفة" },
     buttons: [
       { label: "حلل موقعك مجاناً", type: "primary" },
@@ -277,14 +281,14 @@ export const servicesData: Record<string, any> = {
   },
 
   "social-media": {
-    title: "حلول متكاملة لإدارة المنصات", // من وحي ركائز الخدمة
+    title: "حلول متكاملة لإدارة المنصات", 
     hero: {
     badge: "SOCIAL MEDIA MANAGEMENT",
     title: "اجعل حضورك الرقمي",
     highlightText: "نابضاً بالحياة",
     subtitle: "إدارة تفاعلية تبني مجتمعاً وفياً لعلامتك التجارية.",
     description: "نحول منصاتك الاجتماعية إلى قنوات بيع وتواصل فعالة من خلال محتوى إبداعي واستراتيجيات تفاعل مدروسة تزيد من انتشارك.",
-    image: "/assets/socialMedia.png",
+    image: "/assets/Social Media Growth.png",
     stats: { value: "150%", label: "متوسط زيادة التفاعل العضوي" },
     buttons: [
       { label: "ابدأ رحلتك معنا", type: "primary" },
@@ -364,7 +368,7 @@ export const servicesData: Record<string, any> = {
     highlightText: "تحكي قصتك",
     subtitle: "تصميم هويات تعكس القيم وتصنع الثقة.",
     description: "نبتكر لك هوية بصرية متكاملة وشعاراً يجمع بين البساطة والعمق، ليترك انطباعاً قوياً يدوم في ذاكرة كل من يرى علامتك التجارية.",
-    image: "/assets/branding.png",
+    image: "/assets/identity branding work.png",
     stats: { value: "50+", label: "براند تم تطويره بنجاح" },
     buttons: [
       { label: "صمم هويتك الآن", type: "primary" },
@@ -424,7 +428,7 @@ export const servicesData: Record<string, any> = {
     highlightText: "ويترك أثراً",
     subtitle: "قصص بصرية وسينمائية تروي هوية علامتك التجارية.",
     description: "ندمج بين الإبداع الفني وعلم النفس التسويقي لننتج محتوى مرئياً ونصياً يرسخ في ذاكرة جمهورك ويحقق أهدافك البيعية.",
-    image: "/assets/contentCreation.png",
+    image: "/assets/professional film production studio.png",
     stats: { value: "24/7", label: "دعم فني وإبداعي متواصل" },
     buttons: [
       { label: "اطلب محتواك الآن", type: "primary" }

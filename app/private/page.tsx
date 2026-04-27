@@ -9,34 +9,32 @@ import Image from 'next/image';
 export default function PrivatePage() {
   return (
     <main className="min-h-screen bg-[#0a0d1d] text-white" dir="rtl">
-      {/* قسم الهيرو العلوي - سياسة الخصوصية */}
       <PrivacyHero />
       
       <div className="container mx-auto px-6 pb-20">
-        {/* شبكة المحتوى الرئيسي المكونة من 12 عموداً */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
-          
-          {/* الجانب الأيمن (السيادبار + الصورة التقنية) - يأخذ 4 أعمدة */}
+
+          <div className="lg:col-span-8 space-y-8 order-1 lg:order-2">
+            <PrivacyIntroduction />
+            
+            {/* قسم جمع واستخدام المعلومات الموضح في التصميم */}
+            <DataCollectionSection />
+          </div>
+
           <aside className="lg:col-span-4 space-y-8 order-2 lg:order-1">
             <PrivacySidebar />
             
-            {/* الصورة التقنية التي تظهر تحت الفهرس مباشرة في التصميم */}
-            <div className="rounded-[2rem] overflow-hidden border border-gray-800/50 shadow-2xl">
+            <div className="rounded-[2.5rem] overflow-hidden border border-white/5 shadow-2xl relative group">
+              <div className="absolute inset-0 bg-blue-500/10 group-hover:bg-transparent transition-colors duration-500 z-10" />
               <Image 
                 src="/assets/Coding.png" 
                 alt="Security and Coding Illustration" 
                 width={400}
                 height={300}
-                className="w-full h-auto object-cover" 
+                className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700" 
               />
             </div>
           </aside>
-
-          <div className="lg:col-span-8 space-y-8 order-1 lg:order-2">
-            <PrivacyIntroduction />
-            
-            <DataCollectionSection />
-          </div>
 
         </div>
 
@@ -44,7 +42,7 @@ export default function PrivatePage() {
           <PrivacyGrid />
         </div>
 
-        <PrivacyContact />
+        <PrivacyContact  /> 
       </div>
     </main>
   );

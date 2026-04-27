@@ -256,35 +256,40 @@ export const contactHeroData = {
   title: "جاهز نساعدك لتنمو",
   highlightText: "رقمياً",
   description: "اختر الطريقة المناسبة للتواصل وسنرد عليك بأسرع وقت ممكن. فريقنا المتخصص ينتظر سماع رؤيتك القادمة.",
-  image: "/assets/contactUs.png", // تأكدي من المسار
+  image: "/assets/contactUs.png", 
 };
 
 export const contactMethods = [
-  {
+   {
     id: 1,
     title: "تواصل عبر واتساب",
-    desc: "للحصول على استجابة فورية من فريقنا.",
-    action: "ابدأ المحادثة الآن",
-    link: "https://wa.me/yournumber", // سيتم ربطه لاحقاً بـ API (Back)
+    desc: "رد سريع خلال دقائق عبر منصتنا المباشرة.",
     icon: "MessageSquare",
-    color: "bg-green-500",
+    action: "ابدأ المحادثة الآن",
+    link: "https://wa.me/qr/YDPUM4DFRP4NP1",
+    color: "bg-[#1C213E]",
+    isSpecial: true, 
   },
   {
     id: 2,
     title: "احجز استشارة مجانية",
-    desc: "حدد موعداً لمناقشة تفاصيل مشروعك.",
-    action: "اختر موعدك",
-    link: "https://calendly.com/your-link", // سيتم ربطه لاحقاً بـ API (Back)
+    desc: "جلسة سريعة لمناقشة فكرتك وتقييم الحلول المناسبة.",
     icon: "Calendar",
-    color: "bg-orange-500",
+    action: "احجز الآن",
+    link: "https://calendly.com/your-link",
+    color: "bg-[#1C213E]",
+    accent: "border-[#F58220]", 
+    hover: "hover:bg-[#F58220]/10"
   },
-  {
+   {
     id: 3,
-    title: "أرسل إيميل مباشر",
-    desc: "للمراسلات الرسمية وطلبات العروض.",
-    action: "info@yoosel.com",
-    link: "mailto:info@yoosel.com", // سيتم ربطه لاحقاً بـ API (Back)
-    icon: "Mail",
-    color: "bg-blue-500",
+    title: "أرسل تفاصيل مشروعك",
+    desc: "نناقش المشاريع التي تحتاج لتفاصيل تقنية وفنية دقيقة.",
+    icon: "FileText",
+    action: "تعبئة النموذج",
+    link: "/contact#form",
+    color: "bg-[#1C213E]", 
+    accent: "border-gray-700",
+    hover: "hover:border-orange-500"
   }
 ];

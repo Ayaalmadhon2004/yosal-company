@@ -3,7 +3,6 @@ import { MessageCircle } from "lucide-react";
 import { AppButton } from "../ui/AppButton";
 
 export default function Hero() {
-  // الروابط المباشرة بناءً على بياناتك
   const WHATSAPP_LINK = "https://wa.link/4ddhsa"; // رابط استشارة مجانية
 
   return (
@@ -33,7 +32,6 @@ export default function Hero() {
             </p>
             
             <div className="flex flex-wrap gap-4 justify-start">
-              {/* زر واتساب - مرتبط برابط الاستشارة */}
               <AppButton
                   variant="outline"
                   size="lg"
@@ -45,7 +43,6 @@ export default function Hero() {
                     </a>
               </AppButton>
 
-              {/* زر ابدأ رحلتك الآن - مرتبط برابط الاستشارة */}
               <AppButton
                 variant="orange"
                 size="lg"

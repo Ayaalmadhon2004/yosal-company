@@ -16,9 +16,9 @@ export default function ContactPage() {
           </h1>
           <p className="text-gray-400 text-lg leading-relaxed mb-8">{contactHeroData.description}</p>
           <AppButton
-              variant="orange" // نستخدم الـ Variant المخصص للون البرتقالي الكامل
-              size="lg" // حجم كبير ليتناسب مع الدعوة لاتخاذ إجراء (CTA) كما في الصورة
-              className="rounded-full font-bold px-8 py-3" // نحافظ على التنسيقات الخاصة بالشكل من كودك القديم
+              variant="orange" 
+              size="lg" 
+              className="rounded-full font-bold px-8 py-3" 
             >
               ابدأ رحلتك الآن
           </AppButton>
@@ -28,19 +28,46 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
+      <section className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-24 px-6">
         {contactMethods.map((method) => {
-          const IconComponent = icons[method.icon];
+          const IconComponent = icons[method.icon] || MessageSquare;
+          
           return (
-            <div key={method.id} className="bg-[#161a35] p-6 rounded-2xl border border-gray-800 hover:border-orange-500 transition-all text-right">
-              <div className={`${method.color} w-12 h-12 rounded-lg flex items-center justify-center mb-4 ml-auto`}>
-                <IconComponent className="text-white" />
+            <div 
+              key={method.id} 
+              className={`${method.color} p-8 rounded-[2rem] border ${method.accent || 'border-white/5'} transition-all duration-300 text-right flex flex-col h-full`}
+            >
+              {/* أيقونة القسم */}
+              <div className="bg-[#252a46] w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ml-auto shadow-lg">
+                <IconComponent className="text-[#F58220] w-7 h-7" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">{method.title}</h3>
-              <p className="text-gray-400 text-sm mb-6">{method.desc}</p>
-              <a href={method.link} className="block text-center border border-gray-600 text-white py-2 rounded-lg hover:bg-gray-800 transition-all">
-                {method.action}
-              </a>
+
+              {/* النصوص */}
+              <h3 className="text-xl font-black text-white mb-3 tracking-tight">
+                {method.title}
+              </h3>
+              <p className="text-gray-400 text-sm leading-relaxed mb-8 flex-grow">
+                {method.desc}
+              </p>
+
+              {/* الأزرار - مع معالجة خاصة للواتساب الأخضر */}
+              {method.isSpecial ? (
+                <a 
+                  href={method.link}
+                  target="_blank"
+                  className="flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#1eb956] text-white py-4 rounded-2xl font-bold transition-all shadow-lg shadow-green-500/20 group"
+                >
+                  <span>{method.action}</span>
+                  <IconComponent className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                </a>
+              ) : (
+                <a 
+                  href={method.link}
+                  className="block text-center border border-white/10 text-white py-4 rounded-2xl font-bold hover:bg-white/5 transition-all"
+                >
+                  {method.action}
+                </a>
+              )}
             </div>
           );
         })}
