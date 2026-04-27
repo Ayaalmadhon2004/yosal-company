@@ -1,43 +1,43 @@
-// app/blog/[slug]/page.tsx
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Clock, Share2, Bookmark, ArrowRight } from "lucide-react";
-import { MOCK_POSTS } from "@/constants/blogData";
+import { getPostBySlug, getPosts } from "@/lib/api";
+import { notFound } from "next/navigation";
 
 export default async function BlogPostPage({ 
   params 
 }: { 
   params: Promise<{ slug: string }> 
 }) {
-    const { slug } = await params;
-  const post = MOCK_POSTS.find((p) => p.slug === slug);
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
 
   if (!post) {
-    return (
-      <div className="min-h-screen bg-[#0a0d1d] flex items-center justify-center text-white">
-        <h1 className="text-2xl font-bold">المقال غير موجود</h1>
-      </div>
-    );
+    notFound();
   }
+
+  // جلب مقالات مقترحة (من نفس القسم مثلاً)
+  const relatedResponse = await getPosts(undefined, post.category?.name, 1);
+  const relatedPosts = relatedResponse?.data?.data?.filter((p: any) => p.slug !== slug).slice(0, 4) || [];
 
   return (
     <main className="min-h-screen bg-[#0a0d1d] text-right" dir="rtl">
       
-      {/* 1. Hero Section للمقال */}
       <section className="relative h-[70vh] w-full flex items-end pb-20">
         <Image 
-          src={post.image} 
+          src={post.image_url || "/images/blog-placeholder.jpg"} 
           alt={post.title} 
           fill 
           className="object-cover opacity-40"
           priority
+          unoptimized
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0d1d] via-[#0a0d1d]/60 to-transparent"></div>
         
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl space-y-6">
             <span className="bg-orange-500/20 text-orange-500 px-4 py-1.5 rounded-lg text-sm font-bold border border-orange-500/30">
-              {post.category}
+              {post.category?.name || "عام"}
             </span>
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
               {post.title}
@@ -45,16 +45,26 @@ export default async function BlogPostPage({
             
             <div className="flex flex-wrap items-center gap-6 pt-4 text-gray-400 border-t border-gray-800 w-fit">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gray-800 overflow-hidden border border-gray-700">
-                   <Image src={post.author.avatar} alt={post.author.name} width={40} height={40} />
+                <div className="w-10 h-10 rounded-full bg-gray-800 overflow-hidden border border-gray-700 relative">
+                   <Image 
+                    src={post.author_avatar || "/images/avatar-placeholder.png"} 
+                    alt={post.author_name || "Author"} 
+                    fill
+                    className="object-cover"
+                   />
                 </div>
                 <div>
-                  <p className="text-white text-sm font-bold">{post.author.name}</p>
-                  <p className="text-[10px]">{post.author.role}</p>
+                  <p className="text-white text-sm font-bold">{post.author_name || "فريق يوصل"}</p>
+                  <p className="text-[10px]">كاتب محتوى متخصص</p>
                 </div>
               </div>
-              <span className="flex items-center gap-2 text-sm"><Calendar className="w-4 h-4" /> {post.date}</span>
-              <span className="flex items-center gap-2 text-sm"><Clock className="w-4 h-4" /> {post.readingTime}</span>
+              <span className="flex items-center gap-2 text-sm">
+                <Calendar className="w-4 h-4" /> 
+                {new Date(post.created_at).toLocaleDateString('ar-EG')}
+              </span>
+              <span className="flex items-center gap-2 text-sm">
+                <Clock className="w-4 h-4" /> 5 دقائق قراءة
+              </span>
               <div className="flex gap-4 mr-auto md:mr-10">
                 <button className="p-2 bg-white/5 rounded-full hover:bg-orange-500/20 transition-all hover:text-orange-500"><Share2 className="w-4 h-4" /></button>
                 <button className="p-2 bg-white/5 rounded-full hover:bg-orange-500/20 transition-all hover:text-orange-500"><Bookmark className="w-4 h-4" /></button>
@@ -64,7 +74,6 @@ export default async function BlogPostPage({
         </div>
       </section>
 
-      {/* 2. محتوى المقال */}
       <section className="container mx-auto px-6 py-20 flex flex-col lg:flex-row gap-16">
         <article className="flex-1">
           <div 
@@ -110,10 +119,16 @@ export default async function BlogPostPage({
             <Link href="/blog" className="text-orange-500 flex items-center gap-2 hover:gap-4 transition-all font-bold">تصفح الكل <ArrowRight className="w-4 h-4 rotate-180" /></Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {MOCK_POSTS.filter(p => p.slug !== slug).slice(0, 4).map((item) => (
+            {relatedPosts.map((item: any) => (
                <Link href={`/blog/${item.slug}`} key={item.slug} className="group bg-[#12162b] rounded-3xl p-4 border border-gray-800 hover:border-orange-500/30 transition-all shadow-lg">
                   <div className="relative h-44 rounded-2xl overflow-hidden mb-4">
-                    <Image src={item.image} alt={item.title} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
+                    <Image 
+                      src={item.image_url || "/images/placeholder.jpg"} 
+                      alt={item.title} 
+                      fill 
+                      className="object-cover group-hover:scale-110 transition-transform duration-500" 
+                      unoptimized
+                    />
                   </div>
                   <h4 className="text-white font-bold text-sm line-clamp-2 leading-relaxed group-hover:text-orange-500 transition-colors">{item.title}</h4>
                </Link>

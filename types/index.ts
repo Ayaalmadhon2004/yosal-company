@@ -1,6 +1,5 @@
 import { LucideIcon } from "lucide-react";
 
-// --- المشترك (Common) ---
 export interface FAQ {
   id: number;
   question: string;
@@ -10,9 +9,10 @@ export interface FAQ {
 export interface Testimonial {
   id: number;
   name: string;
-  role: string;
-  content: string;
-  avatarLetter: string;
+  job_title: string; 
+  comment: string;    // الباك إيند ببعت comment مش content
+  rating: number;     // رقم من 1-5
+  avatar_url: string; // الرابط المباشر للصورة
 }
 
 export interface Feature {

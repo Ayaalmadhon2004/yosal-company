@@ -9,7 +9,6 @@ export default function TermsPage() {
       <TermsHero />
       <TermsContent />
       <LegalCards />
-      <ReadyResults variant="style1"/>
     </main>
   );
 }

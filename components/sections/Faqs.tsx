@@ -3,17 +3,18 @@
 import React, { useState } from "react";
 import { ChevronDown, HelpCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { FAQ } from "@/constants/servicesData";
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
 
 interface FaqsProps {
-  data: FAQ[];
+  data: FAQItem[]; 
 }
 
 export default function FAQSection({ data = [] }: FaqsProps) {
-  // فتح أول سؤال تلقائياً
   const [openIndex, setOpenIndex] = useState<number | null>(0);
-
-  // إذا لم تكن هناك بيانات، لا يعرض السكشن
   if (!data || data.length === 0) return null;
 
   return (

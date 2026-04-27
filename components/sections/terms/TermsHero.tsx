@@ -11,6 +11,7 @@ export default function TermsHero() {
           <span className="text-gray-400 block mb-2 font-bold">آخر تحديث</span>
           <span className="text-[#F58220] text-2xl font-black block">15 أكتوبر</span>
           <span className="text-gray-500">2024</span>
+          <p className="text-gray-500">نهدف في يوصل إلى بناء جسور الثقة من خلال وضوح القواعد والالتزامات المتبادلة.</p>
         </div>
       </div>
     </section>

@@ -46,7 +46,7 @@ export default function ReadySection({ variant = "style1" }: ReadySectionProps) 
             variant="orange" 
             size="lg" 
             className="w-full sm:w-auto min-w-[240px] rounded-full text-lg shadow-[0_10px_30px_rgba(245,130,32,0.3)] hover:scale-105"
-            asChild
+            
           >
             <a href={LINKS.FREE_CONSULTATION} target="_blank" rel="noopener noreferrer">
               {isStyle1 ? "إبدأ رحلتك الآن" : "ابدأ مشروعك الأن"}
@@ -57,7 +57,7 @@ export default function ReadySection({ variant = "style1" }: ReadySectionProps) 
             variant="outline" 
             size="lg" 
             className="w-full bg-white text-black sm:w-auto min-w-[240px] rounded-full text-lg border-white/10 hover:border-brand-orange hover:text-brand-orange"
-            asChild
+            
           >
             <a href={LINKS.PORTFOLIO}>
              {isStyle1 ?"شاهد أعمالنا" :"احجز استشارة مجانية "}

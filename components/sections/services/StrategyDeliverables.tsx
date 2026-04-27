@@ -58,26 +58,23 @@ export default function StrategyDeliverables() {
 
         {/* شبكة الكروت الدايناميك */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:min-h-[650px]">
-          {currentService.deliverables.slice(0, 4).map((item, index) => {
+          {currentService.deliverables.slice(0, 4).map((item:any, index:number) => {
             const Icon = item.icon;
             
-            // تحديد الكرت البرتقالي بناءً على اللي اوت
             const isOrange = (layout === "big-right" && index === 2) || 
-                             (layout === "big-left" && index === 3) ||
-                             (layout === "equal" && index === 1); // اختياري للـ Equal
+            (layout === "big-left" && index === 3) ||
+            (layout === "equal" && index === 1); 
 
             return (
               <div 
                 key={index}
                 className={`${getGridStyles(index)} rounded-[40px] p-10 relative overflow-hidden flex flex-col justify-center items-start border border-white/5 transition-all duration-500 hover:scale-[1.01]`}
               >
-                {/* الأيقونة الخلفية الكبيرة للكرت الملون */}
                 {isOrange && (
                   <Icon size={180} className="absolute -top-10 -right-10 p-8 opacity-10 rotate-12 text-white pointer-events-none" />
                 )}
 
                 <div className="relative z-10 w-full">
-                  {/* أيقونة الكرت الصغيرة */}
                   <div className={`mb-6 p-3 rounded-2xl inline-block ${isOrange ? "bg-white/10 text-white" : "bg-[#FF8A00]/10 text-[#FF8A00]"}`}>
                     <Icon className="w-10 h-10" />
                   </div>

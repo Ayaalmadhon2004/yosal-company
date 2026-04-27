@@ -38,7 +38,6 @@ export default function Hero() {
                   variant="outline"
                   size="lg"
                   className="rounded-full px-10 py-7 flex items-center gap-3 border-white/10"
-                  asChild
                 >
                   <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
                       <span>واتساب</span>
@@ -51,7 +50,6 @@ export default function Hero() {
                 variant="orange"
                 size="lg"
                 className="rounded-full px-10 py-7 shadow-[0_10px_30px_rgba(245,130,32,0.3)] hover:scale-105"
-                asChild
               >
                 <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
                   ابدأ رحلتك الآن

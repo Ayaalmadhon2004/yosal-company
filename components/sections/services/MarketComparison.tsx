@@ -40,7 +40,7 @@ export default function MarketComparison() {
             </p>
 
             <div className="space-y-4">
-              {comparison.challenges.map((item, index) => (
+              {comparison.challenges.map((item:string, index:number) => (
                 <div key={index} className="flex items-center gap-3 text-gray-500 justify-start">
                   <XCircle className="w-5 h-5 text-red-500/50 flex-shrink-0" />
                   <span className="text-md font-medium">{item}</span>
@@ -72,7 +72,7 @@ export default function MarketComparison() {
             </p>
 
             <div className="space-y-4 relative z-10">
-              {comparison.solutions.map((item, index) => (
+              {comparison.solutions.map((item:string, index:number) => (
                 <div key={index} className="flex items-center gap-3 text-white justify-start">
                   <CheckCircle2 className="w-5 h-5 text-[#FF8A00] flex-shrink-0" />
                   <span className="text-md font-bold">{item}</span>

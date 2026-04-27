@@ -1,119 +1,132 @@
 "use client";
-
+import { useEffect, useState } from "react";
 import { Check, X } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { AppButton } from "@/components/ui/AppButton";
 
-const plans = [
+const mockPackages = [
   {
-    name: "متكاملة (الاستمرارية)",
-    price: "4999",
-    description: "حلول تسويقية شاملة للمؤسسات الكبرى",
-    whatsappUrl: "https://wa.link/g0xols", // رابط باقة الاستمرارية
+    id: 1,
+    name: "اقتصادية",
+    short_description: "مثالية للشركات الناشئة و المشاريع الصغيرة",
+    price: 999,
+    badge: null,
+    is_featured: 0,
     features: [
-      { text: "إدارة جميع المنصات الرقمية", included: true },
-      { text: "محتوى يومي + إنتاج فيديو احترافي", included: true },
-      { text: "تحسين محركات البحث (SEO)", included: true },
-      { text: "مدير حساب مخصص 24/7", included: true },
-    ],
-    isPopular: false,
+      { id: 1, feature_text: "إدارة منصتين للتواصل الاجتماعي", is_available: 1 },
+      { id: 2, feature_text: "8 منشورات شهرياً", is_available: 1 },
+      { id: 3, feature_text: "رد على التعليقات و الرسائل", is_available: 1 },
+      { id: 4, feature_text: "إعلانات ممولة", is_available: 0 },
+    ]
   },
   {
-    name: "احترافية (الصعود)",
-    price: "2499",
-    description: "الخيار الأمثل للنمو السريع والتوسع",
-    whatsappUrl: "https://wa.link/9my46r", // رابط باقة الصعود
+    id: 2,
+    name: "احترافية",
+    short_description: "الخيار الأمثل لنمو السريع و التوسع",
+    price: 2499,
+    badge: "الأكثر طلباً",
+    is_featured: 1,
     features: [
-      { text: "إدارة 4 منصات للتواصل الاجتماعي", included: true },
-      { text: "16 منشوراً + 4 فيديوهات Reel", included: true },
-      { text: "إدارة حملات إعلانية ممولة", included: true },
-      { text: "تقرير أداء شهري مفصل", included: true },
-    ],
-    isPopular: true,
+      { id: 5, feature_text: "إدارة 4 منصات للتواصل الاجتماعي", is_available: 1 },
+      { id: 6, feature_text: "16 منشوراً + 4 فيديوهات Reel", is_available: 1 },
+      { id: 7, feature_text: "تقرير أداء شهري مفصل", is_available: 1 },
+      { id: 8, feature_text: "إدارة حملات إعلانية ممولة", is_available: 1 },
+    ]
   },
   {
-    name: "اقتصادية (الإنطلاق)",
-    price: "999",
-    description: "مثالية للشركات الناشئة والمشاريع الصغيرة",
-    whatsappUrl: "https://wa.link/3tvfov", // رابط باقة الإنطلاق
+    id: 3,
+    name: "متكاملة",
+    short_description: "حلول تسويقية شاملة للمؤسسات الكبرى",
+    price: 4999,
+    badge: null,
+    is_featured: 0,
     features: [
-      { text: "إدارة منصتين للتواصل الاجتماعي", included: true },
-      { text: "8 منشورات شهرياً", included: true },
-      { text: "رد على التعليقات والرسائل", included: true },
-      { text: "إعلانات ممولة", included: false },
-    ],
-    isPopular: false,
-  },
+      { id: 9, feature_text: "إدارة جميع المنصات الرقمية", is_available: 1 },
+      { id: 10, feature_text: "محتوى يومي + إنتاج فيديو احترافي", is_available: 1 },
+      { id: 11, feature_text: "تحسين محركات SEO", is_available: 1 },
+      { id: 12, feature_text: "مدير حساب مخصص 24/7", is_available: 1 },
+    ]
+  }
 ];
 
 export default function PricingCards() {
+  const [packages, setPackages] = useState(mockPackages);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPackages = async () => {
+      try {
+        // ليش هنا بعمل فتش من اللوكال , مفروض من https://yosaal-website-backend.onrender.com/api/v1/packages صح ولا كيف 
+        const response = await fetch("http://localhost:8000/api/v1/packages");
+        const json = await response.json();
+        if (json && json.status === "Success") {
+          setPackages(json.data);
+        }
+      } catch (error) {
+        console.warn("Using mock data as fallback");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPackages();
+  }, []);
+
   return (
-    <section className="py-20 bg-[#0a0d1d]" dir="rtl">
-      <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {plans.map((plan, index) => (
-            <div
-              key={index}
-              className={cn(
-                "relative p-8 rounded-[2.5rem] border transition-all duration-500 hover:translate-y-[-10px] flex flex-col",
-                plan.isPopular
-                  ? "bg-[#1A1C2E] border-[#F58220] ring-1 ring-[#F58220] shadow-[0_0_40px_rgba(245,130,32,0.15)]"
-                  : "bg-[#12162b] border-gray-800 hover:border-gray-700"
-              )}
-            >
-              {plan.isPopular && (
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#F58220] text-white px-6 py-1 rounded-full text-sm font-bold">
-                  الأكثر طلباً
-                </div>
-              )}
-
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-black text-white mb-2">{plan.name}</h3>
-                <p className="text-gray-400 text-sm mb-6">{plan.description}</p>
-                <div className="flex items-center justify-center gap-2">
-                  <span className="text-4xl font-black text-white">{plan.price}</span>
-                  <span className="text-gray-400 text-sm">ر.س / شهر</span>
-                </div>
+    <section className="py-20 px-4 bg-[#0a0d1d]">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+        {packages.map((pkg: any) => (
+          <div 
+            key={pkg.id}
+            className={`relative p-8 rounded-[40px] border transition-all duration-500 flex flex-col ${
+              pkg.is_featured 
+                ? "bg-[#161a35] border-orange-500 scale-105 shadow-2xl z-10" 
+                : "bg-[#0f1225] border-white/5 hover:border-orange-500/30"
+            }`}
+          >
+            {pkg.badge && (
+              <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-orange-500 text-white px-6 py-1 rounded-full text-sm font-bold shadow-lg">
+                {pkg.badge}
               </div>
+            )}
 
-              <div className="space-y-4 mb-10 flex-grow">
-                {plan.features.map((feature, idx) => (
-                  <div key={idx} className="flex items-center gap-3">
-                    {feature.included ? (
-                      <div className="w-5 h-5 rounded-full bg-[#F58220]/20 flex items-center justify-center">
-                        <Check className="w-3 h-3 text-[#F58220]" />
-                      </div>
-                    ) : (
-                      <div className="w-5 h-5 rounded-full bg-gray-800 flex items-center justify-center">
-                        <X className="w-3 h-3 text-gray-500" />
-                      </div>
-                    )}
-                    <span className={cn(
-                      "text-sm font-medium",
-                      feature.included ? "text-gray-300" : "text-gray-600 line-through"
-                    )}>
-                      {feature.text}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              {/* تحويل الزر إلى رابط واتساب خارجي */}
-              <a
-                href={plan.whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(
-                  "w-full py-4 rounded-2xl font-bold transition-all text-center block",
-                  plan.isPopular
-                    ? "bg-[#F58220] text-white hover:bg-[#d46d1a]"
-                    : "bg-transparent border border-gray-700 text-white hover:border-[#F58220] hover:text-[#F58220]"
-                )}
-              >
-                اشترك الآن
-              </a>
+            <div className="text-right mb-8">
+              <h3 className="text-2xl font-bold text-white mb-3">{pkg.name}</h3>
+              <p className="text-gray-400 text-sm h-12 leading-relaxed">{pkg.short_description}</p>
             </div>
-          ))}
-        </div>
+
+            <div className="text-right mb-8">
+              <div className="flex items-baseline gap-1 justify-end flex-row-reverse">
+                <span className="text-5xl font-black text-white">${pkg.price}</span>
+                <span className="text-gray-500 text-lg">/شهرياً</span>
+              </div>
+            </div>
+
+            <div className="space-y-4 mb-10 flex-grow text-right" dir="rtl">
+              {pkg.features.map((feature: any) => (
+                <div key={feature.id} className="flex items-center gap-3">
+                  <div className={`shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${
+                    feature.is_available ? "bg-green-500/10" : "bg-red-500/10"
+                  }`}>
+                    {feature.is_available ? (
+                      <Check className="w-3 h-3 text-green-500" />
+                    ) : (
+                      <X className="w-3 h-3 text-red-500" />
+                    )}
+                  </div>
+                  <span className={`text-sm ${feature.is_available ? "text-gray-300" : "text-gray-500 line-through"}`}>
+                    {feature.feature_text}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <AppButton 
+              variant={pkg.is_featured ? "orange" : "outline"} 
+              className="w-full rounded-2xl py-6 font-bold"
+            >
+              ابدأ مع الباقة {pkg.name}
+            </AppButton>
+          </div>
+        ))}
       </div>
     </section>
   );

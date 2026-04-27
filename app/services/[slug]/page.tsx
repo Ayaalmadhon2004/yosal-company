@@ -34,8 +34,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
       {data.comparison && (
         <MarketComparison 
-          challenges={data.comparison.challenges || []} 
-          solutions={data.comparison.solutions || []} 
         />
       )}
 

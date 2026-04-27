@@ -2,25 +2,36 @@
 
 import { AppCard, AppCardHeader, AppCardTitle, AppCardDescription, AppCardContent } from "@/components/ui/AppCard";
 import { AppButton } from "@/components/ui/AppButton"; 
-import { serviceData } from "@/constants/servicesData";
 import Link from "next/link";
 import { 
   Monitor, Search, Layout, Share2, Rocket, 
   PenTool, Video, MessageSquare, TrendingUp, Check 
 } from "lucide-react";
 
+interface ServiceItem {
+  title: string;
+  slug: string;
+  brief: string;
+  icon: string;
+  features: string[];
+}
+
+interface ServicesProps {
+  data: ServiceItem[];
+}
+
 const getIcon = (name: string) => {
   const icons: Record<string, any> = {
-    "layout": Layout, "search": Search, "monitor": Monitor, "share": Share2,
-    "rocket": Rocket, "pen-tool": PenTool, "video": Video, 
+    "layout": Layout, "search-zoom": Search, "monitor": Monitor, "share": Share2,
+    "rocket": Rocket, "pen-tool": PenTool, "video": Video, "code-laptop": Monitor,
     "message-square": MessageSquare, "trending-up": TrendingUp
   };
   const IconComponent = icons[name] || Monitor;
   return <IconComponent className="h-6 w-6 text-[#F58220]" />;
 };
 
-export default function Services() {
-  const services = Array.isArray(serviceData) ? serviceData : [];
+export default function Services({ data }: ServicesProps) {
+  const services = Array.isArray(data) ? data : [];
 
   return (
     <section id="services" className="py-24 bg-[#0a0d1d] w-full" dir="rtl">
@@ -33,22 +44,16 @@ export default function Services() {
         </div>
 
         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => {
-            const isFeatured = service.isFeatured;
-
+          {services.map((service, index) => {
             return (
               <AppCard 
-                key={service.id}
-                className={`w-full flex flex-col transition-all duration-500 hover:-translate-y-3 border-white/5 rounded-[2.5rem] p-4 ${
-                  isFeatured 
-                    ? "bg-[#1A1C2E] border-[#F58220] ring-1 ring-[#F58220] shadow-[0_0_40px_rgba(245,130,32,0.15)]" 
-                    : "bg-[#12162b]"
-                }`}
+                key={index}
+                className="w-full flex flex-col transition-all duration-500 hover:-translate-y-3 border-white/5 rounded-[2.5rem] p-4 bg-[#12162b]"
               >
                 <AppCardHeader className="p-8 pb-0 text-right">
                   <div className="flex justify-between items-start mb-6">
                     <div className="p-4 bg-white/5 rounded-2xl border border-white/10">
-                      {getIcon(service.iconName)}
+                      {getIcon(service.icon)}
                     </div>
                   </div>
 
@@ -57,7 +62,7 @@ export default function Services() {
                   </AppCardTitle>
 
                   <AppCardDescription className="text-gray-400 text-base leading-relaxed h-20">
-                    {service.description}
+                    {service.brief}
                   </AppCardDescription>
                 </AppCardHeader>
 
@@ -80,12 +85,7 @@ export default function Services() {
                     </Link>
 
                     <AppButton
-                      asChild
-                      className={`w-full py-6 rounded-2xl font-bold transition-all ${
-                        isFeatured 
-                        ? "bg-[#F58220] text-white hover:bg-[#d46d1a]" 
-                        : "bg-transparent border border-gray-700 text-white hover:border-[#F58220] hover:text-[#F58220]"
-                      }`}
+                      className="w-full py-6 rounded-2xl font-bold transition-all bg-transparent border border-gray-700 text-white hover:border-[#F58220] hover:text-[#F58220]"
                     >
                       <Link href={`/services/${service.slug}`}>طلب الخدمة</Link>
                     </AppButton>

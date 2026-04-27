@@ -33,7 +33,9 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  // التأكد من أن المكون تم تحميله في المتصفح لتجنب أخطاء الـ Hydration
+  // الرابط الخاص بكِ
+  const WHATSAPP_CONSULTATION = "https://wa.link/4ddhsa";
+
   useEffect(() => {
     setMounted(true);
     const handleScroll = () => {
@@ -57,7 +59,6 @@ export default function Navbar() {
     >
       <div className="max-w-[1384px] mx-auto px-6 flex items-center justify-between">
         
-        {/* الشعار - Logo */}
         <div className="flex-1 flex justify-start">
           <Link href="/" className="flex items-center group">
             <Image 
@@ -70,7 +71,6 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* القائمة لسطح المكتب - Desktop Menu */}
         <div className="hidden lg:flex items-center justify-center">
           <ul className="flex items-center space-x-6 xl:space-x-10 space-x-reverse">
             {navLinks.map((link, index) => (
@@ -88,7 +88,6 @@ export default function Navbar() {
                   )}></span>
                 </Link>
 
-                {/* Dropdown Menu */}
                 {link.dropdown && (
                   <div className="absolute top-full right-0 mt-2 w-64 bg-[#1A1C2E] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 transform translate-y-2 group-hover/item:translate-y-0 overflow-hidden">
                     <div className="py-2">
@@ -109,14 +108,16 @@ export default function Navbar() {
           </ul>
         </div>
 
-        {/* أزرار الأكشن */}
+        {/* أزرار الأكشن لسطح المكتب */}
         <div className="flex-1 hidden lg:flex justify-end">
           <AppButton 
             variant="primary" 
             size="md"
             className="text-sm px-8 shadow-[0_0_20px_rgba(245,130,32,0.4)]"
           >
-            احجز استشارة مجانية
+            <a href={WHATSAPP_CONSULTATION} target="_blank" rel="noopener noreferrer">
+              احجز استشارة مجانية
+            </a>
           </AppButton>
         </div>
 
@@ -130,6 +131,7 @@ export default function Navbar() {
         </div>
       </div>
 
+      {/* القائمة للهواتف */}
       <div className={cn(
         "lg:hidden absolute top-full left-0 w-full bg-[#1A1C2E] border-b border-white/10 transition-all duration-500 overflow-hidden shadow-2xl",
         isOpen ? "max-h-[80vh] opacity-100 overflow-y-auto" : "max-h-0 opacity-0"
@@ -162,8 +164,10 @@ export default function Navbar() {
             </li>
           ))}
           <li className="pt-4 border-t border-white/5">
-            <AppButton variant="primary" size="lg" className="w-full">
-              احجز استشارة مجانية
+            <AppButton variant="primary" size="lg" className="w-full" >
+              <a href={WHATSAPP_CONSULTATION} target="_blank" rel="noopener noreferrer">
+                احجز استشارة مجانية
+              </a>
             </AppButton>
           </li>
         </ul>

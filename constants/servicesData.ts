@@ -1,14 +1,55 @@
-import { ServiceData } from "@/types";
-import { allTestimonials } from "./siteData";
 import { 
-  BrainCircuit, Target, TrendingUp, Search, Layout, Palette, 
-  Code2, BarChart3, Globe, Share2, Video, Link2, Settings2, Map, 
-  ShieldCheck,
-  Zap
+  Search, Target, Map, BrainCircuit, Zap, Code2, 
+  ShieldCheck, Globe, Layout, BarChart3, Settings2, 
+  Link2, TrendingUp, Share2, Palette, Video 
 } from "lucide-react";
 
-export const servicesData: Record<string, ServiceData> = {
-  "strategic-planning": {
+export interface Testimonial {
+  id: number;
+  name: string;
+  job_title: string; 
+  comment: string;   
+  rating: number;
+  avatar_url: string;
+}
+
+export const allTestimonials: Testimonial[] = [
+  {
+    "id": 1,
+    "name": "anonymous",
+    "job_title": "مالكة مطعم",
+    "comment": "فريق التصوير جدا لطيفين و مبدعين حيث تعاملهم معنا و سرعتهم بالانجاز كانت الفكرة غريبة اننا نصور قدام الزباين لكن النتائج اثبتت انه يستحق العناء، شكرا لوكالة يوصل",
+    "rating": 5,
+    "avatar_url": ""
+  },
+  {
+    "id": 2,
+    "name": "anonymous",
+    "job_title": "المدير التنفيذي لشركة حلول برمجية",
+    "comment": "عجبني تقسيم الفرق و بنية الوكالة كأنها شركة كبيرة بامكانيات عادية و لكن النتائج كانت لا مثيل لها، اخترنا يوصل بسبب السعر المنافس و ابهرتنا بنتيجة تنافس وكالات اسعارها باهظة",
+    "rating": 5,
+    "avatar_url": ""
+  },
+  {
+    "id": 3,
+    "name": "anonymous",
+    "job_title": "مؤسسة منتج تجميل",
+    "comment": "تعجبت من سرعة الاداء و قياساتهم الدقيقة، خطة المحتوى كانت جديدة بالنسبة لي ولم اقتنع بها اولا، لكنني وثقت برشا كاتبة خطة المحتوى و كان هذا قرار لا أندم عليه",
+    "rating": 5,
+    "avatar_url": ""
+  },
+  {
+    "id": 4,
+    "name": "anonymous",
+    "job_title": "مدير متجر إلكتروني",
+    "comment": "متجري لم يكن لينجح لولا اني قابلت وكالة يوصل افضل قرار قمت به هو اني اهتممت بالحضور الرقمي و استمعت لنصيحة المسوقة ندى رئيسة فريق التسويق لدى وكالة يوصل",
+    "rating": 5,
+    "avatar_url": ""
+  }
+];
+
+export const servicesData: Record<string, any> = {
+    "strategic-planning": {
     title: "ما الذي ستحصل عليه؟",
     hero: {
     badge: "STRATEGIC PLANNING",
@@ -431,61 +472,3 @@ export const servicesData: Record<string, ServiceData> = {
     ]
   },
 };
-
-
-export const serviceData = [
-  {
-    id: "seo",
-    slug: "seo",
-    title: "تحسين محركات البحث",
-    description: "تصدّر نتائج البحث الأولى واجذب زيارات مستهدفة دون الحاجة لإعلانات مكلفة.",
-    iconName: "search",
-    features: ["ظهور في الصفحة الأولى", "زيادة الوصول العضوي", "تحسين تجربة المستخدم"],
-    isFeatured: false
-  },
-  {
-    id: "branding",
-    slug: "branding",
-    title: "بناء علامة تجارية وهوية مميزة",
-    description: "نخلق هوية تعكس قيم علامتك التجارية وتترك انطباعاً لا ينسى لدى جمهورك.",
-    iconName: "pen-tool",
-    features: ["تصميم شعار احترافي", "أدلة استخدام الهوية", "تصاميم سوشيال ميديا"],
-    isFeatured: false
-  },
-  {
-    id: "strategic-planning",
-    slug: "strategic-planning",
-    title: "استراتيجيات التسويق والخطط التسويقية",
-    description: "نصمم خرائط طريق مخصصة لتحقيق أهدافك التجارية بأعلى كفاءة ممكنة.",
-    iconName: "trending-up",
-    features: ["تحليل السوق بدقة", "تحديد الفئات المستهدفة", "وضع ميزانيات ذكية"],
-    isFeatured: false
-  },
-  {
-    id: "social-media",
-    slug: "social-media",
-    title: "إدارة منصات التواصل",
-    description: "نبني مجتمعاً متفاعلاً حول علامتك التجارية عبر كافة المنصات الاجتماعية.",
-    iconName: "message-square",
-    features: ["تفاعل يومي مباشر", "حملات إعلانية ممولة", "تقارير أداء شهرية"],
-    isFeatured: false
-  },
-  {
-    id: "web-development",
-    slug: "web-development",
-    title: "تطوير المواقع",
-    description: "بناء مواقع سريعة ومتجاوبة تحول الزوار إلى عملاء دائمين لشركتك.",
-    iconName: "monitor",
-    features: ["سرعة تحميل فائقة", "تحويل عالي (CRO)", "دعم فني متكامل"],
-    isFeatured: true // التميز كما في الصورة
-  },
-  {
-    id: "content-creation",
-    slug: "content-creation",
-    title: "صناعة المحتوى والفيديو",
-    description: "نحول قصصك إلى تجارب بصرية مبهرة تجذب الجمهور وتحقق الانتشار.",
-    iconName: "video",
-    features: ["فيديوهات موشن جرافيك", "كتابة محتوى إبداعي", "إنتاج وتصوير احترافي"],
-    isFeatured: false
-  }
-];

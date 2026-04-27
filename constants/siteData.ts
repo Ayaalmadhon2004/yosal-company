@@ -1,6 +1,16 @@
 // lib/data.ts
 import { Testimonial, FAQ } from "@/types";
 
+export interface Service {
+  id: number;
+  title: string;
+  description: string; 
+  iconName: string;    
+  features: string[];  
+  isFeatured: boolean; 
+  ctaText: string;     
+}
+
 export const allTestimonials: Testimonial[] = [
   {
     id: 1,
