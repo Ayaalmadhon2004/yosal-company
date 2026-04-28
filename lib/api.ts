@@ -44,20 +44,25 @@ export async function getPosts(search?: string, category?: string, page: number 
 
 export async function sendProjectRequest(data: any) {
     try {
-        const url = new URL(API_ENDPOINTS.PROJECT_REQUEST);
-        
-        Object.keys(data).forEach(key => {
-            if (data[key]) url.searchParams.append(key, data[key]);
-        });
+        const formData = new FormData();
+        formData.append('project_name', data.name); 
+        formData.append('service_type', 'خدمة عامة'); 
+        formData.append('budget', '0'); 
+        formData.append('description', data.project_url || 'طلب تقييم من الموقع');
+        formData.append('main_goals', 'تقييم المشروع'); 
+        const fullDescription = `الإيميل: ${data.email} | الهاتف: ${data.phone} | الرابط: ${data.project_url}`;
+        formData.set('description', fullDescription);
 
-        const res = await fetch(url.toString(), {
+        const res = await fetch(API_ENDPOINTS.PROJECT_REQUEST, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-            }
+            },
+            body: formData
         });
 
-        return await res.json();
+        const result = await res.json();
+        return result;
     } catch (error) {
         return { success: false, message: "Connection error" };
     }
