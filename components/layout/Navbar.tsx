@@ -1,11 +1,11 @@
-"use client"; // إضافة التوجيه لتمكين الـ Hooks
+"use client";
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { AppButton } from '../ui/AppButton';
 import { cn } from '@/lib/utils';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Sparkles } from 'lucide-react';
 
 const navLinks = [
   { name: 'الرئيسية', href: '/' },
@@ -14,7 +14,7 @@ const navLinks = [
     name: 'خدماتنا', 
     href: '/services',
     dropdown: [
-      { name: 'تحسين محركات البحث', href: '/services/seo' },
+      { name: 'تحسين محركات SEO', href: '/services/seo' },
       { name: 'صناعة المحتوى والفيديو', href: '/services/content-creation' },
       { name: 'إنشاء هوية بصرية', href: '/services/branding' },
       { name: 'تطوير مواقع إلكترونية', href: '/services/web-development' },
@@ -33,7 +33,6 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  // الرابط الخاص بكِ
   const WHATSAPP_CONSULTATION = "https://wa.link/4ddhsa";
 
   useEffect(() => {
@@ -50,53 +49,53 @@ export default function Navbar() {
   return (
     <nav 
       className={cn(
-        "fixed top-0 w-full z-[100] transition-all duration-300 border-b",
+        "fixed top-0 w-full z-[100] transition-all duration-500 border-b",
         scrolled 
-          ? "bg-[#1A1C2E]/95 backdrop-blur-md border-white/10 py-2 shadow-2xl" 
-          : "bg-transparent border-transparent py-4"
+          ? "/80 backdrop-blur-xl border-white/5 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.3)]" 
+          : "bg-transparent border-transparent py-6"
       )}
       dir="rtl"
     >
-      <div className="max-w-[1384px] mx-auto px-6 flex items-center justify-between">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 flex items-center justify-between">
         
+        {/* Logo Section */}
         <div className="flex-1 flex justify-start">
-          <Link href="/" className="flex items-center group">
+          <Link href="/" className="relative group">
+            <div className="absolute -inset-2 bg-primary/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
             <Image 
               src="/assets/logo.png" 
               alt="Yoosel Logo" 
-              width={120}
-              height={40}
-              className="h-10 md:h-12 w-auto object-contain transition-transform group-hover:scale-105" 
+              width={140}
+              height={50}
+              className="h-10 md:h-12 w-auto object-contain relative z-10 transition-transform duration-500 group-hover:scale-105" 
             />
           </Link>
         </div>
 
+        {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center justify-center">
-          <ul className="flex items-center space-x-6 xl:space-x-10 space-x-reverse">
-            {navLinks.map((link, index) => (
+          <ul className="flex items-center space-x-2 xl:space-x-4 space-x-reverse bg-secondary/20 backdrop-blur-md border border-white/5 px-6 py-2 rounded-full">
+            {navLinks.map((link) => (
               <li key={link.name} className="relative group/item">
                 <Link 
                   href={link.href} 
-                  className={cn(
-                    "text-gray-300 hover:text-[#F58220] transition-all duration-300 font-medium flex items-center gap-1 pb-1 text-[15px]"
-                  )}
+                  className="px-4 py-2 text-muted-foreground hover:text-primary transition-all duration-300 font-bold flex items-center gap-1.5 text-[14px] xl:text-[15px] relative"
                 >
                   {link.name}
-                  {link.dropdown && <ChevronDown size={14} className="group-hover/item:rotate-180 transition-transform" />}
-                  <span className={cn(
-                    "absolute -bottom-1 right-0 h-[2px] bg-[#F58220] transition-all group-hover/item:w-full w-0"
-                  )}></span>
+                  {link.dropdown && <ChevronDown size={14} className="group-hover/item:rotate-180 transition-transform duration-300" />}
                 </Link>
 
+                {/* Enhanced Dropdown */}
                 {link.dropdown && (
-                  <div className="absolute top-full right-0 mt-2 w-64 bg-[#1A1C2E] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 transform translate-y-2 group-hover/item:translate-y-0 overflow-hidden">
-                    <div className="py-2">
+                  <div className="absolute top-[calc(100%+10px)] right-0 w-72 bg-secondary/95 backdrop-blur-2xl border border-white/10 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-500 transform translate-y-4 group-hover/item:translate-y-0 p-3 z-50">
+                    <div className="grid grid-cols-1 gap-1">
                       {link.dropdown.map((item) => (
                         <Link
                           key={item.name}
                           href={item.href}
-                          className="block px-6 py-3 text-sm text-gray-300 hover:bg-white/5 hover:text-[#F58220] border-b border-white/5 last:border-0 transition-colors text-right"
+                          className="flex items-center gap-3 px-5 py-3.5 rounded-2xl text-sm font-bold text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300 group/link"
                         >
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary/20 group-hover/link:bg-primary transition-colors" />
                           {item.name}
                         </Link>
                       ))}
@@ -108,65 +107,65 @@ export default function Navbar() {
           </ul>
         </div>
 
-        {/* أزرار الأكشن لسطح المكتب */}
-        <div className="flex-1 hidden lg:flex justify-end">
+        {/* Action Button */}
+        <div className="flex-1 hidden lg:flex justify-end items-center gap-4">
           <AppButton 
-            variant="primary" 
-            size="md"
-            className="text-sm px-8 shadow-[0_0_20px_rgba(245,130,32,0.4)]"
+            variant="orange" 
+            className="rounded-full px-8 py-6 font-black text-sm shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all flex items-center gap-2 group"
           >
-            <a href={WHATSAPP_CONSULTATION} target="_blank" rel="noopener noreferrer">
+            <a href={WHATSAPP_CONSULTATION} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 group-hover:animate-spin" />
               احجز استشارة مجانية
             </a>
           </AppButton>
         </div>
 
+        {/* Mobile Toggle */}
         <div className="lg:hidden flex items-center">
           <button 
             onClick={() => setIsOpen(!isOpen)}
-            className="text-white p-2 outline-none"
+            className="p-3 rounded-2xl bg-secondary/40 border border-white/5 text-primary active:scale-90 transition-all"
           >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* القائمة للهواتف */}
+      {/* Mobile Menu Overlay */}
       <div className={cn(
-        "lg:hidden absolute top-full left-0 w-full bg-[#1A1C2E] border-b border-white/10 transition-all duration-500 overflow-hidden shadow-2xl",
-        isOpen ? "max-h-[80vh] opacity-100 overflow-y-auto" : "max-h-0 opacity-0"
+        "lg:hidden absolute top-[calc(100%+10px)] left-6 right-6 bg-secondary/95 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] transition-all duration-700 transform origin-top shadow-2xl",
+        isOpen ? "scale-y-100 opacity-100 translate-y-0" : "scale-y-0 opacity-0 -translate-y-10 pointer-events-none"
       )}>
-        <ul className="flex flex-col p-6 space-y-4 text-right">
+        <ul className="flex flex-col p-8 space-y-2 text-right max-h-[70vh] overflow-y-auto">
           {navLinks.map((link) => (
-            <li key={link.name}>
+            <li key={link.name} className="py-2">
               <Link 
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="text-gray-300 hover:text-[#F58220] block py-2 text-lg font-medium"
+                className="text-foreground hover:text-primary block text-xl font-black transition-colors"
               >
                 {link.name}
               </Link>
               {link.dropdown && (
-                <ul className="pr-4 mt-2 border-r border-white/10 space-y-2">
+                <div className="grid grid-cols-1 gap-2 mt-4 mr-4 pr-4 border-r-2 border-primary/20">
                   {link.dropdown.map((item) => (
-                    <li key={item.name}>
-                      <Link 
-                        href={item.href}
-                        onClick={() => setIsOpen(false)}
-                        className="text-gray-500 hover:text-[#F58220] text-sm block py-1"
-                      >
-                        {item.name}
-                      </Link>
-                    </li>
+                    <Link 
+                      key={item.name}
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className="text-muted-foreground hover:text-primary text-base font-bold py-2"
+                    >
+                      {item.name}
+                    </Link>
                   ))}
-                </ul>
+                </div>
               )}
             </li>
           ))}
-          <li className="pt-4 border-t border-white/5">
-            <AppButton variant="primary" size="lg" className="w-full" >
+          <li className="pt-8 mt-4 border-t border-white/5">
+            <AppButton variant="orange" className="w-full py-8 rounded-[1.5rem] font-black text-lg shadow-xl shadow-primary/20">
               <a href={WHATSAPP_CONSULTATION} target="_blank" rel="noopener noreferrer">
-                احجز استشارة مجانية
+                ابدأ رحلتك الآن
               </a>
             </AppButton>
           </li>

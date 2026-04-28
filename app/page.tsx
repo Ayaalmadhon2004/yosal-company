@@ -7,11 +7,11 @@ import Hero from "../components/sections/Hero";
 const SkeletonLoader = () => (
   <div className="animate-pulse container mx-auto px-6 py-20">
     <div className="h-12 w-1/3 bg-white/5 rounded-2xl mb-8" />
-    <div className="h-96 w-full bg-white/5 rounded-[40px]" />
+    <div className="h-96 w-full bg-white/5 rounded-4xl" />
   </div>
 );
 
-const Problems = dynamic(() => import("../components/sections/Problems"), { ssr: true });
+const Problems = dynamic(() => import("../components/sections/home/Problems"), { ssr: true });
 const Services = dynamic(() => import("../components/sections/services/Services"), { 
   ssr: true,
   loading: () => <SkeletonLoader />
@@ -20,15 +20,15 @@ const Portfolio = dynamic(() => import("../components/sections/portfolio/Portfol
   ssr: true,
   loading: () => <SkeletonLoader />
 });
-const WhyUs = dynamic(() => import("../components/sections/WhyUs"), { ssr: true });
-const Stats = dynamic(() => import("../components/sections/Stats"), { ssr: true });
-const Pricing = dynamic(() => import("../components/sections/Pricing"), { ssr: true });
-const Testimonials = dynamic(() => import("../components/sections/Testimonials"), { 
+const WhyUs = dynamic(() => import("../components/sections/home/WhyUs"), { ssr: true });
+const Stats = dynamic(() => import("../components/sections/home/Stats"), { ssr: true });
+const Pricing = dynamic(() => import("../components/sections/home/Pricing"), { ssr: true });
+const Testimonials = dynamic(() => import("../components/sections/home/Testimonials"), { 
   ssr: true,
   loading: () => <SkeletonLoader />
 });
-const CTA = dynamic(() => import("../components/sections/CTA"), { ssr: true });
-const Faqs = dynamic(() => import("../components/sections/Faqs"), { ssr: true });
+const CTA = dynamic(() => import("../components/sections/home/CTA"), { ssr: true });
+const Faqs = dynamic(() => import("../components/sections/home/Faqs"), { ssr: true });
 const ReadySection = dynamic(() => import("../components/sections/ReadySection"), { ssr: true });
 
 export default async function Home() {
@@ -43,10 +43,10 @@ export default async function Home() {
   };
 
   return (
-    <main className="block w-full bg-[#0a0d1d] font-sans">
+    <main className="block w-full  font-sans overflow-x-hidden">
       <Hero />
       
-      <div className="space-y-4">
+      <div className="flex flex-col">
         <Suspense fallback={<SkeletonLoader />}>
           <Problems />
         </Suspense>

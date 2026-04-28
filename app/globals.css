@@ -5,10 +5,11 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* ألوان الهوية المستخرجة من فيجما */
   --color-brand-dark: #0F112B; 
   --color-brand-navy: #161839;    
-  --color-brand-orange: #F58220;  
-  --color-brand-accent: #2A2D5A;
+  --color-brand-orange: #E6740F;  /* القيمة الدقيقة من لقطة شاشة الزر */
+  --color-brand-accent: #3C3F73;  /* الكحلي الفاتح المستخدم في الحقول */
 
   --font-cairo: var(--font-cairo);
   --font-sans: var(--font-cairo), ui-sans-serif, system-ui;
@@ -21,30 +22,37 @@
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   
+  /* الزوايا الدائرية الكبيرة حسب التصميم */
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
   --radius-3xl: 2rem;
   --radius-4xl: 2.5rem;
+  --radius-5xl: 3rem;
 }
 
 :root {
-  --background: #202347;
+  /* الخلفية الأساسية من قسم الـ Hook Section في فيجما */
+  --background: #202347; 
   --foreground: #ffffff;
-  --yellow:#FFE9AB;
+  --yellow: #FFE9AB;
   --card: #161839;
   --card-foreground: #ffffff;
-  --primary: #F58220;
+  --primary: #E6740F;
   --primary-foreground: #ffffff;
-  --muted: #2A2D5A;
-  --muted-foreground: #94a3b8;
-  --blue:#3C3F73;
+  --muted: #3C3F73;
+  --muted-foreground: #E0E0FC; /* لون النصوص المساعدة */
+  --blue: #3C3F73;
   --border: rgba(255, 255, 255, 0.1);
   --input: rgba(255, 255, 255, 0.05);
-  --ring: #F58220;
+  --ring: #E6740F;
 }
 
 @layer components {
-  /* نظام الخطوط الموحد بناءً على طلبك */
+  /* العناوين الكبيرة (مثل لماذا يختارنا عمالقة السوق) */
+  .text-h1 {
+    @apply text-[40px] font-bold leading-[40px];
+  }
+
   .text-sub-title {
     @apply text-[20px] font-bold leading-snug;
   }
@@ -62,8 +70,12 @@
   }
 
   .btn-text {
-    /* تم اختيار SemiBold (600) ليكون أوضح مع البرتقالي */
     @apply text-[16px] font-semibold tracking-wide;
+  }
+
+  /* كلاس مخصص للصناديق ذات الزوايا الكبيرة جداً كما في فيجما */
+  .audit-card {
+    @apply bg-brand-accent/20 border border-white/10 rounded-[30px] backdrop-blur-sm;
   }
 }
 
@@ -72,6 +84,7 @@
     @apply border-border outline-none;
   }
   body {
+    /* تم ضبط الخلفية لتكون اللون الكحلي العميق المستخرج */
     @apply bg-brand-dark text-white font-cairo antialiased;
   }
 }

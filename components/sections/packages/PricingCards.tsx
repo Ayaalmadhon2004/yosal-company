@@ -1,68 +1,28 @@
 "use client";
-import { useEffect, useState } from "react";
-import { Check, X } from "lucide-react";
-import { AppButton } from "@/components/ui/AppButton";
 
-const mockPackages = [
-  {
-    id: 1,
-    name: "اقتصادية",
-    short_description: "مثالية للشركات الناشئة و المشاريع الصغيرة",
-    price: 999,
-    badge: null,
-    is_featured: 0,
-    features: [
-      { id: 1, feature_text: "إدارة منصتين للتواصل الاجتماعي", is_available: 1 },
-      { id: 2, feature_text: "8 منشورات شهرياً", is_available: 1 },
-      { id: 3, feature_text: "رد على التعليقات و الرسائل", is_available: 1 },
-      { id: 4, feature_text: "إعلانات ممولة", is_available: 0 },
-    ]
-  },
-  {
-    id: 2,
-    name: "احترافية",
-    short_description: "الخيار الأمثل لنمو السريع و التوسع",
-    price: 2499,
-    badge: "الأكثر طلباً",
-    is_featured: 1,
-    features: [
-      { id: 5, feature_text: "إدارة 4 منصات للتواصل الاجتماعي", is_available: 1 },
-      { id: 6, feature_text: "16 منشوراً + 4 فيديوهات Reel", is_available: 1 },
-      { id: 7, feature_text: "تقرير أداء شهري مفصل", is_available: 1 },
-      { id: 8, feature_text: "إدارة حملات إعلانية ممولة", is_available: 1 },
-    ]
-  },
-  {
-    id: 3,
-    name: "متكاملة",
-    short_description: "حلول تسويقية شاملة للمؤسسات الكبرى",
-    price: 4999,
-    badge: null,
-    is_featured: 0,
-    features: [
-      { id: 9, feature_text: "إدارة جميع المنصات الرقمية", is_available: 1 },
-      { id: 10, feature_text: "محتوى يومي + إنتاج فيديو احترافي", is_available: 1 },
-      { id: 11, feature_text: "تحسين محركات SEO", is_available: 1 },
-      { id: 12, feature_text: "مدير حساب مخصص 24/7", is_available: 1 },
-    ]
-  }
-];
+import React, { useEffect, useState } from "react";
+import { Check, X, Loader2, Zap } from "lucide-react";
+import { AppButton } from "@/components/ui/AppButton";
+import { cn } from "@/lib/utils";
+
+// الرابط الصحيح للـ API
+const API_URL = "https://yosaal-website-backend.onrender.com/api/v1/packages";
 
 export default function PricingCards() {
-  const [packages, setPackages] = useState(mockPackages);
+  const [packages, setPackages] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPackages = async () => {
       try {
-        // ليش هنا بعمل فتش من اللوكال , مفروض من https://yosaal-website-backend.onrender.com/api/v1/packages صح ولا كيف 
-        const response = await fetch("http://localhost:8000/api/v1/packages");
+        const response = await fetch(API_URL);
         const json = await response.json();
+        
         if (json && json.status === "Success") {
-          setPackages(json.data);
+          setPackages(json.data.data || json.data);
         }
       } catch (error) {
-        console.warn("Using mock data as fallback");
+        console.error("Fetch error, ensure the backend is live:", error);
       } finally {
         setLoading(false);
       }
@@ -70,49 +30,77 @@ export default function PricingCards() {
     fetchPackages();
   }, []);
 
+  if (loading) {
+    return (
+      <div className="py-32 flex flex-col items-center justify-center space-y-4">
+        <Loader2 className="w-10 h-10 text-primary animate-spin" />
+        <p className="text-muted-foreground font-medium">جاري تجهيز أفضل العروض لنمو عملك...</p>
+      </div>
+    );
+  }
+
   return (
-    <section className="py-20 px-4 bg-[#0a0d1d]">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+    <section className="py-24 px-6  relative overflow-hidden" dir="rtl">
+      {/* توهج خلفي للقسم */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary/5 blur-[120px] rounded-full -z-10" />
+
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         {packages.map((pkg: any) => (
           <div 
             key={pkg.id}
-            className={`relative p-8 rounded-[40px] border transition-all duration-500 flex flex-col ${
+            className={cn(
+              "relative p-8 md:p-10 rounded-[3rem] border transition-all duration-700 flex flex-col group",
               pkg.is_featured 
-                ? "bg-[#161a35] border-orange-500 scale-105 shadow-2xl z-10" 
-                : "bg-[#0f1225] border-white/5 hover:border-orange-500/30"
-            }`}
+                ? "bg-secondary/40 border-primary scale-105 shadow-[0_0_50px_-12px_rgba(245,130,32,0.2)] z-10" 
+                : "bg-secondary/10 border-white/5 hover:border-primary/30"
+            )}
           >
+            {/* الشارة المميزة */}
             {pkg.badge && (
-              <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-orange-500 text-white px-6 py-1 rounded-full text-sm font-bold shadow-lg">
+              <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-primary text-white px-8 py-2 rounded-full text-xs font-black shadow-xl shadow-primary/20 flex items-center gap-2">
+                <Zap className="w-3 h-3 fill-current" />
                 {pkg.badge}
               </div>
             )}
 
-            <div className="text-right mb-8">
-              <h3 className="text-2xl font-bold text-white mb-3">{pkg.name}</h3>
-              <p className="text-gray-400 text-sm h-12 leading-relaxed">{pkg.short_description}</p>
+            <div className="text-right mb-10">
+              <h3 className="text-3xl font-black text-foreground mb-4 group-hover:text-primary transition-colors">
+                {pkg.name}
+              </h3>
+              <p className="text-muted-foreground text-base leading-relaxed h-14 italic">
+                {pkg.short_description}
+              </p>
             </div>
 
-            <div className="text-right mb-8">
-              <div className="flex items-baseline gap-1 justify-end flex-row-reverse">
-                <span className="text-5xl font-black text-white">${pkg.price}</span>
-                <span className="text-gray-500 text-lg">/شهرياً</span>
+            <div className="text-right mb-12 /40 p-6 rounded-[2rem] border border-white/5">
+              <div className="flex items-baseline gap-2 justify-end flex-row-reverse">
+                <span className="text-6xl font-black text-foreground">${pkg.price}</span>
+                <span className="text-muted-foreground text-sm font-bold uppercase tracking-widest">/ شهرياً</span>
               </div>
             </div>
 
-            <div className="space-y-4 mb-10 flex-grow text-right" dir="rtl">
+            <div className="space-y-5 mb-12 flex-grow text-right" dir="rtl">
+              <p className="text-xs font-black text-primary/60 uppercase tracking-[0.2em] mb-6">ما تتضمنه الباقة:</p>
               {pkg.features.map((feature: any) => (
-                <div key={feature.id} className="flex items-center gap-3">
-                  <div className={`shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${
-                    feature.is_available ? "bg-green-500/10" : "bg-red-500/10"
-                  }`}>
+                <div key={feature.id} className="flex items-start gap-4 group/item">
+                  <div className={cn(
+                    "shrink-0 w-6 h-6 rounded-lg flex items-center justify-center transition-all duration-300",
+                    feature.is_available 
+                      ? "bg-primary/10 text-primary group-hover/item:scale-110" 
+                      : "bg-red-500/5 text-red-500/30"
+                  )}>
                     {feature.is_available ? (
-                      <Check className="w-3 h-3 text-green-500" />
+                      <Check className="w-4 h-4 stroke-[3px]" />
                     ) : (
-                      <X className="w-3 h-3 text-red-500" />
+                      <X className="w-4 h-4" />
                     )}
                   </div>
-                  <span className={`text-sm ${feature.is_available ? "text-gray-300" : "text-gray-500 line-through"}`}>
+                  <span className={cn(
+                    "text-base transition-colors",
+                    feature.is_available 
+                      ? "text-muted-foreground group-hover/item:text-foreground" 
+                      : "text-muted-foreground/40 line-through decoration-red-500/20"
+                  )}>
                     {feature.feature_text}
                   </span>
                 </div>
@@ -121,9 +109,12 @@ export default function PricingCards() {
 
             <AppButton 
               variant={pkg.is_featured ? "orange" : "outline"} 
-              className="w-full rounded-2xl py-6 font-bold"
+              className={cn(
+                "w-full rounded-2xl py-8 font-black text-lg transition-all duration-500",
+                pkg.is_featured ? "shadow-lg shadow-primary/20" : "hover:bg-primary/5"
+              )}
             >
-              ابدأ مع الباقة {pkg.name}
+              اختيار باقة {pkg.name}
             </AppButton>
           </div>
         ))}

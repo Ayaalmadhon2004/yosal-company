@@ -1,8 +1,10 @@
 "use client";
+
 import { useState } from "react";
 import { AppButton } from "../ui/AppButton";
 import { sendProjectRequest } from "@/lib/api";
 import toast from "react-hot-toast";
+import { Send, Globe, Mail, Phone, User, CheckCircle } from "lucide-react";
 
 export default function ReadyForm() {
   const [loading, setLoading] = useState(false);
@@ -16,32 +18,38 @@ export default function ReadyForm() {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
       phone: formData.get("phone") as string,
-      project_url: formData.get("project_url") as string,
+      project_url: (formData.get("project_url") as string) || "لا يوجد رابط",
+      // إضافة قيم افتراضية للحقول المطلوبة في الـ API لمنع خطأ 422
+      service_type: "طلب تقييم أولي",
+      description: "تم إرسال الطلب عبر نموذج 'ابدأ اليوم' في الصفحة الرئيسية.",
     };
 
     try {
       const result = await sendProjectRequest(data);
 
-      // الفحص بناءً على رد السيرفر "Success"
-      if (result.status === "Success") {
-        toast.success("تم إرسال طلبك بنجاح! سنتواصل معك قريباً.", {
+      if (result.status === "Success" || result.success) {
+        toast.success("تم إرسال طلبك بنجاح! فريقنا سيتواصل معك قريباً.", {
+          icon: <CheckCircle className="text-emerald-500" />,
           style: {
-            background: '#12162b',
-            color: '#fff',
-            border: '1px solid #22c55e',
+            background: 'var(--secondary)',
+            color: 'var(--foreground)',
+            border: '1px solid rgba(34, 197, 94, 0.2)',
+            borderRadius: '1rem',
+            fontWeight: 'bold',
           },
         });
-        (e.target as HTMLFormElement).reset(); // تفريغ الحقول
+        (e.target as HTMLFormElement).reset();
       } else {
-        // في حال وجود خطأ 422 أو خطأ في البيانات المرسلة
-        throw new Error(result.message || "حدث خطأ في البيانات المرسلة");
+        throw new Error(result.message || "حدث خطأ في معالجة البيانات");
       }
     } catch (err: any) {
       toast.error(err.message || "عذراً، فشل الإرسال. يرجى المحاولة لاحقاً.", {
         style: {
-          background: '#12162b',
-          color: '#fff',
-          border: '1px solid #ef4444',
+          background: 'var(--secondary)',
+          color: 'var(--foreground)',
+          border: '1px solid rgba(239, 68, 68, 0.2)',
+          borderRadius: '1rem',
+          fontWeight: 'bold',
         },
       });
     } finally {
@@ -50,55 +58,80 @@ export default function ReadyForm() {
   };
 
   return (
-    <div className="bg-[#0a0d1d] border border-white/5 p-8 lg:p-10 rounded-[45px] shadow-2xl w-full max-w-2xl">
-      <h3 className="text-2xl font-bold text-white mb-10 text-right">ابدأ اليوم</h3>
+    <div className="bg-secondary/40 backdrop-blur-xl border border-white/5 p-8 lg:p-12 rounded-[3rem] shadow-2xl w-full max-w-2xl relative overflow-hidden group">
+      {/* لمسة جمالية في الخلفية */}
+      <div className="absolute top-0 left-0 w-32 h-32 bg-primary/5 blur-[80px] -z-10 rounded-full group-hover:bg-primary/10 transition-colors" />
+      
+      <div className="flex items-center justify-between mb-12">
+         <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary">
+            <Send className="w-6 h-6 rotate-180" />
+         </div>
+         <h3 className="text-3xl font-black text-foreground text-right italic">ابدأ اليوم</h3>
+      </div>
       
       <form onSubmit={handleSubmit} className="space-y-8" dir="rtl">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* الاسم */}
           <div className="space-y-3 text-right">
-            <label htmlFor="full_name" className="text-gray-200 text-sm pr-2 font-bold block">الاسم</label>
+            <label htmlFor="full_name" className="text-foreground text-sm pr-2 font-black flex items-center gap-2">
+              <User size={14} className="text-primary" />
+              الاسم
+            </label>
             <input 
               id="full_name"
               name="name" 
               type="text" 
-              placeholder="أدخل اسمك"
+              placeholder="الاسم الكامل"
               required
-              className="w-full bg-[#12162b] border border-white/10 rounded-2xl p-4 text-white outline-none focus:border-orange-500/50 transition-all placeholder:text-gray-500"
+              className="w-full /50 border border-white/10 rounded-[1.2rem] p-4 text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-bold"
             />
           </div>
+
+          {/* البريد */}
           <div className="space-y-3 text-right">
-            <label htmlFor="user_email" className="text-gray-200 text-sm pr-2 font-bold block">البريد الإلكتروني</label>
+            <label htmlFor="user_email" className="text-foreground text-sm pr-2 font-black flex items-center gap-2">
+              <Mail size={14} className="text-primary" />
+              البريد الإلكتروني
+            </label>
             <input 
               id="user_email"
               name="email"
               type="email" 
               placeholder="example@mail.com"
               required
-              className="w-full bg-[#12162b] border border-white/10 rounded-2xl p-4 text-white outline-none focus:border-orange-500/50 transition-all placeholder:text-gray-500"
+              className="w-full /50 border border-white/10 rounded-[1.2rem] p-4 text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-bold"
             />
           </div>
         </div>
 
+        {/* الجوال */}
         <div className="space-y-3 text-right">
-          <label htmlFor="user_phone" className="text-gray-200 text-sm pr-2 font-bold block">رقم الجوال</label>
+          <label htmlFor="user_phone" className="text-foreground text-sm pr-2 font-black flex items-center gap-2">
+            <Phone size={14} className="text-primary" />
+            رقم الجوال
+          </label>
           <input 
             id="user_phone"
             name="phone"
             type="tel" 
             placeholder="05xxxxxxxx"
             required
-            className="w-full bg-[#12162b] border border-white/10 rounded-2xl p-4 text-white outline-none focus:border-orange-500/50 transition-all placeholder:text-gray-500"
+            className="w-full /50 border border-white/10 rounded-[1.2rem] p-4 text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-bold tracking-widest"
           />
         </div>
 
+        {/* الرابط */}
         <div className="space-y-3 text-right">
-          <label htmlFor="project_link" className="text-gray-200 text-sm pr-2 font-bold block">رابط المشروع / الموقع</label>
+          <label htmlFor="project_link" className="text-foreground text-sm pr-2 font-black flex items-center gap-2">
+            <Globe size={14} className="text-primary" />
+            رابط المشروع / الموقع
+          </label>
           <input 
             id="project_link"
             name="project_url" 
             type="url" 
-            placeholder="https://..."
-            className="w-full bg-[#12162b] border border-white/10 rounded-2xl p-4 text-white outline-none focus:border-orange-500/50 transition-all placeholder:text-gray-500"
+            placeholder="https://yourwebsite.com"
+            className="w-full /50 border border-white/10 rounded-[1.2rem] p-4 text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-bold"
           />
         </div>
 
@@ -107,9 +140,12 @@ export default function ReadyForm() {
           variant="orange"
           size="lg"
           disabled={loading}
-          className="w-full font-black py-7 rounded-3xl text-xl shadow-[0_10px_25px_rgba(245,130,32,0.3)] transition-all"
+          className="w-full font-black py-8 rounded-[1.5rem] text-xl shadow-xl shadow-primary/20 hover:scale-[1.01] active:scale-95 transition-all group/btn overflow-hidden relative"
         >
-          {loading ? "جاري الإرسال..." : "أحصل على التقييم"}
+          <span className="relative z-10 flex items-center justify-center gap-3">
+            {loading ? "جاري الإرسال..." : "أحصل على التقييم"}
+            {!loading && <Send size={20} className="rotate-180 group-hover:-translate-x-2 transition-transform" />}
+          </span>
         </AppButton>
       </form>
     </div>

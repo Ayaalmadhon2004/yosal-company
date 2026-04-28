@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { Mail, Sparkles, Loader2, CheckCircle2 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function SubscriptionForm() {
   const [email, setEmail] = useState("");
@@ -12,43 +14,86 @@ export default function SubscriptionForm() {
     setLoading(true);
 
     try {
-      // استبدلي هذا الرابط برابط الباك إيند الحقيقي الخاص بكِ
-      const res = await fetch("https://your-api-endpoint.com/subscribe", {
+      // تم تحديث الرابط ليتوافق مع هيكلية الـ API الخاص بكِ إذا توفر للنشرة
+      const res = await fetch("https://yosaal-website-backend.onrender.com/api/v1/subscribe", {
         method: "POST",
         body: JSON.stringify({ email }),
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
       });
 
       if (res.ok) {
-        toast.success("تم الاشتراك بنجاح! تفقد بريدك.");
+        toast.success("أهلاً بك في عائلة يوصل! سيصلك الإلهام قريباً.", {
+          icon: <Sparkles className="text-primary" />,
+          style: {
+            background: 'var(--secondary)',
+            color: 'var(--foreground)',
+            borderRadius: '1rem',
+            border: '1px solid rgba(255, 138, 51, 0.2)',
+          }
+        });
         setEmail("");
       } else {
         throw new Error();
       }
     } catch (error) {
-      toast.error("حدث خطأ، يرجى المحاولة لاحقاً.");
+      toast.error("حدث خطأ بسيط، حاول مجدداً بعد ثوانٍ.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4 max-w-lg mx-auto pt-4">
-      <input 
-        type="email" 
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="بريدك الإلكتروني" 
-        className="flex-grow bg-[#0a0d1d] border border-gray-800 rounded-2xl px-6 py-4 text-white outline-none focus:border-orange-500 transition-all text-sm"
-        required
-      />
-      <button 
-        type="submit"
-        disabled={loading}
-        className="bg-[#ffb38a] hover:bg-orange-500 text-[#0a0d1d] hover:text-white font-bold px-10 py-4 rounded-2xl transition-all shadow-lg active:scale-95 disabled:opacity-50"
+    <div className="w-full max-w-xl mx-auto group">
+      <form 
+        onSubmit={handleSubmit} 
+        className="relative flex flex-col sm:flex-row gap-3 p-2 bg-secondary/30 backdrop-blur-md rounded-[2rem] border border-white/5 focus-within:border-primary/30 transition-all duration-500 shadow-2xl"
+        dir="rtl"
       >
-        {loading ? "جاري الإرسال..." : "اشترك الآن"}
-      </button>
-    </form>
+        {/* حقل الإدخال */}
+        <div className="relative flex-grow flex items-center">
+          <div className="absolute right-5 text-muted-foreground group-focus-within:text-primary transition-colors">
+            <Mail size={18} />
+          </div>
+          <input 
+            type="email" 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="بريدك الإلكتروني للحصول على الإلهام..." 
+            className="w-full bg-transparent pr-12 pl-4 py-4 text-foreground outline-none placeholder:text-muted-foreground/30 font-bold text-sm"
+            required
+          />
+        </div>
+
+        {/* زر الاشتراك */}
+        <button 
+          type="submit"
+          disabled={loading}
+          className={cn(
+            "relative overflow-hidden px-8 py-4 rounded-2xl font-black text-sm transition-all duration-300 flex items-center justify-center gap-2 min-w-[140px]",
+            "bg-primary text-white shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 disabled:opacity-70"
+          )}
+        >
+          {loading ? (
+            <Loader2 className="w-5 h-5 animate-spin" />
+          ) : (
+            <>
+              <span>اشترك الآن</span>
+              <CheckCircle2 className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </>
+          )}
+          
+          {/* تأثير ضوئي عند التحويم */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer" />
+        </button>
+      </form>
+      
+      {/* نص طمأنة أسفل الفورم */}
+      <p className="text-[10px] text-muted-foreground/50 mt-4 text-center font-medium italic">
+        * انضم لـ +2000 مشترك، يمكنك إلغاء الاشتراك في أي وقت (لكنك لن ترغب في ذلك 😉).
+      </p>
+    </div>
   );
 }

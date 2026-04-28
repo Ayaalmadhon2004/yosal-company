@@ -1,21 +1,22 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChevronDown, HelpCircle } from "lucide-react";
+import { ChevronDown, HelpCircle, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AnimatePresence, motion } from "framer-motion"; // نصيحة: استخدمي framer-motion للسلاسة
 
 const faqs = [
   {
     question: "هل يمكنني تغيير باقتي لاحقاً؟",
-    answer: "نعم، يمكنك ترقية باقتك أو تعديلها في أي وقت بما يتناسب مع احتياجات نمو مشروعك. فريقنا سيساعدك في عملية الانتقال بسلاسة."
+    answer: "نعم، يمكنك ترقية باقتك أو تعديلها في أي وقت بما يتناسب مع احتياجات نمو مشروعك. فريقنا سيساعدك في عملية الانتقال بسلاسة دون انقطاع في خدماتك."
   },
   {
     question: "هل تشمل الباقات ميزانية الإعلانات؟",
-    answer: "لا، الباقات تشمل أتعاب الإدارة والتنفيذ الإبداعي. ميزانية الإعلانات (الممولة) يتم دفعها مباشرة للمنصات (مثل فيسبوك أو جوجل) حسب الميزانية التي تحددها."
+    answer: "لا، الباقات تشمل أتعاب الإدارة والتنفيذ الإبداعي والاستراتيجي. ميزانية الإعلانات (الممولة) يتم دفعها مباشرة للمنصات (مثل فيسبوك أو جوجل) حسب الميزانية التي نحددها سوياً بناءً على أهدافك."
   },
   {
-    question: "ما هو مدة الالتزام بالباقة؟",
-    answer: "نعمل بنظام شهري مرن، ومع ذلك ننصح دائماً بالاستمرار لمدة 3 أشهر على الأقل لرؤية نتائج ملموسة وتحليلات دقيقة لأداء الحملات."
+    question: "ما هي مدة الالتزام بالباقة؟",
+    answer: "نعمل بنظام شهري مرن يمنحك كامل الحرية. ومع ذلك، ننصح دائماً بالاستمرار لمدة 3 أشهر على الأقل؛ فهذه المدة كفيلة ببناء قاعدة بيانات قوية وتحقيق نتائج ملموسة وقابلة للقياس."
   }
 ];
 
@@ -23,56 +24,73 @@ export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-24 bg-[#0a0d1d]" dir="rtl">
-      <div className="container mx-auto px-6 max-w-3xl">
+    <section className="py-24  relative overflow-hidden" dir="rtl">
+      {/* لمسة خلفية هادئة */}
+      <div className="absolute bottom-0 right-0 w-64 h-64 bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
+
+      <div className="container mx-auto px-6 max-w-3xl relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-black text-white mb-4">الأسئلة الشائعة</h2>
-          <div className="w-20 h-1.5 bg-[#F58220] mx-auto rounded-full" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full text-primary text-xs font-bold mb-4">
+            <Sparkles className="w-3 h-3" />
+            <span>لديك تساؤلات؟</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-black text-foreground mb-4">الأسئلة الشائعة</h2>
+          <div className="w-16 h-1 bg-primary mx-auto rounded-full opacity-50" />
         </div>
 
         <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <div 
-              key={index}
-              className={cn(
-                "border border-gray-800 rounded-2xl overflow-hidden transition-all duration-300",
-                openIndex === index ? "bg-[#1A1C2E] border-[#F58220]/50" : "bg-[#12162b]/50"
-              )}
-            >
-              <button
-                onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full flex items-center justify-between p-6 text-right"
+          {faqs.map((faq, index) => {
+            const isOpen = openIndex === index;
+            return (
+              <div 
+                key={index}
+                className={cn(
+                  "group border rounded-[2rem] overflow-hidden transition-all duration-500",
+                  isOpen 
+                    ? "bg-secondary/30 border-primary/40 shadow-xl shadow-primary/5" 
+                    : "bg-secondary/10 border-white/5 hover:border-white/10"
+                )}
               >
-                <div className="flex items-center gap-4">
-                  <div className={cn(
-                    "w-8 h-8 rounded-lg flex items-center justify-center transition-colors",
-                    openIndex === index ? "bg-[#F58220] text-white" : "bg-gray-800 text-gray-400"
-                  )}>
-                    <HelpCircle className="w-5 h-5" />
+                <button
+                  onClick={() => setOpenIndex(isOpen ? null : index)}
+                  className="w-full flex items-center justify-between p-6 md:p-8 text-right outline-none"
+                >
+                  <div className="flex items-center gap-5">
+                    <div className={cn(
+                      "w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300",
+                      isOpen ? "bg-primary text-white rotate-[15deg]" : "bg-secondary/50 text-muted-foreground group-hover:text-primary"
+                    )}>
+                      <HelpCircle className="w-5 h-5" />
+                    </div>
+                    <span className={cn(
+                      "text-lg md:text-xl font-black transition-colors",
+                      isOpen ? "text-foreground" : "text-muted-foreground group-hover:text-foreground"
+                    )}>
+                      {faq.question}
+                    </span>
                   </div>
-                  <span className={cn(
-                    "text-lg font-bold transition-colors",
-                    openIndex === index ? "text-white" : "text-gray-300"
-                  )}>
-                    {faq.question}
-                  </span>
-                </div>
-                <ChevronDown className={cn(
-                  "w-5 h-5 text-gray-500 transition-transform duration-300",
-                  openIndex === index && "rotate-180 text-[#F58220]"
-                )} />
-              </button>
-              
-              <div className={cn(
-                "overflow-hidden transition-all duration-300",
-                openIndex === index ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
-              )}>
-                <div className="p-6 pt-0 text-gray-400 leading-relaxed mr-12">
-                  {faq.answer}
+                  <ChevronDown className={cn(
+                    "w-6 h-6 text-muted-foreground transition-all duration-500",
+                    isOpen && "rotate-180 text-primary"
+                  )} />
+                </button>
+                
+                {/* الجزء الخاص بالإجابة مع أنيميشن سلس */}
+                <div 
+                  className={cn(
+                    "grid transition-all duration-500 ease-in-out",
+                    isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                  )}
+                >
+                  <div className="overflow-hidden">
+                    <div className="p-8 pt-0 text-muted-foreground leading-relaxed text-base md:text-lg mr-14 border-r-2 border-primary/20 ml-6 mb-4">
+                      {faq.answer}
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

@@ -21,13 +21,13 @@ export async function getDashboardData() {
     }
 }
 
-export async function getPosts(search?: string, category?: string, page: number = 1) {
+export async function getPosts(search?: string, category?: string, page: number = 1) { 
     try {
-        const url = new URL(API_ENDPOINTS.POSTS);
+        const url = new URL(API_ENDPOINTS.POSTS); 
 
         if (search) url.searchParams.append('search', search);
         if (category) url.searchParams.append('category', category);
-        url.searchParams.append('page', page.toString());
+        url.searchParams.append('page', page.toString()); 
 
         const res = await fetch(url.toString(), {
             next: { revalidate: 600 }
@@ -35,45 +35,10 @@ export async function getPosts(search?: string, category?: string, page: number 
 
         if (!res.ok) throw new Error("Failed to fetch posts");
 
-        const json = await res.json();
+        const json = await res.json(); 
         return json;
     } catch (error) {
-        return { data: [], meta: {} };
-    }
-}
-
-export async function sendProjectRequest(data: any) {
-    try {
-        const formData = new FormData();
-        formData.append('project_name', data.name); 
-        formData.append('service_type', 'خدمة عامة'); 
-        formData.append('budget', '0'); 
-        formData.append('description', data.project_url || 'طلب تقييم من الموقع');
-        formData.append('main_goals', 'تقييم المشروع'); 
-        const fullDescription = `الإيميل: ${data.email} | الهاتف: ${data.phone} | الرابط: ${data.project_url}`;
-        formData.set('description', fullDescription);
-
-        const res = await fetch(API_ENDPOINTS.PROJECT_REQUEST, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-            },
-            body: formData
-        });
-
-        const result = await res.json();
-        return result;
-    } catch (error) {
-        return { success: false, message: "Connection error" };
-    }
-}
-
-export async function getTestimonials() {
-    try {
-        const data = await getDashboardData();
-        return data?.testimonials || [];
-    } catch (error) {
-        return [];
+        return { data: [], meta: {} }; 
     }
 }
 
@@ -90,5 +55,46 @@ export async function getPostBySlug(slug: string) {
     } catch (error) {
         console.error(error);
         return null;
+    }
+}
+
+export async function sendProjectRequest(data: any) {
+    try {
+        const formData = new FormData();
+        formData.append('project_name', data.name); 
+        formData.append('service_type', 'تقييم مشروع'); 
+        formData.append('budget', '0'); 
+        formData.append('main_goals', 'طلب تقييم للموقع من نموذج تواصل معنا'); 
+        
+        const fullDescription = `
+            إيميل العميل: ${data.email}
+            رقم الهاتف: ${data.phone}
+            رابط المشروع: ${data.project_url || 'لا يوجد'}
+        `;
+        formData.append('description', fullDescription);
+
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/project-request`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+            },
+            body: formData 
+        });
+
+        const result = await res.json();
+        return result;
+        
+    } catch (error) {
+        console.error("API Error:", error);
+        return { status: "Error", message: "حدث خطأ في الاتصال بالسيرفر" };
+    }
+}
+
+export async function getTestimonials() {
+    try {
+        const data = await getDashboardData();
+        return data?.testimonials || [];
+    } catch (error) {
+        return [];
     }
 }

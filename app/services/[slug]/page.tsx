@@ -27,11 +27,11 @@ const ReadyResults = dynamic(() => import("@/components/sections/ReadyResults"),
   ssr: true,
   loading: () => <SkeletonLoader />
 });
-const Testimonials = dynamic(() => import("@/components/sections/Testimonials"), { 
+const Testimonials = dynamic(() => import("@/components/sections/home/Testimonials"), { 
   ssr: true,
   loading: () => <SkeletonLoader />
 });
-const Faqs = dynamic(() => import("@/components/sections/Faqs"), { 
+const Faqs = dynamic(() => import("@/components/sections/home/Faqs"), { 
   ssr: true,
   loading: () => <SkeletonLoader />
 });

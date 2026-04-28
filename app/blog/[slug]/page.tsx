@@ -60,7 +60,6 @@ export default async function BlogPostPage({
               </div>
               <span className="flex items-center gap-2 text-sm">
                 <Calendar className="w-4 h-4" /> 
-                {/* استخدام الحقل date مباشرة كما هو في الـ JSON */}
                 {post.date} 
               </span>
               <span className="flex items-center gap-2 text-sm">
@@ -107,7 +106,6 @@ export default async function BlogPostPage({
         </aside>
       </section>
 
-      {/* سكشن المقالات المقترحة */}
       <section className="bg-[#0c1026] py-20 border-t border-gray-800/50">
         <div className="container mx-auto px-6">
           <div className="flex justify-between items-center mb-12">
