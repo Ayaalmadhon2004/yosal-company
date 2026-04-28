@@ -43,7 +43,7 @@ export default async function Home() {
   };
 
   return (
-    <main className="block w-full bg-zinc-50 font-sans dark:bg-black">
+    <main className="block w-full bg-[#0a0d1d] font-sans">
       <Hero />
       
       <div className="space-y-4">

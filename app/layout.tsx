@@ -3,6 +3,7 @@ import { Cairo } from 'next/font/google';
 import "./globals.css"; 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { Toaster } from "react-hot-toast";
 
 const cairo = Cairo({
   subsets: ['arabic'],
@@ -26,6 +27,7 @@ export default function RootLayout({
       <body className={`${cairo.className} bg-background text-white antialiased`}>
         <Navbar/>
         {children}
+        <Toaster position="bottom-center" reverseOrder={false} />
         <Footer/>
       </body>
     </html>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Calendar, Clock, Share2, Bookmark, ArrowRight } from "lucide-react";
 import { getPostBySlug, getPosts } from "@/lib/api";
 import { notFound } from "next/navigation";
+import ShareActions from "@/components/sections/blog/ShareActions";
 
 export default async function BlogPostPage({ 
   params 
@@ -16,8 +17,7 @@ export default async function BlogPostPage({
     notFound();
   }
 
-  // جلب مقالات مقترحة (من نفس القسم مثلاً)
-  const relatedResponse = await getPosts(undefined, post.category?.name, 1);
+  const relatedResponse = await getPosts(undefined, post.category, 1);
   const relatedPosts = relatedResponse?.data?.data?.filter((p: any) => p.slug !== slug).slice(0, 4) || [];
 
   return (
@@ -37,7 +37,7 @@ export default async function BlogPostPage({
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl space-y-6">
             <span className="bg-orange-500/20 text-orange-500 px-4 py-1.5 rounded-lg text-sm font-bold border border-orange-500/30">
-              {post.category?.name || "عام"}
+              {post.category || "عام"}
             </span>
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
               {post.title}
@@ -60,7 +60,8 @@ export default async function BlogPostPage({
               </div>
               <span className="flex items-center gap-2 text-sm">
                 <Calendar className="w-4 h-4" /> 
-                {new Date(post.created_at).toLocaleDateString('ar-EG')}
+                {/* استخدام الحقل date مباشرة كما هو في الـ JSON */}
+                {post.date} 
               </span>
               <span className="flex items-center gap-2 text-sm">
                 <Clock className="w-4 h-4" /> 5 دقائق قراءة
@@ -78,18 +79,12 @@ export default async function BlogPostPage({
         <article className="flex-1">
           <div 
             className="prose prose-invert prose-orange max-w-none 
-                       prose-p:text-gray-300 prose-p:leading-loose prose-p:text-lg
-                       prose-headings:text-white prose-headings:font-bold
-                       prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-6 prose-h3:border-r-4 prose-h3:border-orange-500 prose-h3:pr-4"
-            dangerouslySetInnerHTML={{ __html: post.content || "" }} 
+            prose-p:text-gray-300 prose-p:leading-loose prose-p:text-lg
+            prose-headings:text-white prose-headings:font-bold
+            prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-6 prose-h3:border-r-4 prose-h3:border-orange-500 prose-h3:pr-4"
+            dangerouslySetInnerHTML={{ __html: post.content || post.short_description || "" }} 
           />
-          
-          <div className="flex items-center justify-between py-8 border-y border-gray-800 mt-16">
-              <span className="text-white font-bold">أعجبك المقال؟ شاركه مع زملائك</span>
-              <div className="flex gap-4">
-                 <button className="bg-[#12162b] px-6 py-2 rounded-full text-xs text-gray-400 border border-gray-800 hover:border-orange-500/50 transition-all">نسخ الرابط</button>
-              </div>
-          </div>
+          <ShareActions />
         </article>
 
         <aside className="w-full lg:w-80 space-y-10">
@@ -112,6 +107,7 @@ export default async function BlogPostPage({
         </aside>
       </section>
 
+      {/* سكشن المقالات المقترحة */}
       <section className="bg-[#0c1026] py-20 border-t border-gray-800/50">
         <div className="container mx-auto px-6">
           <div className="flex justify-between items-center mb-12">
