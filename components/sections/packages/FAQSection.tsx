@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { ChevronDown, HelpCircle, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "framer-motion"; // نصيحة: استخدمي framer-motion للسلاسة
+import { AnimatePresence, motion } from "framer-motion"; 
 
 const faqs = [
   {
