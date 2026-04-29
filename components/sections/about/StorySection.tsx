@@ -8,13 +8,11 @@ import { cn } from "@/lib/utils";
 export default function StorySection() {
   return (
     <section className="py-24  overflow-hidden text-right relative" dir="rtl">
-      {/* عناصر خلفية زخرفية */}
       <div className="absolute top-1/4 -right-20 w-96 h-96 bg-primary/5 blur-[120px] rounded-full -z-10 animate-pulse" />
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
           
-          {/* المحتوى النصي */}
           <div className="lg:w-1/2 space-y-10 order-2 lg:order-1">
             <div>
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/30 border border-white/5 text-primary mb-6 backdrop-blur-sm">
@@ -69,7 +67,6 @@ export default function StorySection() {
                 priority
                 className="object-cover transition-transform duration-1000 group-hover:scale-110"
               />
-              {/* تدرج لوني خفيف فوق الصورة */}
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent pointer-events-none" />
             </div>
             

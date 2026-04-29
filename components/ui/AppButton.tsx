@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Slot } from "@radix-ui/react-slot" // استيراد الـ Slot
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
@@ -15,7 +16,7 @@ const buttonVariants = cva(
       size: {
         sm: "h-9 px-5 text-sm rounded-xl",
         md: "h-12 px-8 text-base rounded-xl",
-        lg: "h-14 px-10 text-lg rounded-2xl", // للـ Hero و CTA
+        lg: "h-14 px-10 text-lg rounded-2xl",
       },
     },
     defaultVariants: {
@@ -27,12 +28,17 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {}
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean // إضافة التعريف هنا
+}
 
 const AppButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    // إذا كانت asChild مفعلة، نستخدم Slot، وإلا نستخدم button
+    const Comp = asChild ? Slot : "button"
+    
     return (
-      <button
+      <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}

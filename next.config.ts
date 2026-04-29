@@ -1,10 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    // 1. إضافة تنسيقات الصور الحديثة (WebP و AVIF) لتقليل حجم الصور بنسبة 30% إضافية
+    formats: ['image/avif', 'image/webp'],
+    
     remotePatterns: [
       {
-        protocol: 'http',
-        port:"",
+        protocol: 'http', // تأكدي لو كان السيرفر يدعم https يفضل تغييره
         hostname: 'yosaal-website-backend.onrender.com',
         pathname: '/**',
       },
@@ -18,11 +20,19 @@ const nextConfig = {
         hostname: 'res.cloudinary.com',
         pathname: '/**',
       },
-    ], 
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    ],
+    deviceSizes: [640, 828, 1200, 1920],
+    imageSizes: [16, 48, 96, 256, 384],
+    minimumCacheTTL: 60,
   },
-  reactStrictMode: true, 
+
+  compress: true,
+  swcMinify: true,
+  reactStrictMode: true,
+  
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
+  },
 };
 
 module.exports = nextConfig;

@@ -26,7 +26,6 @@ export default function ServiceHero({
   
   const isValidImage = typeof mainImage === "string" && mainImage.trim() !== "";
 
-  // منطق روابط الواتساب المخصصة
   const getWhatsAppLink = () => {
     const b = badge?.toUpperCase() || "";
     if (b.includes("SOCIAL")) return "https://wa.link/1992gd";
@@ -41,14 +40,12 @@ export default function ServiceHero({
   const whatsappUrl = getWhatsAppLink();
 
   return (
-    <section className="relative pt-32 pb-20 overflow-hidden ">
-      {/* تأثير الإضاءة الخلفي الموحد */}
+    <section className="relative pt-32 pb-20 overflow-hidden">
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 blur-[150px] rounded-full -z-10 animate-pulse-slow" />
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center text-right" dir="rtl">
           
-          {/* محتوى النصوص */}
           <div className="order-2 lg:order-1">
             <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-bold mb-6 tracking-wide border border-primary/20">
               {badge}
@@ -69,15 +66,15 @@ export default function ServiceHero({
               {description}
             </p>
 
-            {/* الأزرار التفاعلية */}
             <div className="flex flex-wrap gap-4 mb-12 justify-start">
               <a 
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                title="تواصل معنا عبر واتساب"
                 className="px-10 py-5 rounded-2xl bg-primary text-white font-extrabold flex items-center gap-3 hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 group"
               >
-                <MessageSquare className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                <MessageSquare className="w-5 h-5 group-hover:rotate-12 transition-transform" aria-hidden="true" />
                 ابدأ رحلتك الآن
               </a>
               
@@ -86,16 +83,16 @@ export default function ServiceHero({
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="احجز استشارة مجانية"
                   className="px-10 py-5 rounded-2xl bg-white/5 text-foreground font-bold border border-white/10 hover:bg-white/10 transition-all flex items-center gap-3 group"
                 >
-                  <Calendar className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                  <Calendar className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" aria-hidden="true" />
                   احجز استشارة مجانية
                 </a>
               )}
             </div>
           </div>
 
-          {/* الجانب البصري: الصورة والإحصائيات */}
           <div className="order-1 lg:order-2 relative group">
             <div className="relative overflow-visible">
               
@@ -115,11 +112,11 @@ export default function ServiceHero({
                   <>
                     <Image 
                       src={mainImage} 
-                      alt={`تصميم يمثل خدمة ${title}`}
+                      alt={`وكالة يوصل - خدمة ${title}`}
                       fill
                       priority 
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      quality={90}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                      quality={80}
                       className="object-cover transition-transform duration-1000 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
@@ -131,7 +128,6 @@ export default function ServiceHero({
                 )}
               </div>
             </div>
-            {/* توهج خلف الصورة */}
             <div className="absolute inset-0 bg-primary/20 blur-[100px] rounded-full -z-10 opacity-30 group-hover:opacity-50 transition-opacity duration-1000" />
           </div>
 

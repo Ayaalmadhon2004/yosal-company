@@ -12,36 +12,48 @@ export default function ContactForm() {
   });
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    setStatus({ type: null, msg: "" });
+  e.preventDefault();
+  
+  // 1. احفظي المرجع للفورم هنا قبل أي await
+  const form = e.currentTarget; 
+  
+  setLoading(true);
+  setStatus({ type: null, msg: "" });
 
-    const formData = new FormData(e.currentTarget);
+  const formData = new FormData(form); // استخدمي المتغير الجديد
 
-    try {
-      const response = await fetch('https://yosaal-website-backend.onrender.com/api/v1/project-request', {
-        method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: formData,
+  try {
+    const response = await fetch('https://yosaal-website-backend.onrender.com/api/v1/project-request', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const result = await response.json();
+
+    if (response.ok && (result.status === "Success" || result.success)) {
+      setStatus({ 
+        type: "success", 
+        msg: result.message || "تم استلام طلبك بنجاح!" 
       });
-
-      const result = await response.json();
-
-      if (response.ok && (result.status === "Success" || result.success)) {
-        setStatus({ type: "success", msg: result.message || "تم استلام طلبك بنجاح! سيتواصل معك فريقنا قريباً." });
-        e.currentTarget.reset();
-      } else {
-        setStatus({ type: "error", msg: result.message || "عذراً، حدث خطأ أثناء الإرسال. يرجى المحاولة ثانية." });
-      }
-    } catch (error) {
+      
+      // 2. استخدمي المتغير 'form' بدلاً من 'e.currentTarget'
+      form.reset(); 
+      
+    } else {
       setStatus({ 
         type: "error", 
-        msg: "يبدو أن السيرفر في استراحة قصيرة، يرجى المحاولة بعد لحظات." 
+        msg: result.message || "عذراً، حدث خطأ أثناء الإرسال." 
       });
-    } finally {
-      setLoading(false);
     }
-  };
+  } catch (error) {
+    setStatus({ 
+      type: "error", 
+      msg: "يبدو أن السيرفر في استراحة قصيرة، يرجى المحاولة بعد لحظات." 
+    });
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="relative group">

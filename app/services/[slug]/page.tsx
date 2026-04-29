@@ -4,41 +4,69 @@ import dynamic from 'next/dynamic';
 import { servicesData } from "@/constants/servicesData";
 import ServiceHero from "@/components/sections/services/ServiceHero";
 
-const SkeletonLoader = () => (
-  <div className="animate-pulse container mx-auto px-6 py-20">
-    <div className="h-12 w-1/2 bg-white/5 rounded-2xl mb-8" />
-    <div className="h-64 w-full bg-white/5 rounded-[40px]" />
+/**
+ * تحسين الـ Skeleton Loader ليكون أكثر مطابقة لشكل السكاشن الحقيقية
+ * هذا يقلل من شعور المستخدم بالقفزات البصرية أثناء التحميل
+ */
+const SectionSkeleton = () => (
+  <div className="container mx-auto px-6 py-24 animate-pulse">
+    <div className="space-y-4">
+      <div className="h-10 w-1/3 bg-white/5 rounded-xl" />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="h-80 bg-white/5 rounded-[40px]" />
+        <div className="h-80 bg-white/5 rounded-[40px]" />
+      </div>
+    </div>
   </div>
 );
 
+// استيراد المكونات ديناميكياً مع تفعيل SSR للـ SEO
 const MarketComparison = dynamic(() => import("@/components/sections/services/MarketComparison"), { 
   ssr: true,
-  loading: () => <SkeletonLoader /> 
+  loading: () => <SectionSkeleton /> 
 });
 const StrategyDeliverables = dynamic(() => import("@/components/sections/services/StrategyDeliverables"), { 
   ssr: true,
-  loading: () => <SkeletonLoader />
+  loading: () => <SectionSkeleton />
 });
 const StrategySteps = dynamic(() => import("@/components/sections/services/StrategySteps"), { 
   ssr: true,
-  loading: () => <SkeletonLoader />
+  loading: () => <SectionSkeleton />
 });
 const ReadyResults = dynamic(() => import("@/components/sections/ReadyResults"), { 
   ssr: true,
-  loading: () => <SkeletonLoader />
+  loading: () => <SectionSkeleton />
 });
 const Testimonials = dynamic(() => import("@/components/sections/home/Testimonials"), { 
   ssr: true,
-  loading: () => <SkeletonLoader />
+  loading: () => <SectionSkeleton />
 });
 const Faqs = dynamic(() => import("@/components/sections/home/Faqs"), { 
   ssr: true,
-  loading: () => <SkeletonLoader />
+  loading: () => <SectionSkeleton />
 });
 const WhyChooseUs = dynamic(() => import("@/components/sections/WhyChooseUs"), { 
   ssr: true,
-  loading: () => <SkeletonLoader />
+  loading: () => <SectionSkeleton />
 });
+
+// تحسين الـ Metadata لمحركات البحث (SEO)
+export async function generateMetadata({ params }: { params: any }) {
+  const { slug } = await params;
+  const data = servicesData[slug as keyof typeof servicesData];
+  
+  if (!data) return { title: "Service Not Found" };
+
+  return {
+    title: `${data.hero.title} | يوصل للخدمات التسويقية`,
+    description: data.hero.description,
+    openGraph: {
+      title: data.hero.title,
+      description: data.hero.description,
+      images: [data.hero.image],
+    },
+  };
+}
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -51,7 +79,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const isContentCreation = slug === "content-creation";
 
   return (
-    <main className="min-h-screen bg-[#0F111A]">
+    <main className="min-h-screen bg-[#0F111A] selection:bg-primary/30">
+      {/* الـ Hero يحمل مباشرة لأنه الجزء العلوي من الصفحة لتحسين LCP */}
       <ServiceHero 
         badge={data.hero.badge}
         title={data.hero.title}
@@ -61,21 +90,22 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         stats={data.hero.stats}
       />
 
-      <div className="space-y-10">
+      <div className="space-y-0"> {/* تم تصفير الـ space ليعتمد كل سكشن على الـ py الخاص به */}
+        
         {data.comparison && (
-          <Suspense fallback={<SkeletonLoader />}>
+          <Suspense fallback={<SectionSkeleton />}>
             <MarketComparison />
           </Suspense>
         )}
 
         {data.deliverables && (
-          <Suspense fallback={<SkeletonLoader />}>
+          <Suspense fallback={<SectionSkeleton />}>
             <StrategyDeliverables />
           </Suspense>
         )}
 
         {data.steps && (
-          <Suspense fallback={<SkeletonLoader />}>
+          <Suspense fallback={<SectionSkeleton />}>
             <StrategySteps 
               sectionTitle={isContentCreation ? "رحلتنا نحو التميز" : "خطوات تنفيذ الخدمة"}
               steps={data.steps} 
@@ -84,26 +114,27 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         )}
 
         {data.featuresSection && (
-          <Suspense fallback={<SkeletonLoader />}>
+          <Suspense fallback={<SectionSkeleton />}>
             <WhyChooseUs data={data.featuresSection} />
           </Suspense>
         )}
         
         {data.testimonials && (
-          <Suspense fallback={<SkeletonLoader />}>
+          <Suspense fallback={<SectionSkeleton />}>
             <Testimonials data={data.testimonials}/>
           </Suspense>
         )}
 
         {data.faqs && (
-          <Suspense fallback={<SkeletonLoader />}>
+          <Suspense fallback={<SectionSkeleton />}>
             <Faqs data={data.faqs}/>
           </Suspense>
         )}
 
+        {/* سكشن الـ Call to Action الأخير */}
         {!isContentCreation && (
-          <Suspense fallback={<SkeletonLoader />}>
-            <ReadyResults />
+          <Suspense fallback={<SectionSkeleton />}>
+            <ReadyResults variant="style2" />
           </Suspense>
         )}
       </div>
