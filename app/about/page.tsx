@@ -30,7 +30,7 @@ const ReadyResults = dynamic(() => import("@/components/sections/ReadyResults"),
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-brand-dark text-white overflow-x-hidden">
+    <main className="min-h-screen bg-background text-white overflow-x-hidden">
       
       <section className="relative z-10">
         <StorySection />

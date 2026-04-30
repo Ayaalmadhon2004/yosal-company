@@ -4,6 +4,10 @@ import { getDashboardData } from "@/lib/api";
 import { faqsData } from "@/constants/siteData";
 import Hero from "../components/sections/Hero";
 import Problems from "../components/sections/home/Problems"; 
+import WhyUs from "@/components/sections/home/WhyUs";
+import Stats from "@/components/sections/home/Stats";
+import CTA from "@/components/sections/home/CTA";
+import ReadySection from "@/components/sections/ReadyResults";
 
 const SkeletonLoader = () => (
   <div className="animate-pulse container mx-auto px-6 py-20">
@@ -51,17 +55,24 @@ export default async function Home() {
           <Portfolio data={data.projects} />
         </Suspense>
 
-        <Suspense fallback={<SkeletonLoader />}>
-          <Testimonials data={data.testimonials} />
-        </Suspense>
+        <WhyUs/>
+        <Stats/>
 
         <Suspense fallback={<SkeletonLoader />}>
           <Pricing data={data.packages} />
         </Suspense>
 
         <Suspense fallback={<SkeletonLoader />}>
+          <Testimonials data={data.testimonials} />
+        </Suspense>
+        <CTA/>
+
+
+        <Suspense fallback={<SkeletonLoader />}>
           <Faqs data={faqsData} />
         </Suspense>
+
+        <ReadySection/>
       </div>
     </main>
   );

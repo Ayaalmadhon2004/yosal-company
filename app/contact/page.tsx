@@ -16,7 +16,7 @@ export default function ContactPage() {
   const icons: any = { MessageSquare, Calendar, Mail };
 
   return (
-    <main className="min-h-screen bg-[#0a0d1d] py-20 px-4">
+    <main className="min-h-screen bg-background py-20 px-4">
       
       <section className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 mb-24 text-right" dir="rtl">
         <div className="w-full md:w-1/2">

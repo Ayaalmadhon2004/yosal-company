@@ -7,12 +7,14 @@ import { cn } from "@/lib/utils";
 
 export default function StorySection() {
   return (
-    <section className="py-24  overflow-hidden text-right relative" dir="rtl">
+    <section className="py-24 overflow-hidden text-right relative" dir="rtl">
+      {/* الخلفية المضيئة */}
       <div className="absolute top-1/4 -right-20 w-96 h-96 bg-primary/5 blur-[120px] rounded-full -z-10 animate-pulse" />
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
           
+          {/* المحتوى النصي */}
           <div className="lg:w-1/2 space-y-10 order-2 lg:order-1">
             <div>
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/30 border border-white/5 text-primary mb-6 backdrop-blur-sm">
@@ -34,7 +36,7 @@ export default function StorySection() {
               بدأت <span className="text-foreground font-bold">"يوصل"</span> من رؤية طموحة: كيف يمكن للتسويق الرقمي أن يكون محركاً حقيقياً للنمو وليس مجرد أرقام عابرة؟ انطلقنا لنغير مفهوم الوصول، حيث نضمن وصول رسالتك للجمهور الصحيح في اللحظة الحاسمة.
             </p>
 
-            {/* الإحصائيات بتصميم عصري */}
+            {/* الإحصائيات */}
             <div className="flex flex-wrap gap-10 pt-10 border-t border-white/5">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
@@ -57,20 +59,27 @@ export default function StorySection() {
             </div>
           </div>
 
-          {/* الصورة مع تأثيرات الإمالة */}
-          <div className="lg:w-1/2 relative order-1 lg:order-2 group">
-            <div className="relative z-10 rounded-[3.5rem] overflow-hidden border-8 border-secondary shadow-2xl transition-all duration-700 group-hover:rotate-0 -rotate-3 hover:scale-[1.02] aspect-square lg:aspect-auto lg:h-[600px]">
+          {/* قسم الصورة - تم حل مشكلة الظهور في الموبايل هنا */}
+          <div className="lg:w-1/2 relative order-1 lg:order-2 group w-full isolate">
+            <div 
+              className={cn(
+                "relative z-10 rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden border-4 md:border-8 border-secondary shadow-2xl transition-all duration-700",
+                "group-hover:rotate-0 -rotate-2 md:-rotate-3 hover:scale-[1.02]",
+                "w-full h-[350px] sm:h-[450px] lg:h-[600px]" // أبعاد صريحة تمنع الانهيار
+              )}
+            >
               <Image 
                 src="/assets/about (2).png" 
                 alt="فريق عمل وكالة يوصل في نقاش إبداعي"
                 fill
                 priority
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover transition-transform duration-1000 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent pointer-events-none" />
             </div>
             
-            {/* عناصر عائمة خلف الصورة */}
+            {/* العناصر العائمة خلف الصورة */}
             <div className="absolute -top-10 -left-10 w-40 h-40 bg-primary/20 blur-[80px] rounded-full -z-10 group-hover:bg-primary/30 transition-colors" />
             <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-secondary/40 blur-[80px] rounded-full -z-10" />
           </div>

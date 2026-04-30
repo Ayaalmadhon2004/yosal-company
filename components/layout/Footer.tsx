@@ -27,7 +27,7 @@ export default function Footer() {
   if (!mounted) return null;
 
   return (
-    <footer className="bg-[#1A1C2E] text-white py-16 border-t border-white/5 relative w-full" dir="rtl">
+    <footer className="bg-background text-white py-16 border-t border-white/5 relative w-full" dir="rtl">
       
       <ChatSystem />
 

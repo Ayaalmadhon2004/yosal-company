@@ -79,7 +79,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const isContentCreation = slug === "content-creation";
 
   return (
-    <main className="min-h-screen bg-[#0F111A] selection:bg-primary/30">
+    <main className="min-h-screen bg-background selection:bg-primary/30">
       {/* الـ Hero يحمل مباشرة لأنه الجزء العلوي من الصفحة لتحسين LCP */}
       <ServiceHero 
         badge={data.hero.badge}

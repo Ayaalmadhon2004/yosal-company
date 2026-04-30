@@ -25,7 +25,7 @@ const LegalCards = dynamic(() => import("@/components/sections/terms/LegalCards"
 
 export default function TermsPage() {
   return (
-    <main className="min-h-screen bg-[#0a0d1d]">
+    <main className="min-h-screen bg-background">
       <TermsHero />
       
       <div className="space-y-4">

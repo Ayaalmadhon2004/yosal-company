@@ -21,9 +21,9 @@ export default async function BlogPostPage({
   const relatedPosts = relatedResponse?.data?.data?.filter((p: any) => p.slug !== slug).slice(0, 4) || [];
 
   return (
-    <main className="min-h-screen bg-[#0a0d1d] text-right" dir="rtl">
+    <main className="min-h-screen bg-background text-right" dir="rtl">
       
-      <section className="relative h-[70vh] w-full flex items-end pb-20">
+      <section className="relative bg-backgroundw h-[70vh] w-full flex items-end pb-20">
         <Image 
           src={post.image_url || "/images/blog-placeholder.jpg"} 
           alt={post.title} 
@@ -74,7 +74,7 @@ export default async function BlogPostPage({
         </div>
       </section>
 
-      <section className="container mx-auto px-6 py-20 flex flex-col lg:flex-row gap-16">
+      <section className="container mx-auto bg-background px-6 py-20 flex flex-col lg:flex-row gap-16">
         <article className="flex-1">
           <div 
             className="prose prose-invert prose-orange max-w-none 
@@ -106,7 +106,7 @@ export default async function BlogPostPage({
         </aside>
       </section>
 
-      <section className="bg-[#0c1026] py-20 border-t border-gray-800/50">
+      <section className="bg-background py-20 border-t border-gray-800/50">
         <div className="container mx-auto px-6">
           <div className="flex justify-between items-center mb-12">
             <h2 className="text-3xl font-bold text-white">مقالات قد تهمك</h2>

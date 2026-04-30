@@ -12,7 +12,7 @@ export default async function PortfolioPage() {
       statistics: [],
     };
   return (
-    <main className="min-h-screen bg-[#0a0d1d]">
+    <main className="min-h-screen bg-background">
       <PortfolioHero />
       <PortfolioGrid />
       <ImpactStats />

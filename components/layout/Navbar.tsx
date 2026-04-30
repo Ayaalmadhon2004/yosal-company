@@ -52,7 +52,7 @@ export default function Navbar() {
         "fixed top-0 w-full z-[100] transition-all duration-500 border-b",
         scrolled 
           ? "/80 backdrop-blur-xl border-white/5 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.3)]" 
-          : "bg-transparent border-transparent py-6"
+          : "bg-background border-transparent py-6"
       )}
       dir="rtl"
     >

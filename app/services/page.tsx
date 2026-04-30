@@ -5,12 +5,12 @@ import { servicesData } from "@/constants/siteData";
 
 export default function ServicesHero() {
   return (
-    <section className=" py-24 px-6 overflow-hidden" dir="rtl">
+    <section className="py-24 px-6 overflow-hidden bg-background" dir="rtl">
       <div className="container mx-auto max-w-7xl">
         <div className="flex flex-col lg:flex-row items-center gap-16">
 
           {/* الجانب الأيمن: المحتوى النصي */}
-          <div className="flex-1 text-right">
+          <div className="flex-1 text-right order-2 lg:order-1">
             <div className="inline-block px-4 py-1.5 mb-6 rounded-full bg-white/5 border border-white/10">
               <span className="text-primary text-sm font-bold tracking-wider">خدماتنا</span>
             </div>
@@ -24,29 +24,34 @@ export default function ServicesHero() {
             </p>
           </div>
 
-          {/* الجانب الأيسر: الصورة التوضيحية */}
-          <div className="flex-1 relative group">
-            <div className="relative w-full aspect-square max-w-[500px] mx-auto">
-              {/* توهج خلفي (Glow Effect) */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-primary/5 to-transparent blur-3xl rounded-full animate-pulse" />
+          {/* الجانب الأيسر: الصورة التوضيحية - مع إصلاح الظهور في الموبايل */}
+          <div className="flex-1 relative group order-1 lg:order-2 w-full isolate">
+            {/* أبعاد صريحة للموبايل تمنع اختفاء الصورة */}
+            <div className="relative z-10 w-full h-[350px] sm:h-[450px] lg:h-[500px] lg:aspect-square max-w-[500px] mx-auto rounded-[2.5rem] md:rounded-4xl border border-white/10 overflow-hidden shadow-2xl transition-transform duration-700 group-hover:scale-[1.03]">
               
-              <div className="relative z-10 w-full h-full rounded-4xl border border-white/10 overflow-hidden shadow-2xl transition-transform duration-700 group-hover:scale-[1.03]">
-                <Image 
-                  src="/assets/moon.png" 
-                  alt="Creative Services at Yoosel"
-                  fill
-                  className="object-cover transition-transform duration-1000 group-hover:scale-110"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-              </div>
+              {/* توهج خلفي (Glow Effect) */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-primary/5 to-transparent blur-3xl rounded-full animate-pulse -z-10" />
+              
+              <Image 
+                src="/assets/moon.png" 
+                alt="Creative Services at Yoosel"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 50vw"
+                style={{ objectFit: 'cover' }} // يضمن ملء الصورة للحاوية
+                className="transition-transform duration-1000 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
             </div>
           </div>
 
         </div>
       </div>
 
-      <Services data={servicesData}/>
+      {/* المكونات الإضافية */}
+      <div className="mt-20">
+        <Services data={servicesData}/>
+      </div>
       <ReadyResults variant="style1"/>
     </section>
   );

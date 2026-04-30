@@ -8,7 +8,7 @@ import Image from 'next/image';
 
 export default function PrivatePage() {
   return (
-    <main className="min-h-screen bg-[#0a0d1d] text-white" dir="rtl">
+    <main className="min-h-screen bg-background text-white" dir="rtl">
       <PrivacyHero />
       
       <div className="container mx-auto px-6 pb-20">

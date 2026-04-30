@@ -6,7 +6,7 @@ import ReadyResults from "@/components/sections/ReadyResults";
 
 export default function PackagesPage() {
   return (
-    <main className="min-h-screen bg-[#0a0d1d]">
+    <main className="min-h-screen bg-background">
       <PackagesHero />
       <PricingCards />
       <FAQSection />

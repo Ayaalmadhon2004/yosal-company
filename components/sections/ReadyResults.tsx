@@ -18,12 +18,12 @@ export default function ReadySection({ variant = "style1" }: ReadySectionProps) 
   return (
     <section 
       className={cn(
-        "relative py-24 px-6 overflow-hidden",
-        isStyle1 ? "bg-[#0F112B]" : "bg-[#0A0D1D]"
+        "relative py-24 px-6 overflow-hidden bg-background",
+        isStyle1 ? "bg-background" : "bg-background"
       )}
       dir="rtl" 
     >
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[400px] h-[400px] bg-primary/10 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[400px] h-[400px] bg-primary/10 blur-[150px] rounded-full pointer-events-none " />
       <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[400px] h-[400px] bg-primary/10 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="max-w-4xl mx-auto text-center relative z-10">
