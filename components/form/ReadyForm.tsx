@@ -19,7 +19,6 @@ export default function ReadyForm() {
       email: formData.get("email") as string,
       phone: formData.get("phone") as string,
       project_url: (formData.get("project_url") as string) || "لا يوجد رابط",
-      // إضافة قيم افتراضية للحقول المطلوبة في الـ API لمنع خطأ 422
       service_type: "طلب تقييم أولي",
       description: "تم إرسال الطلب عبر نموذج 'ابدأ اليوم' في الصفحة الرئيسية.",
     };
@@ -62,11 +61,11 @@ export default function ReadyForm() {
       {/* لمسة جمالية في الخلفية */}
       <div className="absolute top-0 left-0 w-32 h-32 bg-primary/5 blur-[80px] -z-10 rounded-full group-hover:bg-primary/10 transition-colors" />
       
-      <div className="flex items-center justify-between mb-12">
+      <div className="flex items-center justify-left mb-12">
          <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary">
             <Send className="w-6 h-6 rotate-180" />
          </div>
-         <h3 className="text-3xl font-black text-foreground text-right italic">ابدأ اليوم</h3>
+         <h3 className="text-3xl font-black text-foreground text-left italic">ابدأ اليوم</h3>
       </div>
       
       <form onSubmit={handleSubmit} className="space-y-8" dir="rtl">

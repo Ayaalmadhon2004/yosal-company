@@ -5,8 +5,7 @@ import { servicesData } from "@/constants/servicesData";
 import ServiceHero from "@/components/sections/services/ServiceHero";
 
 /**
- * تحسين الـ Skeleton Loader ليكون أكثر مطابقة لشكل السكاشن الحقيقية
- * هذا يقلل من شعور المستخدم بالقفزات البصرية أثناء التحميل
+ * Skeleton Loader محسن لتقليل القفزات البصرية
  */
 const SectionSkeleton = () => (
   <div className="container mx-auto px-6 py-24 animate-pulse">
@@ -20,7 +19,7 @@ const SectionSkeleton = () => (
   </div>
 );
 
-// استيراد المكونات ديناميكياً مع تفعيل SSR للـ SEO
+// استيراد المكونات ديناميكياً
 const MarketComparison = dynamic(() => import("@/components/sections/services/MarketComparison"), { 
   ssr: true,
   loading: () => <SectionSkeleton /> 
@@ -50,7 +49,6 @@ const WhyChooseUs = dynamic(() => import("@/components/sections/WhyChooseUs"), {
   loading: () => <SectionSkeleton />
 });
 
-// تحسين الـ Metadata لمحركات البحث (SEO)
 export async function generateMetadata({ params }: { params: any }) {
   const { slug } = await params;
   const data = servicesData[slug as keyof typeof servicesData];
@@ -78,9 +76,11 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   const isContentCreation = slug === "content-creation";
 
+  // فحص وجود البيانات (تأكدي من المسمى في ملف constants سواء faqs أو FAQs)
+  const faqData = data.faqs || (data as any).FAQs;
+
   return (
     <main className="min-h-screen bg-background selection:bg-primary/30">
-      {/* الـ Hero يحمل مباشرة لأنه الجزء العلوي من الصفحة لتحسين LCP */}
       <ServiceHero 
         badge={data.hero.badge}
         title={data.hero.title}
@@ -90,7 +90,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         stats={data.hero.stats}
       />
 
-      <div className="space-y-0"> {/* تم تصفير الـ space ليعتمد كل سكشن على الـ py الخاص به */}
+      <div className="space-y-0"> 
         
         {data.comparison && (
           <Suspense fallback={<SectionSkeleton />}>
@@ -125,13 +125,13 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           </Suspense>
         )}
 
-        {data.faqs && (
+        {/* سكشن الأسئلة الشائعة مع معالجة احتمالية اختلاف المسمى */}
+        {faqData && (
           <Suspense fallback={<SectionSkeleton />}>
-            <Faqs data={data.faqs}/>
+            <Faqs data={faqData}/>
           </Suspense>
         )}
 
-        {/* سكشن الـ Call to Action الأخير */}
         {!isContentCreation && (
           <Suspense fallback={<SectionSkeleton />}>
             <ReadyResults variant="style2" />

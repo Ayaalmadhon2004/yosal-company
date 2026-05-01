@@ -87,8 +87,8 @@ export default function Navbar() {
 
                 {/* Enhanced Dropdown */}
                 {link.dropdown && (
-                  <div className="absolute top-[calc(100%+10px)] right-0 w-72 bg-secondary/95 backdrop-blur-2xl border border-white/10 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-500 transform translate-y-4 group-hover/item:translate-y-0 p-3 z-50">
-                    <div className="grid grid-cols-1 gap-1">
+                      <div className="absolute top-[calc(100%+10px)] right-0 w-72 bg-[#1A1D2E] border border-white/20 rounded-[1.5rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.7)] opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 transform translate-y-2 group-hover/item:translate-y-0 p-4 z-[100]">
+                        <div className="grid grid-cols-1 gap-1">
                       {link.dropdown.map((item) => (
                         <Link
                           key={item.name}

@@ -1,13 +1,13 @@
 import { Suspense } from "react";
 import dynamic from 'next/dynamic';
 import { getDashboardData } from "@/lib/api";
-import { faqsData } from "@/constants/siteData";
+import { faqsData } from "@/constants/siteData"; // تأكدي أن faqsData عبارة عن Object يحتوي على الأقسام
 import Hero from "../components/sections/Hero";
 import Problems from "../components/sections/home/Problems"; 
 import WhyUs from "@/components/sections/home/WhyUs";
 import Stats from "@/components/sections/home/Stats";
 import CTA from "@/components/sections/home/CTA";
-import ReadySection from "@/components/sections/ReadyResults";
+import ReadySection from "@/components/sections/ReadySection";
 
 const SkeletonLoader = () => (
   <div className="animate-pulse container mx-auto px-6 py-20">
@@ -37,42 +37,57 @@ const Faqs = dynamic(() => import("../components/sections/home/Faqs"), {
 });
 
 export default async function Home() {
+  // جلب البيانات من الـ API مع توفير قيم افتراضية لمنع الأخطاء
   const data = await getDashboardData() || {
     services: [], projects: [], statistics: [], packages: [], testimonials: []
   };
 
+  /**
+   * تحويل كائن الأسئلة الشائعة المقسم إلى مصفوفة واحدة للعرض في الصفحة الرئيسية
+   * يتم استخدام flat() لدمج المصفوفات الفرعية دون تكرار الهيكلية
+   */
+  const allFaqs = Object.values(faqsData).flat();
+
   return (
     <main className="block w-full font-sans overflow-x-hidden bg-background text-foreground">
+      {/* القسم العلوي الثابت */}
       <Hero />
       <Problems /> 
       
       <div className="flex flex-col relative">
+        {/* عرض الخدمات */}
         <Suspense fallback={<SkeletonLoader />}>
           <Services data={data.services} />
         </Suspense>
 
+        {/* عرض معرض الأعمال */}
         <Suspense fallback={<SkeletonLoader />}>
           <Portfolio data={data.projects} />
         </Suspense>
 
-        <WhyUs/>
-        <Stats/>
+        {/* مميزات الوكالة والإحصائيات */}
+        <WhyUs />
+        <Stats />
 
+        {/* العروض والأسعار */}
         <Suspense fallback={<SkeletonLoader />}>
           <Pricing data={data.packages} />
         </Suspense>
 
+        {/* آراء العملاء */}
         <Suspense fallback={<SkeletonLoader />}>
           <Testimonials data={data.testimonials} />
         </Suspense>
-        <CTA/>
 
+        {/* دعوة لاتخاذ إجراء */}
+        <CTA />
 
+        {/* قسم الأسئلة الشائعة - يتم تمرير كل الأسئلة مدمجة هنا */}
         <Suspense fallback={<SkeletonLoader />}>
-          <Faqs data={faqsData} />
+          <Faqs data={allFaqs} />
         </Suspense>
 
-        <ReadySection/>
+        <ReadySection />
       </div>
     </main>
   );

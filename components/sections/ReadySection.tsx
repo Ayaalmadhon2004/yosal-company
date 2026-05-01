@@ -11,7 +11,6 @@ export default function ReadySection({ variant = "style1", className }: ReadySec
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="flex flex-col lg:flex-row-reverse items-center gap-16 lg:gap-24">
           
-          {/* الجانب الأيسر: الفورم */}
           <div className="lg:w-1/2 w-full">
             <div className="glass-card p-2 border-none shadow-2xl shadow-primary/5">
               <ReadyForm />

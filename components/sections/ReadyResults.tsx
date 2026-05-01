@@ -2,32 +2,27 @@
 
 import { AppButton } from "../ui/AppButton";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 interface ReadySectionProps {
   variant?: "style1" | "style2";
 }
 
 const LINKS = {
-  FREE_CONSULTATION: "https://wa.link/4ddhsa", 
-  PORTFOLIO: "/portfolio"                       
+  FREE_CONSULTATION: "https://wa.link/4ddhsa",
+  PORTFOLIO: "/portfolio"
 };
 
 export default function ReadySection({ variant = "style1" }: ReadySectionProps) {
   const isStyle1 = variant === "style1";
-  
+
   return (
     <section 
-      className={cn(
-        "relative py-24 px-6 overflow-hidden bg-background",
-        isStyle1 ? "bg-background" : "bg-background"
-      )}
+      className="relative py-24 px-6 overflow-hidden bg-[#0F1121]"
       dir="rtl" 
     >
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[400px] h-[400px] bg-primary/10 blur-[150px] rounded-full pointer-events-none " />
-      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[400px] h-[400px] bg-primary/10 blur-[150px] rounded-full pointer-events-none" />
-
       <div className="max-w-4xl mx-auto text-center relative z-10">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-8 leading-tight">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-8 leading-[1.3]">
           {isStyle1 ? "جاهز تضاعف مبيعاتك؟" : "جاهز لنصنع النجاح سوياً؟"}
         </h2>
 
@@ -44,25 +39,37 @@ export default function ReadySection({ variant = "style1" }: ReadySectionProps) 
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+          
+          {/* الزر البرتقالي - تم إلغاء الـ Padding الداخلي للزر ونقله للرابط */}
           <AppButton 
             variant="orange" 
             size="lg" 
-            className="w-full sm:w-auto min-w-[240px] rounded-full text-lg shadow-lg shadow-primary/20 hover:scale-105 transition-transform"
+            className="p-0 overflow-hidden w-full sm:w-auto min-w-[240px] h-14 rounded-full shadow-lg shadow-orange-500/20 hover:scale-105 transition-all"
           >
-            <a href={LINKS.FREE_CONSULTATION} target="_blank" rel="noopener noreferrer" className="w-full h-full block">
-              {isStyle1 ? "إبدأ رحلتك الآن" : "ابدأ مشروعك الأن"}
+            <a 
+              href={LINKS.FREE_CONSULTATION} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="w-full h-full flex items-center justify-center px-8 text-xl font-bold"
+            >
+              {isStyle1 ? "إبدأ رحلتك الآن" : "ابدأ مشروعك الآن"}
             </a>
           </AppButton>
           
+          {/* الزر الأبيض - بنفس التكتيك لضمان التماثل تماماً */}
           <AppButton 
             variant="outline" 
             size="lg" 
-            className="w-full bg-white text-black sm:w-auto min-w-[240px] rounded-full text-lg border-transparent hover:bg-primary hover:text-white transition-all"
+            className="p-0 overflow-hidden w-full sm:w-auto min-w-[240px] h-14 rounded-full bg-white text-black border-none hover:bg-gray-100 transition-all"
           >
-            <a href={isStyle1 ? LINKS.PORTFOLIO : LINKS.FREE_CONSULTATION} className="w-full h-full block">
+            <Link 
+              href={isStyle1 ? LINKS.PORTFOLIO : LINKS.FREE_CONSULTATION}
+              className="w-full h-full flex items-center justify-center px-8 text-xl font-bold"
+            >
               {isStyle1 ? "شاهد أعمالنا" : "احجز استشارة مجانية"}
-            </a>
+            </Link>
           </AppButton>
+
         </div>
       </div>
     </section>
