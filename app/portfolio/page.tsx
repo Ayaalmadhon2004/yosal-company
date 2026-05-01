@@ -16,7 +16,7 @@ export default async function PortfolioPage() {
       <PortfolioHero />
       <PortfolioGrid />
       <ImpactStats />
-      <Stats data={data.statistics}/>
+      <Stats/>
       <ReadyResult variant="style2"/>
     </main>
   );
