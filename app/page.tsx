@@ -1,7 +1,8 @@
+// app/page.tsx (أو مسار الصفحة الرئيسية لديكِ)
 import { Suspense } from "react";
 import dynamic from 'next/dynamic';
 import { getDashboardData } from "@/lib/api";
-import { faqsData } from "@/constants/siteData"; // تأكدي أن faqsData عبارة عن Object يحتوي على الأقسام
+import { faqsData } from "@/constants/siteData"; // تأكدي أن المسار صحيح كما في ملفاتك
 import Hero from "../components/sections/Hero";
 import Problems from "../components/sections/home/Problems"; 
 import WhyUs from "@/components/sections/home/WhyUs";
@@ -9,6 +10,7 @@ import Stats from "@/components/sections/home/Stats";
 import CTA from "@/components/sections/home/CTA";
 import ReadySection from "@/components/sections/ReadySection";
 
+// مكون التحميل الجمالي
 const SkeletonLoader = () => (
   <div className="animate-pulse container mx-auto px-6 py-20">
     <div className="h-12 w-1/3 bg-white/5 rounded-2xl mb-8" />
@@ -16,6 +18,7 @@ const SkeletonLoader = () => (
   </div>
 );
 
+// استيراد المكونات بشكل ديناميكي لتحسين سرعة تحميل الصفحة الأولى
 const Services = dynamic(() => import("../components/sections/services/Services"), { 
   loading: () => <SkeletonLoader />
 });
@@ -37,20 +40,22 @@ const Faqs = dynamic(() => import("../components/sections/home/Faqs"), {
 });
 
 export default async function Home() {
-  // جلب البيانات من الـ API مع توفير قيم افتراضية لمنع الأخطاء
+  // جلب البيانات من الـ API
   const data = await getDashboardData() || {
     services: [], projects: [], statistics: [], packages: [], testimonials: []
   };
 
-  /**
-   * تحويل كائن الأسئلة الشائعة المقسم إلى مصفوفة واحدة للعرض في الصفحة الرئيسية
-   * يتم استخدام flat() لدمج المصفوفات الفرعية دون تكرار الهيكلية
-   */
+  // 1. تجميع كل الأسئلة من كافة الأقسام (marketing, strategy, web, etc.) في مصفوفة واحدة
   const allFaqs = Object.values(faqsData).flat();
+
+  // 2. اختيار 4 أسئلة عشوائية في كل مرة يتم فيها رندر الصفحة (Server-side)
+  const randomFaqs = [...allFaqs]
+    .sort(() => Math.random() - 0.5) // خلط المصفوفة عشوائياً
+    .slice(0, 4); // قص أول 4 أسئلة بعد الخلط
 
   return (
     <main className="block w-full font-sans overflow-x-hidden bg-background text-foreground">
-      {/* القسم العلوي الثابت */}
+      {/* القسم العلوي الثابت للـ LCP (أداء أسرع) */}
       <Hero />
       <Problems /> 
       
@@ -82,9 +87,9 @@ export default async function Home() {
         {/* دعوة لاتخاذ إجراء */}
         <CTA />
 
-        {/* قسم الأسئلة الشائعة - يتم تمرير كل الأسئلة مدمجة هنا */}
+        {/* قسم الأسئلة الشائعة - يتم تمرير الـ 4 أسئلة العشوائية فقط */}
         <Suspense fallback={<SkeletonLoader />}>
-          <Faqs data={allFaqs} />
+          <Faqs data={randomFaqs} />
         </Suspense>
 
         <ReadySection />
