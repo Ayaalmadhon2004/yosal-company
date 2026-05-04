@@ -31,7 +31,6 @@ const mockProjects = [
     description: "تطوير هوية بصرية واستراتيجية تسويق لشركة تقنية مالية ناشئة تستهدف جيل الشباب.", 
     image_url: "/portfolio/p2.jpg" 
   },
-  // ... يمكنك إكمال المصفوفة
 ];
 
 export default function PortfolioGrid() {
@@ -42,9 +41,7 @@ export default function PortfolioGrid() {
   const fetchProjects = async (categorySlug: string) => {
     setLoading(true);
     try {
-      // محاكاة تأخير بسيط لتجربة UI أفضل
-      await new Promise(resolve => setTimeout(resolve, 400));
-      
+      await new Promise(resolve => setTimeout(resolve, 400));      
       const query = categorySlug === "الكل" ? "" : `?category=${categorySlug}`;
       const response = await fetch(`http://localhost:8000/api/v1/projects${query}`);
       
@@ -144,7 +141,6 @@ export default function PortfolioGrid() {
           </div>
         )}
 
-        {/* حالة عدم وجود بيانات */}
         {!loading && projects.length === 0 && (
           <div className="flex flex-col items-center justify-center py-20 bg-secondary/10 rounded-[3rem] border border-dashed border-white/10">
             <FolderOpen className="w-12 h-12 text-muted-foreground/30 mb-4" />

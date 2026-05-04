@@ -12,13 +12,12 @@ import {
 import { cn } from "@/lib/utils";
 
 export interface ServiceItem {
-  id?: number;
+  id: number;
   title: string;
   slug: string;
-  description: string;
-  iconName: string;
-  features: string[];
-  isFeatured?: boolean;
+  brief: string; 
+  icon: string;  
+  features: { id: number; title: string }[]; 
   ctaText?: string;
 }
 
@@ -41,18 +40,25 @@ const getIcon = (name: string) => {
     "trending-up": TrendingUp,
   };
   const IconComponent = icons[name] || Monitor;
-  // التغيير هنا: الأيقونة ترث لون الأب عند التحويم تلقائياً
   return <IconComponent className="h-6 w-6 text-primary transition-all duration-500 group-hover:scale-110 group-hover:text-white" />;
 };
 
 export default function Services({ data, className }: ServicesProps) {
   const services = Array.isArray(data) ? data : [];
 
+  const getCorrectSlug = (slug: string) => {
+    if (slug === "visual-identity") return "branding";
+    if (slug === "search-engine-optimization") return "seo";
+    if (slug === "content-production" || slug === "video-production" || slug === "content-creation"){
+      return "content-creation"; 
+    }
+      return slug;
+  };
+
   return (
-    <section id="services" className={cn("py-24  w-full", className)} dir="rtl">
+    <section id="services" className={cn("py-24 w-full", className)} dir="rtl">
       <div className="container mx-auto px-6 lg:px-16 max-w-7xl">
         
-        {/* رأس القسم */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black text-foreground mb-4">
             خدمات تركز على <span className="text-primary">النتائج</span>
@@ -62,20 +68,18 @@ export default function Services({ data, className }: ServicesProps) {
           </p>
         </div>
 
-        {/* شبكة الخدمات */}
         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, index) => (
+          {services.map((service) => (
             <AppCard 
-              key={service.id || index}
+              key={service.id}
               className="glass-card flex flex-col transition-all duration-500 hover:-translate-y-3 border-white/5 p-2 group overflow-hidden relative"
             >
-              {/* تأثير إضاءة خلفي عند التحويم */}
               <div className="absolute top-0 left-0 w-full h-full bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
               <AppCardHeader className="p-8 pb-0 text-right relative z-10">
                 <div className="flex justify-between items-start mb-6">
                   <div className="p-4 bg-primary/10 rounded-2xl border border-primary/20 transition-all duration-500 group-hover:bg-primary group-hover:border-primary group-hover:shadow-lg group-hover:shadow-primary/30">
-                    {getIcon(service.iconName)}
+                    {getIcon(service.icon)}
                   </div>
                 </div>
 
@@ -84,23 +88,23 @@ export default function Services({ data, className }: ServicesProps) {
                 </AppCardTitle>
 
                 <AppCardDescription className="text-muted-foreground text-base leading-relaxed h-20 line-clamp-3">
-                  {service.description}
+                  {service.brief}
                 </AppCardDescription>
               </AppCardHeader>
 
               <AppCardContent className="p-8 pt-6 flex flex-col flex-grow text-right relative z-10">
                 <ul className="space-y-4 mb-10 flex-grow">
-                  {service.features?.map((feature: string, idx: number) => (
-                    <li key={idx} className="flex items-center gap-3 text-muted-foreground text-sm font-medium">
+                  {service.features?.map((feature) => (
+                    <li key={feature.id} className="flex items-center gap-3 text-muted-foreground text-sm font-medium">
                       <Check className="h-4 w-4 text-primary shrink-0" />
-                      <span className="group-hover:text-foreground transition-colors">{feature}</span>
+                      <span className="group-hover:text-foreground transition-colors">{feature.title}</span>
                     </li>
                   ))}
                 </ul>
 
                 <div className="mt-auto space-y-5">
                   <Link 
-                    href={`/services/${service.slug}`}
+                    href={`/services/${getCorrectSlug(service.slug)}`} 
                     className="text-primary text-sm font-bold inline-flex items-center gap-2 hover:gap-4 transition-all group/link"
                   >
                     عرض المزيد 
@@ -108,10 +112,10 @@ export default function Services({ data, className }: ServicesProps) {
                   </Link>
 
                   <AppButton
-                    
+                    asChild
                     className="w-full py-6 rounded-2xl font-bold transition-all bg-secondary/20 border border-white/10 text-foreground hover:border-primary hover:text-white hover:bg-primary shadow-sm active:scale-95"
                   >
-                    <Link href={`/services/${service.slug}`}>
+                    <Link href={`/services/${getCorrectSlug(service.slug)}#contact-form`}>
                       {service.ctaText || "طلب الخدمة الآن"}
                     </Link>
                   </AppButton>

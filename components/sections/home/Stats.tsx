@@ -35,7 +35,6 @@ const statsData = [
 export default function Stats() {
   return (
     <section className="py-24 bg-background text-foreground relative overflow-hidden" dir="rtl">
-      {/* تأثير التوهج الخلفي */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[400px] bg-primary/5 blur-[120px] rounded-full -z-10" />
 
       <div className="container mx-auto px-6 max-w-7xl text-center relative z-10">
@@ -52,7 +51,6 @@ export default function Stats() {
               key={stat.id} 
               className="group relative bg-[#1a1f35]/40 p-8 md:p-10 rounded-[2rem] border border-white/5 transition-all duration-500 hover:bg-[#1a1f35]/60 hover:-translate-y-3 hover:shadow-2xl hover:shadow-primary/10"
             >
-              {/* صندوق الأيقونة البرتقالي */}
               <div className="bg-primary w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-8 shadow-[0_8px_20px_rgba(245,130,32,0.3)] transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
                 {stat.icon === "video" && <Video className="h-7 w-7 text-white" />}
                 {stat.icon === "code" && <Code2 className="h-7 w-7 text-white" />}

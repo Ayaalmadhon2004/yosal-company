@@ -5,24 +5,27 @@ import { Check, X, Loader2, Zap } from "lucide-react";
 import { AppButton } from "@/components/ui/AppButton";
 import { cn } from "@/lib/utils";
 
-// الرابط الصحيح للـ API
 const API_URL = "https://yosaal-website-backend.onrender.com/api/v1/packages";
 
 export default function PricingCards() {
   const [packages, setPackages] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false); // إضافة حالة الخطأ
 
   useEffect(() => {
     const fetchPackages = async () => {
       try {
         const response = await fetch(API_URL);
+        if (!response.ok) throw new Error("Network response was not ok");
         const json = await response.json();
         
         if (json && json.status === "Success") {
-          setPackages(json.data.data || json.data);
+          // التأكد من الوصول للمصفوفة الصحيحة
+          setPackages(json.data?.data || json.data || []);
         }
       } catch (error) {
-        console.error("Fetch error, ensure the backend is live:", error);
+        console.error("Fetch error:", error);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -39,9 +42,16 @@ export default function PricingCards() {
     );
   }
 
+  if (error) {
+    return (
+      <div className="py-32 text-center">
+        <p className="text-red-500">حدث خطأ أثناء تحميل الباقات. يرجى المحاولة لاحقاً.</p>
+      </div>
+    );
+  }
+
   return (
-    <section className="py-24 px-6  relative overflow-hidden" dir="rtl">
-      {/* توهج خلفي للقسم */}
+    <section className="py-24 px-6 relative overflow-hidden" dir="rtl">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary/5 blur-[120px] rounded-full -z-10" />
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -55,7 +65,6 @@ export default function PricingCards() {
                 : "bg-secondary/10 border-white/5 hover:border-primary/30"
             )}
           >
-            {/* الشارة المميزة */}
             {pkg.badge && (
               <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-primary text-white px-8 py-2 rounded-full text-xs font-black shadow-xl shadow-primary/20 flex items-center gap-2">
                 <Zap className="w-3 h-3 fill-current" />
@@ -72,7 +81,8 @@ export default function PricingCards() {
               </p>
             </div>
 
-            <div className="text-right mb-12 /40 p-6 rounded-[2rem] border border-white/5">
+            {/* تم تصحيح الـ className هنا بإزالة الـ /40 التائهة */}
+            <div className="text-right mb-12 bg-white/5 p-6 rounded-[2rem] border border-white/5">
               <div className="flex items-baseline gap-2 justify-end flex-row-reverse">
                 <span className="text-6xl font-black text-foreground">${pkg.price}</span>
                 <span className="text-muted-foreground text-sm font-bold uppercase tracking-widest">/ شهرياً</span>
@@ -81,7 +91,7 @@ export default function PricingCards() {
 
             <div className="space-y-5 mb-12 flex-grow text-right" dir="rtl">
               <p className="text-xs font-black text-primary/60 uppercase tracking-[0.2em] mb-6">ما تتضمنه الباقة:</p>
-              {pkg.features.map((feature: any) => (
+              {pkg.features?.map((feature: any) => (
                 <div key={feature.id} className="flex items-start gap-4 group/item">
                   <div className={cn(
                     "shrink-0 w-6 h-6 rounded-lg flex items-center justify-center transition-all duration-300",

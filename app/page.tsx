@@ -55,39 +55,31 @@ export default async function Home() {
 
   return (
     <main className="block w-full font-sans overflow-x-hidden bg-background text-foreground">
-      {/* القسم العلوي الثابت للـ LCP (أداء أسرع) */}
       <Hero />
       <Problems /> 
       
       <div className="flex flex-col relative">
-        {/* عرض الخدمات */}
         <Suspense fallback={<SkeletonLoader />}>
           <Services data={data.services} />
         </Suspense>
 
-        {/* عرض معرض الأعمال */}
         <Suspense fallback={<SkeletonLoader />}>
           <Portfolio data={data.projects} />
         </Suspense>
 
-        {/* مميزات الوكالة والإحصائيات */}
         <WhyUs />
         <Stats />
 
-        {/* العروض والأسعار */}
         <Suspense fallback={<SkeletonLoader />}>
           <Pricing data={data.packages} />
         </Suspense>
 
-        {/* آراء العملاء */}
         <Suspense fallback={<SkeletonLoader />}>
           <Testimonials data={data.testimonials} />
         </Suspense>
 
-        {/* دعوة لاتخاذ إجراء */}
         <CTA />
 
-        {/* قسم الأسئلة الشائعة - يتم تمرير الـ 4 أسئلة العشوائية فقط */}
         <Suspense fallback={<SkeletonLoader />}>
           <Faqs data={randomFaqs} />
         </Suspense>

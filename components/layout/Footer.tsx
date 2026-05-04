@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from 'next/link';
-// استيراد الأيقونات بدقة من Font Awesome 6 و Simple Icons عبر react-icons
 import { 
   FaInstagram, 
   FaTiktok, 
@@ -16,19 +15,65 @@ import {
 import { IoMailOutline, IoSendSharp } from "react-icons/io5";
 import { HiOutlineMap } from "react-icons/hi2";
 import ChatSystem from "@/components/layout/ChatSystem"; 
+import { toast } from "react-hot-toast";
 
 export default function Footer() {
   const [mounted, setMounted] = useState(false);
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  // الرابط الأساسي للباك إند (Render)
+  const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://yosaal-website-backend.onrender.com/api/v1";
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email) {
+      toast.error("يرجى إدخال البريد الإلكتروني");
+      return;
+    }
+
+    setIsLoading(true);
+    
+    try {
+      // بناء الرابط مع الـ Query Params كما يتوقع الباك إند
+      const url = `${BASE_URL}/subscribe?email=${encodeURIComponent(email)}`;
+      
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { 
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        toast.success("تم الاشتراك بنجاح! شكراً لك.");
+        setEmail(""); // تفريغ الحقل بعد النجاح
+      } else {
+        // عرض رسالة الخطأ القادمة من الباك إند إن وجدت
+        toast.error(result.message || "حدث خطأ أثناء الاشتراك");
+      }
+    } catch (error) {
+      // تنبيه المستخدم في حال كان السيرفر في وضع الخمول (Sleep Mode)
+      toast.error("يبدو أن السيرفر يستغرق وقتاً للاستيقاظ، يرجى المحاولة مرة أخرى");
+      console.error("Subscription Error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const socialIcons = [
     { Icon: FaInstagram, link: "https://www.instagram.com/yoosal.agency?igsh=aGlrNXBsdDZmbXZ1" },
-    { Icon: FaTiktok, link: "https://www.tiktok.com/@yoosal2?..." }, // ضعي الرابط الكامل هنا
+    { Icon: FaTiktok, link: "https://www.tiktok.com/@yoosal2" },
     { Icon: FaLinkedinIn, link: "https://www.linkedin.com/company/yoosal/" },
-    { Icon: FaSnapchat, link: "https://www.snapchat.com/add/yoosal.ag?..." },
+    { Icon: FaSnapchat, link: "https://www.snapchat.com/add/yoosal.ag" },
     { Icon: FaFacebookF, link: "https://www.facebook.com/share/1DeynDWeNh/" },
     { Icon: FaXTwitter, link: "https://x.com/Yoosal148837" },
     { Icon: FaThreads, link: "https://www.threads.com/@yoosal.agency" }
@@ -97,7 +142,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* النشرة البريدية بتصميم "يوصل" */}
+          {/* النشرة البريدية */}
           <div className="md:col-span-4">
             <div className="bg-[#252841] p-8 rounded-[32px] border border-white/5 relative overflow-hidden">
               <div className="absolute -top-2 -left-2 bg-orange-500/10 p-4 rounded-full blur-xl"></div>
@@ -105,19 +150,30 @@ export default function Footer() {
               
               <h3 className="text-lg font-black mb-4 text-white">كُن أول من يصله الإلهام</h3>
               
-              <div className="flex items-center gap-2 bg-[#1A1C2E] p-1.5 rounded-2xl border border-white/10 group focus-within:border-orange-500/50 transition-all">
+              <form onSubmit={handleSubscribe} className="flex items-center gap-2 bg-[#1A1C2E] p-1.5 rounded-2xl border border-white/10 group focus-within:border-orange-500/50 transition-all">
                 <div className="pr-4">
                    <IoMailOutline className="h-5 w-5 text-gray-500 group-focus-within:text-orange-500 transition-colors" />
                 </div>
                 <input 
                   type="email" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="البريد الإلكتروني" 
                   className="bg-transparent flex-grow py-2 text-sm outline-none text-white placeholder:text-gray-600"
+                  disabled={isLoading}
                 />
-                <button className="bg-orange-500 p-3 rounded-xl hover:scale-105 active:scale-95 transition-all shadow-lg shadow-orange-500/20">
-                  <IoSendSharp className="h-5 w-5 rotate-180 text-white" />
+                <button 
+                  type="submit"
+                  disabled={isLoading}
+                  className="bg-orange-500 p-3 rounded-xl hover:scale-105 active:scale-95 transition-all shadow-lg shadow-orange-500/20 disabled:opacity-50 flex items-center justify-center min-w-[44px]"
+                >
+                  {isLoading ? (
+                    <div className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  ) : (
+                    <IoSendSharp className="h-5 w-5 rotate-180 text-white" />
+                  )}
                 </button>
-              </div>
+              </form>
               <p className="text-[10px] text-gray-500 mt-4 text-center">بشراكتك معنا، أنت توافق على سياسة الخصوصية الخاصة بنا.</p>
             </div>
           </div>

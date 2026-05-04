@@ -70,7 +70,7 @@ export default function ServiceHero({
               <a 
                 href={whatsappUrl}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="https://wa.me/qr/YDPUM4DFRP4NP1"
                 title="تواصل معنا عبر واتساب"
                 className="px-10 py-5 rounded-2xl bg-primary text-white font-extrabold flex items-center gap-3 hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 group"
               >
@@ -78,18 +78,17 @@ export default function ServiceHero({
                 ابدأ رحلتك الآن
               </a>
               
-              {(badge?.toUpperCase().includes("PLANNING") || badge?.toUpperCase().includes("DEVELOPMENT")) && (
                 <a 
                   href={whatsappUrl}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="https://wa.link/4ddhsa"
                   title="احجز استشارة مجانية"
                   className="px-10 py-5 rounded-2xl bg-white/5 text-foreground font-bold border border-white/10 hover:bg-white/10 transition-all flex items-center gap-3 group"
                 >
                   <Calendar className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" aria-hidden="true" />
                   احجز استشارة مجانية
                 </a>
-              )}
+
             </div>
           </div>
 

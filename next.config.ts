@@ -1,12 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    // 1. إضافة تنسيقات الصور الحديثة (WebP و AVIF) لتقليل حجم الصور بنسبة 30% إضافية
     formats: ['image/avif', 'image/webp'],
     
+    // حل مشكلة SVG الخاص بـ ui-avatars
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+
+    // حل مشكلة Quality "80" التي ظهرت في الـ Logs
+    qualities: [25, 50, 75, 80, 100],
+
     remotePatterns: [
       {
-        protocol: 'http', // تأكدي لو كان السيرفر يدعم https يفضل تغييره
+        protocol: 'https', // تم التعديل لـ https لأن Render يدعمها وهو الأكثر أماناً
         hostname: 'yosaal-website-backend.onrender.com',
         pathname: '/**',
       },
@@ -26,6 +33,7 @@ const nextConfig = {
     minimumCacheTTL: 60,
   },
 
+  // تحسينات إضافية للأداء
   compress: true,
   swcMinify: true,
   reactStrictMode: true,

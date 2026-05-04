@@ -75,8 +75,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   }
 
   const isContentCreation = slug === "content-creation";
-
-  // فحص وجود البيانات (تأكدي من المسمى في ملف constants سواء faqs أو FAQs)
   const faqData = data.faqs || (data as any).FAQs;
 
   return (

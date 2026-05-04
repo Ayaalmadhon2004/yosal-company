@@ -14,7 +14,6 @@ export default function ContactForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   
-  // 1. احفظي المرجع للفورم هنا قبل أي await
   const form = e.currentTarget; 
   
   setLoading(true);
@@ -36,7 +35,6 @@ export default function ContactForm() {
         msg: result.message || "تم استلام طلبك بنجاح!" 
       });
       
-      // 2. استخدمي المتغير 'form' بدلاً من 'e.currentTarget'
       form.reset(); 
       
     } else {
@@ -57,7 +55,6 @@ export default function ContactForm() {
 
   return (
     <div className="relative group">
-      {/* تأثير إضاءة خلفي */}
       <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000" />
       
       <form 
@@ -67,7 +64,6 @@ export default function ContactForm() {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           
-          {/* اسم المشروع */}
           <div className="space-y-3">
             <label htmlFor="project_name" className="text-foreground text-sm font-black pr-2 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-primary" />
@@ -83,7 +79,6 @@ export default function ContactForm() {
             />
           </div>
           
-          {/* الخدمة المطلوبة */}
           <div className="space-y-3">
             <label htmlFor="service_type" className="text-foreground text-sm font-black pr-2 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-primary" />
@@ -106,7 +101,6 @@ export default function ContactForm() {
             </div>
           </div>
 
-          {/* الميزانية */}
           <div className="space-y-3">
             <label htmlFor="budget" className="text-foreground text-sm font-black pr-2 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-primary" />
@@ -122,7 +116,6 @@ export default function ContactForm() {
             />
           </div>
 
-          {/* الأهداف */}
           <div className="space-y-3">
             <label htmlFor="main_goals" className="text-foreground text-sm font-black pr-2 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-primary" />
@@ -139,7 +132,6 @@ export default function ContactForm() {
           </div>
         </div>
 
-        {/* الوصف */}
         <div className="mt-8 space-y-3">
           <label htmlFor="description" className="text-foreground text-sm font-black pr-2 flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-primary" />
@@ -155,7 +147,6 @@ export default function ContactForm() {
           ></textarea>
         </div>
 
-        {/* المرفقات */}
         <div className="mt-8">
           <label className="text-foreground text-sm font-black pr-2 mb-3 block flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-primary" />
