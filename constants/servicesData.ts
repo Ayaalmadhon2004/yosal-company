@@ -1,9 +1,3 @@
-import { 
-  Search, Target, Map, BrainCircuit, Zap, Code2, 
-  ShieldCheck, Globe, Layout, BarChart3, Settings2, 
-  Link2, TrendingUp, Share2, Palette, Video 
-} from "lucide-react";
-
 export interface Testimonial {
   id: number;
   name: string;

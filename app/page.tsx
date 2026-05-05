@@ -2,7 +2,7 @@
 import { Suspense } from "react";
 import dynamic from 'next/dynamic';
 import { getDashboardData } from "@/lib/api";
-import { faqsData } from "@/constants/siteData"; // تأكدي أن المسار صحيح كما في ملفاتك
+import { faqsData, servicesData } from "@/constants/siteData"; // تأكدي أن المسار صحيح كما في ملفاتك
 import Hero from "../components/sections/Hero";
 import Problems from "../components/sections/home/Problems"; 
 import WhyUs from "@/components/sections/home/WhyUs";
@@ -60,7 +60,7 @@ export default async function Home() {
       
       <div className="flex flex-col relative">
         <Suspense fallback={<SkeletonLoader />}>
-          <Services data={data.services} />
+          <Services data={servicesData} />
         </Suspense>
 
         <Suspense fallback={<SkeletonLoader />}>

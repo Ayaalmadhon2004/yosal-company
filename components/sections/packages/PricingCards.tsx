@@ -15,15 +15,25 @@ export default function PricingCards() {
   useEffect(() => {
     const fetchPackages = async () => {
       try {
-        const response = await fetch(API_URL);
+        setLoading(true);
+        const response = await fetch(API_URL, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+          },
+          signal: AbortSignal.timeout(10000) 
+        });
+
         if (!response.ok) throw new Error("Network response was not ok");
+        
         const json = await response.json();
         
         if (json && json.status === "Success") {
-          setPackages(json.data?.data || json.data || []);
+          const dataToSet = json.data?.data || json.data || [];
+          setPackages(Array.isArray(dataToSet) ? dataToSet : []);
         }
       } catch (error) {
-        console.error("Fetch error:", error);
+        console.error("Fetch error details:", error);
         setError(true);
       } finally {
         setLoading(false);

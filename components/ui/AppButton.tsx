@@ -4,19 +4,19 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 active:scale-95 font-bold",
+  "inline-flex items-center justify-center whitespace-nowrap transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 active:scale-95 font-bold outline-none",
   {
     variants: {
       variant: {
-        primary: "bg-[#F3EADA] text-[#F58220] shadow-[0_0_20px_rgba(245,130,32,0.4)] hover:shadow-[0_0_30px_rgba(245,130,32,0.6)] hover:scale-[1.02]",
-        outline: "border-2 border-[#F58220]/50 bg-[#1A1C2E]/50 text-white hover:bg-[#F58220]/10 hover:border-[#F58220]",
-        orange: "bg-[#F58220] text-white hover:bg-[#E0721B] shadow-lg",
+        primary: "bg-[#F58220] text-white shadow-lg hover:bg-[#E0721B] hover:shadow-[#F58220]/20",
+        outline: "border border-[#F58220] bg-transparent text-white hover:bg-[#F58220]/10",
+        orange: "bg-[#F58220] text-white hover:bg-[#E0721B]",
         ghost: "text-white hover:bg-white/10",
       },
       size: {
         sm: "h-9 px-5 text-sm rounded-xl",
         md: "h-12 px-8 text-base rounded-xl",
-        lg: "h-14 px-10 text-lg rounded-2xl",
+        lg: "h-14 px-10 text-lg rounded-[14px]", 
       },
     },
     defaultVariants: {
@@ -25,7 +25,6 @@ const buttonVariants = cva(
     },
   }
 )
-
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {

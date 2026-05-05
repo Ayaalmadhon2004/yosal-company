@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { cn } from "@/lib/utils";
-import { ArrowUpLeft } from "lucide-react";
+import { ArrowUpLeft, ChevronLeft } from "lucide-react";
 import Link from "next/link";
 
 interface ProjectItem {
@@ -19,57 +19,75 @@ interface PortfolioProps {
 }
 
 export default function Portfolio({ data, className }: PortfolioProps) {
+  const [activeTab, setActiveTab] = useState("الكل");
   const projects = Array.isArray(data) ? data : [];
+
+  // تحديد الأقسام (الأربعة المطلوبة)
+  const categories = ["الكل", "هوية بصرية", "تصميم واجهات", "استراتيجية رقمية"];
+
+  const filteredProjects = activeTab === "الكل" 
+    ? projects 
+    : projects.filter(p => p.category_name === activeTab);
+
+  // عرض أول 6 مشاريع فقط كمثال، والباقي يظهر عند الضغط على زر عرض المزيد (أو الانتقال لصفحة المعرض)
+  const displayedProjects = filteredProjects.slice(0, 6);
 
   return (
     <section 
       id="portfolio" 
-      className={cn("py-24  w-full text-foreground", className)} 
+      className={cn("py-24 w-full text-foreground bg-background", className)} 
       dir="rtl"
     >
       <div className="container mx-auto px-6 max-w-7xl">
         
-        <div className="text-center mb-12 md:mb-20">
-          <h2 className="text-4xl md:text-5xl font-black mb-6">
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
             معرض <span className="text-primary">الأعمال</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
+          <p className="text-gray-400 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
             نتائج تتحدث وإبداع يتنفس؛ ملخص لمشاريعنا التي جمعت بين ذكاء الاستراتيجية وجمال التنفيذ الرقمي.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {projects.map((project, index) => (
+          {displayedProjects.map((project, index) => (
             <Link 
               href={`/portfolio/${project.slug}`}
               key={index} 
-              className="group relative overflow-hidden rounded-[2.5rem] aspect-[4/5] bg-secondary/20 border border-white/5 block"
+              className="group relative overflow-hidden rounded-[2rem] aspect-[4/3] bg-secondary/10 border border-white/5 block"
             >
               <Image
                 src={project.image_url && project.image_url !== "" ? project.image_url : "/assets/pic.png"}
                 alt={project.title}
                 fill
-                className="object-cover transition-transform duration-1000 group-hover:scale-110 group-hover:rotate-1"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                priority={index < 3}
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-500" />
-              <div className="absolute top-6 left-6 w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white opacity-0 -translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-xl shadow-primary/40">
-                <ArrowUpLeft className="w-6 h-6" />
-              </div>
+              {/* Overlay التدرج اللوني */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F1E] via-transparent to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
 
-              <div className="absolute bottom-8 right-8 left-8 text-right z-10 transition-transform duration-500 group-hover:-translate-y-2">
-                <span className="inline-block px-3 py-1 bg-primary/10 border border-primary/20 rounded-lg text-primary text-xs font-bold mb-3 backdrop-blur-md uppercase tracking-wider">
+              <div className="absolute bottom-6 right-6 left-6 text-right z-10 transition-transform duration-500">
+                <span className="text-primary text-xs font-bold mb-1 block">
                   {project.category_name}
                 </span>
-                <h3 className="text-xl md:text-2xl font-black text-white group-hover:text-primary transition-colors line-clamp-2">
+                <h3 className="text-lg md:text-xl font-bold text-white group-hover:text-primary transition-colors">
                   {project.title}
                 </h3>
               </div>
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
             </Link>
           ))}
+        </div>
+
+        {/* زر عرض المزيد */}
+        <div className="mt-16 text-center">
+          <Link 
+            href="/portfolio" 
+            className="inline-flex items-center gap-2 text-white hover:text-primary transition-colors font-bold text-lg group"
+          >
+            عرض المزيد
+            <ChevronLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
+          </Link>
         </div>
       </div>
     </section>

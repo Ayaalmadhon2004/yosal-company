@@ -44,7 +44,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // لمنع التمرير خلف المنيو عند فتحها
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -58,7 +57,7 @@ export default function Navbar() {
   return (
     <nav 
       className={cn(
-        "fixed top-0 w-full z-[9999] transition-all duration-500", // Z-index مرتفع جداً
+        "fixed top-0 w-full z-[9999] transition-all duration-500 mb-4", 
         scrolled || isOpen
           ? "bg-[#0B0D17]/95 backdrop-blur-2xl border-b border-white/5 py-3 shadow-2xl" 
           : "bg-transparent py-6"

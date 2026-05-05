@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import dynamic from 'next/dynamic';
 import { servicesData } from "@/constants/servicesData";
 import ServiceHero from "@/components/sections/services/ServiceHero";
+import ScrollToTop from "@/components/ScrollToTop";
 
 /**
  * Skeleton Loader محسن لتقليل القفزات البصرية
@@ -79,6 +80,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   return (
     <main className="min-h-screen bg-background selection:bg-primary/30">
+      <ScrollToTop />
+      
       <ServiceHero 
         badge={data.hero.badge}
         title={data.hero.title}
