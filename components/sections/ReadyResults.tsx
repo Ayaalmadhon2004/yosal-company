@@ -1,7 +1,6 @@
 "use client";
 
 import { AppButton } from "../ui/AppButton";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 interface ReadySectionProps {
@@ -17,59 +16,68 @@ export default function ReadySection({ variant = "style1" }: ReadySectionProps) 
   const isStyle1 = variant === "style1";
 
   return (
-    <section 
-      className="relative py-24 px-6 overflow-hidden bg-[#0F1121]"
-      dir="rtl" 
-    >
-      <div className="max-w-4xl mx-auto text-center relative z-10">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-8 leading-[1.3]">
-          {isStyle1 ? "جاهز تضاعف مبيعاتك؟" : "جاهز لنصنع النجاح سوياً؟"}
-        </h2>
+    <section className="relative py-24 px-6 bg-background" dir="rtl">
+      {/* الكرت الأساسي */}
+      <div className="max-w-6xl mx-auto relative overflow-hidden rounded-[40px] md:rounded-[60px] bg-[#161839] border border-white/5 py-20 px-8 shadow-2xl">
+        
+        {/* الدائرة المتوهجة العلوية (يمين) - كما في الصورة */}
+        <div 
+          className="absolute -top-24 -right-24 w-80 h-80 rounded-full blur-[100px] opacity-20 pointer-events-none"
+          style={{ backgroundColor: 'var(--color-brand-orange)' }}
+        />
+        
+        {/* الدائرة المتوهجة السفلية (يسار) */}
+        <div 
+          className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full blur-[100px] opacity-15 pointer-events-none"
+          style={{ backgroundColor: 'var(--color-brand-orange)' }}
+        />
 
-        <p className="text-muted-foreground text-lg md:text-xl mb-14 max-w-3xl mx-auto leading-relaxed font-medium">
-          {isStyle1 ? (
-            <>
-              لا تترك نمو مشروعك للصدفة. احصل على <span className="text-white font-bold">استشارة مجانية</span> اليوم واكتشف كيف يمكننا تحويل مشروعك لقصة نجاح جديدة.
-            </>
-          ) : (
-            <>
-              دعنا نناقش كيف يمكن لـ <span className="text-primary font-black text-2xl mx-1 inline-block">"يوصل"</span> أن تضاعف من وصول علامتك التجارية وتحقق أهدافك التسويقية بذكاء.
-            </>
-          )}
-        </p>
+        <div className="max-w-3xl mx-auto text-center relative z-10">
+          <h2 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight font-cairo">
+            {isStyle1 ? "جاهز تضاعف مبيعاتك؟" : "جاهز لنصنع النجاح سوياً؟"}
+          </h2>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-          
-          {/* الزر البرتقالي - تم إلغاء الـ Padding الداخلي للزر ونقله للرابط */}
-          <AppButton 
-            variant="orange" 
-            size="lg" 
-            className="p-0 overflow-hidden w-full sm:w-auto min-w-[240px] h-14 rounded-full shadow-lg shadow-orange-500/20 hover:scale-105 transition-all"
-          >
-            <a 
-              href={LINKS.FREE_CONSULTATION} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="w-full h-full flex items-center justify-center px-8 text-xl font-bold"
+          <p className="text-muted-foreground text-lg md:text-xl mb-12 leading-relaxed opacity-90 max-w-2xl mx-auto">
+            {isStyle1 ? (
+              <>
+                لا تترك نمو مشروعك للصدفة. احصل على <span className="text-white font-bold">استشارة مجانية</span> اليوم واكتشف كيف يمكننا تحويل مشروعك لقصة نجاح جديدة.
+              </>
+            ) : (
+              <>
+                دعنا نناقش كيف يمكن لـ <span className="text-brand-orange font-bold">"يوصل"</span> أن تضاعف من وصول علامتك التجارية وتحقق أهدافك التسويقية بذكاء.
+              </>
+            )}
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
+            
+            {/* زر "ابدأ مشروعك الآن" - برتقالي */}
+            <AppButton 
+              className="p-0 overflow-hidden w-full sm:w-auto min-w-[220px] h-14 rounded-2xl bg-brand-orange shadow-lg shadow-brand-orange/20 hover:scale-105 transition-all border-none"
             >
-              {isStyle1 ? "إبدأ رحلتك الآن" : "ابدأ مشروعك الآن"}
-            </a>
-          </AppButton>
-          
-          {/* الزر الأبيض - بنفس التكتيك لضمان التماثل تماماً */}
-          <AppButton 
-            variant="outline" 
-            size="lg" 
-            className="p-0 overflow-hidden w-full sm:w-auto min-w-[240px] h-14 rounded-full bg-white text-black border-none hover:bg-gray-100 transition-all"
-          >
-            <Link 
-              href={isStyle1 ? LINKS.PORTFOLIO : LINKS.FREE_CONSULTATION}
-              className="w-full h-full flex items-center justify-center px-8 text-xl font-bold"
+              <a 
+                href={LINKS.FREE_CONSULTATION} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-full h-full flex items-center justify-center px-8 text-lg font-bold text-white"
+              >
+                {isStyle1 ? "إبدأ رحلتك الآن" : "ابدأ مشروعك الآن"}
+              </a>
+            </AppButton>
+            
+            {/* زر "احجز استشارة" - أبيض بنص برتقالي (مطابق للصورة) */}
+            <AppButton 
+              className="p-0 overflow-hidden w-full sm:w-auto min-w-[220px] h-14 rounded-2xl bg-white hover:bg-white/90 transition-all border-none"
             >
-              {isStyle1 ? "شاهد أعمالنا" : "احجز استشارة مجانية"}
-            </Link>
-          </AppButton>
+              <Link 
+                href={isStyle1 ? LINKS.PORTFOLIO : LINKS.FREE_CONSULTATION}
+                className="w-full h-full flex items-center justify-center px-8 text-lg font-bold text-brand-orange"
+              >
+                {isStyle1 ? "شاهد أعمالنا" : "احجز استشارة مجانية"}
+              </Link>
+            </AppButton>
 
+          </div>
         </div>
       </div>
     </section>

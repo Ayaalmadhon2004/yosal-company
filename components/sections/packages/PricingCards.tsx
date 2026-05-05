@@ -10,7 +10,7 @@ const API_URL = "https://yosaal-website-backend.onrender.com/api/v1/packages";
 export default function PricingCards() {
   const [packages, setPackages] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false); // إضافة حالة الخطأ
+  const [error, setError] = useState(false); 
 
   useEffect(() => {
     const fetchPackages = async () => {
@@ -20,7 +20,6 @@ export default function PricingCards() {
         const json = await response.json();
         
         if (json && json.status === "Success") {
-          // التأكد من الوصول للمصفوفة الصحيحة
           setPackages(json.data?.data || json.data || []);
         }
       } catch (error) {
@@ -81,11 +80,12 @@ export default function PricingCards() {
               </p>
             </div>
 
-            {/* تم تصحيح الـ className هنا بإزالة الـ /40 التائهة */}
             <div className="text-right mb-12 bg-white/5 p-6 rounded-[2rem] border border-white/5">
-              <div className="flex items-baseline gap-2 justify-end flex-row-reverse">
-                <span className="text-6xl font-black text-foreground">${pkg.price}</span>
-                <span className="text-muted-foreground text-sm font-bold uppercase tracking-widest">/ شهرياً</span>
+              <div className="flex items-baseline gap-2 justify-end">
+                {/* عرض "ر.س" بعد السعر وبخط أصغر قليلاً */}
+                <span className="text-muted-foreground text-xl font-bold">ر.س</span>
+                <span className="text-6xl font-black text-foreground">{pkg.price}</span>
+                <span className="text-muted-foreground text-sm font-bold uppercase tracking-widest mr-2">/ شهرياً</span>
               </div>
             </div>
 

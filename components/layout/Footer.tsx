@@ -76,7 +76,7 @@ export default function Footer() {
     { Icon: FaSnapchat, link: "https://www.snapchat.com/add/yoosal.ag" },
     { Icon: FaFacebookF, link: "https://www.facebook.com/share/1DeynDWeNh/" },
     { Icon: FaXTwitter, link: "https://x.com/Yoosal148837" },
-    { Icon: FaThreads, link: "https://www.threads.com/@yoosal.agency" }
+    { Icon: FaThreads, link: "https://www.threads.com/@yoosal.ag" }
   ];
 
   if (!mounted) return null;
@@ -133,7 +133,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* قانوني */}
           <div className="md:col-span-2 text-right">
             <h4 className="text-white font-bold mb-6">قانوني</h4>
             <ul className="space-y-4 text-gray-400 text-sm">
@@ -142,7 +141,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* النشرة البريدية */}
           <div className="md:col-span-4">
             <div className="bg-[#252841] p-8 rounded-[32px] border border-white/5 relative overflow-hidden">
               <div className="absolute -top-2 -left-2 bg-orange-500/10 p-4 rounded-full blur-xl"></div>

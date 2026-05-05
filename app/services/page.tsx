@@ -1,9 +1,52 @@
+"use client";
+
+import React from "react";
 import Image from "next/image";
 import Services from "@/components/sections/services/Services";
 import ReadyResults from "@/components/sections/ReadyResults";
-import { servicesData } from "@/constants/siteData";
 
-export default function ServicesHero() {
+// تعريف الـ Interface لضمان مطابقة الأنواع وتجنب أخطاء الـ Build
+import { ServiceItem } from "@/components/sections/services/Services";
+
+export default function ServicesPage() {
+  // البيانات الأصلية المستخرجة من قسم التخطيط الاستراتيجي
+  const strategicPlanningData = {
+    deliverables: [
+      { 
+        title: "تحليل السوق العميق", 
+        desc: "دراسة شاملة للمنافسين واتجاهات المستهلكين وفجوات السوق المتاحة حالياً.", 
+        icon: "search-zoom" 
+      },
+      { 
+        title: "مؤشرات الأداء KPIs", 
+        desc: "تحديد معايير واضحة للنجاح تمكنك من قياس كل خطوة في مشروعك بدقة.", 
+        icon: "trending-up" 
+      },
+      { 
+        title: "خارطة الطريق الاستراتيجية", 
+        desc: "جدول زمني مفصل يحدد المهام والميزانيات والمسؤوليات بشكل دقيق وعملي.", 
+        icon: "layout" 
+      },
+      { 
+        title: "التدريب والتمكين", 
+        desc: "تأهيل فريقك وتزويده بالأدوات اللازمة لتنفيذ الاستراتيجية بفعالية واستدامة.", 
+        icon: "rocket" 
+      }
+    ]
+  };
+
+  // عملية الـ Mapping: تحويل البيانات لتناسب متطلبات المكون Services
+  // هذا الجزء يحل خطأ: Type 'Service' is missing properties: brief, icon
+  const formattedServices: ServiceItem[] = strategicPlanningData.deliverables.map((item, index) => ({
+    id: index + 1,
+    title: item.title,
+    slug: "strategic-planning", 
+    brief: item.desc,           // تحويل desc إلى brief برمجياً
+    icon: item.icon,            
+    features: [],               // إضافة مصفوفة فارغة لتجنب خطأ الـ missing property
+    ctaText: "اطلب الخدمة الآن"
+  }));
+
   return (
     <section className="py-24 px-6 overflow-hidden bg-background" dir="rtl">
       <div className="container mx-auto max-w-7xl">
@@ -24,9 +67,8 @@ export default function ServicesHero() {
             </p>
           </div>
 
-          {/* الجانب الأيسر: الصورة التوضيحية - مع إصلاح الظهور في الموبايل */}
+          {/* الجانب الأيسر: الصورة التوضيحية */}
           <div className="flex-1 relative group order-1 lg:order-2 w-full isolate">
-            {/* أبعاد صريحة للموبايل تمنع اختفاء الصورة */}
             <div className="relative z-10 w-full h-[350px] sm:h-[450px] lg:h-[500px] lg:aspect-square max-w-[500px] mx-auto rounded-[2.5rem] md:rounded-4xl border border-white/10 overflow-hidden shadow-2xl transition-transform duration-700 group-hover:scale-[1.03]">
               
               {/* توهج خلفي (Glow Effect) */}
@@ -38,7 +80,7 @@ export default function ServicesHero() {
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 50vw"
-                style={{ objectFit: 'cover' }} // يضمن ملء الصورة للحاوية
+                style={{ objectFit: 'cover' }}
                 className="transition-transform duration-1000 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
@@ -48,10 +90,12 @@ export default function ServicesHero() {
         </div>
       </div>
 
-      {/* المكونات الإضافية */}
+      {/* المكونات الإضافية مع البيانات المنسقة */}
       <div className="mt-20">
-        <Services data={servicesData}/>
+        <Services data={formattedServices}/>
       </div>
+      
+      {/* مكون النتائج الجاهزة (Variant Style 1) */}
       <ReadyResults variant="style1"/>
     </section>
   );

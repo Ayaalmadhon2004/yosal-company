@@ -69,9 +69,10 @@ export default function Services({ data, className }: ServicesProps) {
         </div>
 
         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => (
+          {services.map((service, index) => (
             <AppCard 
-              key={service.id}
+              // حل مشكلة الـ Unique Key باستخدام المعرف والترتيب معاً
+              key={`${service.id}-${index}`} 
               className="glass-card flex flex-col transition-all duration-500 hover:-translate-y-3 border-white/5 p-2 group overflow-hidden relative"
             >
               <div className="absolute top-0 left-0 w-full h-full bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
@@ -94,8 +95,9 @@ export default function Services({ data, className }: ServicesProps) {
 
               <AppCardContent className="p-8 pt-6 flex flex-col flex-grow text-right relative z-10">
                 <ul className="space-y-4 mb-10 flex-grow">
-                  {service.features?.map((feature) => (
-                    <li key={feature.id} className="flex items-center gap-3 text-muted-foreground text-sm font-medium">
+                  {service.features?.map((feature, fIndex) => (
+                    // تأمين الـ Key أيضاً للميزات الداخلية
+                    <li key={`${feature.id}-${fIndex}`} className="flex items-center gap-3 text-muted-foreground text-sm font-medium">
                       <Check className="h-4 w-4 text-primary shrink-0" />
                       <span className="group-hover:text-foreground transition-colors">{feature.title}</span>
                     </li>
