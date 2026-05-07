@@ -14,13 +14,12 @@ export default function ProjectAuditForm() {
     const form = e.currentTarget;
     const formData = new FormData(form);
     
-    const data = {
-      name: formData.get("full_name") as string,
-      phone: formData.get("phone") as string,
-      // بما أن التصميم الجديد يركز على حقلين فقط، نرسل قيم افتراضية للباقي لمنع 422
-      email: "audit-request@user.com", 
-      project_url: "طلب تقييم داخلي",
-    };
+      const data = {
+        name: formData.get("full_name") as string,
+        phone: formData.get("phone") as string,
+        email: `audit_${Date.now()}@yosaal.com`, 
+        project_url: "طلب تقييم داخلي",
+      };
 
     try {
       const result = await sendProjectRequest(data);

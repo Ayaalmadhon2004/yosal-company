@@ -40,12 +40,10 @@ const Faqs = dynamic(() => import("../components/sections/home/Faqs"), {
 });
 
 export default async function Home() {
-  // جلب البيانات من الـ API
   const data = await getDashboardData() || {
     services: [], projects: [], statistics: [], packages: [], testimonials: []
   };
 
-  // 1. تجميع كل الأسئلة من كافة الأقسام (marketing, strategy, web, etc.) في مصفوفة واحدة
   const allFaqs = Object.values(faqsData).flat();
 
   // 2. اختيار 4 أسئلة عشوائية في كل مرة يتم فيها رندر الصفحة (Server-side)

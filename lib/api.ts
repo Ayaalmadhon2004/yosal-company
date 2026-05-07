@@ -60,25 +60,22 @@ export async function getPostBySlug(slug: string) {
 
 export async function sendProjectRequest(data: any) {
     try {
-        const formData = new FormData();
-        formData.append('project_name', data.name); 
-        formData.append('service_type', 'تقييم مشروع'); 
-        formData.append('budget', '0'); 
-        formData.append('main_goals', 'طلب تقييم للموقع من نموذج تواصل معنا'); 
-        
-        const fullDescription = `
-            إيميل العميل: ${data.email}
-            رقم الهاتف: ${data.phone}
-            رابط المشروع: ${data.project_url || 'لا يوجد'}
-        `;
-        formData.append('description', fullDescription);
+        // تحويل البيانات لـ JSON بدلاً من FormData لضمان التوافق مع السيرفر
+        const payload = {
+            project_name: data.name,
+            service_type: 'تقييم مشروع',
+            budget: '0',
+            main_goals: 'طلب تقييم للموقع من نموذج تواصل معنا',
+            description: `إيميل العميل: ${data.email} | رقم الهاتف: ${data.phone} | رابط المشروع: ${data.project_url || 'لا يوجد'}`
+        };
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/project-request`, {
+        const res = await fetch(API_ENDPOINTS.PROJECT_REQUEST, { // استخدم المتغير المعرف بالأعلى
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
+                'Content-Type': 'application/json', // إخبار السيرفر أننا نرسل JSON
             },
-            body: formData 
+            body: JSON.stringify(payload) 
         });
 
         const result = await res.json();
