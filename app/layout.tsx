@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Toaster } from "react-hot-toast";
+import Script from "next/script"; // استيراد مكون Script
 
 const cairo = Cairo({
   subsets: ['arabic', 'latin'],
@@ -24,7 +25,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ar" dir="rtl" className={`${cairo.variable} scroll-smooth`}>
-      <body className={`${cairo.className} bg-[#0F112B]  bg-background text-white antialiased min-h-screen relative overflow-x-hidden flex flex-col`}>
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-QBZ07DT6PS"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-QBZ07DT6PS');
+          `}
+        </Script>
+      </head>
+      <body className={`${cairo.className} bg-[#0F112B] bg-background text-white antialiased min-h-screen relative overflow-x-hidden flex flex-col`}>
         
         <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
           <div className="absolute -top-[10%] -left-[10%] w-[600px] h-[600px] bg-[#3C3F73]/30 rounded-full blur-[140px]" />
