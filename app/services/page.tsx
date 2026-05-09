@@ -1,57 +1,85 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Services from "@/components/sections/services/Services";
 import ReadyResults from "@/components/sections/ReadyResults";
-import { servicesData } from "@/constants/siteData";
+import { Loader2, AlertCircle } from "lucide-react";
 
 export default function ServicesPage() {
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await fetch('https://yosaal-website-backend.onrender.com/api/v1/services');
+        const result = await response.json();
+        
+        if (result.status === "Success" && result.data) {
+          setServices(result.data);
+        } else {
+          setError(true);
+        }
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchServices();
+  }, []);
+
   return (
     <main className="bg-background min-h-screen">
+      {/* Hero Section */}
       <section className="py-24 px-6 overflow-hidden" dir="rtl">
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col lg:flex-row items-center gap-16">
-
-            {/* الجانب الأيمن: المحتوى النصي */}
             <div className="flex-1 text-right order-2 lg:order-1">
               <div className="inline-block px-4 py-1.5 mb-6 rounded-full bg-white/5 border border-white/10">
-                <span className="text-primary text-sm font-bold tracking-wider">خدماتنا</span>
+                <span className="text-primary text-sm font-bold tracking-wider">خدماتنا الاحترافية</span>
               </div>
-              
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-foreground mb-8 leading-[1.2]">
-                خدماتنا <span className="text-primary">الإبداعية</span>
+                حلول رقمية <span className="text-primary">متكاملة</span>
               </h1>
-              
               <p className="text-muted-foreground text-lg md:text-xl leading-relaxed mb-10 max-w-xl">
-                نحن لا نقدم مجرد خدمات، بل نصمم تجارب رقمية متكاملة تهدف لنقل علامتك التجارية إلى آفاق جديدة من التميز والابتكار.
+                نحول الأفكار المعقدة إلى واقع ملموس من خلال خدماتنا المتنوعة التي تغطي كافة جوانب التواجد الرقمي.
               </p>
             </div>
 
-            {/* الجانب الأيسر: الصورة */}
-            <div className="flex-1 relative group order-1 lg:order-2 w-full isolate">
-              <div className="relative z-10 w-full h-[350px] sm:h-[450px] lg:h-[500px] lg:aspect-square max-w-[500px] mx-auto rounded-[2.5rem] md:rounded-4xl border border-white/10 overflow-hidden shadow-2xl transition-transform duration-700 group-hover:scale-[1.03]">
-                <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-primary/5 to-transparent blur-3xl rounded-full animate-pulse -z-10" />
+            <div className="flex-1 relative order-1 lg:order-2 w-full">
+              <div className="relative z-10 w-full h-[400px] rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl">
                 <Image 
                   src="/assets/moon.png" 
-                  alt="Creative Services at Yoosel"
+                  alt="Yoosel Services"
                   fill
                   priority
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  style={{ objectFit: 'cover' }}
-                  className="transition-transform duration-1000 group-hover:scale-110"
+                  className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
               </div>
             </div>
-
           </div>
         </div>
       </section>
 
-      {/* 2. تمرير البيانات المستوردة مباشرة */}
-      <div className="mt-10">
-        <Services data={servicesData} />
+      <div className="mt-10 min-h-[400px] px-6">
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-20 gap-4">
+            <Loader2 className="w-12 h-12 animate-spin text-primary" />
+            <p className="text-muted-foreground font-bold">جاري تحميل الخدمات الإبداعية...</p>
+          </div>
+        ) : error ? (
+          <div className="flex flex-col items-center justify-center py-20 text-red-400 gap-3">
+            <AlertCircle size={40} />
+            <p className="font-bold">عذراً، فشل جلب البيانات من السيرفر.</p>
+          </div>
+        ) : (
+          <Services data={services} />
+        )}
       </div>
       
       <ReadyResults variant="style1" />

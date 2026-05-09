@@ -1,122 +1,131 @@
 "use client";
 
 import React from "react";
-import { AppCard, AppCardHeader, AppCardTitle, AppCardDescription, AppCardContent } from "@/components/ui/AppCard";
-import { AppButton } from "@/components/ui/AppButton"; 
 import Link from "next/link";
 import { 
-  Monitor, Search, Layout, Share2, Rocket, 
-  PenTool, Video, MessageSquare, TrendingUp, Check,
-  ArrowLeft 
+  Layout, Search, TrendingUp, Video, Share2, 
+  PenTool, Check, Monitor, ArrowRight 
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { 
+  AppCard, AppCardHeader, AppCardTitle, AppCardDescription, AppCardContent 
+} from "@/components/ui/AppCard";
+import { AppButton } from "@/components/ui/AppButton";
 
 export interface ServiceItem {
-  id: number;
+  id: number | string;
   title: string;
   slug: string;
-  description: string;
-  iconName: string; 
-  features: string[]; 
-  ctaText?: string;
-  isFeatured?: boolean;
+  brief?: string;
+  description?: string;
+  icon?: string;
+  iconName?: string;
+  features?: any[];
 }
 
-interface ServicesProps {
-  data: ServiceItem[];
-  className?: string;
-}
-
-const getIcon = (name: string) => {
-  const icons: Record<string, React.ElementType> = {
-    "layout": Layout,
-    "search-zoom": Search,
-    "monitor": Monitor,
-    "share": Share2,
-    "rocket": Rocket,
-    "pen-tool": PenTool,
-    "video": Video,
-    "message-square": MessageSquare,
-    "trending-up": TrendingUp,
+const getWhatsAppLink = (slug: string) => {
+  const s = slug?.toLowerCase() || "";
+  
+  const links: Record<string, string> = {
+    "social-media": "https://wa.link/1992gd",
+    "web-development": "https://wa.link/e56rm6",
+    "content-creation": "https://wa.link/xct02j",
+    "content-production": "https://wa.link/xct02j", // Fallback
+    "seo": "https://wa.link/efvmlr",
+    "search-engine-optimization": "https://wa.link/efvmlr", // Fallback
+    "branding": "https://wa.link/wliy6a",
+    "visual-identity": "https://wa.link/wliy6a", // Fallback
+    "strategic-planning": "https://wa.link/9yy222",
   };
-  const IconComponent = icons[name] || Monitor;
-  return <IconComponent className="h-6 w-6 text-primary transition-all duration-500 group-hover:scale-110 group-hover:text-white" />;
+
+  return links[s] || "https://wa.link/1992gd"; // رابط افتراضي في حال عدم المطابقة
 };
 
-export default function Services({ data, className }: ServicesProps) {
+const getCorrectSlug = (apiSlug: string) => {
+  const s = apiSlug?.toLowerCase() || "";
+  if (s === "visual-identity" || s === "branding") return "branding";
+  if (s === "content-production" || s === "content-creation") return "content-creation";
+  if (s === "search-engine-optimization" || s === "seo") return "seo";
+  return s;
+};
+
+const getIcon = (name: string, slug: string) => {
+  const icons: Record<string, React.ElementType> = {
+    "web-icon": Layout,
+    "branding-icon": PenTool,
+    "seo-icon": Search,
+    "strategy-icon": TrendingUp,
+    "video-icon": Video,
+    "social-icon": Share2,
+  };
+  const s = slug?.toLowerCase() || "";
+  if (s.includes("visual") || s.includes("branding")) return <PenTool className="h-6 w-6" />;
+  if (s.includes("content") || s.includes("video")) return <Video className="h-6 w-6" />;
+  const IconComponent = icons[name] || Monitor;
+  return <IconComponent className="h-6 w-6" />;
+};
+
+export default function Services({ data, className }: { data: ServiceItem[], className?: string }) {
   const services = Array.isArray(data) ? data : [];
 
   return (
-    <section id="services" className={cn("py-24 w-full", className)} dir="rtl">
-      <div className="container mx-auto px-6 lg:px-16 max-w-7xl">
-        
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-black text-foreground mb-4">
-            خدمات تركز على <span className="text-primary">النتائج</span>
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            نستخدم أحدث التقنيات والبيانات لدفع مبيعاتك للأمام وتحويل علامتك التجارية إلى واقع ملموس.
-          </p>
-        </div>
-
+    <section id="services" className={cn("py-24 w-full bg-background", className)} dir="rtl">
+      <div className="container mx-auto px-6 max-w-7xl">
         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, index) => (
-            <AppCard 
-              key={`${service.id}-${index}`} 
-              className={cn(
-                "glass-card flex flex-col transition-all duration-500 hover:-translate-y-3 border-white/5 p-2 group overflow-hidden relative",
-                service.isFeatured && "ring-2 ring-primary/20 bg-primary/5"
-              )}
-            >
-              <div className="absolute top-0 left-0 w-full h-full bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+          {services.map((service, index) => {
+            const displayDescription = service.brief || service.description;
+            const displayIcon = service.icon || service.iconName || "";
+            const finalSlug = getCorrectSlug(service.slug);
+            const waLink = getWhatsAppLink(service.slug);
 
-              <AppCardHeader className="p-8 pb-0 text-right relative z-10">
-                <div className="flex justify-between items-start mb-6">
-                  <div className="p-4 bg-primary/10 rounded-2xl border border-primary/20 transition-all duration-500 group-hover:bg-primary group-hover:border-primary group-hover:shadow-lg group-hover:shadow-primary/30">
-                    {getIcon(service.iconName)}
+            return (
+              <AppCard key={`${service.id}-${index}`} className="glass-card flex flex-col group border-white/5 p-2 transition-all duration-500 hover:-translate-y-3 relative">
+                <AppCardHeader className="p-8 pb-0 text-right relative z-10">
+                  <div className="p-4 w-fit bg-primary/10 rounded-2xl mb-6 border border-primary/20 group-hover:bg-primary transition-all duration-500">
+                    <div className="text-primary group-hover:text-white transition-colors">
+                      {getIcon(displayIcon, service.slug)}
+                    </div>
                   </div>
-                </div>
+                  <AppCardTitle className="text-2xl font-black mb-4 group-hover:text-primary transition-colors">
+                    {service.title}
+                  </AppCardTitle>
+                  <AppCardDescription className="text-muted-foreground text-base leading-relaxed h-20 line-clamp-3">
+                    {displayDescription}
+                  </AppCardDescription>
+                </AppCardHeader>
 
-                <AppCardTitle className="text-2xl font-black text-foreground mb-4 group-hover:text-primary transition-colors">
-                  {service.title}
-                </AppCardTitle>
-
-                <AppCardDescription className="text-muted-foreground text-base leading-relaxed h-20 line-clamp-3">
-                  {service.description}
-                </AppCardDescription>
-              </AppCardHeader>
-
-              <AppCardContent className="p-8 pt-6 flex flex-col flex-grow text-right relative z-10">
-                <ul className="space-y-4 mb-10 flex-grow">
-                  {service.features?.map((feature, fIndex) => (
-                    <li key={fIndex} className="flex items-center gap-3 text-muted-foreground text-sm font-medium">
-                      <Check className="h-4 w-4 text-primary shrink-0" />
-                      <span className="group-hover:text-foreground transition-colors">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mt-auto space-y-5">
-                  <Link 
-                    href={`/services/${service.slug}`} 
-                    className="text-primary text-sm font-bold inline-flex items-center gap-2 hover:gap-4 transition-all group/link"
-                  >
-                    عرض المزيد 
-                    <ArrowLeft className="h-4 w-4 transition-transform group-hover/link:-translate-x-1" />
-                  </Link>
-
-                  <AppButton
-                    asChild
-                    className="w-full py-6 rounded-2xl font-bold transition-all bg-secondary/20 border border-white/10 text-foreground hover:border-primary hover:text-white hover:bg-primary shadow-sm active:scale-95"
-                  >
-                    <Link href={`/services/${service.slug}`}>
-                      {service.ctaText || "طلب الخدمة الآن"}
+                <AppCardContent className="p-8 pt-6 flex flex-col flex-grow relative z-10">
+                  <ul className="space-y-4 mb-10 flex-grow">
+                    {service.features?.map((feature, fIndex) => (
+                      <li key={fIndex} className="flex items-center gap-3 text-muted-foreground text-sm font-medium">
+                        <Check className="h-4 w-4 text-primary shrink-0" />
+                        <span className="group-hover:text-foreground transition-colors">
+                          {typeof feature === 'string' ? feature : feature.title}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  
+                  <div className="mt-auto space-y-4">
+                    {/* رابط التفاصيل للموقع الداخلي */}
+                    <Link 
+                      href={`/services/${finalSlug}`} 
+                      className="text-primary text-sm font-bold inline-flex items-center gap-2 group/link hover:underline decoration-2 underline-offset-4"
+                    >
+                      تفاصيل الخدمة <ArrowRight className="w-4 h-4" />
                     </Link>
-                  </AppButton>
-                </div>
-              </AppCardContent>
-            </AppCard>
-          ))}
+
+                    {/* زر الواتساب المباشر بالرابط الذي زودتني به */}
+                    <AppButton asChild className="w-full py-7 rounded-2xl font-black text-lg bg-secondary/20 hover:bg-[#25D366] hover:text-white transition-all duration-300 shadow-lg">
+                      <a href={waLink} target="_blank" rel="noopener noreferrer">
+                        اطلب الخدمة الآن
+                      </a>
+                    </AppButton>
+                  </div>
+                </AppCardContent>
+              </AppCard>
+            );
+          })}
         </div>
       </div>
     </section>
