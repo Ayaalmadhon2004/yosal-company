@@ -6,25 +6,66 @@ export const API_ENDPOINTS = {
     POSTS: `${BASE_URL}/posts`,
 };
 
+// 1. جلب بيانات الداشبورد (Testimonials وغيرها)
 export async function getDashboardData() {
     try {
         const res = await fetch(API_ENDPOINTS.DASHBOARD, {
             next: { revalidate: 3600 }
         });
-
         if (!res.ok) throw new Error("Failed to fetch dashboard data");
-
         const json = await res.json();
         return json.data;
     } catch (error) {
+        console.error("Dashboard Fetch Error:", error);
         return null;
     }
 }
 
+// 2. إرسال طلب مشروع (تواصل معنا) - تم التعديل ليتوافق مع Postman
+export async function sendProjectRequest(data: any) {
+    try {
+        // إنشاء FormData بدلاً من JSON بناءً على توثيق API (Postman)
+        const formData = new FormData();
+        
+        // مطابقة الحقول مع ما يتوقعه الباك آند في Postman
+        formData.append('project_name', data.name);
+        formData.append('service_type', data.service_type || 'طلب تقييم أولي');
+        formData.append('budget', data.budget || '0');
+        formData.append('main_goals', data.main_goals || 'تقييم الموقع من الصفحة الرئيسية');
+        
+        // دمج معلومات التواصل الإضافية في الوصف لضمان وصولها
+        const fullDescription = `${data.description} | إيميل: ${data.email} | هاتف: ${data.phone} | الرابط: ${data.project_url || 'لا يوجد'}`;
+        formData.append('description', fullDescription);
+
+        const res = await fetch(API_ENDPOINTS.PROJECT_REQUEST, {
+            method: 'POST',
+            headers: {
+                // ملاحظة: لا تضعي Content-Type يدوياً عند استخدام FormData
+                'Accept': 'application/json',
+            },
+            body: formData 
+        });
+
+        // التحقق من استجابة السيرفر
+        if (!res.ok) {
+            const errorData = await res.json();
+            throw new Error(errorData.message || `Server responded with ${res.status}`);
+        }
+
+        const result = await res.json();
+        console.log("✅ Success Response:", result);
+        return result;
+        
+    } catch (error: any) {
+        console.error("❌ API Error:", error.message);
+        return { status: "Error", message: error.message || "حدث خطأ في الاتصال بالسيرفر" };
+    }
+}
+
+// 3. جلب المقالات مع البحث والفلترة
 export async function getPosts(search?: string, category?: string, page: number = 1) { 
     try {
         const url = new URL(API_ENDPOINTS.POSTS); 
-
         if (search) url.searchParams.append('search', search);
         if (category) url.searchParams.append('category', category);
         url.searchParams.append('page', page.toString()); 
@@ -34,59 +75,29 @@ export async function getPosts(search?: string, category?: string, page: number 
         });
 
         if (!res.ok) throw new Error("Failed to fetch posts");
-
-        const json = await res.json(); 
-        return json;
+        return await res.json();
     } catch (error) {
+        console.error("Posts Fetch Error:", error);
         return { data: [], meta: {} }; 
     }
 }
 
+// 4. جلب مقال واحد بواسطة الـ Slug
 export async function getPostBySlug(slug: string) {
     try {
         const res = await fetch(`${BASE_URL}/posts/${slug}`, {
             next: { revalidate: 3600 }
         });
-
         if (!res.ok) throw new Error("Post not found");
-
         const json = await res.json();
         return json.data;
     } catch (error) {
-        console.error(error);
+        console.error("Post Detail Fetch Error:", error);
         return null;
     }
 }
 
-export async function sendProjectRequest(data: any) {
-    try {
-        // تحويل البيانات لـ JSON بدلاً من FormData لضمان التوافق مع السيرفر
-        const payload = {
-            project_name: data.name,
-            service_type: 'تقييم مشروع',
-            budget: '0',
-            main_goals: 'طلب تقييم للموقع من نموذج تواصل معنا',
-            description: `إيميل العميل: ${data.email} | رقم الهاتف: ${data.phone} | رابط المشروع: ${data.project_url || 'لا يوجد'}`
-        };
-
-        const res = await fetch(API_ENDPOINTS.PROJECT_REQUEST, { // استخدم المتغير المعرف بالأعلى
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json', // إخبار السيرفر أننا نرسل JSON
-            },
-            body: JSON.stringify(payload) 
-        });
-
-        const result = await res.json();
-        return result;
-        
-    } catch (error) {
-        console.error("API Error:", error);
-        return { status: "Error", message: "حدث خطأ في الاتصال بالسيرفر" };
-    }
-}
-
+// 5. جلب آراء العملاء
 export async function getTestimonials() {
     try {
         const data = await getDashboardData();

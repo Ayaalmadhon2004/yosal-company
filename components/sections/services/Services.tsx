@@ -11,14 +11,13 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// تحديث الـ Interface ليتطابق تماماً مع بياناتك
 export interface ServiceItem {
   id: number;
   title: string;
   slug: string;
-  description: string; // مطابقة لبياناتك
-  iconName: string;    // مطابقة لبياناتك
-  features: string[];  // مصفوفة نصوص كما في بياناتك
+  description: string;
+  iconName: string; 
+  features: string[]; 
   ctaText?: string;
   isFeatured?: boolean;
 }
@@ -66,7 +65,7 @@ export default function Services({ data, className }: ServicesProps) {
               key={`${service.id}-${index}`} 
               className={cn(
                 "glass-card flex flex-col transition-all duration-500 hover:-translate-y-3 border-white/5 p-2 group overflow-hidden relative",
-                service.isFeatured && "ring-2 ring-primary/20 bg-primary/5" // تمييز الخدمات المميزة
+                service.isFeatured && "ring-2 ring-primary/20 bg-primary/5"
               )}
             >
               <div className="absolute top-0 left-0 w-full h-full bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
@@ -110,7 +109,7 @@ export default function Services({ data, className }: ServicesProps) {
                     asChild
                     className="w-full py-6 rounded-2xl font-bold transition-all bg-secondary/20 border border-white/10 text-foreground hover:border-primary hover:text-white hover:bg-primary shadow-sm active:scale-95"
                   >
-                    <Link href={`/services/${service.slug}#contact-form`}>
+                    <Link href={`/services/${service.slug}`}>
                       {service.ctaText || "طلب الخدمة الآن"}
                     </Link>
                   </AppButton>
