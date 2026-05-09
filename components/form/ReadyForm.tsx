@@ -10,7 +10,7 @@ export default function ReadyForm() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault(); // هذا السطر يمنع ظهور البيانات في الرابط العلوي
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
@@ -65,7 +65,7 @@ export default function ReadyForm() {
          <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary">
             <Send className="w-6 h-6 rotate-180" />
          </div>
-         <h3 className="text-3xl font-black text-foreground text-left italic">ابدأ اليوم</h3>
+         <h3 className="text-3xl font-black text-foreground text-left italic mr-4">ابدأ اليوم</h3>
       </div>
       
       <form onSubmit={handleSubmit} className="space-y-8" dir="rtl">
@@ -82,7 +82,7 @@ export default function ReadyForm() {
               type="text" 
               placeholder="الاسم الكامل"
               required
-              className="w-full /50 border border-white/10 rounded-[1.2rem] p-4 text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-bold"
+              className="w-full bg-[#12162b] border border-white/10 rounded-[1.2rem] p-4 text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-bold"
             />
           </div>
 
@@ -98,7 +98,7 @@ export default function ReadyForm() {
               type="email" 
               placeholder="example@mail.com"
               required
-              className="w-full /50 border border-white/10 rounded-[1.2rem] p-4 text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-bold"
+              className="w-full bg-[#12162b] border border-white/10 rounded-[1.2rem] p-4 text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-bold"
             />
           </div>
         </div>
@@ -115,7 +115,7 @@ export default function ReadyForm() {
             type="tel" 
             placeholder="05xxxxxxxx"
             required
-            className="w-full /50 border border-white/10 rounded-[1.2rem] p-4 text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-bold tracking-widest"
+            className="w-full bg-[#12162b] border border-white/10 rounded-[1.2rem] p-4 text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-bold tracking-widest"
           />
         </div>
 
@@ -130,7 +130,7 @@ export default function ReadyForm() {
             name="project_url" 
             type="url" 
             placeholder="https://yourwebsite.com"
-            className="w-full /50 border border-white/10 rounded-[1.2rem] p-4 text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-bold"
+            className="w-full bg-[#12162b] border border-white/10 rounded-[1.2rem] p-4 text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-bold"
           />
         </div>
 

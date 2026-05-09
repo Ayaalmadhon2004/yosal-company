@@ -23,7 +23,7 @@ const Services = dynamic(() => import("../components/sections/services/Services"
   loading: () => <SkeletonLoader />
 });
 
-const Portfolio = dynamic(() => import("../components/sections/portfolio/Portfolio"), { 
+const Portfolio = dynamic(() => import("../components/sections/portfolio/UnifiedPortfolio"), { 
   loading: () => <SkeletonLoader />
 });
 
@@ -62,7 +62,7 @@ export default async function Home() {
         </Suspense>
 
         <Suspense fallback={<SkeletonLoader />}>
-          <Portfolio data={data.projects} />
+          <Portfolio isHomePage={true} />
         </Suspense>
 
         <WhyUs />
