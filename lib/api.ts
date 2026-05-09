@@ -2,11 +2,11 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://yosaal-website-back
 
 export const API_ENDPOINTS = {
     DASHBOARD: `${BASE_URL}/dashboard`,
-    PROJECT_REQUEST: `${BASE_URL}/project-request`,
+    PROJECT_REQUEST: `${BASE_URL}/dashboard`, // المسار الصحيح حسب البوستمان والباك آند
     POSTS: `${BASE_URL}/posts`,
 };
 
-// 1. جلب بيانات الداشبورد (Testimonials وغيرها)
+// جلب بيانات الداشبورد (Testimonials, Services, etc.)
 export async function getDashboardData() {
     try {
         const res = await fetch(API_ENDPOINTS.DASHBOARD, {
@@ -21,32 +21,24 @@ export async function getDashboardData() {
     }
 }
 
-// 2. إرسال طلب مشروع (تواصل معنا) - تم التعديل ليتوافق مع Postman
+// إرسال طلب المشروع (تواصل معنا) - مطابقة تامة للبوستمان
 export async function sendProjectRequest(data: any) {
     try {
-        // إنشاء FormData بدلاً من JSON بناءً على توثيق API (Postman)
-        const formData = new FormData();
-        
-        // مطابقة الحقول مع ما يتوقعه الباك آند في Postman
-        formData.append('project_name', data.name);
-        formData.append('service_type', data.service_type || 'طلب تقييم أولي');
-        formData.append('budget', data.budget || '0');
-        formData.append('main_goals', data.main_goals || 'تقييم الموقع من الصفحة الرئيسية');
-        
-        // دمج معلومات التواصل الإضافية في الوصف لضمان وصولها
-        const fullDescription = `${data.description} | إيميل: ${data.email} | هاتف: ${data.phone} | الرابط: ${data.project_url || 'لا يوجد'}`;
-        formData.append('description', fullDescription);
+        // بناء الرابط مع الـ Params كما يظهر في توثيق البوستمان الخاص بكِ
+        const url = new URL(API_ENDPOINTS.PROJECT_REQUEST);
+        url.searchParams.append('name', data.name);
+        url.searchParams.append('phone', data.phone);
+        url.searchParams.append('email', data.email);
+        url.searchParams.append('project_url', data.project_url || '');
 
-        const res = await fetch(API_ENDPOINTS.PROJECT_REQUEST, {
+        const res = await fetch(url.toString(), {
             method: 'POST',
             headers: {
-                // ملاحظة: لا تضعي Content-Type يدوياً عند استخدام FormData
                 'Accept': 'application/json',
             },
-            body: formData 
+            // السيرفر يتوقع البيانات في الرابط (Params)، لذا الجسم (Body) يبقى فارغاً
         });
 
-        // التحقق من استجابة السيرفر
         if (!res.ok) {
             const errorData = await res.json();
             throw new Error(errorData.message || `Server responded with ${res.status}`);
@@ -54,7 +46,7 @@ export async function sendProjectRequest(data: any) {
 
         const result = await res.json();
         console.log("✅ Success Response:", result);
-        return result;
+        return result; // سيعيد Object يحتوي على status: "Success"
         
     } catch (error: any) {
         console.error("❌ API Error:", error.message);
@@ -62,7 +54,7 @@ export async function sendProjectRequest(data: any) {
     }
 }
 
-// 3. جلب المقالات مع البحث والفلترة
+// جلب المقالات
 export async function getPosts(search?: string, category?: string, page: number = 1) { 
     try {
         const url = new URL(API_ENDPOINTS.POSTS); 
@@ -82,7 +74,7 @@ export async function getPosts(search?: string, category?: string, page: number 
     }
 }
 
-// 4. جلب مقال واحد بواسطة الـ Slug
+// جلب مقال واحد
 export async function getPostBySlug(slug: string) {
     try {
         const res = await fetch(`${BASE_URL}/posts/${slug}`, {
@@ -94,15 +86,5 @@ export async function getPostBySlug(slug: string) {
     } catch (error) {
         console.error("Post Detail Fetch Error:", error);
         return null;
-    }
-}
-
-// 5. جلب آراء العملاء
-export async function getTestimonials() {
-    try {
-        const data = await getDashboardData();
-        return data?.testimonials || [];
-    } catch (error) {
-        return [];
     }
 }
