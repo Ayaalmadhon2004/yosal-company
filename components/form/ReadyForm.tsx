@@ -9,8 +9,19 @@ import { Send, Globe, Mail, Phone, User, CheckCircle } from "lucide-react";
 export default function ReadyForm() {
   const [loading, setLoading] = useState(false);
 
+  const formatURL = (url: string) => {
+  if (!url) return "";
+  const trimmedUrl = url.trim().toLowerCase();
+  const hasProtocol = /^https?:\/\//i.test(trimmedUrl);
+  if (hasProtocol) {
+    return trimmedUrl; 
+  } else {
+    return `https://${trimmedUrl}`;
+  }
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // هذا السطر يمنع ظهور البيانات في الرابط العلوي
+    e.preventDefault();
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
@@ -18,7 +29,7 @@ export default function ReadyForm() {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
       phone: formData.get("phone") as string,
-      project_url: (formData.get("project_url") as string) || "لا يوجد رابط",
+      project_url: formatURL(formData.get("project_url") as string) || "لا يوجد رابط",
       service_type: "طلب تقييم أولي",
       description: "تم إرسال الطلب عبر نموذج 'ابدأ اليوم' في الصفحة الرئيسية.",
     };
@@ -58,7 +69,6 @@ export default function ReadyForm() {
 
   return (
     <div className="bg-secondary/40 backdrop-blur-xl border border-white/5 p-8 lg:p-12 rounded-[3rem] shadow-2xl w-full max-w-2xl relative overflow-hidden group">
-      {/* لمسة جمالية في الخلفية */}
       <div className="absolute top-0 left-0 w-32 h-32 bg-primary/5 blur-[80px] -z-10 rounded-full group-hover:bg-primary/10 transition-colors" />
       
       <div className="flex items-center justify-left mb-12">
@@ -86,7 +96,6 @@ export default function ReadyForm() {
             />
           </div>
 
-          {/* البريد */}
           <div className="space-y-3 text-right">
             <label htmlFor="user_email" className="text-foreground text-sm pr-2 font-black flex items-center gap-2">
               <Mail size={14} className="text-primary" />
@@ -103,7 +112,6 @@ export default function ReadyForm() {
           </div>
         </div>
 
-        {/* الجوال */}
         <div className="space-y-3 text-right">
           <label htmlFor="user_phone" className="text-foreground text-sm pr-2 font-black flex items-center gap-2">
             <Phone size={14} className="text-primary" />
@@ -119,7 +127,6 @@ export default function ReadyForm() {
           />
         </div>
 
-        {/* الرابط */}
         <div className="space-y-3 text-right">
           <label htmlFor="project_link" className="text-foreground text-sm pr-2 font-black flex items-center gap-2">
             <Globe size={14} className="text-primary" />
@@ -128,7 +135,7 @@ export default function ReadyForm() {
           <input 
             id="project_link"
             name="project_url" 
-            type="url" 
+            type="text" 
             placeholder="https://yourwebsite.com"
             className="w-full bg-[#12162b] border border-white/10 rounded-[1.2rem] p-4 text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-bold"
           />
