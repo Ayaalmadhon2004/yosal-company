@@ -23,10 +23,8 @@ export default function ServiceHero({
   subtitle 
 }: ServiceHeroProps) {
   
-  // دالة لتصحيح مسار الصورة إذا كان الرابط لا يحتوي على الدومين الكامل أو يحتاج تعديل
   const getImageUrl = (url?: string) => {
     if (!url || url.trim() === "") return null;
-    // إذا كان الرابط يبدأ بـ http، نستخدمه كما هو، وإلا نضيف المسار الأساسي للسيرفر
     return url.startsWith('http') ? url : `http://localhost:8000${url}`;
   };
 
@@ -70,24 +68,29 @@ export default function ServiceHero({
               {description}
             </p>
 
+            {/* الأزرار المعدلة بالكامل لتطابق الفيجما */}
             <div className="flex flex-wrap gap-4 mb-12 justify-start">
+              
+              {/* الزر الأول: برتقالي كامل مع نص أبيض عريض */}
               <a 
                 href={getWhatsAppLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 rounded-2xl bg-primary text-white font-extrabold flex items-center gap-3 hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 group"
+                className="px-8 py-4 rounded-2xl bg-[#E6740F] text-white font-black flex items-center gap-3 hover:bg-[#E6740F]/90 transition-all hover:scale-105 active:scale-95 group shadow-lg"
               >
                 <MessageSquare className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                 ابدأ رحلتك الآن
               </a>
               
+              {/* الزر الثاني: بيج كامل مع خط برتقالي والـ Shadow التوهجي المعتمد */}
               <a 
                 href={getWhatsAppLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 rounded-2xl bg-white/5 text-foreground font-bold border border-white/10 hover:bg-white/10 transition-all flex items-center gap-3 group"
+                className="px-8 py-4 rounded-2xl bg-[#EDE7D1] text-[#E6740F] font-black transition-all flex items-center gap-3 hover:opacity-90 hover:scale-105 active:scale-95 group"
+                style={{ boxShadow: '0 0 20px 0 rgba(230, 116, 15, 0.45)' }}
               >
-                <Calendar className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                <Calendar className="w-5 h-5 text-[#E6740F] group-hover:scale-110 transition-transform" />
                 احجز استشارة مجانية
               </a>
             </div>

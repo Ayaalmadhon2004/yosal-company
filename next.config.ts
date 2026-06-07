@@ -8,8 +8,15 @@ const nextConfig = {
     qualities: [25, 50, 75, 80, 100],
 
     remotePatterns: [
+      // 1. إضافة localhost للباكيند المحلي
       {
-        // إضافة البروتوكولين معاً (http و https) لنفس الـ hostname
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '8000',
+        pathname: '/**',
+      },
+      // 2. باقي الـ hostnames الخاصة ببرودكشن والخدمات الخارجية متل ما هيّ
+      {
         protocol: 'http', 
         hostname: 'yosaal-website-backend.onrender.com',
         pathname: '/**',
