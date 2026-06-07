@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { cn } from "@/lib/utils";
 import { MessageSquare, Calendar } from "lucide-react";
 
 interface ServiceHeroProps {
@@ -24,7 +23,14 @@ export default function ServiceHero({
   subtitle 
 }: ServiceHeroProps) {
   
-  const isValidImage = typeof mainImage === "string" && mainImage.trim() !== "";
+  // دالة لتصحيح مسار الصورة إذا كان الرابط لا يحتوي على الدومين الكامل أو يحتاج تعديل
+  const getImageUrl = (url?: string) => {
+    if (!url || url.trim() === "") return null;
+    // إذا كان الرابط يبدأ بـ http، نستخدمه كما هو، وإلا نضيف المسار الأساسي للسيرفر
+    return url.startsWith('http') ? url : `http://localhost:8000${url}`;
+  };
+
+  const imageUrl = getImageUrl(mainImage);
 
   const getWhatsAppLink = () => {
     const b = badge?.toUpperCase() || "";
@@ -36,8 +42,6 @@ export default function ServiceHero({
     if (b.includes("STRATEGIC") || b.includes("PLANNING")) return "https://wa.link/9yy222";
     return "https://wa.me/970597204869";
   };
-
-  const whatsappUrl = getWhatsAppLink();
 
   return (
     <section className="relative pt-32 pb-20 overflow-hidden">
@@ -51,7 +55,7 @@ export default function ServiceHero({
               {badge}
             </span>
 
-            <h1 className="text-5xl lg:text-7xl font-black text-foreground mb-6 leading-tight">
+            <h1 className="text-4xl lg:text-6xl font-black text-foreground mb-6 leading-tight">
               {title} <br />
               <span className="text-primary">{highlightText}</span>
             </h1>
@@ -68,66 +72,62 @@ export default function ServiceHero({
 
             <div className="flex flex-wrap gap-4 mb-12 justify-start">
               <a 
-                href={whatsappUrl}
+                href={getWhatsAppLink()}
                 target="_blank"
-                rel="https://wa.me/qr/YDPUM4DFRP4NP1"
-                title="تواصل معنا عبر واتساب"
-                className="px-10 py-5 rounded-2xl bg-primary text-white font-extrabold flex items-center gap-3 hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 group"
+                rel="noopener noreferrer"
+                className="px-8 py-4 rounded-2xl bg-primary text-white font-extrabold flex items-center gap-3 hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 group"
               >
-                <MessageSquare className="w-5 h-5 group-hover:rotate-12 transition-transform" aria-hidden="true" />
+                <MessageSquare className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                 ابدأ رحلتك الآن
               </a>
               
-                <a 
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="https://wa.link/4ddhsa"
-                  title="احجز استشارة مجانية"
-                  className="px-10 py-5 rounded-2xl bg-white/5 text-foreground font-bold border border-white/10 hover:bg-white/10 transition-all flex items-center gap-3 group"
-                >
-                  <Calendar className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" aria-hidden="true" />
-                  احجز استشارة مجانية
-                </a>
-
+              <a 
+                href={getWhatsAppLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-4 rounded-2xl bg-white/5 text-foreground font-bold border border-white/10 hover:bg-white/10 transition-all flex items-center gap-3 group"
+              >
+                <Calendar className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                احجز استشارة مجانية
+              </a>
             </div>
           </div>
 
           <div className="order-1 lg:order-2 relative group">
-            <div className="relative overflow-visible">
-              
+            <div className="relative">
+              {/* الإحصائيات - Stats */}
               {stats && (
-                <div className="absolute -bottom-6 -right-6 md:-bottom-10 md:-right-10 z-30 bg-secondary/90 backdrop-blur-xl border border-white/10 p-6 rounded-[2.5rem] shadow-2xl flex items-center gap-5 transition-transform group-hover:-translate-y-2 duration-500">
-                  <div className="text-4xl md:text-5xl font-black text-primary drop-shadow-lg">
+                <div className="absolute -bottom-6 -right-6 z-30 bg-secondary/90 backdrop-blur-xl border border-white/10 p-6 rounded-[2.5rem] shadow-2xl flex items-center gap-5">
+                  <div className="text-4xl font-black text-primary">
                     {stats.value}
                   </div>
-                  <div className="text-xs md:text-sm text-muted-foreground font-bold leading-tight max-w-[100px]">
+                  <div className="text-xs text-muted-foreground font-bold leading-tight max-w-[100px]">
                     {stats.label}
                   </div>
                 </div>
               )}
 
-              <div className="relative rounded-[50px] overflow-hidden border border-white/10 shadow-2xl aspect-square z-10 bg-secondary/50">
-                {isValidImage ? (
+              {/* غلاف الصورة */}
+              <div className="relative rounded-[50px] overflow-hidden border border-white/10 shadow-2xl aspect-square z-10 bg-[#12162b]">
+                {imageUrl ? (
                   <>
                     <Image 
-                      src={mainImage} 
-                      alt={`وكالة يوصل - خدمة ${title}`}
+                      src={imageUrl} 
+                      alt={title}
                       fill
                       priority 
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                      quality={80}
+                      sizes="(max-width: 768px) 100vw, 600px"
                       className="object-cover transition-transform duration-1000 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
                   </>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <span className="text-white/5 font-black text-6xl tracking-tighter uppercase italic">Yoosil</span>
+                    <span className="text-white/5 font-black text-6xl italic">Yoosil</span>
                   </div>
                 )}
               </div>
             </div>
-            <div className="absolute inset-0 bg-primary/20 blur-[100px] rounded-full -z-10 opacity-30 group-hover:opacity-50 transition-opacity duration-1000" />
           </div>
 
         </div>

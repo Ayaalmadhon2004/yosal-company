@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Slot } from "@radix-ui/react-slot" // استيراد الـ Slot
+import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
@@ -12,6 +12,7 @@ const buttonVariants = cva(
         outline: "border border-[#F58220] bg-transparent text-white hover:bg-[#F58220]/10",
         orange: "bg-[#F58220] text-white hover:bg-[#E0721B]",
         ghost: "text-white hover:bg-white/10",
+        beige: "bg-[#EDE7D1] text-[#E6740F] hover:opacity-90 shadow-lg",
       },
       size: {
         sm: "h-9 px-5 text-sm rounded-xl",
@@ -25,15 +26,15 @@ const buttonVariants = cva(
     },
   }
 )
+
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  asChild?: boolean // إضافة التعريف هنا
+  asChild?: boolean
 }
 
 const AppButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
-    // إذا كانت asChild مفعلة، نستخدم Slot، وإلا نستخدم button
     const Comp = asChild ? Slot : "button"
     
     return (

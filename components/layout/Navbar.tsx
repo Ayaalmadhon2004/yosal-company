@@ -115,10 +115,12 @@ export default function Navbar() {
         {/* Action Button Desktop */}
         <div className="flex-1 hidden lg:flex justify-end items-center gap-4">
           <AppButton 
-            variant="orange" 
-            className="rounded-full px-8 py-6 font-black text-sm"
+            variant="beige" 
+            asChild
+            className="rounded-full px-8 py-3 font-black text-sm transition-all duration-300"
+            style={{ boxShadow: '0 0 15px 0 rgba(230, 116, 15, 0.3)' }}
           >
-            <a href={WHATSAPP_CONSULTATION} target="_blank" className="flex items-center gap-2">
+            <a href={WHATSAPP_CONSULTATION} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
               <Sparkles className="w-4 h-4" />
               احجز استشارة مجانية
             </a>
@@ -136,7 +138,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu Overlay - تم تغيير التصميم بالكامل هنا */}
+      {/* Mobile Menu Overlay */}
       <div className={cn(
         "lg:hidden fixed inset-0 top-0 left-0 w-full h-screen bg-[#0B0D17] transition-all duration-500 z-[9998]",
         isOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-full"
@@ -170,13 +172,20 @@ export default function Navbar() {
             ))}
           </ul>
           
+          {/* زر الموبايل الثابت والمضمون ضد الاختفاء */}
           <div className="mt-auto pt-8">
-            <AppButton variant="orange" className="w-full py-8 rounded-2xl font-black text-lg">
-              <a href={WHATSAPP_CONSULTATION} target="_blank" className="w-full text-center">
-                احجز استشارة مجانية الآن
+            <AppButton 
+              variant="beige"
+              asChild
+              className="!w-full !h-16 rounded-2xl font-black text-lg transition-all duration-300 flex items-center justify-center"
+              style={{ boxShadow: '0 0 15px 0 rgba(230, 116, 15, 0.3)' }}
+            >
+              <a href={WHATSAPP_CONSULTATION} target="_blank" rel="noopener noreferrer" className="w-full h-full flex items-center justify-center gap-2">
+                احجز استشارة مجانية
               </a>
             </AppButton>
           </div>
+
         </div>
       </div>
     </nav>

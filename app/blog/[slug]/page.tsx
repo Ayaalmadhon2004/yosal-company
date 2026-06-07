@@ -22,15 +22,14 @@ export default async function BlogPostPage({
 
   return (
     <main className="min-h-screen bg-background text-right" dir="rtl">
-      
       <section className="relative bg-backgroundw h-[70vh] w-full flex items-end pb-20">
         <Image 
-          src={post.image_url || "/images/blog-placeholder.jpg"} 
+          src={post.image || post.image_url || "/images/blog-placeholder.jpg"} 
           alt={post.title} 
           fill 
           className="object-cover opacity-40"
           priority
-          unoptimized
+          unoptimized 
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0d1d] via-[#0a0d1d]/60 to-transparent"></div>
         
@@ -46,12 +45,21 @@ export default async function BlogPostPage({
             <div className="flex flex-wrap items-center gap-6 pt-4 text-gray-400 border-t border-gray-800 w-fit">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-gray-800 overflow-hidden border border-gray-700 relative">
-                   <Image 
-                    src={post.author_avatar || "/images/avatar-placeholder.png"} 
-                    alt={post.author_name || "Author"} 
-                    fill
-                    className="object-cover"
-                   />
+                  <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center border border-gray-700 relative overflow-hidden">
+                      {post.author_avatar ? (
+                        <Image 
+                          src={post.author_avatar} 
+                          alt={post.author_name} 
+                          fill 
+                          className="object-cover"
+                          unoptimized 
+                        />
+                      ) : (
+                        <span className="text-white text-xs font-bold">
+                          {post.author_name?.charAt(0) || "Y"}
+                        </span>
+                      )}
+                    </div>
                 </div>
                 <div>
                   <p className="text-white text-sm font-bold">{post.author_name || "فريق يوصل"}</p>
@@ -70,22 +78,12 @@ export default async function BlogPostPage({
                 <button className="p-2 bg-white/5 rounded-full hover:bg-orange-500/20 transition-all hover:text-orange-500"><Bookmark className="w-4 h-4" /></button>
               </div>
             </div>
+            
           </div>
         </div>
       </section>
 
       <section className="container mx-auto bg-background px-6 py-20 flex flex-col lg:flex-row gap-16">
-        <article className="flex-1">
-          <div 
-            className="prose prose-invert prose-orange max-w-none 
-            prose-p:text-gray-300 prose-p:leading-loose prose-p:text-lg
-            prose-headings:text-white prose-headings:font-bold
-            prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-6 prose-h3:border-r-4 prose-h3:border-orange-500 prose-h3:pr-4"
-            dangerouslySetInnerHTML={{ __html: post.content || post.short_description || "" }} 
-          />
-          <ShareActions />
-        </article>
-
         <aside className="w-full lg:w-80 space-y-10">
           <div className="bg-[#12162b] p-8 rounded-[2rem] border border-gray-800 sticky top-32">
             <h3 className="text-white font-bold mb-6 pb-4 border-b border-gray-800 text-lg text-orange-500">محتويات المقال</h3>
@@ -104,6 +102,16 @@ export default async function BlogPostPage({
             </div>
           </div>
         </aside>
+        <article className="flex-1">
+          <div 
+            className="prose prose-invert prose-orange max-w-none 
+            prose-p:text-gray-300 prose-p:leading-loose prose-p:text-lg
+            prose-headings:text-white prose-headings:font-bold
+            prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-6 prose-h3:border-r-4 prose-h3:border-orange-500 prose-h3:pr-4"
+            dangerouslySetInnerHTML={{ __html: post.content || post.short_description || "" }} 
+          />
+          <ShareActions />
+        </article>
       </section>
 
       <section className="bg-background py-20 border-t border-gray-800/50">
@@ -114,18 +122,18 @@ export default async function BlogPostPage({
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {relatedPosts.map((item: any) => (
-               <Link href={`/blog/${item.slug}`} key={item.slug} className="group bg-[#12162b] rounded-3xl p-4 border border-gray-800 hover:border-orange-500/30 transition-all shadow-lg">
+                <Link href={`/blog/${item.slug}`} key={item.slug} className="group bg-[#12162b] rounded-3xl p-4 border border-gray-800 hover:border-orange-500/30 transition-all shadow-lg">
                   <div className="relative h-44 rounded-2xl overflow-hidden mb-4">
                     <Image 
-                      src={item.image_url || "/images/placeholder.jpg"} 
+                      src={item.image || item.image_url || "/images/placeholder.jpg"} 
                       alt={item.title} 
                       fill 
                       className="object-cover group-hover:scale-110 transition-transform duration-500" 
-                      unoptimized
+                      unoptimized 
                     />
                   </div>
                   <h4 className="text-white font-bold text-sm line-clamp-2 leading-relaxed group-hover:text-orange-500 transition-colors">{item.title}</h4>
-               </Link>
+                </Link>
             ))}
           </div>
         </div>

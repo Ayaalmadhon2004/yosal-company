@@ -6,7 +6,6 @@ export const API_ENDPOINTS = {
     POSTS: `${BASE_URL}/posts`,
 };
 
-// جلب بيانات الداشبورد (Testimonials, Services, etc.)
 export async function getDashboardData() {
     try {
         const res = await fetch(API_ENDPOINTS.DASHBOARD, {
@@ -74,7 +73,6 @@ export async function getPosts(search?: string, category?: string, page: number 
     }
 }
 
-// جلب مقال واحد
 export async function getPostBySlug(slug: string) {
     try {
         const res = await fetch(`${BASE_URL}/posts/${slug}`, {
