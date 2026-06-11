@@ -26,17 +26,18 @@ export default function ServiceHero({
   const getImageUrl = (url?: string) => {
   if (!url || url.trim() === "") return null;
   
-  // 1️⃣ لو الصورة رابط كامل (جاي من السيرفر أونلاين أو Cloudinary)
+  // 1️⃣ لو الصورة رابط كامل يبدأ بـ http أو https (زي روابط الـ Cloudinary أو المرفوعة جاهزة)، يرجعها زي ما هي
   if (url.startsWith('http')) return url;
   
-  // 2️⃣ 🎯 الحركة السحرية: لو الصورة محلياً جوه مجلد الـ assets بالفرونتد
-  // رجعي المسار زي ما هو عشان Vercel يقرأها فوراً من مجلد public بدون ما يروح للـ localhost!
+  // 2️⃣ 🎯 الحركة الذكية: لو الصورة جاية محلياً من مجلد public/assets (زي اللي مسجلينها بملف constants)
+  // نخليها تبدأ بـ / وتقرأ من الفرونتد مباشرة، مش من الباكيند
   if (url.startsWith('/assets') || url.startsWith('assets')) {
     return url.startsWith('/') ? url : `/${url}`;
   }
 
-  // 3️⃣ لأي صور تانية تابعة للباكيند القديم
-  return `http://localhost:8000${url.startsWith('/') ? url : `/${url}`}`;
+  // 3️⃣ لو الصورة جاية من الباكيند المرفوع أونلاين على Render
+  const cleanUrl = url.startsWith('/') ? url : `/${url}`;
+  return `https://yosaal-website-backend.onrender.com${encodeURI(cleanUrl)}`;
 };
 
   const imageUrl = getImageUrl(mainImage);
