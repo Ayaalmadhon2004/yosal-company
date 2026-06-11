@@ -32,8 +32,8 @@ export default function PrivacyContact({
         <div className="flex flex-col sm:flex-row items-center gap-5 w-full lg:w-auto relative z-10">
           {/* رابط البريد الإلكتروني */}
           <a 
-            href="mailto:privacy@yoosel.com" 
-            className="flex items-center gap-4 /50 px-8 py-5 rounded-2xl border border-white/5 hover:border-primary/40 hover: transition-all duration-300 w-full sm:w-auto group/mail shadow-sm"
+            href="mailto:yoosalmarket@gmail.com" 
+            className="flex items-center gap-4 px-8 py-5 rounded-2xl border border-white/5 hover:border-primary/40 transition-all duration-300 w-full sm:w-auto group/mail shadow-sm"
           >
             <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover/mail:bg-primary group-hover/mail:text-white transition-colors">
               <Mail className="text-primary w-5 h-5 group-hover/mail:text-white" />
@@ -41,7 +41,7 @@ export default function PrivacyContact({
             <div className="flex flex-col text-right">
               <span className="text-xs text-muted-foreground font-bold">راسلنا عبر</span>
               <span className="text-foreground text-sm font-black tracking-wide">
-                privacy@yoosel.com
+                yoosalmarket@gmail.com
               </span>
             </div>
           </a>

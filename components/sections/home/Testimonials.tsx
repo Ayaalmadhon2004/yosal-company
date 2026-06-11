@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Star, ChevronRight, ChevronLeft } from "lucide-react";
 import Image from "next/image";
 
@@ -14,10 +14,32 @@ export interface Testimonial {
 }
 
 interface TestimonialsProps {
-  data: Testimonial[];
+  data?: Testimonial[]; // جعلنا البيانات اختيارية
 }
 
-export default function Testimonials({ data }: TestimonialsProps) {
+export default function Testimonials({ data: propData }: TestimonialsProps) {
+  const [data, setData] = useState<Testimonial[]>(propData || []);
+  const [loading, setLoading] = useState(!propData);
+
+  useEffect(() => {
+    // إذا لم تأتِ بيانات من الـ Props، نجلبها من الـ API
+    if (!propData) {
+      fetch("https://yosaal-website-backend.onrender.com/api/v1/testimonials")
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.status === "Success") {
+            setData(res.data);
+          }
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error("Error fetching testimonials:", err);
+          setLoading(false);
+        });
+    }
+  }, [propData]);
+
+  if (loading) return <div className="py-24 text-center">جاري تحميل الآراء...</div>;
   if (!data || data.length === 0) return null;
 
   return (

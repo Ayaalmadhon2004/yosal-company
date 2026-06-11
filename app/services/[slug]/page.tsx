@@ -85,7 +85,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         {data.deliverables && <Suspense fallback={<SectionSkeleton />}><StrategyDeliverables data={data.deliverables} /></Suspense>}
         {data.steps && <Suspense fallback={<SectionSkeleton />}><StrategySteps sectionTitle={isContentProduction ? "رحلتنا نحو التميز" : "خطوات تنفيذ الخدمة"} steps={data.steps} /></Suspense>}
         {data.featuresSection && <Suspense fallback={<SectionSkeleton />}><WhyChooseUs data={data.featuresSection} /></Suspense>}
-        {data.testimonials && <Suspense fallback={<SectionSkeleton />}><Testimonials data={data.testimonials}/></Suspense>}
+        {data.testimonials && <Suspense fallback={<SectionSkeleton />}><Testimonials /></Suspense>}
         {faqData && <Suspense fallback={<SectionSkeleton />}><Faqs data={faqData}/></Suspense>}
         {!isContentProduction && <Suspense fallback={<SectionSkeleton />}><ReadyResults variant="style2" /></Suspense>}
       </div>

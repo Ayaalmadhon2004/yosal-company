@@ -21,8 +21,8 @@ export default function Hero() {
               </span>
             </div>
             
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-foreground leading-[1.1] mb-8">
-              نصيغ الفخامة <br />
+            <h1 className="text-3xl md:text-6xl lg:text-7xl font-black text-foreground leading-[1.1] mb-8">
+              نصيغ الفخامة 
                الرقمية لتقود علامتك <br />
               <span className="text-primary">لمكانتها المستحقة</span>
             </h1>
