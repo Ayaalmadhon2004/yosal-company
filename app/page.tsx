@@ -82,7 +82,7 @@ export default async function Home() {
           <Faqs data={randomFaqs} />
         </Suspense>
 
-        <ReadySection />
+        <ReadySection  />
       </div>
     </main>
   );

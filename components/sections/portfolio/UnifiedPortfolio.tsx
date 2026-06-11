@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { Loader2, FolderOpen, ChevronLeft, Send } from "lucide-react";
+import { Loader2, ChevronLeft } from "lucide-react";
 import Link from "next/link";
 
 // 1. تعريف الفئات الثابتة (من التوثيق الخاص بكِ)
@@ -59,7 +59,7 @@ export default function UnifiedPortfolio({ isHomePage = false, className }: Port
     <section className={cn("py-24 w-full bg-background", className)} dir="rtl">
       <div className="container mx-auto px-6 max-w-7xl">
         
-        {/* العناوين (تظهر في الصفحة الرئيسية فقط أو حسب الرغبة) */}
+        {/* العناوين */}
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
             معرض <span className="text-primary">الأعمال</span>
@@ -100,7 +100,8 @@ export default function UnifiedPortfolio({ isHomePage = false, className }: Port
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project) => (
               <Link 
-                href={`/portfolio/${project.slug}`}
+                /* 🎯 التعديل الحاسم هنا: تم تحويل الرابط ليعتمد على الـ id بدلاً من الـ slug */
+                href={`/portfolio/${project.id}`}
                 key={project.id} 
                 className="group relative overflow-hidden rounded-[2.5rem] aspect-[4/3] bg-secondary/10 border border-white/5 block hover:-translate-y-2 transition-all duration-500"
               >

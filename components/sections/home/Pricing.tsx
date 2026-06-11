@@ -6,6 +6,13 @@ import { AppButton } from "@/components/ui/AppButton";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+// 1. مصفوفة الروابط الثابتة (لربطها ديناميكياً)
+const whatsappLinks: Record<string, string> = {
+  "باقة الإنطلاق": "https://wa.link/3tvfov",
+  "باقة الصعود": "https://wa.link/9my46r",
+  "باقة الاستمرارية": "https://wa.link/g0xols",
+};
+
 interface Feature {
   id: number;
   feature_text: string;
@@ -32,7 +39,6 @@ export default function Pricing({ data }: PricingProps) {
   return (
     <section id="pricing" className="py-24 w-full bg-background" dir="rtl">
       <div className="container mx-auto px-6 max-w-7xl">
-        
         <div className="text-center mb-20">
           <h2 className="text-4xl md:text-5xl font-black text-[#F58220] mb-6">
             باقاتنا المرنة
@@ -44,6 +50,8 @@ export default function Pricing({ data }: PricingProps) {
           {plans.map((plan) => {
             const isSubscription = plan.name.includes("الاستمرارية");
             const isFeatured = plan.is_featured === 1;
+            // 🎯 جلب الرابط بناءً على اسم الباقة
+            const whatsappUrl = whatsappLinks[plan.name] || "https://wa.me/970597204869";
 
             return (
               <div key={plan.id} className="relative group">
@@ -110,12 +118,20 @@ export default function Pricing({ data }: PricingProps) {
                       asChild
                       variant={isFeatured ? "primary" : "outline"}
                       className={cn(
-                        "w-full py-7 text-lg font-black rounded-2xl transition-all",
+                        " text-lg font-black rounded-2xl transition-all flex items-center justify-center", 
                         !isFeatured && "border-[#F58220] text-[#F58220] hover:bg-[#F58220]/10"
                       )}
                     >
-                      <button>اشترك الآن</button>
+                      <a 
+                        href={whatsappUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className=" flex items-center justify-center" // تأكدي أن الرابط يأخذ كامل مساحة الزر
+                      >
+                        اشترك الآن
+                      </a>
                     </AppButton>
+
                   </AppCardContent>
                 </AppCard>
               </div>

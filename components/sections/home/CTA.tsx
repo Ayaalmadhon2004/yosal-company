@@ -15,12 +15,20 @@ export default function CTA() {
               لا تترك نمو مشروعك للصدفة. انضم لأكثر من 200 علامة تجارية تثق بنا في إدارة وجودها الرقمي وتحويل أهدافها إلى واقع ملموس.
             </p>
             
+            {/* 🎯 إضافة الرابط هنا */}
             <AppButton
+              asChild
               variant="primary" 
               size="lg"
               className="bg-white text-primary hover:bg-white/90 rounded-2xl px-10 py-7 text-xl font-bold shadow-2xl hover:scale-105 transition-all duration-300"
             >
-              احجز استشارة مجانية الآن
+              <a 
+                href="https://wa.link/4ddhsa" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                احجز استشارة مجانية الآن
+              </a>
             </AppButton>
           </div>
 
