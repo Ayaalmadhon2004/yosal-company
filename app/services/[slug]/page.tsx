@@ -5,55 +5,36 @@ import { servicesData } from "@/constants/servicesData";
 import ServiceHero from "@/components/sections/services/ServiceHero";
 import ScrollToTop from "@/components/ScrollToTop";
 
-/**
- * Skeleton Loader محسن لتقليل القفزات البصرية
- */
-const SectionSkeleton = () => (
-  <div className="container mx-auto px-6 py-24 animate-pulse">
-    <div className="space-y-4">
-      <div className="h-10 w-1/3 bg-white/5 rounded-xl" />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="h-80 bg-white/5 rounded-[40px]" />
-        <div className="h-80 bg-white/5 rounded-[40px]" />
-      </div>
-    </div>
-  </div>
-);
+const getNormalizedSlug = (slug: string) => {
+  const s = slug?.toLowerCase().trim();
+  
+  // قاموس يربط الرابط بالمفتاح الصحيح في servicesData
+  const mapping: Record<string, string> = {
+    "seo": "seo-services",
+    "marketing-strategies": "strategic-planning",
+    "social-media-management": "social-media",
+    "content-creation": "content-production",
+    "ads-management": "social-media", // أو الخدمة التي تناسب الإعلانات
+    "data-analysis": "strategic-planning" // أو الخدمة التي تناسب التحليل
+  };
 
-// استيراد المكونات ديناميكياً
-const MarketComparison = dynamic(() => import("@/components/sections/services/MarketComparison"), { 
-  ssr: true,
-  loading: () => <SectionSkeleton /> 
-});
-const StrategyDeliverables = dynamic(() => import("@/components/sections/services/StrategyDeliverables"), { 
-  ssr: true,
-  loading: () => <SectionSkeleton />
-});
-const StrategySteps = dynamic(() => import("@/components/sections/services/StrategySteps"), { 
-  ssr: true,
-  loading: () => <SectionSkeleton />
-});
-const ReadyResults = dynamic(() => import("@/components/sections/ReadyResults"), { 
-  ssr: true,
-  loading: () => <SectionSkeleton />
-});
-const Testimonials = dynamic(() => import("@/components/sections/home/Testimonials"), { 
-  ssr: true,
-  loading: () => <SectionSkeleton />
-});
-const Faqs = dynamic(() => import("@/components/sections/home/Faqs"), { 
-  ssr: true,
-  loading: () => <SectionSkeleton />
-});
-const WhyChooseUs = dynamic(() => import("@/components/sections/WhyChooseUs"), { 
-  ssr: true,
-  loading: () => <SectionSkeleton />
-});
+  return mapping[s] || s;
+};
 
-export async function generateMetadata({ params }: { params: any }) {
+// --- المكونات (تم الإبقاء عليها كما هي) ---
+const SectionSkeleton = () => <div className="container mx-auto px-6 py-24 animate-pulse"><div className="h-80 bg-white/5 rounded-[40px]" /></div>;
+const MarketComparison = dynamic(() => import("@/components/sections/services/MarketComparison"), { ssr: true, loading: () => <SectionSkeleton /> });
+const StrategyDeliverables = dynamic(() => import("@/components/sections/services/StrategyDeliverables"), { ssr: true, loading: () => <SectionSkeleton /> });
+const StrategySteps = dynamic(() => import("@/components/sections/services/StrategySteps"), { ssr: true, loading: () => <SectionSkeleton /> });
+const ReadyResults = dynamic(() => import("@/components/sections/ReadyResults"), { ssr: true, loading: () => <SectionSkeleton /> });
+const Testimonials = dynamic(() => import("@/components/sections/home/Testimonials"), { ssr: true, loading: () => <SectionSkeleton /> });
+const Faqs = dynamic(() => import("@/components/sections/home/Faqs"), { ssr: true, loading: () => <SectionSkeleton /> });
+const WhyChooseUs = dynamic(() => import("@/components/sections/WhyChooseUs"), { ssr: true, loading: () => <SectionSkeleton /> });
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  // تحويل الـ slug لأحرف صغيرة لضمان المطابقة
-  const normalizedSlug = slug?.toLowerCase().trim();
+  // استخدام الدالة الموحدة
+  const normalizedSlug = getNormalizedSlug(slug);
   const data = servicesData[normalizedSlug as keyof typeof servicesData];
   
   if (!data) return { title: "Service Not Found" };
@@ -72,16 +53,8 @@ export async function generateMetadata({ params }: { params: any }) {
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   
-  // 1️⃣ تنظيف الـ slug وتحويله لأحرف صغيرة
-  let normalizedSlug = slug?.toLowerCase().trim();
-
-  // 2️⃣ 🎯 الحركة السحرية: لو الباكيند باعت "seo"، حوليها لـ "seo-services" 
-  // عشان المكونات الفرعية (مثل ReadyResults والـ Comparison) اللي جواتها استدعاءات قديمة تلاقيها فوراً وما تضرب 404!
-  if (normalizedSlug === "seo") {
-    normalizedSlug = "seo-services";
-  }
-
-  // 3️⃣ جلب البيانات بناءً على الـ slug الموحد
+  // استخدام الدالة الموحدة
+  const normalizedSlug = getNormalizedSlug(slug);
   const data = servicesData[normalizedSlug as keyof typeof servicesData];
 
   if (!data) {
@@ -102,57 +75,17 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         description={data.hero.description}
         mainImage={data.hero.image}
         stats={data.hero.stats}
+        subtitle={data.hero.subtitle}
       />
 
       <div className="space-y-0"> 
-        
-        {data.comparison && (
-          <Suspense fallback={<SectionSkeleton />}>
-            {/* @ts-ignore */}
-            <MarketComparison data={data.comparison} />
-          </Suspense>
-        )}
-
-        {data.deliverables && (
-          <Suspense fallback={<SectionSkeleton />}>
-            {/* @ts-ignore */}
-            <StrategyDeliverables data={data.deliverables} />
-          </Suspense>
-        )}
-
-        {data.steps && (
-          <Suspense fallback={<SectionSkeleton />}>
-            {/* @ts-ignore */}
-            <StrategySteps 
-              sectionTitle={isContentProduction ? "رحلتنا نحو التميز" : "خطوات تنفيذ الخدمة"}
-              steps={data.steps} 
-            />
-          </Suspense>
-        )}
-
-        {data.featuresSection && (
-          <Suspense fallback={<SectionSkeleton />}>
-            <WhyChooseUs data={data.featuresSection} />
-          </Suspense>
-        )}
-        
-        {data.testimonials && (
-          <Suspense fallback={<SectionSkeleton />}>
-            <Testimonials data={data.testimonials}/>
-          </Suspense>
-        )}
-
-        {faqData && (
-          <Suspense fallback={<SectionSkeleton />}>
-            <Faqs data={faqData}/>
-          </Suspense>
-        )}
-
-        {!isContentProduction && (
-          <Suspense fallback={<SectionSkeleton />}>
-            <ReadyResults variant="style2" />
-          </Suspense>
-        )}
+        {data.comparison && <Suspense fallback={<SectionSkeleton />}><MarketComparison data={data.comparison} /></Suspense>}
+        {data.deliverables && <Suspense fallback={<SectionSkeleton />}><StrategyDeliverables data={data.deliverables} /></Suspense>}
+        {data.steps && <Suspense fallback={<SectionSkeleton />}><StrategySteps sectionTitle={isContentProduction ? "رحلتنا نحو التميز" : "خطوات تنفيذ الخدمة"} steps={data.steps} /></Suspense>}
+        {data.featuresSection && <Suspense fallback={<SectionSkeleton />}><WhyChooseUs data={data.featuresSection} /></Suspense>}
+        {data.testimonials && <Suspense fallback={<SectionSkeleton />}><Testimonials data={data.testimonials}/></Suspense>}
+        {faqData && <Suspense fallback={<SectionSkeleton />}><Faqs data={faqData}/></Suspense>}
+        {!isContentProduction && <Suspense fallback={<SectionSkeleton />}><ReadyResults variant="style2" /></Suspense>}
       </div>
     </main>
   );

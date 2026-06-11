@@ -26,19 +26,18 @@ export default function ServiceHero({
   const getImageUrl = (url?: string) => {
   if (!url || url.trim() === "") return null;
   
-  // 1️⃣ لو الصورة رابط كامل يبدأ بـ http أو https (زي روابط الـ Cloudinary أو المرفوعة جاهزة)، يرجعها زي ما هي
+  // 1️⃣ إذا كان الرابط كاملاً، استخدميه كما هو
   if (url.startsWith('http')) return url;
   
-  // 2️⃣ 🎯 الحركة الذكية: لو الصورة جاية محلياً من مجلد public/assets (زي اللي مسجلينها بملف constants)
-  // نخليها تبدأ بـ / وتقرأ من الفرونتد مباشرة، مش من الباكيند
+  // 2️⃣ إذا كان الرابط في مجلد الـ assets المحلي
   if (url.startsWith('/assets') || url.startsWith('assets')) {
     return url.startsWith('/') ? url : `/${url}`;
   }
 
-  // 3️⃣ لو الصورة جاية من الباكيند المرفوع أونلاين على Render
+  // 3️⃣ الرابط الصحيح للسيرفر المرفوع على Render
   const cleanUrl = url.startsWith('/') ? url : `/${url}`;
   return `https://yosaal-website-backend.onrender.com${encodeURI(cleanUrl)}`;
-};
+  };
 
   const imageUrl = getImageUrl(mainImage);
 
@@ -127,13 +126,18 @@ export default function ServiceHero({
                 {imageUrl ? (
                   <>
                     <Image 
-                      src={imageUrl} 
-                      alt={title}
-                      fill
-                      priority 
-                      sizes="(max-width: 768px) 100vw, 600px"
-                      className="object-cover transition-transform duration-1000 group-hover:scale-110"
-                    />
+  src={imageUrl || "/fallback-image.jpg"} // 1. صورة احتياطية إذا كان الرابط فارغاً
+  alt={title}
+  fill
+  priority 
+  unoptimized={imageUrl?.startsWith('http')} // 2. إذا كان الرابط خارجياً، لا تقم بمعالجته
+  sizes="(max-width: 768px) 100vw, 600px"
+  className="object-cover transition-transform duration-1000 group-hover:scale-110"
+  onError={(e) => {
+    // 3. هذا الجزء يحل مشكلة الصور المكسورة فوراً
+    e.currentTarget.src = "/fallback-image.jpg"; 
+  }}
+/>
                     <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
                   </>
                 ) : (
