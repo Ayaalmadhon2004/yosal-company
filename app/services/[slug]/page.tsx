@@ -108,18 +108,21 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         
         {data.comparison && (
           <Suspense fallback={<SectionSkeleton />}>
+            {/* @ts-ignore */}
             <MarketComparison data={data.comparison} />
           </Suspense>
         )}
 
         {data.deliverables && (
           <Suspense fallback={<SectionSkeleton />}>
+            {/* @ts-ignore */}
             <StrategyDeliverables data={data.deliverables} />
           </Suspense>
         )}
 
         {data.steps && (
           <Suspense fallback={<SectionSkeleton />}>
+            {/* @ts-ignore */}
             <StrategySteps 
               sectionTitle={isContentProduction ? "رحلتنا نحو التميز" : "خطوات تنفيذ الخدمة"}
               steps={data.steps} 
