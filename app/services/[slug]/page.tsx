@@ -52,7 +52,9 @@ const WhyChooseUs = dynamic(() => import("@/components/sections/WhyChooseUs"), {
 
 export async function generateMetadata({ params }: { params: any }) {
   const { slug } = await params;
-  const data = servicesData[slug as keyof typeof servicesData];
+  // تحويل الـ slug لأحرف صغيرة لضمان المطابقة
+  const normalizedSlug = slug?.toLowerCase().trim();
+  const data = servicesData[normalizedSlug as keyof typeof servicesData];
   
   if (!data) return { title: "Service Not Found" };
 
@@ -69,13 +71,24 @@ export async function generateMetadata({ params }: { params: any }) {
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const data = servicesData[slug as keyof typeof servicesData];
+  
+  // 1️⃣ تنظيف الـ slug وتحويله لأحرف صغيرة
+  let normalizedSlug = slug?.toLowerCase().trim();
+
+  // 2️⃣ 🎯 الحركة السحرية: لو الباكيند باعت "seo"، حوليها لـ "seo-services" 
+  // عشان المكونات الفرعية (مثل ReadyResults والـ Comparison) اللي جواتها استدعاءات قديمة تلاقيها فوراً وما تضرب 404!
+  if (normalizedSlug === "seo") {
+    normalizedSlug = "seo-services";
+  }
+
+  // 3️⃣ جلب البيانات بناءً على الـ slug الموحد
+  const data = servicesData[normalizedSlug as keyof typeof servicesData];
 
   if (!data) {
     notFound();
   }
 
-  const isContentCreation = slug === "content-creation";
+  const isContentProduction = normalizedSlug === "content-production";
   const faqData = data.faqs || (data as any).FAQs;
 
   return (
@@ -95,20 +108,20 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         
         {data.comparison && (
           <Suspense fallback={<SectionSkeleton />}>
-            <MarketComparison />
+            <MarketComparison data={data.comparison} />
           </Suspense>
         )}
 
         {data.deliverables && (
           <Suspense fallback={<SectionSkeleton />}>
-            <StrategyDeliverables />
+            <StrategyDeliverables data={data.deliverables} />
           </Suspense>
         )}
 
         {data.steps && (
           <Suspense fallback={<SectionSkeleton />}>
             <StrategySteps 
-              sectionTitle={isContentCreation ? "رحلتنا نحو التميز" : "خطوات تنفيذ الخدمة"}
+              sectionTitle={isContentProduction ? "رحلتنا نحو التميز" : "خطوات تنفيذ الخدمة"}
               steps={data.steps} 
             />
           </Suspense>
@@ -126,14 +139,13 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           </Suspense>
         )}
 
-        {/* سكشن الأسئلة الشائعة مع معالجة احتمالية اختلاف المسمى */}
         {faqData && (
           <Suspense fallback={<SectionSkeleton />}>
             <Faqs data={faqData}/>
           </Suspense>
         )}
 
-        {!isContentCreation && (
+        {!isContentProduction && (
           <Suspense fallback={<SectionSkeleton />}>
             <ReadyResults variant="style2" />
           </Suspense>

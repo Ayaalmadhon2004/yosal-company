@@ -212,7 +212,7 @@ export const servicesData: Record<string, any> = {
     ]
   },
 
-  "seo": {
+  "seo-services": {
     title: "خدماتنا في تحسين محركات البحث",
     hero: {
     badge: "SEO OPTIMIZATION",
@@ -354,7 +354,7 @@ export const servicesData: Record<string, any> = {
   },
   },
 
-  "branding": {
+  "visual-identity": {
     title: "نبني هويتك لنترك أثراً لا يُنسى",
     hero: {
     badge: "BRANDING & IDENTITY",
@@ -413,7 +413,7 @@ export const servicesData: Record<string, any> = {
     steps: []
   },
 
-  "content-creation": {
+  "content-production": {
     title: "خدماتنا في الإنتاج",
    hero: {
     badge: "CONTENT CREATION",

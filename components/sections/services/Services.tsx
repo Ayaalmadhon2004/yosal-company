@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { 
   Layout, Search, TrendingUp, Video, Share2, 
-  PenTool, Check, Monitor, ArrowRight 
+  PenTool, Check, Monitor, ArrowLeft 
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { 
@@ -23,33 +23,24 @@ export interface ServiceItem {
   features?: any[];
 }
 
+// روابط الواتساب المعتمدة بناءً على الـ slugs الحقيقية المستلمة من الباكيند
 const getWhatsAppLink = (slug: string) => {
-  const s = slug?.toLowerCase() || "";
+  const s = slug?.toLowerCase().trim() || "";
   
   const links: Record<string, string> = {
     "social-media": "https://wa.link/1992gd",
     "web-development": "https://wa.link/e56rm6",
-    "content-creation": "https://wa.link/xct02j",
-    "content-production": "https://wa.link/xct02j", // Fallback
-    "seo": "https://wa.link/efvmlr",
-    "search-engine-optimization": "https://wa.link/efvmlr", // Fallback
-    "branding": "https://wa.link/wliy6a",
-    "visual-identity": "https://wa.link/wliy6a", // Fallback
+    "content-production": "https://wa.link/xct02j", 
+    "seo": "https://wa.link/efvmlr", 
+    "visual-identity": "https://wa.link/wliy6a", 
     "strategic-planning": "https://wa.link/9yy222",
   };
 
-  return links[s] || "https://wa.link/1992gd"; // رابط افتراضي في حال عدم المطابقة
+  return links[s] || "https://wa.link/1992gd"; 
 };
 
-const getCorrectSlug = (apiSlug: string) => {
-  const s = apiSlug?.toLowerCase() || "";
-  if (s === "visual-identity" || s === "branding") return "branding";
-  if (s === "content-production" || s === "content-creation") return "content-creation";
-  if (s === "search-engine-optimization" || s === "seo") return "seo";
-  return s;
-};
-
-const getIcon = (name: string, slug: string) => {
+// إرجاع الأيقونة المناسبة بناءً على الاسم المرجوع من الـ API
+const getIcon = (iconName: string) => {
   const icons: Record<string, React.ElementType> = {
     "web-icon": Layout,
     "branding-icon": PenTool,
@@ -58,10 +49,8 @@ const getIcon = (name: string, slug: string) => {
     "video-icon": Video,
     "social-icon": Share2,
   };
-  const s = slug?.toLowerCase() || "";
-  if (s.includes("visual") || s.includes("branding")) return <PenTool className="h-6 w-6" />;
-  if (s.includes("content") || s.includes("video")) return <Video className="h-6 w-6" />;
-  const IconComponent = icons[name] || Monitor;
+
+  const IconComponent = icons[iconName] || Monitor;
   return <IconComponent className="h-6 w-6" />;
 };
 
@@ -75,15 +64,17 @@ export default function Services({ data, className }: { data: ServiceItem[], cla
           {services.map((service, index) => {
             const displayDescription = service.brief || service.description;
             const displayIcon = service.icon || service.iconName || "";
-            const finalSlug = getCorrectSlug(service.slug);
-            const waLink = getWhatsAppLink(service.slug);
+            
+            // الاعتماد المباشر على الـ slug النظيف القادم من الباكيند
+            const finalSlug = service.slug?.toLowerCase().trim() || "";
+            const waLink = getWhatsAppLink(finalSlug);
 
             return (
               <AppCard key={`${service.id}-${index}`} className="glass-card flex flex-col group border-white/5 p-2 transition-all duration-500 hover:-translate-y-3 relative">
                 <AppCardHeader className="p-8 pb-0 text-right relative z-10">
                   <div className="p-4 w-fit bg-primary/10 rounded-2xl mb-6 border border-primary/20 group-hover:bg-primary transition-all duration-500">
                     <div className="text-primary group-hover:text-white transition-colors">
-                      {getIcon(displayIcon, service.slug)}
+                      {getIcon(displayIcon)}
                     </div>
                   </div>
                   <AppCardTitle className="text-2xl font-black mb-4 group-hover:text-primary transition-colors">
@@ -107,15 +98,10 @@ export default function Services({ data, className }: { data: ServiceItem[], cla
                   </ul>
                   
                   <div className="mt-auto space-y-4">
-                    {/* رابط التفاصيل للموقع الداخلي */}
-                    <Link 
-                      href={`/services/${finalSlug}`} 
-                      className="text-primary text-sm font-bold inline-flex items-center gap-2 group/link hover:underline decoration-2 underline-offset-4"
-                    >
-                      تفاصيل الخدمة <ArrowRight className="w-4 h-4" />
+<Link href={`/services/${service.slug === 'seo-services' ? 'seo' : service.slug}`}>
+                      تفاصيل الخدمة <ArrowLeft className="w-4 h-4 transition-transform group-hover/link:-translate-x-1" />
                     </Link>
 
-                    {/* زر الواتساب المباشر بالرابط الذي زودتني به */}
                     <AppButton asChild className="w-full py-7 rounded-2xl font-black text-lg bg-secondary/20 hover:bg-[#25D366] hover:text-white transition-all duration-300 shadow-lg">
                       <a href={waLink} target="_blank" rel="noopener noreferrer">
                         اطلب الخدمة الآن
