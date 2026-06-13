@@ -55,15 +55,13 @@ export default function Navbar() {
   if (!mounted) return null;
 
   return (
-    <nav 
-      className={cn(
-        "fixed top-0 w-full z-[9999] transition-all duration-500 mb-4", 
-        scrolled || isOpen
-          ? "bg-[#0B0D17]/95 backdrop-blur-2xl border-b border-white/5 py-3 shadow-2xl" 
-          : "bg-transparent py-6"
-      )}
-      dir="rtl"
-    >
+      <nav 
+        className={cn(
+          "fixed top-0 w-full z-[9999] transition-all duration-500 mb-4", 
+          "bg-background backdrop-blur-2xl border-b border-white/5 py-3 shadow-2xl" 
+        )}
+        dir="rtl"
+      >
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 flex items-center justify-between">
         
         {/* Logo Section */}
@@ -140,7 +138,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay */}
       <div className={cn(
-        "lg:hidden fixed inset-0 top-0 left-0 w-full h-screen bg-[#0B0D17] transition-all duration-500 z-[9998]",
+        "lg:hidden fixed inset-0 top-0 left-0 w-full h-screen bg-background transition-all duration-500 z-[9998]",
         isOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-full"
       )}>
         <div className="flex flex-col h-full pt-28 pb-10 px-8">
