@@ -51,6 +51,7 @@ export default async function Home() {
     .sort(() => Math.random() - 0.5) // خلط المصفوفة عشوائياً
     .slice(0, 4); // قص أول 4 أسئلة بعد الخلط
 
+   console.log("faqData value:", randomFaqs); // تحقق من البيانات في الخادم
   return (
     <main className="block w-full font-sans overflow-x-hidden bg-background text-foreground">
       <Hero />
@@ -73,14 +74,16 @@ export default async function Home() {
         </Suspense>
 
         <Suspense fallback={<SkeletonLoader />}>
-          <Testimonials data={data.testimonials} />
+          <Testimonials />
         </Suspense>
 
         <CTA />
 
         <Suspense fallback={<SkeletonLoader />}>
+          {/* هنا نمرر المصفوفة العشوائية التي تم إنشاؤها بنجاح في الأعلى */}
           <Faqs data={randomFaqs} />
         </Suspense>
+        
 
         <ReadySection  />
       </div>

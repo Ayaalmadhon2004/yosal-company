@@ -60,12 +60,15 @@ export default function Services({ data, className }: { data: ServiceItem[], cla
   return (
     <section id="services" className={cn("py-24 w-full bg-background", className)} dir="rtl">
       <div className="container mx-auto px-6 max-w-7xl">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-black text-foreground mb-4">خدمات تركز على النتائج</h2>
+          <div className="w-20 h-1.5 bg-primary mx-auto rounded-full mb-6" />
+          <p className="text-muted-foreground text-lg">نستخدم أحدث التقنيات والبيانات لدفع مبيعاتك للأمام</p>
+        </div>
         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => {
             const displayDescription = service.brief || service.description;
             const displayIcon = service.icon || service.iconName || "";
-            
-            // الاعتماد المباشر على الـ slug النظيف القادم من الباكيند
             const finalSlug = service.slug?.toLowerCase().trim() || "";
             const waLink = getWhatsAppLink(finalSlug);
 
@@ -107,7 +110,7 @@ export default function Services({ data, className }: { data: ServiceItem[], cla
 
                     <AppButton asChild className="w-full py-7 rounded-2xl font-black text-lg bg-secondary/20 hover:bg-[#25D366] hover:text-white transition-all duration-300 shadow-lg">
                       <a href={waLink} target="_blank" rel="noopener noreferrer">
-                        اطلب الخدمة الآن
+                        اطلب الخدمة 
                       </a>
                     </AppButton>
                   </div>

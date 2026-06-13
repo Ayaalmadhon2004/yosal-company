@@ -126,18 +126,18 @@ export default function ServiceHero({
                 {imageUrl ? (
                   <>
                     <Image 
-  src={imageUrl || "/fallback-image.jpg"} // 1. صورة احتياطية إذا كان الرابط فارغاً
-  alt={title}
-  fill
-  priority 
-  unoptimized={imageUrl?.startsWith('http')} // 2. إذا كان الرابط خارجياً، لا تقم بمعالجته
-  sizes="(max-width: 768px) 100vw, 600px"
-  className="object-cover transition-transform duration-1000 group-hover:scale-110"
-  onError={(e) => {
-    // 3. هذا الجزء يحل مشكلة الصور المكسورة فوراً
-    e.currentTarget.src = "/fallback-image.jpg"; 
-  }}
-/>
+                        src={imageUrl || "/fallback-image.jpg"} // 1. صورة احتياطية إذا كان الرابط فارغاً
+                        alt={title}
+                        fill
+                        priority 
+                        unoptimized={imageUrl?.startsWith('http')} // 2. إذا كان الرابط خارجياً، لا تقم بمعالجته
+                        sizes="(max-width: 768px) 100vw, 600px"
+                        className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                        onError={(e) => {
+                          // 3. هذا الجزء يحل مشكلة الصور المكسورة فوراً
+                          e.currentTarget.src = "/fallback-image.jpg"; 
+                        }}
+                      />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
                   </>
                 ) : (

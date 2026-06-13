@@ -8,15 +8,14 @@ import ScrollToTop from "@/components/ScrollToTop";
 const getNormalizedSlug = (slug: string) => {
   const s = slug?.toLowerCase().trim();
   
-  // قاموس يربط الرابط بالمفتاح الصحيح في servicesData
   const mapping: Record<string, string> = {
-    "seo": "seo-services",
-    "marketing-strategies": "strategic-planning",
-    "social-media-management": "social-media",
-    "content-creation": "content-production",
-    "ads-management": "social-media", // أو الخدمة التي تناسب الإعلانات
-    "data-analysis": "strategic-planning" // أو الخدمة التي تناسب التحليل
-  };
+  "seo": "seo-services",
+  "marketing-strategies": "strategic-planning",
+  "social-media-management": "social-media",
+  "content-creation": "content-production",
+  "ads-management": "social-media",
+  "branding": "visual-identity"
+};
 
   return mapping[s] || s;
 };
@@ -33,7 +32,6 @@ const WhyChooseUs = dynamic(() => import("@/components/sections/WhyChooseUs"), {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  // استخدام الدالة الموحدة
   const normalizedSlug = getNormalizedSlug(slug);
   const data = servicesData[normalizedSlug as keyof typeof servicesData];
   
