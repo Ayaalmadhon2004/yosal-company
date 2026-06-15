@@ -60,7 +60,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   }
 
   const isContentProduction = normalizedSlug === "content-production";
-  const faqData = data.faqs || (data as any).FAQs;
 
   return (
     <main className="min-h-screen bg-background selection:bg-primary/30">
@@ -84,7 +83,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         {data.steps && <Suspense fallback={<SectionSkeleton />}><StrategySteps sectionTitle={isContentProduction ? "رحلتنا نحو التميز" : "خطوات تنفيذ الخدمة"} steps={data.steps} /></Suspense>}
         {data.featuresSection && <Suspense fallback={<SectionSkeleton />}><WhyChooseUs data={data.featuresSection} /></Suspense>}
         {data.testimonials && <Suspense fallback={<SectionSkeleton />}><Testimonials /></Suspense>}
-        {faqData && <Suspense fallback={<SectionSkeleton />}><Faqs data={faqData}/></Suspense>}
+        <Faqs serviceId={data.service_id} />
         {!isContentProduction && <Suspense fallback={<SectionSkeleton />}><ReadyResults variant="style2" /></Suspense>}
       </div>
     </main>

@@ -21,10 +21,10 @@ export default function Hero() {
               </span>
             </div>
             
-            <h1 className="text-3xl md:text-6xl lg:text-7xl font-black text-foreground leading-[1.1] mb-8">
+            <h1 className="text-3xl md:text-7xl lg:text-[40px] font-black text-foreground leading-[1.6] tracking-tighter mb-8">
               نصيغ الفخامة 
-               الرقمية لتقود علامتك <br />
-              <span className="text-primary">لمكانتها المستحقة</span>
+              الرقمية لتقود <br className="mb-3"/>
+             <p >علامتك <span className="text-primary">لمكانتها المستحقة</span>  </p>
             </h1>
             
             <p className="text-muted-foreground text-body mb-12 max-w-xl leading-relaxed">
