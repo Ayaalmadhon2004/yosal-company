@@ -10,7 +10,6 @@ import Stats from "@/components/sections/home/Stats";
 import CTA from "@/components/sections/home/CTA";
 import ReadySection from "@/components/sections/ReadySection";
 
-// مكون التحميل الجمالي
 const SkeletonLoader = () => (
   <div className="animate-pulse container mx-auto px-6 py-20">
     <div className="h-12 w-1/3 bg-white/5 rounded-2xl mb-8" />
@@ -18,7 +17,6 @@ const SkeletonLoader = () => (
   </div>
 );
 
-// استيراد المكونات بشكل ديناميكي لتحسين سرعة تحميل الصفحة الأولى
 const Services = dynamic(() => import("../components/sections/services/Services"), { 
   loading: () => <SkeletonLoader />
 });
@@ -46,12 +44,12 @@ export default async function Home() {
 
   const allFaqs = Object.values(faqsData).flat();
 
-  // 2. اختيار 4 أسئلة عشوائية في كل مرة يتم فيها رندر الصفحة (Server-side)
   const randomFaqs = [...allFaqs]
-    .sort(() => Math.random() - 0.5) // خلط المصفوفة عشوائياً
-    .slice(0, 4); // قص أول 4 أسئلة بعد الخلط
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 4);
 
-   console.log("faqData value:", randomFaqs); // تحقق من البيانات في الخادم
+   console.log("faqData value:", randomFaqs); 
+
   return (
     <main className="block w-full font-sans overflow-x-hidden bg-background text-foreground">
       <Hero />
@@ -80,8 +78,7 @@ export default async function Home() {
         <CTA />
 
         <Suspense fallback={<SkeletonLoader />}>
-          {/* هنا نمرر المصفوفة العشوائية التي تم إنشاؤها بنجاح في الأعلى */}
-          <Faqs data={randomFaqs} />
+          <Faqs  />
         </Suspense>
         
 
