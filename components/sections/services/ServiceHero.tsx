@@ -25,16 +25,10 @@ export default function ServiceHero({
   
   const getImageUrl = (url?: string) => {
   if (!url || url.trim() === "") return null;
-  
-  // 1️⃣ إذا كان الرابط كاملاً، استخدميه كما هو
   if (url.startsWith('http')) return url;
-  
-  // 2️⃣ إذا كان الرابط في مجلد الـ assets المحلي
   if (url.startsWith('/assets') || url.startsWith('assets')) {
     return url.startsWith('/') ? url : `/${url}`;
   }
-
-  // 3️⃣ الرابط الصحيح للسيرفر المرفوع على Render
   const cleanUrl = url.startsWith('/') ? url : `/${url}`;
   return `https://yosaal-website-backend.onrender.com${encodeURI(cleanUrl)}`;
   };
@@ -64,7 +58,7 @@ export default function ServiceHero({
               {badge}
             </span>
 
-            <h1 className="text-4xl lg:text-6xl font-black text-foreground mb-6 leading-tight">
+            <h1 className="text-4xl lg:text-4xl font-black text-foreground mb-6 leading-tight">
               {title} <br />
               <span className="text-primary">{highlightText}</span>
             </h1>
@@ -75,14 +69,12 @@ export default function ServiceHero({
               </p>
             )}
 
-            <p className="text-xl text-muted-foreground mb-10 max-w-2xl leading-relaxed">
+            <p className="text-.3xl text-muted-foreground mb-10 max-w-2xl leading-relaxed">
               {description}
             </p>
 
-            {/* الأزرار المعدلة بالكامل لتطابق الفيجما */}
             <div className="flex flex-wrap gap-4 mb-12 justify-start">
               
-              {/* الزر الأول: برتقالي كامل مع نص أبيض عريض */}
               <a 
                 href={getWhatsAppLink()}
                 target="_blank"
@@ -93,7 +85,6 @@ export default function ServiceHero({
                 ابدأ رحلتك الآن
               </a>
               
-              {/* الزر الثاني: بيج كامل مع خط برتقالي والـ Shadow التوهجي المعتمد */}
               <a 
                 href={getWhatsAppLink()}
                 target="_blank"
