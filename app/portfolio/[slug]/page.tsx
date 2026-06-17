@@ -58,7 +58,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   if (!project) notFound();
 
   return (
-    <main className="min-h-screen bg-[#0F0F1E] text-white pt-24 pb-32" dir="rtl">
+    <main className="min-h-screen bg-background text-white pt-24 pb-32" dir="rtl">
       <div className="container mx-auto px-6 max-w-6xl">
         
         {/* الجزء العلوي */}
@@ -142,8 +142,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
         <section className="py-24 px-6" dir="rtl">
       <div className="container mx-auto max-w-6xl">
-        {/* كرت الـ Call to Action مع التدرج اللوني البرتقالي المأخوذ من التصميم */}
-        <div className="relative bg-gradient-to-r from-[#E6740F] to-[#B35A0C] rounded-4xl p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
+        <div className="relative bg-gradient-to-l from-[#E6740F] to-background rounded-4xl p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
           
           {/* النص */}
           <div className="text-white space-y-4 text-center md:text-right">
@@ -154,7 +153,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </div>
 
           {/* الزر */}
-          <button className="bg-white text-brand-dark px-10 py-5 rounded-xl btn-text hover:bg-opacity-90 transition-all duration-300 shadow-lg whitespace-nowrap">
+          <button className="bg-white text-primary px-10 py-5 rounded-xl btn-text hover:bg-opacity-90 transition-all duration-300 shadow-lg whitespace-nowrap">
             ابدأ مشروعك الآن
           </button>
         </div>
