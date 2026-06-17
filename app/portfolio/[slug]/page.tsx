@@ -1,7 +1,18 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import { Cloud,  ShieldCheck, LucideIcon } from "lucide-react";
 
-// تعريف الواجهات بدقة لضمان الأمان
+// دالة ربط أيقونات الـ API بمكتبة الأيقونات
+const getIcon = (iconName: string): LucideIcon => {
+  const icons: { [key: string]: LucideIcon } = {
+    "heroicon-o-cloud": Cloud,
+    "heroicon-o-presentation-chart-line":Cloud,
+    "heroicon-o-shield-check": ShieldCheck,
+  };
+  return icons[iconName] || Cloud;
+};
+
+// تعريف الواجهات
 interface Testimonial {
   quote: string;
   name: string;
@@ -15,22 +26,17 @@ interface ProjectData {
   image_url: string;
   stats: { label: string; number: string }[];
   challenges: string[];
-  strategic_solutions: { title: string; description: string }[];
+  strategic_solutions: { title: string; description: string; icon: string }[];
   gallery: string[];
   testimonial?: Testimonial;
 }
 
 const getFullImageUrl = (url: string | undefined): string => {
   if (!url) return "/placeholder.jpg";
-  
-  // إذا كان الرابط يبدأ بـ http، فهو جاهز
   if (url.startsWith("http")) return url;
-
-  // إزالة السلاش الزائدة لضمان سلامة المسار
   const path = url.startsWith("/") ? url : `/${url}`;
   return `https://yosaal-website-backend.onrender.com${path}`;
 };
-
 
 async function getProjectDetails(slug: string) {
   try {
@@ -70,19 +76,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               className="object-cover" 
               unoptimized 
             />
-            {project.stats?.[0] && (
-              <div className="absolute bottom-8 right-8 bg-black/40 backdrop-blur-xl p-6 rounded-3xl border border-white/10">
-                <div className="text-4xl font-black text-primary mb-1">{project.stats[0].number}</div>
-                <div className="text-sm text-gray-300">{project.stats[0].label}</div>
-              </div>
-            )}
           </div>
         </div>
 
-        {/* التحديات والحلول */}
-        <div className="grid md:grid-cols-2 gap-12 mb-24">
+        <div className="mb-24">
+          <h2 className="text-3xl font-black mb-8 text-white">المشكلة (التحدي)</h2>
           <div className="bg-white/5 p-10 rounded-[2.5rem] border border-white/5">
-            <h2 className="text-3xl font-black mb-8 text-white">المشكلة (التحدي)</h2>
             <ul className="space-y-6">
               {project.challenges?.map((challenge, i) => (
                 <li key={i} className="flex items-start gap-4 text-gray-300">
@@ -92,35 +91,41 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               ))}
             </ul>
           </div>
+        </div>
 
-          <div className="space-y-6">
-            <h2 className="text-3xl font-black mb-8 text-white">الحلول الاستراتيجية</h2>
-            {project.strategic_solutions?.map((sol, i) => (
-              <div key={i} className="bg-white/5 p-8 rounded-[2rem] border border-white/5 hover:border-primary/30 transition-colors">
-                <h3 className="font-bold text-lg mb-3 text-primary">{sol.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{sol.description}</p>
+        {/* قسم الحل الاستراتيجي (مدمج ديناميكياً) */}
+        <section className="mb-24">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-black mb-6">الحل الاستراتيجي</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {project.strategic_solutions?.map((sol, index) => {
+              const IconComponent = getIcon(sol.icon);
+              return (
+                <div key={index} className="bg-[#1A1A2E] p-8 rounded-3xl border border-white/5 hover:border-primary/50 transition-all duration-300 group">
+                  <div className="w-14 h-14 bg-primary/10 flex items-center justify-center rounded-2xl mb-6 group-hover:bg-primary transition-colors">
+                    <IconComponent className="w-7 h-7 text-primary group-hover:text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-4">{sol.title}</h3>
+                  <p className="text-gray-400 leading-relaxed text-sm">{sol.description}</p>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+
+        {/* معرض الصور */}
+        <section className="mb-24">
+          <h2 className="text-3xl font-black mb-10">صور تفصيلية للمشروع</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {project.gallery?.map((imgUrl, i) => (
+              <div key={i} className="relative aspect-video rounded-3xl overflow-hidden border border-white/10 group">
+                <img src={imgUrl} alt={`Gallery ${i}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
               </div>
             ))}
           </div>
-        </div>
-           {/* معرض الصور - النسخة النهائية التي ستعمل حتماً */}
-<section className="mb-24">
-  <h2 className="text-3xl font-black mb-10">صور تفصيلية للمشروع</h2>
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-    {project.gallery?.map((imgUrl, i) => (
-      <div key={i} className="relative aspect-video rounded-3xl overflow-hidden border border-white/10 group">
-        <Image 
-          // نستخدم الدالة التي عرفناها مسبقاً للحصول على رابط سليم
-          src={getFullImageUrl(imgUrl)} 
-          alt={`Gallery ${i}`} 
-          fill 
-          className="object-cover transition-transform duration-500 group-hover:scale-110" 
-          unoptimized 
-        />
-      </div>
-    ))}
-  </div>
-</section>
+        </section>
 
         {/* قسم النتائج */}
         <section className="py-20 my-20 bg-white/5 rounded-[3rem] border border-white/5">
@@ -135,25 +140,28 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </div>
         </section>
 
-        {/* شهادة العميل */}
-        {project.testimonial && (
-          <section className="py-16 text-center">
-            <p className="text-2xl md:text-3xl text-gray-300 leading-relaxed max-w-4xl mx-auto italic mb-10">
-              "{project.testimonial.quote}"
+        <section className="py-24 px-6" dir="rtl">
+      <div className="container mx-auto max-w-6xl">
+        {/* كرت الـ Call to Action مع التدرج اللوني البرتقالي المأخوذ من التصميم */}
+        <div className="relative bg-gradient-to-r from-[#E6740F] to-[#B35A0C] rounded-4xl p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
+          
+          {/* النص */}
+          <div className="text-white space-y-4 text-center md:text-right">
+            <h2 className="text-h1">هل تريد تحقيق نتائج مماثلة؟</h2>
+            <p className="text-body opacity-90">
+              دعنا نتحدث عن كيف يمكننا نقل مشروعك إلى المستوى التالي.
             </p>
-            <div className="flex flex-col items-center gap-4">
-              <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-primary">
-                <Image src={getFullImageUrl(project.testimonial.avatar)} alt={project.testimonial.name} width={64} height={64} />
-              </div>
-              <div>
-                <h4 className="font-bold text-lg">{project.testimonial.name}</h4>
-                <p className="text-primary text-sm">{project.testimonial.role}</p>
-              </div>
-            </div>
-          </section>
-        )}
+          </div>
 
+          {/* الزر */}
+          <button className="bg-white text-brand-dark px-10 py-5 rounded-xl btn-text hover:bg-opacity-90 transition-all duration-300 shadow-lg whitespace-nowrap">
+            ابدأ مشروعك الآن
+          </button>
+        </div>
+      </div>
+    </section>
       </div>
     </main>
   );
 }
+

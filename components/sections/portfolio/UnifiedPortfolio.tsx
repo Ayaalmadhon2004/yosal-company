@@ -35,7 +35,7 @@ export default function UnifiedPortfolio({ isHomePage = false, className }: Port
       if (!response.ok) throw new Error("Connection failed");
       
       const json = await response.json();
-      console.log("Full API Response:", json); // أضف هذا السطر للتحقق
+      console.log("Full API Response:", json); 
       if (json.status === "Success") {
         const data = isHomePage ? json.data.data.slice(0, 6) : json.data.data;
         setProjects(data);
