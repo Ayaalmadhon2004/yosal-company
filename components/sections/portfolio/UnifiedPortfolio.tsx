@@ -6,7 +6,6 @@ import Image from "next/image";
 import { Loader2, ChevronLeft } from "lucide-react";
 import Link from "next/link";
 
-// 1. تعريف الفئات الثابتة (من التوثيق الخاص بكِ)
 const categoryMapping = [
   { name: "الكل", slug: "الكل" },
   { name: "التسويق الإلكتروني", slug: "altsoyk-alalktrony" },
@@ -18,7 +17,7 @@ const categoryMapping = [
 ];
 
 interface PortfolioProps {
-  isHomePage?: boolean; // هل نحن في الصفحة الرئيسية؟
+  isHomePage?: boolean; 
   className?: string;
 }
 
@@ -27,18 +26,17 @@ export default function UnifiedPortfolio({ isHomePage = false, className }: Port
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // 2. دالة جلب البيانات من الـ API
   const fetchProjects = async (categorySlug: string) => {
     setLoading(true);
     try {
       const query = categorySlug === "الكل" ? "" : `?category=${categorySlug}`;
-      const response = await fetch(`https://yosaal-website-backend.onrender.com/api/v1/projects${query}`);
+      const response = await fetch(`https://yosaal-website-backend.onrender.com/api/v1/projects`);
       
       if (!response.ok) throw new Error("Connection failed");
       
       const json = await response.json();
+      console.log("Full API Response:", json); // أضف هذا السطر للتحقق
       if (json.status === "Success") {
-        // إذا كنا في الصفحة الرئيسية نعرض 6 فقط، وإلا نعرض الكل
         const data = isHomePage ? json.data.data.slice(0, 6) : json.data.data;
         setProjects(data);
       }
@@ -55,11 +53,12 @@ export default function UnifiedPortfolio({ isHomePage = false, className }: Port
     fetchProjects(currentCategory?.slug || "الكل");
   }, [activeTab]);
 
+  console.log("Current Project Data:", projects);
+
   return (
     <section className={cn("py-24 w-full bg-background", className)} dir="rtl">
       <div className="container mx-auto px-6 max-w-7xl">
         
-        {/* العناوين */}
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
             معرض <span className="text-primary">الأعمال</span>
@@ -71,7 +70,6 @@ export default function UnifiedPortfolio({ isHomePage = false, className }: Port
           )}
         </div>
 
-        {/* قائمة الفلاتر - تظهر فقط في صفحة المعرض الكامل وليس الرئيسية */}
         {!isHomePage && (
           <div className="flex flex-wrap justify-center gap-3 mb-16">
             {categoryMapping.map((cat) => (
@@ -99,10 +97,10 @@ export default function UnifiedPortfolio({ isHomePage = false, className }: Port
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project) => (
-              <Link 
-                /* 🎯 التعديل الحاسم هنا: تم تحويل الرابط ليعتمد على الـ id بدلاً من الـ slug */
-                href={`/portfolio/${project.id}`}
-                key={project.id} 
+                
+                <Link 
+                href={`/portfolio/${project.slug}`} 
+                key={project.id}
                 className="group relative overflow-hidden rounded-[2.5rem] aspect-[4/3] bg-secondary/10 border border-white/5 block hover:-translate-y-2 transition-all duration-500"
               >
                 <Image
