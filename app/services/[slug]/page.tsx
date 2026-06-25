@@ -75,12 +75,23 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         subtitle={data.hero.subtitle}
       />
 
-      <div className="space-y-0"> 
-        {/*@ts-ignore */}
-        {data.comparison && <Suspense fallback={<SectionSkeleton />}><MarketComparison data={data.comparison} /></Suspense>}
-        {/*@ts-ignore */}
-        {data.deliverables && <Suspense fallback={<SectionSkeleton />}><StrategyDeliverables data={data.deliverables} /></Suspense>}
-        {data.steps && <Suspense fallback={<SectionSkeleton />}><StrategySteps sectionTitle={isContentProduction ? "رحلتنا نحو التميز" : "خطوات تنفيذ الخدمة"} steps={data.steps} /></Suspense>}
+          <div className="space-y-0"> 
+            {/*@ts-ignore */}
+            {data.comparison && <Suspense fallback={<SectionSkeleton />}><MarketComparison data={data.comparison} /></Suspense>}
+            {/*@ts-ignore */}
+            {data.deliverables && (
+          <StrategyDeliverables 
+            data={data.deliverables} 
+            title={data.title} 
+          />
+        )}
+
+        {data.steps && (
+          <StrategySteps 
+            steps={data.steps} 
+            sectionTitle={isContentProduction ? "رحلتنا نحو التميز" : "خطوات تنفيذ الخدمة"} 
+          />
+        )}
         {data.featuresSection && <Suspense fallback={<SectionSkeleton />}><WhyChooseUs data={data.featuresSection} /></Suspense>}
         {data.testimonials && <Suspense fallback={<SectionSkeleton />}><Testimonials /></Suspense>}
         <Faqs serviceId={data.service_id} />

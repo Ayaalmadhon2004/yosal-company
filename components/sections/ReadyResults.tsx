@@ -49,29 +49,25 @@ export default function ReadySection({ variant = "style1" }: ReadySectionProps) 
             )}
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
+           <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
             
-            {/* زر "ابدأ مشروعك الآن" - برتقالي */}
-            <AppButton 
-              className="p-0 overflow-hidden w-full sm:w-auto min-w-[220px] h-14 rounded-2xl bg-brand-orange shadow-lg shadow-brand-orange/20 hover:scale-105 transition-all border-none"
-            >
+            {/* الزر الأول (احجز استشارة مجانية) - معبأ باللون البرتقالي الباهت/البيج */}
+            <AppButton className="p-0 overflow-hidden w-full sm:w-auto min-w-[220px] h-14 rounded-full bg-[#F5E6CA] hover:bg-[#ebdcc0] transition-all border-none">
               <a 
                 href={LINKS.FREE_CONSULTATION} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-full h-full flex items-center justify-center px-8 text-lg font-bold text-white"
+                className="w-full h-full flex items-center justify-center px-8 text-lg font-bold text-[#E6740F]"
               >
-                {isStyle1 ? "احجز استشارة مجانية " : "ابدأ مشروعك الآن"}
+                {isStyle1 ? "احجز استشارة مجانية" : "ابدأ مشروعك الآن"}
               </a>
             </AppButton>
             
-            {/* زر "احجز استشارة" - أبيض بنص برتقالي (مطابق للصورة) */}
-            <AppButton 
-              className="p-0 overflow-hidden w-full sm:w-auto min-w-[220px] h-14 rounded-2xl bg-white hover:bg-white/90 transition-all border-none"
-            >
+            {/* الزر الثاني (شاهد أعمالنا) - شفاف مع إطار برتقالي */}
+            <AppButton className="p-0 overflow-hidden w-full sm:w-auto min-w-[220px] h-14 rounded-full bg-transparent border-2 border-[#FF7F11] hover:bg-[#FF7F11]/10 transition-all">
               <Link 
                 href={isStyle1 ? LINKS.PORTFOLIO : LINKS.FREE_CONSULTATION}
-                className="w-full h-full flex items-center justify-center px-8 text-lg font-bold text-brand-orange"
+                className="w-full h-full flex items-center justify-center px-8 text-lg font-bold text-[#FF7F11]"
               >
                 {isStyle1 ? "شاهد أعمالنا" : "احجز استشارة مجانية"}
               </Link>

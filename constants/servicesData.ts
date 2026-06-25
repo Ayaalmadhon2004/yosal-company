@@ -132,8 +132,8 @@ export const servicesData: Record<string, any> = {
     service_id: 1,
     hero: {
     badge: "WEB DEVELOPMENT",
-    title: "نحول رؤيتك إلى منصة رقمية تنبض بالحياة",
-    highlightText: "",
+    title: "نحول رؤيتك إلى منصة رقمية",
+    highlightText: "تنبض بالحياة",
     subtitle: "",
     description: "نحن لا نقوم فقط ببرمجة المواقع، بل نصنع تجارب رقمية متكاملة تهدف إلى نمو أعمالك وزيادة مبيعاتك من خلال أحدث التقنيات العالمية.",
     image: "/assets/Web Development.png",
@@ -144,23 +144,18 @@ export const servicesData: Record<string, any> = {
     ]
   },
     featuresSection: {
-      title: "القوة التقنية خلف موقعك",
-      image: "/assets/web-feature.png",
+      title: "لماذا يختار المحترفون يوصل  ",
+      image: "/assets/web2.png",
       features: [
         { 
-          title: "سرعة تحميل خارقة", 
-          description: "موقع يفتح بلمح البصر، مما يحسن تجربة المستخدم والـ SEO.", 
+          title: "أكواد نظيفة وقابلة للتوسع", 
+          description: "نكتب أكواد برمجية تتبع أفضل الممارسات، مما يسهل عملية تطوير الموقع في المستقبل.", 
           icon: "Zap" 
         },
         { 
-          title: "برمجة نظيفة ومخصصة", 
-          description: "كود برمجي خالي من الأخطاء ومهيأ للتوسع المستقبلي.", 
+          title: "تركيز كامل على الأداء", 
+          description: "نحن لا نصمم مواقع جميلة فحسب، بل نصمم أدوات عمل فعالة تزيد من أرباحك.", 
           icon: "Code2" 
-        },
-        { 
-          title: "أمان وحماية شاملة", 
-          description: "تأمين بياناتك وعملائك بأحدث معايير التشفير العالمية.", 
-          icon: "ShieldCheck" 
         }
       ],
       stats: { value: "100%", label: "أداء تقني متكامل" }
@@ -219,9 +214,9 @@ export const servicesData: Record<string, any> = {
     service_id: 3,
     hero: {
     badge: "SEO OPTIMIZATION",
-    title: "حول موقعك إلى مغناطيس للعملاء",
-    highlightText: "وضاعف مبيعاتك",
-    subtitle: "استراتيجيات أرشفة تجعلك الخيار الأول لعملائك.",
+    title: "حول موقعك إلى",
+    highlightText: "مغناطيس للعملاء",
+    subtitle: "",
     description: "نحن لا نقدم مجرد كلمات مفتاحية، بل نصمم تجربة بحث متكاملة تجعل موقعك الوجهة الأولى لجمهورك المستهدف. استراتيجياتنا مبنية على فهم عميق لخوارزميات جوجل وسلوك المستخدم العربي.",
     image: "/assets/analysis.png",
     stats: { value: "Top 3", label: "في نتائج البحث المستهدفة" },
@@ -284,7 +279,7 @@ export const servicesData: Record<string, any> = {
     badge: "SOCIAL MEDIA MANAGEMENT",
     title: "إدارة احترافية لمنصات التواصل",
     highlightText: "نابضاً بالحياة",
-    subtitle: "إدارة تفاعلية تبني مجتمعاً وفياً لعلامتك التجارية.",
+    subtitle: "",
     description:"نصمم لك حضوراً رقمياً لا يُنسى. من التخطيط الاستراتيجي إلى صناعة المحتوى البصري المذهل، نضمن وصول رسالتك للجمهور الصحيح في الوقت المثالي.",
     image: "/assets/Social Media Growth.png",
     stats: { value: "150%", label: "متوسط زيادة التفاعل العضوي" },
@@ -363,9 +358,9 @@ export const servicesData: Record<string, any> = {
     service_id: 6,
     hero: {
     badge: "BRANDING & IDENTITY",
-    title:"نبني هويتك لنترك أثراً لا يُنسى ",
-    highlightText: "تحكي قصتك",
-    subtitle: "تصميم هويات تعكس القيم وتصنع الثقة.",
+    title:"نبني هويتك لنترك ",
+    highlightText: "أثراً لا يُنسى",
+    subtitle:"",
     description: "نحول رؤية مشروعك إلى لغة بصرية متكاملة تحكي قصة نجاحك وتجذب عملاءك من النظرة الأولى.",
     image: "/assets/identity branding work.png",
     stats: { value: "50+", label: "براند تم تطويره بنجاح" },
@@ -423,9 +418,9 @@ export const servicesData: Record<string, any> = {
     service_id: 5,
     hero: {
     badge: "CONTENT CREATION",
-    title: "صناعة المحتوى والفيديو الإبداعي",
-    highlightText: "ويترك أثراً",
-    subtitle: "قصص بصرية وسينمائية تروي هوية علامتك التجارية.",
+    title: "صناعة المحتوى",
+    highlightText: "والفيديو الإبداعي",
+    subtitle: "",
     description: "نحول الأفكار المجردة إلى تجارب بصرية تخطف الأنفاس. نحن لا نصنع فيديوهات فحسب، بل نبني قصصاً تعلق في أذهان جمهورك وتدفعهم لاتخاذ القرار.",
     image: "/assets/professional film production studio.png",
     stats: { value: "24/7", label: "دعم فني وإبداعي متواصل" },

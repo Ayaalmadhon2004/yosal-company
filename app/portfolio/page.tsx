@@ -8,14 +8,22 @@ import UnifiedPortfolio from "@/components/sections/portfolio/UnifiedPortfolio";
 export default async function PortfolioPage() {
   const dashboardData = await getDashboardData();
   
-    const data = dashboardData || {
-      statistics: [],
-    };
+  // إذا لم توجد بيانات، نمرر مصفوفات فارغة لتجنب الانهيار
+  const projects = dashboardData?.portfolio || [];
+  const stats = dashboardData?.statistics || [];
+
   return (
     <main className="min-h-screen bg-background">
       <PortfolioHero />
-      <UnifiedPortfolio isHomePage={false} />
-      <ImpactStats />
+      
+      {/* تمرير البيانات للمكونات */}
+      <UnifiedPortfolio 
+        isHomePage={false} 
+        initialProjects={projects} 
+      />
+      
+      <ImpactStats data={stats} />
+      
       <Stats/>
       <ReadyResult variant="style2"/>
     </main>

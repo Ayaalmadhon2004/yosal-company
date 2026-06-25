@@ -19,27 +19,35 @@ const categoryMapping = [
 interface PortfolioProps {
   isHomePage?: boolean; 
   className?: string;
+  initialProjects?: any[]; // البيانات القادمة من الباك إند عبر الصفحة
 }
 
-export default function UnifiedPortfolio({ isHomePage = false, className }: PortfolioProps) {
+export default function UnifiedPortfolio({ isHomePage = false, className, initialProjects }: PortfolioProps) {
+  // نستخدم البيانات القادمة من props (إن وجدت)، وإلا نبدأ بمصفوفة فارغة
+  const [projects, setProjects] = useState<any[]>(initialProjects || []);
+  const [loading, setLoading] = useState(!initialProjects); // تحميل فقط إذا لم تصل بيانات
   const [activeTab, setActiveTab] = useState("الكل");
-  const [projects, setProjects] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
 
   const fetchProjects = async (categorySlug: string) => {
     setLoading(true);
     try {
       const query = categorySlug === "الكل" ? "" : `?category=${categorySlug}`;
-      const response = await fetch(`https://yosaal-website-backend.onrender.com/api/v1/projects`);
+      const response = await fetch(`https://yosaal-website-backend.onrender.com/api/v1/projects${query}`);
       
       if (!response.ok) throw new Error("Connection failed");
       
       const json = await response.json();
-      console.log("Full API Response:", json); 
-      if (json.status === "Success") {
-        const data = isHomePage ? json.data.data.slice(0, 6) : json.data.data;
-        setProjects(data);
-      }
+      
+      // لنطبع البيانات لنرى هيكلها الحقيقي
+      console.log("هيكل البيانات المستلم:", json);
+
+      // هنا التعديل: لنحاول الوصول للبيانات بطريقة أكثر أماناً
+      // إذا كان الـ API يرسل البيانات مباشرة في json.data أو json مباشرة
+      const projectsData = json.data?.data || json.data || json || [];
+      
+      const finalData = isHomePage ? projectsData.slice(0, 6) : projectsData;
+      setProjects(Array.isArray(finalData) ? finalData : []);
+      
     } catch (error) {
       console.error("Fetch Error:", error);
       setProjects([]);
@@ -48,12 +56,13 @@ export default function UnifiedPortfolio({ isHomePage = false, className }: Port
     }
   };
 
+  // مراقبة تغيير التبويبات لجلب بيانات جديدة من الباك إند عند الحاجة[cite: 4]
   useEffect(() => {
-    const currentCategory = categoryMapping.find(c => c.name === activeTab);
-    fetchProjects(currentCategory?.slug || "الكل");
-  }, [activeTab]);
-
-  console.log("Current Project Data:", projects);
+    if (!initialProjects || activeTab !== "الكل") {
+      const currentCategory = categoryMapping.find(c => c.name === activeTab);
+      fetchProjects(currentCategory?.slug || "الكل");
+    }
+  }, [activeTab, initialProjects]);
 
   return (
     <section className={cn("py-24 w-full bg-background", className)} dir="rtl">
@@ -97,8 +106,7 @@ export default function UnifiedPortfolio({ isHomePage = false, className }: Port
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project) => (
-                
-                <Link 
+              <Link 
                 href={`/portfolio/${project.slug}`} 
                 key={project.id}
                 className="group relative overflow-hidden rounded-[2.5rem] aspect-[4/3] bg-secondary/10 border border-white/5 block hover:-translate-y-2 transition-all duration-500"
@@ -124,7 +132,6 @@ export default function UnifiedPortfolio({ isHomePage = false, className }: Port
           </div>
         )}
 
-        {/* زر "عرض المزيد" يظهر فقط في الصفحة الرئيسية */}
         {isHomePage && !loading && projects.length > 0 && (
           <div className="mt-16 text-center">
             <Link 
