@@ -61,7 +61,7 @@ export default function ReadySection({ variant = "style1" }: ReadySectionProps) 
                 rel="noopener noreferrer"
                 className="w-full h-full flex items-center justify-center px-8 text-lg font-bold text-white"
               >
-                {isStyle1 ? "إبدأ رحلتك الآن" : "ابدأ مشروعك الآن"}
+                {isStyle1 ? "احجز استشارة مجانية " : "ابدأ مشروعك الآن"}
               </a>
             </AppButton>
             

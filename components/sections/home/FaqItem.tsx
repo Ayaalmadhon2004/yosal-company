@@ -7,17 +7,28 @@ export default function FaqItem({ question, answer }: { question: string, answer
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border rounded-2xl p-6 bg-secondary/10">
-      <button 
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex justify-between items-center font-bold text-lg text-right"
-      >
-        {question}
-        <ChevronDown className={cn("transition-transform duration-300", isOpen && "rotate-180")} />
-      </button>
-      {isOpen && (
-        <p className="mt-4 text-muted-foreground leading-relaxed">{answer}</p>
-      )}
+    <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-secondary/50 transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(249,115,22,0.15)]">
+      {/* تأثير اللمعة */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none bg-gradient-to-r from-primary/5 via-transparent to-primary/5" />
+      
+      <div className="relative">
+        <button 
+          onClick={() => setIsOpen(!isOpen)}
+          className="w-full flex justify-between items-center p-6 font-bold text-lg text-right"
+        >
+          {question}
+          <ChevronDown className={cn("transition-transform duration-300 flex-shrink-0", isOpen && "rotate-180")} />
+        </button>
+        
+        <div className={cn(
+          "grid transition-all duration-300 ease-in-out px-6",
+          isOpen ? "grid-rows-[1fr] pb-6 opacity-100" : "grid-rows-[0fr] opacity-0"
+        )}>
+          <p className="text-muted-foreground leading-relaxed overflow-hidden">
+            {answer}
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

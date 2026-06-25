@@ -12,20 +12,26 @@ async function getFaqsFromApi() {
   }
 }
 
-// أضفنا serviceId كـ prop اختياري
-export default async function Faqs({ serviceId }: { serviceId?: number }) {
+interface FaqsProps {
+  serviceId?: number; // نمرر رقم الخدمة هنا
+}
+
+export default async function Faqs({ serviceId }: FaqsProps) {
   const allData = await getFaqsFromApi();
 
   let displayData = [];
 
   if (serviceId) {
-    // 1. إذا مررنا serviceId (في صفحة الخدمة)، نظهر أسئلة هذه الخدمة فقط
-    displayData = allData.filter((faq: any) => faq.service_id === serviceId);
+    // 1. تصفية الأسئلة الخاصة بالخدمة المحددة فقط
+    // 2. قمنا بعمل slice(0, 3) لضمان عرض 3 أسئلة فقط كما طلبتِ
+    displayData = allData
+      .filter((faq: any) => faq.service_id === serviceId)
+      .slice(0, 3); 
   } else {
-    // 2. إذا لم نمرر شيئاً (في الصفحة الرئيسية)، نظهر 4 أسئلة عشوائية من الكل
+    // إذا لم نمرر serviceId، يمكنك اختيار عرض 3 أسئلة عشوائية من الكل
     displayData = [...allData]
       .sort(() => Math.random() - 0.5)
-      .slice(0, 4);
+      .slice(0, 3);
   }
 
   if (!displayData || displayData.length === 0) return null;
@@ -36,7 +42,11 @@ export default async function Faqs({ serviceId }: { serviceId?: number }) {
         <h2 className="text-3xl font-black text-center mb-12">الأسئلة الشائعة</h2>
         <div className="space-y-4">
           {displayData.map((faq: any) => (
-            <FaqItem key={faq.id} question={faq.question} answer={faq.answer} />
+            <FaqItem 
+              key={faq.id} 
+              question={faq.question} 
+              answer={faq.answer} 
+            />
           ))}
         </div>
       </div>

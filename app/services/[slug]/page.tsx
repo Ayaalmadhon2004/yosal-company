@@ -84,7 +84,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         {data.featuresSection && <Suspense fallback={<SectionSkeleton />}><WhyChooseUs data={data.featuresSection} /></Suspense>}
         {data.testimonials && <Suspense fallback={<SectionSkeleton />}><Testimonials /></Suspense>}
         <Faqs serviceId={data.service_id} />
-        {!isContentProduction && <Suspense fallback={<SectionSkeleton />}><ReadyResults variant="style2" /></Suspense>}
+        {!isContentProduction && <Suspense fallback={<SectionSkeleton />}><ReadyResults variant="style1" /></Suspense>}
       </div>
     </main>
   );
