@@ -18,7 +18,6 @@ export default function CTA() {
             
             <AppButton
               asChild
-              variant="secondary" 
               size="lg"
               className="bg-white text-primary hover:bg-gray-100 rounded-2xl px-10 py-7 text-lg md:text-xl font-bold shadow-xl hover:scale-[1.02] transition-all duration-300 flex items-center gap-3 mx-auto"
             >
