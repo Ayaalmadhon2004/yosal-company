@@ -45,11 +45,12 @@ export const allTestimonials: Testimonial[] = [
 export const servicesData: Record<string, any> = {
   "strategic-planning": {
     title: "ما الذي ستحصل عليه؟",
+    service_id: 4,
     hero: {
     badge: "STRATEGIC PLANNING",
     title: "حول رؤيتك إلى",
     highlightText: "واقع ملموس",
-    subtitle:"نحن لا نصمم خططاً فقط، بل نبني مسارات نمو مستدامة. خدمات التخطيط  الاستراتيجي  لدينا تعتمد على البيانات الدقيقة والتحليل العميق للسوق لضمان تفوقك التنافسي.",
+    subtitle:"",
     description: "نحن لا نصمم خططاً فقط، بل نبني مسارات نمو مستدامة تعتمد على البيانات الدقيقة والتحليل العميق للسوق لضمان تفوقك التنافسي.",
     image: "/assets/futurePlan.png",
     stats: { value: "92%", label: "معدل تحقيق الأهداف الاستراتيجية لعملائنا في السنة الأولى" },
@@ -99,7 +100,7 @@ export const servicesData: Record<string, any> = {
     },
     featuresSection: {
       title: "لماذا يوصل هي خيارك الأمثل للتخطيط؟",
-      image: "/assets/futurePlan.png", 
+      image: "/assets/startigic.png", 
       features: [
         { 
           title: "خبرة ممتدة", 
@@ -107,13 +108,13 @@ export const servicesData: Record<string, any> = {
           icon: "BrainCircuit" 
         },
         { 
-          title: "فريق استشاري متخصص", 
-          description: "نخبة من المستشارين والخبراء الذين يعملون جنباً إلى جنب لتحقيق رؤيتك.", 
+          title: "التركيز على العائد (ROI)", 
+          description: "كل قراراتنا الاستراتيجية تهدف أولاً وأخيراً لزيادة ربحية عملائنا.", 
           icon: "Target" 
         },
         { 
-          title: "نماذج عمل مبتكرة", 
-          description: "نستخدم أحدث المنهجيات العالمية والأدوات الذكية لضمان كفاءة التخطيط.", 
+          title: "منهجية رشيقة", 
+          description: "نتبنى أحدث أساليب الإدارة المرنة التي تضمن سرعة الاستجابة لمتغيرات السوق", 
           icon: "TrendingUp" 
         }
       ]
@@ -128,11 +129,12 @@ export const servicesData: Record<string, any> = {
 
   "web-development": {
     title: "خدماتنا في الإنتاج",
+    service_id: 1,
     hero: {
     badge: "WEB DEVELOPMENT",
     title: "نحول رؤيتك إلى منصة رقمية تنبض بالحياة",
-    highlightText: "رقمية استثنائية",
-    subtitle: "مواقع فائقة السرعة، آمنة، ومتوافقة مع كافة الشاشات.",
+    highlightText: "",
+    subtitle: "",
     description: "نحن لا نقوم فقط ببرمجة المواقع، بل نصنع تجارب رقمية متكاملة تهدف إلى نمو أعمالك وزيادة مبيعاتك من خلال أحدث التقنيات العالمية.",
     image: "/assets/Web Development.png",
     stats: { value: "100%", label: "توافق تام مع معايير جوجل" },
@@ -189,19 +191,19 @@ export const servicesData: Record<string, any> = {
       }
     ],
     "comparison": {
-    "challengeTitle": "هل تعاني من حسابات صامتة؟",
-    "challengeDescription": "غياب التفاعل ليس مجرد قلة أرقام، بل هو فقدان تدريجي لثقة عملائك في حيوية علامتك التجارية.",
+    "challengeTitle":" هل يعاني موقعك الحالي؟",
+    "challengeDescription": "",
     "challenges": [
-        "منشورات باهتة لا تحرك ساكناً لدى الجمهور",
-        "تجاهل التعليقات والرسائل يقتل فرص البيع",
-        "خسارة مستمرة للمتابعين بسبب غياب القيمة"
+        "بطء شديد في التحميل يؤدي لخسارة الزوار",
+        "تصميم قديم لا يتناسب مع الهواتف الذكية",
+        "صعوبة في إدارة المحتوى والتعديلات"
     ],
     "solutionTitle": "الحل الاحترافي مع يوصل",
-    "solutionDescription": "نحن لا نكتفي بالنشر فقط، بل نبني استراتيجية (من السكون إلى التأثير) تحول المتابعين العابرين إلى سفراء حقيقيين لعلامتك التجارية.",
+    "solutionDescription": "",
     "solutions": [
-        "صناعة محتوى تفاعلي يحاكي اهتمامات جمهورك",
-        "إدارة ذكية للردود تبني علاقة وطيدة مع العميل",
-        "تحليل مستمر للبيانات لضمان أعلى معدلات وصول"
+        "منصات فائقة السرعة تضمن تجربة مستخدم مثالية",
+        "تصاميم عصرية متوافقة مع كافة الشاشات والمنصات",
+        "لوحة تحكم سهلة تمنحك السيطرة الكاملة على مشروعك"
     ]
       },
     steps: [
@@ -214,6 +216,7 @@ export const servicesData: Record<string, any> = {
 
   "seo-services": {
     title: "خدماتنا في تحسين محركات البحث",
+    service_id: 3,
     hero: {
     badge: "SEO OPTIMIZATION",
     title: "حول موقعك إلى مغناطيس للعملاء",
@@ -276,6 +279,7 @@ export const servicesData: Record<string, any> = {
 
   "social-media": {
     title: "حلول متكاملة لإدارة المنصات", 
+    service_id: 2,
     hero: {
     badge: "SOCIAL MEDIA MANAGEMENT",
     title: "إدارة احترافية لمنصات التواصل",
@@ -356,6 +360,7 @@ export const servicesData: Record<string, any> = {
 
   "visual-identity": {
     title: "نبني هويتك لنترك أثراً لا يُنسى",
+    service_id: 6,
     hero: {
     badge: "BRANDING & IDENTITY",
     title:"نبني هويتك لنترك أثراً لا يُنسى ",
@@ -415,7 +420,8 @@ export const servicesData: Record<string, any> = {
 
   "content-production": {
     title: "خدماتنا في الإنتاج",
-   hero: {
+    service_id: 5,
+    hero: {
     badge: "CONTENT CREATION",
     title: "صناعة المحتوى والفيديو الإبداعي",
     highlightText: "ويترك أثراً",

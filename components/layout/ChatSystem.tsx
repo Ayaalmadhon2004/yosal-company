@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { MessageCircle, Headset, X, Send, ArrowLeft, Sparkles } from "lucide-react";
+import { MessageCircle, Headset, X, Send, ArrowLeft, Sparkles, ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function ChatSystem() {
@@ -28,9 +28,7 @@ export default function ChatSystem() {
 
   return (
     <>
-      {/* الأزرار الثابتة - Floating Actions */}
       <div className="fixed bottom-8 left-8 flex flex-col gap-4 z-[999]" dir="ltr">
-        {/* زر الواتساب */}
         <button 
           onClick={handleWhatsAppClick}
           className="w-16 h-16 bg-[#22C55E] rounded-[2rem] flex items-center justify-center shadow-2xl shadow-[#22C55E]/40 hover:scale-110 active:scale-95 transition-all duration-300 group"
@@ -62,7 +60,7 @@ export default function ChatSystem() {
         {/* Header */}
         <div className="bg-primary p-6 flex items-center justify-between relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-             <Sparkles className="w-20 h-20 text-white -rotate-12 translate-x-[-20%] translate-y-[20%]" />
+            <Sparkles className="w-20 h-20 text-white -rotate-12 translate-x-[-20%] translate-y-[20%]" />
           </div>
           <div className="flex items-center gap-4 relative z-10">
             <div className="relative w-12 h-12 rounded-2xl overflow-hidden border-2 border-white/20">
@@ -129,10 +127,17 @@ export default function ChatSystem() {
             فتح الواتساب الآن
           </Link>
           
-          <button onClick={() => setActiveView("none")} className="mt-8 text-muted-foreground hover:text-foreground text-sm font-bold flex items-center gap-2 mx-auto transition-colors group">
-            <ArrowLeft size={16} className="group-hover:translate-x-1 transition-transform" /> 
+          <button 
+            onClick={() => setActiveView("none")} 
+            className="mt-8 text-muted-foreground hover:text-foreground text-sm font-bold flex items-center gap-2 mx-auto transition-colors group"
+          >
+            {/* الأيقونة داخل span لتطبيق الحجم عليها مباشرة دون تدخل الـ button */}
+            <span className="w-3 h-3 flex items-center justify-center">
+              <ArrowLeft className="w-full h-full !stroke-[4]" /> 
+            </span>
             العودة للموقع
           </button>
+
         </div>
       </div>
     </>

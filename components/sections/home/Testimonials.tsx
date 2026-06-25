@@ -71,22 +71,11 @@ export default function Testimonials({ data: propData }: TestimonialsProps) {
               
               <div className="flex items-center justify-start gap-4">
                 <div className="relative w-12 h-12 rounded-full overflow-hidden border border-primary/20 bg-secondary flex-shrink-0">
-                  {item.avatar_url && item.avatar_url.trim() !== "" ? (
-                    <Image 
-                      src={item.avatar_url} 
-                      alt={item.name}
-                      width={48}
-                      height={48}
-                      className="object-cover"
-                      loading="lazy"
-                    />
-                  ) : (
                     <div className="w-full h-full flex items-center justify-center bg-primary/10">
                       <span className="text-primary font-bold text-lg uppercase">
                         {item.name ? item.name.charAt(0) : "A"}
                       </span>
                     </div>
-                  )}
                 </div>
                 <div className="text-right">
                   <cite className="font-bold text-foreground not-italic block">{item.name}</cite>

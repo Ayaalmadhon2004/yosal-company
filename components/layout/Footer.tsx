@@ -70,7 +70,7 @@ export default function Footer() {
   };
 
   const socialIcons = [
-    { Icon: FaInstagram, link: "https://www.instagram.com/yoosal.agency?igsh=aGlrNXBsdDZmbXZ1" },
+    { Icon: FaInstagram, link: "https://www.Instagram.com/yoosal.ag" },
     { Icon: FaTiktok, link: "https://www.tiktok.com/@yoosal2" },
     { Icon: FaLinkedinIn, link: "https://www.linkedin.com/company/yoosal/" },
     { Icon: FaSnapchat, link: "https://www.snapchat.com/add/yoosal.ag" },
