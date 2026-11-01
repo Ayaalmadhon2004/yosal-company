@@ -47,7 +47,8 @@ export default function ContactPage() {
             fill 
             priority
             fetchPriority="high"
-            sizes="(max-width: 768px) 100vw, 576px"
+            quality={50}
+            sizes="(max-width: 640px) 640px, 576px"
             className="object-contain rounded-2xl" 
           />
         </div>
