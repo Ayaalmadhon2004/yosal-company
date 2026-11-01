@@ -1,6 +1,20 @@
 import { Suspense } from "react";
 import dynamic from 'next/dynamic';
 import StorySection from "@/components/sections/about/StorySection";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "من نحن",
+  description:
+    "تعرف على قصة وكالة يوصل ورؤيتنا ورسالتنا وفريقنا المتخصص في التسويق الرقمي وصناعة النمو للعلامات التجارية في السوق السعودي.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "من نحن",
+    description:
+      "تعرف على قصة وكالة يوصل ورؤيتنا ورسالتنا وفريقنا المتخصص في التسويق الرقمي وصناعة النمو للعلامات التجارية في السوق السعودي.",
+    url: "/about",
+  },
+};
 
 // Loader احترافي متناسق مع زوايا فيجما (40px) وألوان البراند
 const SkeletonLoader = () => (

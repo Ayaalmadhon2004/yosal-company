@@ -1,6 +1,20 @@
 import { Suspense } from "react";
 import dynamic from 'next/dynamic';
 import TermsHero from "@/components/sections/terms/TermsHero";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "الشروط والأحكام",
+  description:
+    "اطلع على شروط وأحكام استخدام موقع وكالة يوصل وخدماتها، والتزامات الأطراف والسياسات القانونية المنظمة للتعاون.",
+  alternates: { canonical: "/terms" },
+  openGraph: {
+    title: "الشروط والأحكام",
+    description:
+      "اطلع على شروط وأحكام استخدام موقع وكالة يوصل وخدماتها، والتزامات الأطراف والسياسات القانونية المنظمة للتعاون.",
+    url: "/terms",
+  },
+};
 
 const SkeletonLoader = () => (
   <div className="animate-pulse container mx-auto px-6 py-12">

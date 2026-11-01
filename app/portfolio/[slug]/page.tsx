@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { cache } from "react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Cloud,  ShieldCheck, LucideIcon } from "lucide-react";
@@ -38,7 +40,7 @@ const getFullImageUrl = (url: string | undefined): string => {
   return `https://yosaal-website-backend.onrender.com${path}`;
 };
 
-async function getProjectDetails(slug: string) {
+const getProjectDetails = cache(async (slug: string) => {
   try {
     const res = await fetch(`https://yosaal-website-backend.onrender.com/api/v1/projects/${slug}`, {
       cache: 'no-store'
@@ -49,6 +51,24 @@ async function getProjectDetails(slug: string) {
   } catch (error) {
     return null;
   }
+});
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const project: ProjectData | null = await getProjectDetails(slug);
+
+  if (!project) return { title: "المشروع غير موجود", robots: { index: false } };
+
+  const description = (project.full_description || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim().slice(0, 160)
+    || "تعرف على تفاصيل المشروع ونتائجه من أعمال وكالة يوصل.";
+  const image = project.image_url ? getFullImageUrl(project.image_url) : undefined;
+  return {
+    title: project.title,
+    description,
+    alternates: { canonical: `/portfolio/${slug}` },
+    openGraph: { title: project.title, description, url: `/portfolio/${slug}`, images: image ? [image] : undefined },
+    twitter: { title: project.title, description, images: image ? [image] : undefined },
+  };
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {

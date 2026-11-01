@@ -2,8 +2,39 @@ import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Clock, Share2, Bookmark, ArrowRight } from "lucide-react";
 import { getPostBySlug, getPosts } from "@/lib/api";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ShareActions from "@/components/sections/blog/ShareActions";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+
+  if (!post) return { title: "المقال غير موجود", robots: { index: false } };
+
+  const raw: string = post.short_description || post.excerpt || post.content || "";
+  const description =
+    raw.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim().slice(0, 160) ||
+    "مقال من مدونة وكالة يوصل.";
+  const image: string | undefined = post.image || post.image_url || undefined;
+  return {
+    title: post.title,
+    description,
+    alternates: { canonical: `/blog/${slug}` },
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description,
+      url: `/blog/${slug}`,
+      images: image ? [image] : undefined,
+    },
+    twitter: { title: post.title, description, images: image ? [image] : undefined },
+  };
+}
 
 export default async function BlogPostPage({ 
   params 
