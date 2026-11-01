@@ -11,6 +11,7 @@ import Pricing from "@/components/sections/home/Pricing";
 import Testimonials from "@/components/sections/home/Testimonials";
 import CTA from "@/components/sections/home/CTA";
 import Faqs from "@/components/sections/home/Faqs";
+import { Reveal } from "@/components/ui/Motion";
 import ReadySection from "@/components/sections/ReadySection";
 
 const SkeletonLoader = () => (
@@ -30,19 +31,29 @@ export default async function Home() {
 
       <div className="flex flex-col relative">
         <Services data={servicesData} />
-        <Portfolio isHomePage />
+        <Reveal>
+          <Portfolio isHomePage />
+        </Reveal>
         <WhyUs />
         <Stats />
         <Pricing data={data.packages} />
-        <Testimonials />
-        <CTA />
+        <Reveal>
+          <Testimonials />
+        </Reveal>
+        <Reveal>
+          <CTA />
+        </Reveal>
 
         {/* Faqs is async (fetches on the server), so stream it behind a fallback */}
-        <Suspense fallback={<SkeletonLoader />}>
-          <Faqs />
-        </Suspense>
+        <Reveal>
+          <Suspense fallback={<SkeletonLoader />}>
+            <Faqs />
+          </Suspense>
+        </Reveal>
 
-        <ReadySection />
+        <Reveal>
+          <ReadySection />
+        </Reveal>
       </div>
     </main>
   );

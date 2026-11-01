@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Toaster } from "react-hot-toast";
 import Script from "next/script"; // استيراد مكون Script
+import { MotionProvider } from "@/components/ui/Motion";
 import { SITE_URL, SITE_NAME } from "@/lib/seo";
 
 const cairo = Cairo({
@@ -63,12 +64,13 @@ export default function RootLayout({
       <body className={`${cairo.className} bg-[#0F112B] bg-background text-white antialiased min-h-screen relative overflow-x-hidden flex flex-col`}>
         
         <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
-          <div className="absolute -top-[10%] -left-[10%] w-[600px] h-[600px] bg-[#3C3F73]/30 rounded-full blur-[140px]" />
-          <div className="absolute top-[25%] -right-[5%] w-[500px] h-[500px] bg-[#F58220]/10 rounded-full blur-[120px]" />
+          <div className="absolute -top-[10%] -left-[10%] w-[600px] h-[600px] bg-[#3C3F73]/30 rounded-full blur-[140px] animate-float-slow" />
+          <div className="absolute top-[25%] -right-[5%] w-[500px] h-[500px] bg-[#F58220]/10 rounded-full blur-[120px] animate-float-slower" />
           <div className="absolute bottom-[0%] left-[20%] w-[700px] h-[700px] bg-[#1A1C2E]/50 rounded-full blur-[160px]" />
           <div className="absolute inset-0 opacity-[0.02] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
         </div>
 
+        <MotionProvider>
         <Navbar />
         
         <main className="relative z-10 flex-grow">
@@ -88,6 +90,7 @@ export default function RootLayout({
         />
         
         <Footer />
+        </MotionProvider>
       </body>
     </html>
   );

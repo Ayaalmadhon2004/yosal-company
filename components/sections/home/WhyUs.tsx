@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { whyUsData } from "@/constants/siteData";
+import { Reveal, Stagger, StaggerItem } from "@/components/ui/Motion";
 import { BarChart3, MapPin, FileText, UserCheck } from "lucide-react";
 
 export default function WhyUs() {
@@ -8,14 +9,15 @@ export default function WhyUs() {
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="flex flex-col lg:flex-row items-center gap-16">
           
-          <div className="w-full lg:w-1/2">
+          <Reveal x={40} className="w-full lg:w-1/2">
             <h2 className="text-3xl md:text-4xl font-black mb-12">
               لماذا يختارنا <span className="text-primary">عمالقة السوق؟</span>
             </h2>
 
-            <div className="space-y-8">
+            <Stagger className="space-y-8" delay={0.15}>
               {whyUsData.map((item) => (
-                <div key={item.id} className="flex gap-6 group">
+                <StaggerItem key={item.id}>
+                <div className="flex gap-6 group">
                   <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors">
                     {item.id === 1 && <BarChart3 className="text-primary" />}
                     {item.id === 2 && <MapPin className="text-primary" />}
@@ -31,11 +33,12 @@ export default function WhyUs() {
                     </p>
                   </div>
                 </div>
+                </StaggerItem>
               ))}
-            </div>
-          </div>
+            </Stagger>
+          </Reveal>
 
-          <div className="w-full lg:w-1/2 relative aspect-square rounded-4xl overflow-hidden border border-white/10">
+          <Reveal x={-40} delay={0.2} className="w-full lg:w-1/2 relative aspect-square rounded-4xl overflow-hidden border border-white/10">
             <Image 
               src="/assets/dashboard.png"
               alt="لماذا يختارنا عمالقة السوق"
@@ -44,7 +47,7 @@ export default function WhyUs() {
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
             <div className="absolute inset-0 bg-gradient-to-l from-background via-transparent to-transparent" />
-          </div>
+          </Reveal>
 
         </div>
       </div>

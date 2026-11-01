@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { AppButton } from '../ui/AppButton';
 import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
+import { DURATION, EASE } from '@/lib/motion';
 import { Menu, X, ChevronDown, Sparkles } from 'lucide-react';
 
 const navLinks = [
@@ -49,7 +51,10 @@ export default function Navbar() {
   if (!mounted) return null;
 
   return (
-      <nav 
+      <motion.nav
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: DURATION.base, ease: EASE }}
         className={cn(
           "fixed top-0 w-full z-[9999] transition-all duration-500 mb-4", 
           "bg-background backdrop-blur-2xl border-b border-white/5 py-3 shadow-2xl" 
@@ -180,6 +185,6 @@ export default function Navbar() {
 
         </div>
       </div>
-    </nav>
+    </motion.nav>
   );
 }

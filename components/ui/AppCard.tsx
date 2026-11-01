@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const cardVariants = cva(
-  "rounded-3xl border transition-all duration-300",
+  "rounded-3xl border transition-all duration-300 hover:-translate-y-1",
   {
     variants: {
       variant: {
