@@ -14,7 +14,8 @@ export default function FaqItem({ question, answer }: { question: string, answer
       <div className="relative">
         <button 
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full flex justify-between items-center p-6 font-bold text-lg text-right"
+          aria-expanded={isOpen}
+          className="w-full flex justify-between items-center p-5 sm:p-6 gap-4 font-bold text-base sm:text-lg text-right min-h-14"
         >
           {question}
           <ChevronDown className={cn("transition-transform duration-300 flex-shrink-0", isOpen && "rotate-180")} />

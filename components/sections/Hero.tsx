@@ -23,10 +23,10 @@ export default function Hero() {
             </StaggerItem>
             
             <StaggerItem>
-            <h1 className="text-3xl md:text-7xl lg:text-[40px] font-black text-foreground leading-[1.6] tracking-tighter mb-8">
+            <h1 className="text-[28px] sm:text-4xl md:text-5xl lg:text-[34px] xl:text-[40px] text-balance font-black text-foreground leading-[1.6] tracking-tighter mb-8">
               نصيغ الفخامة 
-              الرقمية لتقود <br className="mb-3"/>
-             <p >علامتك <span className="text-primary">لمكانتها المستحقة</span>  </p>
+              الرقمية لتقود
+              <span className="block">علامتك <span className="text-primary">لمكانتها المستحقة</span></span>
             </h1>
             </StaggerItem>
             
@@ -38,14 +38,15 @@ export default function Hero() {
             </StaggerItem>
             
             <StaggerItem>
-            <div className="flex flex-wrap gap-6 justify-start items-center">
+            <div className="flex flex-wrap gap-4 sm:gap-6 justify-start items-center">
               <AppButton
+                asChild
                 variant="outline"
                 size="lg"
-                className="px-12 py-7 flex items-center gap-3 transition-all"
+                className="w-full sm:w-auto px-12 py-7 flex items-center gap-3 transition-all"
               >
                 <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                  <span className="order-1">واتساب</span>
+                  واتساب
                 </a>
               </AppButton>
 
@@ -53,7 +54,7 @@ export default function Hero() {
                 asChild
                 variant="primary"
                 size="lg"
-                className="px-12 py-7 transition-all duration-300"
+                className="w-full sm:w-auto px-12 py-7 transition-all duration-300"
               >
                 <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
                   ابدأ رحلتك الآن

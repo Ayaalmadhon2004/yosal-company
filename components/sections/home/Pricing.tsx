@@ -40,14 +40,14 @@ export default function Pricing({ data }: PricingProps) {
   return (
     <section id="pricing" className="py-24 w-full bg-background" dir="rtl">
       <div className="container mx-auto px-6 max-w-7xl">
-        <Reveal className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-black text-[#F58220] mb-6">
+        <Reveal className="text-center mb-16 md:mb-20">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#F58220] mb-6">
             باقاتنا المرنة
           </h2>
           <p className="text-lg text-gray-300 opacity-90 font-medium">اختر الباقة التي تناسب حجم طموحاتك.</p>
         </Reveal>
 
-        <Stagger className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        <Stagger className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6 xl:gap-8 items-stretch max-w-md mx-auto lg:max-w-none">
           {plans.map((plan) => {
             const isSubscription = plan.name.includes("الاستمرارية");
             const isFeatured = plan.is_featured === 1;
