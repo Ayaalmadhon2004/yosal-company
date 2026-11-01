@@ -31,12 +31,12 @@ export default function WhyUsSection() {
       <div className="container mx-auto px-6">
         
         {/* رأس القسم بتصميم عصري */}
-        <div className="text-center mb-24">
+        <div className="text-center mb-14 md:mb-24">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/30 border border-white/5 text-primary mb-6 backdrop-blur-sm">
             <Star className="w-4 h-4 fill-primary" />
             <span className="font-black text-xs md:text-sm tracking-widest uppercase">ما يميزنا</span>
           </div>
-          <h2 className="text-4xl md:text-6xl font-black text-foreground">
+          <h2 className="text-3xl sm:text-4xl lg:text-6xl font-black text-foreground">
             لماذا يختارنا <span className="text-primary italic">الرواد؟</span>
           </h2>
         </div>
@@ -46,7 +46,7 @@ export default function WhyUsSection() {
           {FEATURES.map((feature, index) => (
             <StaggerItem 
               key={index} 
-              className="group relative bg-secondary/10 p-10 rounded-[3rem] border border-white/5 hover:border-primary/30 transition-all duration-700 hover:-translate-y-3 overflow-hidden shadow-2xl"
+              className="group relative bg-secondary/10 p-6 sm:p-10 rounded-[2rem] sm:rounded-[3rem] border border-white/5 hover:border-primary/30 transition-all duration-700 hover:-translate-y-3 overflow-hidden shadow-2xl"
             >
               {/* أيقونة الميزة بتأثير بصري عميق */}
               <div className="relative w-20 h-20  rounded-3xl flex items-center justify-center mb-10 shadow-xl group-hover:rotate-[10deg] transition-transform duration-500 border border-white/5">

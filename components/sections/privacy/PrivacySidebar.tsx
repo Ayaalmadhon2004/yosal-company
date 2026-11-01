@@ -28,7 +28,7 @@ export default function PrivacySidebar() {
   };
 
   return (
-    <div className="bg-secondary/30 p-8 rounded-[2.5rem] border border-white/5 sticky top-32 transition-all duration-500 hover:border-primary/20" dir="rtl">
+    <div className="bg-secondary/30 p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] border border-white/5 lg:sticky lg:top-32 transition-all duration-500 hover:border-primary/20" dir="rtl">
       <h4 className="text-foreground font-black mb-8 flex items-center gap-3">
         <div className="p-2 bg-primary/10 rounded-lg">
           <ListFilter className="w-4 h-4 text-primary" />
@@ -41,7 +41,7 @@ export default function PrivacySidebar() {
           <li key={i}>
             <button
               onClick={() => scrollToSection(link.target)}
-              className="w-full flex items-center justify-between text-muted-foreground hover:text-primary p-3 rounded-xl hover:bg-primary/5 transition-all group"
+              className="w-full flex items-center justify-between text-muted-foreground hover:text-primary p-3 min-h-11 rounded-xl hover:bg-primary/5 transition-all group"
             >
               <span className="text-sm font-bold transition-transform group-hover:translate-x-[-4px]">
                 {link.name}
@@ -54,7 +54,7 @@ export default function PrivacySidebar() {
 
       {/* لمسة جمالية في الأسفل */}
       <div className="mt-8 pt-6 border-t border-white/5">
-        <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold">
+        <p className="text-xs text-muted-foreground uppercase tracking-wider font-bold">
           Yoosil Privacy Framework v2.0
         </p>
       </div>

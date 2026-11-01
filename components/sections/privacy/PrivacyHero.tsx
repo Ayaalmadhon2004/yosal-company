@@ -6,7 +6,7 @@ import { ShieldCheck } from "lucide-react";
 
 export default function PrivacyHero() {
   return (
-    <RevealSection className="relative pt-32 pb-20 text-center overflow-hidden" dir="rtl">
+    <RevealSection className="relative pt-28 sm:pt-32 pb-16 sm:pb-20 text-center overflow-hidden" dir="rtl">
       {/* عناصر خلفية جمالية (توهج رقمي) */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-[400px] bg-primary/5 blur-[120px] rounded-full -z-10" />
       <div className="absolute top-20 right-10 w-24 h-24 bg-primary/10 blur-3xl rounded-full -z-10 animate-pulse" />
@@ -18,7 +18,7 @@ export default function PrivacyHero() {
           <span className="font-bold text-xs md:text-sm tracking-wide">الخصوصية والأمان الرقمي</span>
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-black text-foreground mb-8 leading-tight tracking-tight">
+        <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-foreground mb-8 leading-tight tracking-tight">
           سياسة <span className="text-primary">الخصوصية</span>
         </h1>
 
