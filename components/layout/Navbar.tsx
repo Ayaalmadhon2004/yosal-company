@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useSyncExternalStore } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { AppButton } from '../ui/AppButton';
@@ -28,13 +28,8 @@ const navLinks = [
   { name: 'تواصل معنا', href: '/contact' },
 ];
 
-// true على العميل فقط (يتجنب عدم تطابق الـ hydration)
-const subscribeNoop = () => () => {};
-const useIsMounted = () => useSyncExternalStore(subscribeNoop, () => true, () => false);
-
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const mounted = useIsMounted();
 
   const WHATSAPP_CONSULTATION = "https://wa.link/4ddhsa";
 
@@ -42,17 +37,17 @@ export default function Navbar() {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
     }
+    return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
-
-  if (!mounted) return null;
 
   return (
       <nav 
+        aria-label="التنقل الرئيسي"
         className={cn(
-          "fixed top-0 w-full z-[9999] transition-all duration-500 mb-4", 
-          "bg-background backdrop-blur-2xl border-b border-white/5 py-3 shadow-2xl" 
+          "fixed top-0 w-full z-[9999] transition-colors duration-500", 
+          "bg-background border-b border-white/5 py-3 shadow-2xl" 
         )}
         dir="rtl"
       >
@@ -60,12 +55,13 @@ export default function Navbar() {
         
         {/* Logo Section */}
         <div className="flex-1 flex justify-start">
-          <Link href="/" className="relative group">
+          <Link href="/" className="relative group" aria-label="يوصل - الصفحة الرئيسية">
             <Image 
               src="/assets/logo.png" 
               alt="Yoosel Logo" 
               width={140}
               height={50}
+              priority
               className="h-10 md:h-12 w-auto object-contain relative z-10" 
             />
           </Link>
@@ -73,7 +69,7 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center justify-center">
-          <ul className="flex items-center space-x-2 xl:space-x-4 space-x-reverse bg-secondary/20 backdrop-blur-md border border-white/5 px-6 py-2 rounded-full">
+          <ul className="flex items-center space-x-2 xl:space-x-4 space-x-reverse bg-secondary/20 border border-white/5 px-6 py-2 rounded-full">
             {navLinks.map((link) => (
               <li key={link.name} className="relative group/item">
                 <Link 
@@ -85,7 +81,7 @@ export default function Navbar() {
                 </Link>
 
                 {link.dropdown && (
-                  <div className="absolute top-[calc(100%+15px)] right-0 w-72 bg-[#1A1D2E] border border-white/10 rounded-[1.5rem] shadow-2xl opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 p-4 z-[100]">
+                  <div className="absolute top-[calc(100%+15px)] right-0 w-72 bg-[#1A1D2E] border border-white/10 rounded-[1.5rem] shadow-2xl opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible group-focus-within/item:opacity-100 group-focus-within/item:visible transition-all duration-300 p-4 z-[100]">
                     <div className="grid grid-cols-1 gap-1">
                       {link.dropdown.map((item) => (
                         <Link
@@ -123,15 +119,18 @@ export default function Navbar() {
         <div className="lg:hidden flex items-center z-[10000]">
           <button 
             onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? "إغلاق القائمة" : "فتح القائمة"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
             className="p-2.5 rounded-xl bg-primary text-white shadow-lg shadow-primary/20 transition-all active:scale-95"
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
           </button>
         </div>
       </div>
 
       {/* Mobile Menu Overlay */}
-      <div className={cn(
+      <div id="mobile-menu" aria-hidden={!isOpen} inert={!isOpen} className={cn(
         "lg:hidden fixed inset-0 top-0 left-0 w-full h-screen bg-background transition-all duration-500 z-[9998]",
         isOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-full"
       )}>

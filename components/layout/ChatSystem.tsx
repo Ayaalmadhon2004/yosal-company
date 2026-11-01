@@ -1,18 +1,13 @@
 "use client";
 
-import React, { useState, useSyncExternalStore } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MessageCircle, Headset, X, Send, ArrowLeft, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// true على العميل فقط (يتجنب عدم تطابق الـ hydration)
-const subscribeNoop = () => () => {};
-const useIsMounted = () => useSyncExternalStore(subscribeNoop, () => true, () => false);
-
 export default function ChatSystem() {
   const [activeView, setActiveView] = useState<"none" | "chat" | "whatsapp">("none");
-  const mounted = useIsMounted();
 
   const WHATSAPP_LINK = "https://wa.me/qr/YDPUM4DFRP4NP1";
 
@@ -24,15 +19,14 @@ export default function ChatSystem() {
     }
   };
 
-  if (!mounted) return null;
-
   return (
     <>
       <div className="fixed bottom-8 left-8 flex flex-col gap-4 z-[999]" dir="ltr">
         <button 
           onClick={handleWhatsAppClick}
-          className="w-16 h-16 bg-[#22C55E] rounded-[2rem] flex items-center justify-center shadow-2xl shadow-[#22C55E]/40 hover:scale-110 active:scale-95 transition-all duration-300 group"
+          className="w-16 h-16 bg-[#15803D] rounded-[2rem] flex items-center justify-center shadow-2xl shadow-[#22C55E]/40 hover:scale-110 active:scale-95 transition-all duration-300 group"
           title="تواصل عبر واتساب"
+          aria-label="تواصل عبر واتساب"
         >
           <MessageCircle className="h-8 w-8 text-white group-hover:rotate-[15deg] transition-transform" />
         </button>
@@ -42,6 +36,8 @@ export default function ChatSystem() {
           onClick={() => setActiveView(activeView === "chat" ? "none" : "chat")}
           className="w-16 h-16 bg-primary rounded-[2rem] flex items-center justify-center shadow-2xl shadow-primary/40 hover:scale-110 active:scale-95 transition-all duration-300 group"
           title="الدعم المباشر"
+          aria-label={activeView === "chat" ? "إغلاق الدعم المباشر" : "الدعم المباشر"}
+          aria-expanded={activeView === "chat"}
         >
           {activeView === "chat" ? (
             <X className="h-8 w-8 text-white transition-all" />
@@ -52,8 +48,8 @@ export default function ChatSystem() {
       </div>
 
       {/* نافذة الدردشة - Live Support */}
-      <div className={cn(
-        "fixed bottom-28 left-8 w-[350px] md:w-[400px] bg-secondary/90 backdrop-blur-2xl rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.4)] z-[1000] overflow-hidden flex flex-col border border-white/10 transition-all duration-500 origin-bottom-left",
+      <div aria-hidden={activeView !== "chat"} inert={activeView !== "chat"} className={cn(
+        "fixed bottom-28 left-8 w-[350px] md:w-[400px] bg-secondary rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.4)] z-[1000] overflow-hidden flex flex-col border border-white/10 transition-all duration-500 origin-bottom-left",
         activeView === "chat" ? "scale-100 opacity-100" : "scale-0 opacity-0 pointer-events-none"
       )} dir="rtl">
         
@@ -69,10 +65,10 @@ export default function ChatSystem() {
             </div>
             <div className="text-right text-white">
               <p className="font-black text-lg leading-tight">سارة</p>
-              <p className="text-white/70 text-xs font-bold tracking-wide">خبيرة نمو رقمي</p>
+              <p className="text-white/90 text-xs font-bold tracking-wide">خبيرة نمو رقمي</p>
             </div>
           </div>
-          <button onClick={() => setActiveView("none")} className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors">
+          <button onClick={() => setActiveView("none")} aria-label="إغلاق" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors">
             <X size={20} />
           </button>
         </div>
@@ -89,23 +85,25 @@ export default function ChatSystem() {
         <div className="p-6 bg-secondary/50 border-t border-white/5 flex gap-3">
           <input 
             type="text" 
+            aria-label="اكتب استفسارك" 
             placeholder="اكتب استفسارك هنا..." 
-            className="flex-grow text-sm p-4 /80 rounded-2xl text-foreground outline-none border border-white/5 focus:border-primary/50 transition-all placeholder:text-muted-foreground/50" 
+            className="flex-grow text-sm p-4 /80 rounded-2xl text-foreground outline-none border border-white/5 focus:border-primary/50 transition-all placeholder:text-muted-foreground/80" 
           />
-          <button className="bg-primary w-14 h-14 rounded-2xl text-white flex items-center justify-center shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all group">
+          <button aria-label="إرسال" className="bg-primary w-14 h-14 rounded-2xl text-white flex items-center justify-center shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all group">
             <Send size={22} className="rotate-180 group-hover:-translate-x-1 transition-transform" />
           </button>
         </div>
       </div>
 
       {/* كارد الواتساب (Desktop) */}
-      <div className={cn(
+      <div aria-hidden={activeView !== "whatsapp"} inert={activeView !== "whatsapp"} className={cn(
         "fixed inset-0 /80 backdrop-blur-md z-[1100] flex items-center justify-center p-6 transition-all duration-500",
         activeView === "whatsapp" ? "opacity-100" : "opacity-0 pointer-events-none"
       )}>
         <div className="bg-secondary p-10 rounded-[3.5rem] border border-white/10 text-center max-w-md shadow-2xl relative">
           <button 
             onClick={() => setActiveView("none")}
+            aria-label="إغلاق"
             className="absolute top-6 left-6 text-muted-foreground hover:text-primary transition-colors"
           >
             <X size={24} />
@@ -122,7 +120,7 @@ export default function ChatSystem() {
           
           <Link 
             href={WHATSAPP_LINK} 
-            className="bg-[#22C55E] text-white block py-5 rounded-2xl font-black text-xl shadow-xl shadow-[#22C55E]/30 hover:bg-[#1eb353] hover:-translate-y-1 transition-all"
+            className="bg-[#15803D] text-white block py-5 rounded-2xl font-black text-xl shadow-xl shadow-[#22C55E]/30 hover:bg-[#166534] hover:-translate-y-1 transition-all"
           >
             فتح الواتساب الآن
           </Link>

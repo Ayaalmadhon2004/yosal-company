@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useSyncExternalStore } from "react";
+import React, { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from 'next/link';
 import { 
@@ -14,15 +15,22 @@ import {
 } from "react-icons/fa6";
 import { IoMailOutline, IoSendSharp } from "react-icons/io5";
 import { HiOutlineMap } from "react-icons/hi2";
-import ChatSystem from "@/components/layout/ChatSystem"; 
+const ChatSystem = dynamic(() => import("@/components/layout/ChatSystem"), { ssr: false });
 import { toast } from "react-hot-toast";
 
-// true على العميل فقط (يتجنب عدم تطابق الـ hydration)
-const subscribeNoop = () => () => {};
-const useIsMounted = () => useSyncExternalStore(subscribeNoop, () => true, () => false);
-
 export default function Footer() {
-  const mounted = useIsMounted();
+  const [showChat, setShowChat] = useState(false);
+
+  // تحميل الدردشة بعد انتهاء التحميل الأولي (idle) لتخفيف الـ main thread
+  useEffect(() => {
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number };
+    if (w.requestIdleCallback) {
+      const id = w.requestIdleCallback(() => setShowChat(true), { timeout: 4000 });
+      return () => (window as unknown as { cancelIdleCallback: (i: number) => void }).cancelIdleCallback(id);
+    }
+    const t = window.setTimeout(() => setShowChat(true), 3000);
+    return () => window.clearTimeout(t);
+  }, []);
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -70,21 +78,19 @@ export default function Footer() {
   };
 
   const socialIcons = [
-    { Icon: FaInstagram, link: "https://www.Instagram.com/yoosal.ag" },
-    { Icon: FaTiktok, link: "https://www.tiktok.com/@yoosal2" },
-    { Icon: FaLinkedinIn, link: "https://www.linkedin.com/company/yoosal/" },
-    { Icon: FaSnapchat, link: "https://www.snapchat.com/add/yoosal.ag" },
-    { Icon: FaFacebookF, link: "https://www.facebook.com/share/1DeynDWeNh/" },
-    { Icon: FaXTwitter, link: "https://x.com/Yoosal148837" },
-    { Icon: FaThreads, link: "https://www.threads.com/@yoosal.ag" }
+    { Icon: FaInstagram, label: "انستقرام", link: "https://www.Instagram.com/yoosal.ag" },
+    { Icon: FaTiktok, label: "تيك توك", link: "https://www.tiktok.com/@yoosal2" },
+    { Icon: FaLinkedinIn, label: "لينكدإن", link: "https://www.linkedin.com/company/yoosal/" },
+    { Icon: FaSnapchat, label: "سناب شات", link: "https://www.snapchat.com/add/yoosal.ag" },
+    { Icon: FaFacebookF, label: "فيسبوك", link: "https://www.facebook.com/share/1DeynDWeNh/" },
+    { Icon: FaXTwitter, label: "إكس (تويتر)", link: "https://x.com/Yoosal148837" },
+    { Icon: FaThreads, label: "ثريدز", link: "https://www.threads.com/@yoosal.ag" }
   ];
-
-  if (!mounted) return null;
 
   return (
     <footer className="bg-background text-white py-16 border-t border-white/5 relative w-full" dir="rtl">
       
-      <ChatSystem />
+      {showChat && <ChatSystem />}
 
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
@@ -92,7 +98,7 @@ export default function Footer() {
           {/* معلومات الوكالة */}
           <div className="md:col-span-4 text-right flex flex-col items-start">
             <div className="mb-6">
-              <Link href="/">
+              <Link href="/" aria-label="يوصل - الصفحة الرئيسية">
                 <Image
                   width={180}
                   height={60}
@@ -112,9 +118,10 @@ export default function Footer() {
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={item.label}
                   className="p-2.5 bg-white/5 rounded-xl border border-white/10 hover:border-orange-500/50 hover:text-orange-500 transition-all shadow-sm"
                 >
-                  <item.Icon className="h-5 w-5" />
+                  <item.Icon className="h-5 w-5" aria-hidden="true" />
                 </Link>
               ))}
             </div>
@@ -122,7 +129,7 @@ export default function Footer() {
 
           {/* روابط سريعة */}
           <div className="md:col-span-2 text-right">
-            <h4 className="text-white font-bold mb-6">روابط سريعة</h4>
+            <h2 className="text-white font-bold mb-6">روابط سريعة</h2>
             <ul className="space-y-4 text-gray-400 text-sm">
               <li><Link href="/" className="hover:text-orange-500 transition-colors">الرئيسية</Link></li>
               <li><Link href="/services" className="hover:text-orange-500 transition-colors">خدماتنا</Link></li>
@@ -134,7 +141,7 @@ export default function Footer() {
           </div>
 
           <div className="md:col-span-2 text-right">
-            <h4 className="text-white font-bold mb-6">قانوني</h4>
+            <h2 className="text-white font-bold mb-6">قانوني</h2>
             <ul className="space-y-4 text-gray-400 text-sm">
               <li><Link href="/private" className="hover:text-orange-500 transition-colors">الخصوصية</Link></li>
               <li><Link href="/terms" className="hover:text-orange-500 transition-colors">الشروط والأحكام</Link></li>
@@ -143,25 +150,28 @@ export default function Footer() {
 
           <div className="md:col-span-4">
             <div className="bg-[#252841] p-8 rounded-[32px] border border-white/5 relative overflow-hidden">
-              <div className="absolute -top-2 -left-2 bg-orange-500/10 p-4 rounded-full blur-xl"></div>
+              <div className="absolute -top-2 -left-2 bg-orange-500/10 p-4 rounded-full" aria-hidden="true"></div>
               <HiOutlineMap className="text-orange-500 mb-4 h-6 w-6" />
               
-              <h3 className="text-lg font-black mb-4 text-white">كُن أول من يصله الإلهام</h3>
+              <h2 className="text-lg font-black mb-4 text-white">كُن أول من يصله الإلهام</h2>
               
               <form onSubmit={handleSubscribe} className="flex items-center gap-2 bg-[#1A1C2E] p-1.5 rounded-2xl border border-white/10 group focus-within:border-orange-500/50 transition-all">
                 <div className="pr-4">
-                   <IoMailOutline className="h-5 w-5 text-gray-500 group-focus-within:text-orange-500 transition-colors" />
+                   <IoMailOutline className="h-5 w-5 text-gray-400 group-focus-within:text-orange-500 transition-colors" />
                 </div>
                 <input 
                   type="email" 
+                  aria-label="البريد الإلكتروني" 
+                  autoComplete="email" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="البريد الإلكتروني" 
-                  className="bg-transparent flex-grow py-2 text-sm outline-none text-white placeholder:text-gray-600"
+                  className="bg-transparent flex-grow py-2 text-sm outline-none text-white placeholder:text-gray-400"
                   disabled={isLoading}
                 />
                 <button 
                   type="submit"
+                  aria-label="اشتراك في النشرة البريدية"
                   disabled={isLoading}
                   className="bg-orange-500 p-3 rounded-xl hover:scale-105 active:scale-95 transition-all shadow-lg shadow-orange-500/20 disabled:opacity-50 flex items-center justify-center min-w-[44px]"
                 >
@@ -172,14 +182,14 @@ export default function Footer() {
                   )}
                 </button>
               </form>
-              <p className="text-[10px] text-gray-500 mt-4 text-center">بشراكتك معنا، أنت توافق على سياسة الخصوصية الخاصة بنا.</p>
+              <p className="text-[11px] text-gray-400 mt-4 text-center">بشراكتك معنا، أنت توافق على سياسة الخصوصية الخاصة بنا.</p>
             </div>
           </div>
 
         </div>
 
         {/* الحقوق */}
-        <div className="mt-16 pt-8 border-t border-white/5 text-center text-gray-500 text-xs">
+        <div className="mt-16 pt-8 border-t border-white/5 text-center text-gray-400 text-xs">
           <p>© 2026 يوصل - جميع الحقوق محفوظة</p>
         </div>
       </div>

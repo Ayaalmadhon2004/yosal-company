@@ -47,6 +47,49 @@
   --ring: #E6740F;
 }
 
+/* خلفية خفيفة: تدرجات شعاعية بدلاً من blur filters (أداء رسم أفضل) */
+.bg-blobs {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(60, 63, 115, 0.3) 0, rgba(60, 63, 115, 0) 40%),
+    radial-gradient(circle at 100% 35%, rgba(245, 130, 32, 0.08) 0, rgba(245, 130, 32, 0) 32%),
+    radial-gradient(circle at 35% 100%, rgba(26, 28, 46, 0.5) 0, rgba(26, 28, 46, 0) 45%);
+  contain: strict;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 100000;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+  background: #ffffff;
+  color: #0f112b;
+  font-weight: 700;
+  transform: translateY(-200%);
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+:focus-visible {
+  outline: 2px solid #ffb066;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 @layer components {
   /* العناوين الكبيرة (مثل لماذا يختارنا عمالقة السوق) */
   .text-h1 {
@@ -81,7 +124,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-none;
+    @apply border-border;
   }
   body {
     /* تم ضبط الخلفية لتكون اللون الكحلي العميق المستخرج */
