@@ -141,6 +141,7 @@ npm run dev                 # تطوير: http://localhost:3000
 | :-- | :-- |
 | `npm run dev` | تشغيل نسخة التطوير |
 | `npm run lint` | فحص ESLint |
+| `npm test` | تشغيل اختبارات الوحدة (Vitest) |
 | `npm run build` | بناء نسخة الإنتاج |
 | `npm run start` | تشغيل نسخة الإنتاج (بعد `build`) |
 
