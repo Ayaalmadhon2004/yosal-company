@@ -3,6 +3,7 @@
 import React, { useState, useRef } from "react";
 import { Send, Upload, CheckCircle2, AlertCircle, Loader2, FileText, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { submitProjectRequest } from "@/lib/api";
 
 export default function ContactForm() {
   const [loading, setLoading] = useState(false);
@@ -33,14 +34,7 @@ export default function ContactForm() {
     const formData = new FormData(form);
 
     try {
-      // استخدام المسار المستقر الذي جربناه ونجح (dashboard)
-      const url = new URL('https://yosaal-website-backend.onrender.com/api/v1/dashboard');
-      
       // تجهيز بيانات المشروع كـ Params لضمان القبول من جهة السيرفر
-      url.searchParams.append('name', formData.get("project_name") as string);
-      url.searchParams.append('phone', "0500000000"); // قيمة افتراضية للباك آند
-      url.searchParams.append('email', `request_${Date.now()}@yosaal.com`);
-      
       const fullDetails = `
         الخدمة: ${formData.get("service_type")}
         الميزانية: ${formData.get("budget")}$
@@ -48,37 +42,23 @@ export default function ContactForm() {
         الوصف: ${formData.get("description")}
         ${selectedFile ? `المرفقات: يوجد ملف مرفق باسم (${selectedFile.name})` : 'المرفقات: لا يوجد'}
       `.trim();
-      
-      url.searchParams.append('project_url', fullDetails);
 
-      // إذا وجد ملف، نرسل الطلب كـ FormData، وإذا لم يوجد نرسله كـ طلب عادي بالرابط
-      let response;
-      if (selectedFile) {
-        const uploadData = new FormData();
-        uploadData.append('attachment', selectedFile);
-        // نرسل الملف للمسار، مع بقاء التفاصيل في الرابط كما يفضل السيرفر حالياً
-        response = await fetch(url.toString(), {
-          method: 'POST',
-          body: uploadData,
-          headers: { 'Accept': 'application/json' }
-        });
-      } else {
-        response = await fetch(url.toString(), {
-          method: 'POST',
-          headers: { 'Accept': 'application/json' }
-        });
-      }
+      const result = await submitProjectRequest({
+        name: formData.get("project_name") as string,
+        phone: "0500000000", // قيمة افتراضية للباك آند
+        email: `request_${Date.now()}@yosaal.com`,
+        project_url: fullDetails,
+        attachment: selectedFile ?? undefined,
+      });
 
-      const result = await response.json();
-
-      if (response.ok && (result.status === "Success" || result.success)) {
+      if (result.status === "Success" || result.success) {
         setStatus({ type: "success", msg: "تم إرسال طلبك بنجاح! فريقنا سيقوم بمراجعة التفاصيل والملفات." });
         form.reset();
         setSelectedFile(null);
       } else {
         throw new Error(result.message || "حدث خطأ في استقبال البيانات.");
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Submission Error:", error);
       setStatus({ type: "error", msg: "عذراً، فشل الإرسال. تأكدي من اتصالك بالإنترنت وحاولي مجدداً." });
     } finally {

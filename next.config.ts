@@ -1,40 +1,46 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from "next";
+
+const isProd = process.env.NODE_ENV === "production";
+
+const nextConfig: NextConfig = {
   images: {
-    formats: ['image/avif', 'image/webp'],
+    formats: ["image/avif", "image/webp"],
+    // SVGs are served with a locked-down CSP and forced download, as recommended by the Next.js docs.
     dangerouslyAllowSVG: true,
-    contentDispositionType: 'attachment',
+    contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     qualities: [25, 50, 75, 80, 100],
-
     remotePatterns: [
-      // 1. إضافة localhost للباكيند المحلي
+      // Local backend, only allowed during development.
+      ...(isProd
+        ? []
+        : [
+            {
+              protocol: "http" as const,
+              hostname: "localhost",
+              port: "8000",
+              pathname: "/**",
+            },
+          ]),
       {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '8000',
-        pathname: '/**',
-      },
-      // 2. باقي الـ hostnames الخاصة ببرودكشن والخدمات الخارجية متل ما هيّ
-      {
-        protocol: 'http', 
-        hostname: 'yosaal-website-backend.onrender.com',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'yosaal-website-backend.onrender.com',
-        pathname: '/**',
+        protocol: "http",
+        hostname: "yosaal-website-backend.onrender.com",
+        pathname: "/**",
       },
       {
-        protocol: 'https',
-        hostname: 'ui-avatars.com',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "yosaal-website-backend.onrender.com",
+        pathname: "/**",
       },
       {
-        protocol: 'https',
-        hostname: 'res.cloudinary.com',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "ui-avatars.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "/**",
       },
     ],
     deviceSizes: [640, 828, 1200, 1920],
@@ -42,11 +48,10 @@ const nextConfig = {
     minimumCacheTTL: 60,
   },
   compress: true,
-  swcMinify: true,
   reactStrictMode: true,
   compiler: {
-    removeConsole: process.env.NODE_ENV === "production",
+    removeConsole: isProd,
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;

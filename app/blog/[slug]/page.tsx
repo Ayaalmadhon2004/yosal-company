@@ -1,16 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Clock, Share2, Bookmark, ArrowRight } from "lucide-react";
-import { getPostBySlug, getPosts } from "@/lib/api";
+import { getPostBySlug, getPosts, extractPosts } from "@/lib/api";
+import type { Post } from "@/types/api";
 import { notFound } from "next/navigation";
 import ShareActions from "@/components/sections/blog/ShareActions";
-
-interface RelatedPost {
-  slug: string;
-  title: string;
-  image?: string;
-  image_url?: string;
-}
 
 export default async function BlogPostPage({ 
   params 
@@ -25,7 +19,7 @@ export default async function BlogPostPage({
   }
 
   const relatedResponse = await getPosts(undefined, post.category, 1);
-  const relatedPosts = relatedResponse?.data?.data?.filter((p: RelatedPost) => p.slug !== slug).slice(0, 4) || [];
+  const relatedPosts = extractPosts(relatedResponse).filter((p: Post) => p.slug !== slug).slice(0, 4);
 
   return (
     <main className="min-h-screen bg-background text-right" dir="rtl">
@@ -56,7 +50,7 @@ export default async function BlogPostPage({
                       {post.author_avatar ? (
                         <Image 
                           src={post.author_avatar} 
-                          alt={post.author_name} 
+                          alt={post.author_name ?? ""} 
                           fill 
                           className="object-cover"
                           unoptimized 
@@ -128,7 +122,7 @@ export default async function BlogPostPage({
             <Link href="/blog" className="text-orange-500 flex items-center gap-2 hover:gap-4 transition-all font-bold">تصفح الكل <ArrowRight className="w-4 h-4 rotate-180" /></Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {relatedPosts.map((item: RelatedPost) => (
+            {relatedPosts.map((item: Post) => (
                 <Link href={`/blog/${item.slug}`} key={item.slug} className="group bg-[#12162b] rounded-3xl p-4 border border-gray-800 hover:border-orange-500/30 transition-all shadow-lg">
                   <div className="relative h-44 rounded-2xl overflow-hidden mb-4">
                     <Image 
