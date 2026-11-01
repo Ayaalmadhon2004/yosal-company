@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { MessageSquare, Calendar } from "lucide-react";
 
@@ -54,7 +52,7 @@ export default function ServiceHero({
         <div className="grid lg:grid-cols-2 gap-16 items-center text-right" dir="rtl">
           
           <div className="order-2 lg:order-1">
-            <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-bold mb-6 tracking-wide border border-primary/20">
+            <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-orange-300 text-sm font-bold mb-6 tracking-wide border border-primary/20">
               {badge}
             </span>
 
@@ -69,7 +67,7 @@ export default function ServiceHero({
               </p>
             )}
 
-            <p className="text-.3xl text-muted-foreground mb-10 max-w-2xl leading-relaxed">
+            <p className="text-lg text-muted-foreground mb-10 max-w-2xl leading-relaxed">
               {description}
             </p>
 
@@ -79,21 +77,23 @@ export default function ServiceHero({
                 href={getWhatsAppLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 rounded-2xl bg-[#E6740F] text-white font-black flex items-center gap-3 hover:bg-[#E6740F]/90 transition-all hover:scale-105 active:scale-95 group shadow-lg"
+                className="px-8 py-4 rounded-2xl bg-[#B34F00] text-white font-black flex items-center gap-3 hover:bg-[#9A4400] transition-all hover:scale-105 active:scale-95 group shadow-lg"
               >
-                <MessageSquare className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                <MessageSquare aria-hidden="true" className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                 ابدأ رحلتك الآن
+                <span className="sr-only">(يفتح في نافذة جديدة)</span>
               </a>
               
               <a 
                 href={getWhatsAppLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 rounded-2xl bg-[#EDE7D1] text-[#E6740F] font-black transition-all flex items-center gap-3 hover:opacity-90 hover:scale-105 active:scale-95 group"
+                className="px-8 py-4 rounded-2xl bg-[#EDE7D1] text-[#A84800] font-black transition-all flex items-center gap-3 hover:opacity-90 hover:scale-105 active:scale-95 group"
                 style={{ boxShadow: '0 0 20px 0 rgba(230, 116, 15, 0.45)' }}
               >
-                <Calendar className="w-5 h-5 text-[#E6740F] group-hover:scale-110 transition-transform" />
+                <Calendar aria-hidden="true" className="w-5 h-5 text-[#A84800] group-hover:scale-110 transition-transform" />
                 احجز استشارة مجانية
+                <span className="sr-only">(يفتح في نافذة جديدة)</span>
               </a>
             </div>
           </div>
@@ -116,24 +116,20 @@ export default function ServiceHero({
               <div className="relative rounded-[50px] overflow-hidden border border-white/10 shadow-2xl aspect-square z-10 bg-[#12162b]">
                 {imageUrl ? (
                   <>
-                    <Image 
-                        src={imageUrl || "/fallback-image.jpg"} // 1. صورة احتياطية إذا كان الرابط فارغاً
-                        alt={title}
+                    <Image
+                        src={imageUrl}
+                        alt={`${title} ${highlightText}`.trim()}
                         fill
-                        priority 
-                        unoptimized={imageUrl?.startsWith('http')} // 2. إذا كان الرابط خارجياً، لا تقم بمعالجته
-                        sizes="(max-width: 768px) 100vw, 600px"
+                        priority
+                        fetchPriority="high"
+                        sizes="(max-width: 1024px) calc(100vw - 48px), 576px"
                         className="object-cover transition-transform duration-1000 group-hover:scale-110"
-                        onError={(e) => {
-                          // 3. هذا الجزء يحل مشكلة الصور المكسورة فوراً
-                          e.currentTarget.src = "/fallback-image.jpg"; 
-                        }}
                       />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
                   </>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <span className="text-white/5 font-black text-6xl italic">Yoosil</span>
+                    <span aria-hidden="true" className="text-white/5 font-black text-6xl italic">Yoosil</span>
                   </div>
                 )}
               </div>

@@ -1,6 +1,3 @@
-"use client";
-
-import React from "react";
 import { TrendingUp, Sparkles } from "lucide-react";
 
 export default function PackagesHero() {
@@ -13,7 +10,7 @@ export default function PackagesHero() {
       <div className="container mx-auto px-6 relative z-10">
         {/* شارة علوية تعكس الهدف */}
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/40 border border-white/5 text-primary mb-8 backdrop-blur-md shadow-lg">
-          <TrendingUp className="w-4 h-4" />
+          <TrendingUp aria-hidden="true" className="w-4 h-4" />
           <span className="font-black text-xs md:text-sm tracking-wide uppercase">حلول نمو متكاملة</span>
         </div>
 
@@ -22,7 +19,7 @@ export default function PackagesHero() {
           باقات مصممة <br className="hidden md:block" />
           لـ <span className="text-primary relative inline-block">
             نمو أعمالك
-            <svg className="absolute -bottom-2 left-0 w-full h-3 text-primary/20" viewBox="0 0 100 10" preserveAspectRatio="none">
+            <svg aria-hidden="true" className="absolute -bottom-2 left-0 w-full h-3 text-primary/20" viewBox="0 0 100 10" preserveAspectRatio="none">
               <path d="M0 5 Q 25 0 50 5 T 100 5" fill="none" stroke="currentColor" strokeWidth="4" />
             </svg>
           </span>
@@ -37,11 +34,11 @@ export default function PackagesHero() {
         <div className="flex items-center justify-center gap-6 max-w-md mx-auto">
           <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent via-primary/30 to-transparent" />
           <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-primary opacity-60" />
+            <Sparkles aria-hidden="true" className="w-4 h-4 text-primary opacity-60" />
             <span className="text-primary font-black text-xs md:text-sm tracking-[0.2em] uppercase">
               استثمر في مستقبلك
             </span>
-            <Sparkles className="w-4 h-4 text-primary opacity-60" />
+            <Sparkles aria-hidden="true" className="w-4 h-4 text-primary opacity-60" />
           </div>
           <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
         </div>

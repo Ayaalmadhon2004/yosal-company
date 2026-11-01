@@ -1,8 +1,5 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
-import { Check, X, Loader2, Zap } from "lucide-react";
-import { AppButton } from "@/components/ui/AppButton";
+import Link from "next/link";
+import { Check, X, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface PackageFeature {
@@ -23,60 +20,38 @@ interface PricingPackage {
 
 const API_URL = "https://yosaal-website-backend.onrender.com/api/v1/packages";
 
-export default function PricingCards() {
-  const [packages, setPackages] = useState<PricingPackage[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false); 
-
-  useEffect(() => {
-    const fetchPackages = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(API_URL, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-          },
-          signal: AbortSignal.timeout(10000) 
-        });
-
-        if (!response.ok) throw new Error("Network response was not ok");
-        
-        const json = await response.json();
-        
-        if (json && json.status === "Success") {
-          const dataToSet = json.data?.data || json.data || [];
-          setPackages(Array.isArray(dataToSet) ? dataToSet : []);
-        }
-      } catch (error) {
-        console.error("Fetch error details:", error);
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPackages();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="py-32 flex flex-col items-center justify-center space-y-4">
-        <Loader2 className="w-10 h-10 text-primary animate-spin" />
-        <p className="text-muted-foreground font-medium">جاري تجهيز أفضل العروض لنمو عملك...</p>
-      </div>
-    );
+async function getPackages(): Promise<PricingPackage[] | null> {
+  try {
+    const response = await fetch(API_URL, {
+      headers: { Accept: "application/json" },
+      next: { revalidate: 3600 },
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!response.ok) return null;
+    const json = await response.json();
+    if (json && json.status === "Success") {
+      const data = json.data?.data || json.data || [];
+      return Array.isArray(data) ? data : [];
+    }
+    return [];
+  } catch {
+    return null;
   }
+}
 
-  if (error) {
+export default async function PricingCards() {
+  const packages = await getPackages();
+
+  if (packages === null) {
     return (
-      <div className="py-32 text-center">
-        <p className="text-red-500">حدث خطأ أثناء تحميل الباقات. يرجى المحاولة لاحقاً.</p>
+      <div role="alert" className="py-32 text-center">
+        <p className="text-red-300">حدث خطأ أثناء تحميل الباقات. يرجى المحاولة لاحقاً.</p>
       </div>
     );
   }
 
   return (
-    <section className="py-24 px-6 relative overflow-hidden" dir="rtl">
+    <section aria-label="الباقات المتاحة" className="py-24 px-6 relative overflow-hidden" dir="rtl">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary/5 blur-[120px] rounded-full -z-10" />
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -92,15 +67,15 @@ export default function PricingCards() {
           >
             {pkg.badge && (
               <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-primary text-white px-8 py-2 rounded-full text-xs font-black shadow-xl shadow-primary/20 flex items-center gap-2">
-                <Zap className="w-3 h-3 fill-current" />
+                <Zap aria-hidden="true" className="w-3 h-3 fill-current" />
                 {pkg.badge}
               </div>
             )}
 
             <div className="text-right mb-10">
-              <h3 className="text-3xl font-black text-foreground mb-4 group-hover:text-primary transition-colors">
+              <h2 className="text-3xl font-black text-foreground mb-4 group-hover:text-primary transition-colors">
                 {pkg.name}
-              </h3>
+              </h2>
               <p className="text-muted-foreground text-base leading-relaxed h-14 italic">
                 {pkg.short_description}
               </p>
@@ -116,7 +91,7 @@ export default function PricingCards() {
             </div>
 
             <div className="space-y-5 mb-12 flex-grow text-right" dir="rtl">
-              <p className="text-xs font-black text-primary/60 uppercase tracking-[0.2em] mb-6">ما تتضمنه الباقة:</p>
+              <p className="text-xs font-black text-primary uppercase tracking-[0.2em] mb-6">ما تتضمنه الباقة:</p>
               {pkg.features?.map((feature) => (
                 <div key={feature.id} className="flex items-start gap-4 group/item">
                   <div className={cn(
@@ -126,32 +101,35 @@ export default function PricingCards() {
                       : "bg-red-500/5 text-red-500/30"
                   )}>
                     {feature.is_available ? (
-                      <Check className="w-4 h-4 stroke-[3px]" />
+                      <Check aria-hidden="true" className="w-4 h-4 stroke-[3px]" />
                     ) : (
-                      <X className="w-4 h-4" />
+                      <X aria-hidden="true" className="w-4 h-4" />
                     )}
                   </div>
                   <span className={cn(
                     "text-base transition-colors",
                     feature.is_available 
                       ? "text-muted-foreground group-hover/item:text-foreground" 
-                      : "text-muted-foreground/40 line-through decoration-red-500/20"
+                      : "text-muted-foreground line-through decoration-red-500/40"
                   )}>
                     {feature.feature_text}
+                    {!feature.is_available && <span className="sr-only"> (غير متضمن)</span>}
                   </span>
                 </div>
               ))}
             </div>
 
-            <AppButton 
-              variant={pkg.is_featured ? "orange" : "outline"} 
+            <Link
+              href="/contact#form"
               className={cn(
-                "w-full rounded-2xl py-8 font-black text-lg transition-all duration-500",
-                pkg.is_featured ? "shadow-lg shadow-primary/20" : "hover:bg-primary/5"
+                "inline-flex items-center justify-center w-full rounded-2xl py-5 font-black text-lg transition-all duration-500 active:scale-95",
+                pkg.is_featured
+                  ? "bg-[#B34F00] hover:bg-[#9A4400] text-white shadow-lg shadow-primary/20"
+                  : "border border-primary text-white hover:bg-primary/10"
               )}
             >
               اختيار باقة {pkg.name}
-            </AppButton>
+            </Link>
           </div>
         ))}
       </div>

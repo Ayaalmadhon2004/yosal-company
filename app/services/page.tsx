@@ -1,40 +1,45 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
+import type { Metadata } from "next";
 import Image from "next/image";
-import Services from "@/components/sections/services/Services";
+import { AlertCircle } from "lucide-react";
+import Services, { type ServiceItem } from "@/components/sections/services/Services";
 import ReadyResults from "@/components/sections/ReadyResults";
-import { Loader2, AlertCircle } from "lucide-react";
 
-export default function ServicesPage() {
-  const [services, setServices] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+export const revalidate = 3600;
 
-  useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        const response = await fetch('https://yosaal-website-backend.onrender.com/api/v1/services');
-        const result = await response.json();
-        
-        if (result.status === "Success" && result.data) {
-          setServices(result.data);
-        } else {
-          setError(true);
-        }
-      } catch (err) {
-        console.error("Fetch error:", err);
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
+export const metadata: Metadata = {
+  title: "خدماتنا الاحترافية | وكالة يوصل",
+  description:
+    "حلول رقمية متكاملة من وكالة يوصل: تطوير المواقع، إدارة التواصل الاجتماعي، الهوية البصرية، تحسين محركات البحث وصناعة المحتوى.",
+  alternates: { canonical: "/services" },
+  openGraph: {
+    title: "خدماتنا الاحترافية | وكالة يوصل",
+    description: "حلول رقمية متكاملة تغطي كافة جوانب التواجد الرقمي لعلامتك التجارية.",
+    url: "/services",
+    type: "website",
+    locale: "ar_SA",
+    images: ["/assets/moon.png"],
+  },
+};
 
-    fetchServices();
-  }, []);
+async function getServices(): Promise<ServiceItem[] | null> {
+  try {
+    const response = await fetch("https://yosaal-website-backend.onrender.com/api/v1/services", {
+      next: { revalidate: 3600 },
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!response.ok) return null;
+    const result = await response.json();
+    return result.status === "Success" && Array.isArray(result.data) ? result.data : null;
+  } catch {
+    return null;
+  }
+}
+
+export default async function ServicesPage() {
+  const services = await getServices();
 
   return (
-    <main className="bg-background min-h-screen">
+    <div className="bg-background min-h-screen">
       {/* Hero Section */}
       <section className="py-24 px-6 overflow-hidden" dir="rtl">
         <div className="container mx-auto max-w-7xl">
@@ -53,11 +58,13 @@ export default function ServicesPage() {
 
             <div className="flex-1 relative order-1 lg:order-2 w-full">
               <div className="relative z-10 w-full h-[400px] rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl">
-                <Image 
-                  src="/assets/moon.png" 
-                  alt="Yoosel Services"
+                <Image
+                  src="/assets/moon.png"
+                  alt="رائد فضاء على سطح القمر يرمز إلى خدمات وكالة يوصل الرقمية"
                   fill
                   priority
+                  fetchPriority="high"
+                  sizes="(max-width: 1024px) 100vw, 600px"
                   className="object-cover"
                 />
               </div>
@@ -67,22 +74,17 @@ export default function ServicesPage() {
       </section>
 
       <div className="mt-10 min-h-[400px] px-6">
-        {loading ? (
-          <div className="flex flex-col items-center justify-center py-20 gap-4">
-            <Loader2 className="w-12 h-12 animate-spin text-primary" />
-            <p className="text-muted-foreground font-bold">جاري تحميل الخدمات الإبداعية...</p>
-          </div>
-        ) : error ? (
-          <div className="flex flex-col items-center justify-center py-20 text-red-400 gap-3">
-            <AlertCircle size={40} />
+        {services ? (
+          <Services data={services} />
+        ) : (
+          <div role="alert" className="flex flex-col items-center justify-center py-20 text-red-300 gap-3">
+            <AlertCircle size={40} aria-hidden="true" />
             <p className="font-bold">عذراً، فشل جلب البيانات من السيرفر.</p>
           </div>
-        ) : (
-          <Services data={services} />
         )}
       </div>
-      
+
       <ReadyResults variant="style1" />
-    </main>
+    </div>
   );
 }

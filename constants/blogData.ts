@@ -13,7 +13,7 @@ export const MOCK_POSTS: BlogPost[] = [
     author: { 
       name: "أحمد العلي", 
       role: "مدير قسم الاستراتيجيات", 
-      avatar: "/assets/author.png" 
+      avatar: "/assets/logo.png" 
     },
     excerpt: "اكتشف كيف يمكن للذكاء الاصطناعي تحويل تجربة المستخدم وزيادة معدل التحويل بشكل غير مسبوق عبر تحليل البيانات اللحظي.",
     content: `
@@ -42,7 +42,7 @@ export const MOCK_POSTS: BlogPost[] = [
     author: { 
       name: "آية المدهون", 
       role: "مطور واجهات أمامية", 
-      avatar: "/assets/author.png" 
+      avatar: "/assets/logo.png" 
     },
     excerpt: "دليل شامل حول كيفية دراسة السوق وتحديد المنافسين لضمان نجاح منتجك الرقمي الجديد في المنطقة بما يتماشى مع رؤية 2030.",
     content: `
@@ -68,7 +68,7 @@ export const MOCK_POSTS: BlogPost[] = [
     author: { 
       name: "فريق يوصل", 
       role: "قسم التصميم", 
-      avatar: "/assets/author.png" 
+      avatar: "/assets/logo.png" 
     },
     excerpt: "لماذا أصبح التصميم المرتكز على الخصوصية والسرعة الفائقة هو المعيار الأول لنجاح المواقع والتطبيقات الكبرى؟",
     content: `

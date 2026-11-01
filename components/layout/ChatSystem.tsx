@@ -60,7 +60,7 @@ export default function ChatSystem() {
           </div>
           <div className="flex items-center gap-4 relative z-10">
             <div className="relative w-12 h-12 rounded-2xl overflow-hidden border-2 border-white/20">
-              <Image src="/assets/support-avatar.png" fill alt="Support" className="object-cover" />
+              <Image src="/assets/logo.png" fill alt="Support" className="object-cover" />
               <div className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-primary rounded-full" />
             </div>
             <div className="text-right text-white">

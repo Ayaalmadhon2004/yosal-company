@@ -1,9 +1,12 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import dynamic from 'next/dynamic';
 import { servicesData } from "@/constants/servicesData";
+import MarketComparison from "@/components/sections/services/MarketComparison";
+import StrategyDeliverables from "@/components/sections/services/StrategyDeliverables";
+import StrategySteps from "@/components/sections/services/StrategySteps";
 import ServiceHero from "@/components/sections/services/ServiceHero";
-import ScrollToTop from "@/components/ScrollToTop";
 
 const getNormalizedSlug = (slug: string) => {
   const s = slug?.toLowerCase().trim();
@@ -22,27 +25,37 @@ const getNormalizedSlug = (slug: string) => {
 
 // --- المكونات (تم الإبقاء عليها كما هي) ---
 const SectionSkeleton = () => <div className="container mx-auto px-6 py-24 animate-pulse"><div className="h-80 bg-white/5 rounded-[40px]" /></div>;
-const MarketComparison = dynamic(() => import("@/components/sections/services/MarketComparison"), { ssr: true, loading: () => <SectionSkeleton /> });
-const StrategyDeliverables = dynamic(() => import("@/components/sections/services/StrategyDeliverables"), { ssr: true, loading: () => <SectionSkeleton /> });
-const StrategySteps = dynamic(() => import("@/components/sections/services/StrategySteps"), { ssr: true, loading: () => <SectionSkeleton /> });
 const ReadyResults = dynamic(() => import("@/components/sections/ReadyResults"), { ssr: true, loading: () => <SectionSkeleton /> });
 const Testimonials = dynamic(() => import("@/components/sections/home/Testimonials"), { ssr: true, loading: () => <SectionSkeleton /> });
 const Faqs = dynamic(() => import("@/components/sections/home/Faqs"), { ssr: true, loading: () => <SectionSkeleton /> });
 const WhyChooseUs = dynamic(() => import("@/components/sections/WhyChooseUs"), { ssr: true, loading: () => <SectionSkeleton /> });
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export const revalidate = 3600;
+
+export function generateStaticParams() {
+  return Object.keys(servicesData).map((slug) => ({ slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const normalizedSlug = getNormalizedSlug(slug);
   const data = servicesData[normalizedSlug as keyof typeof servicesData];
   
-  if (!data) return { title: "Service Not Found" };
+  if (!data) return { title: "الخدمة غير موجودة", robots: { index: false } };
+
+  const title = `${data.hero.title} | وكالة يوصل`;
+  const url = `/services/${normalizedSlug}`;
 
   return {
-    title: `${data.hero.title} | يوصل للخدمات التسويقية`,
+    title,
     description: data.hero.description,
+    alternates: { canonical: url },
     openGraph: {
-      title: data.hero.title,
+      title,
       description: data.hero.description,
+      url,
+      type: "website",
+      locale: "ar_SA",
       images: [data.hero.image],
     },
   };
@@ -62,9 +75,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const isContentProduction = normalizedSlug === "content-production";
 
   return (
-    <main className="min-h-screen bg-background selection:bg-primary/30">
-      <ScrollToTop />
-      
+    <div className="min-h-screen bg-background selection:bg-primary/30">
       <ServiceHero 
         badge={data.hero.badge}
         title={data.hero.title}
@@ -76,7 +87,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       />
 
           <div className="space-y-0"> 
-            {data.comparison && <Suspense fallback={<SectionSkeleton />}><MarketComparison data={data.comparison} /></Suspense>}
+            {data.comparison && <MarketComparison data={data.comparison} />}
             {data.deliverables && (
           <StrategyDeliverables 
             data={data.deliverables} 
@@ -95,6 +106,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <Faqs serviceId={data.service_id} />
         {!isContentProduction && <Suspense fallback={<SectionSkeleton />}><ReadyResults variant="style1" /></Suspense>}
       </div>
-    </main>
+    </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { ChevronDown, HelpCircle, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -30,7 +30,7 @@ export default function FAQSection() {
       <div className="container mx-auto px-6 max-w-3xl relative z-10">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full text-primary text-xs font-bold mb-4">
-            <Sparkles className="w-3 h-3" />
+            <Sparkles aria-hidden="true" className="w-3 h-3" />
             <span>لديك تساؤلات؟</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-black text-foreground mb-4">الأسئلة الشائعة</h2>
@@ -50,16 +50,21 @@ export default function FAQSection() {
                     : "bg-secondary/10 border-white/5 hover:border-white/10"
                 )}
               >
+                <h3>
                 <button
+                  id={`faq-btn-${index}`}
+                  type="button"
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-panel-${index}`}
                   onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full flex items-center justify-between p-6 md:p-8 text-right outline-none"
+                  className="w-full flex items-center justify-between p-6 md:p-8 text-right outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2rem]"
                 >
                   <div className="flex items-center gap-5">
                     <div className={cn(
                       "w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300",
                       isOpen ? "bg-primary text-white rotate-[15deg]" : "bg-secondary/50 text-muted-foreground group-hover:text-primary"
                     )}>
-                      <HelpCircle className="w-5 h-5" />
+                      <HelpCircle aria-hidden="true" className="w-5 h-5" />
                     </div>
                     <span className={cn(
                       "text-lg md:text-xl font-black transition-colors",
@@ -68,14 +73,19 @@ export default function FAQSection() {
                       {faq.question}
                     </span>
                   </div>
-                  <ChevronDown className={cn(
+                  <ChevronDown aria-hidden="true" className={cn(
                     "w-6 h-6 text-muted-foreground transition-all duration-500",
                     isOpen && "rotate-180 text-primary"
                   )} />
                 </button>
+                </h3>
                 
                 {/* الجزء الخاص بالإجابة مع أنيميشن سلس */}
                 <div 
+                  id={`faq-panel-${index}`}
+                  role="region"
+                  aria-labelledby={`faq-btn-${index}`}
+                  inert={!isOpen}
                   className={cn(
                     "grid transition-all duration-500 ease-in-out",
                     isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"

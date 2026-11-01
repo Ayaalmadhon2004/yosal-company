@@ -1,6 +1,3 @@
-"use client";
-
-import React from "react";
 import { AlertTriangle, Sparkles, CheckCircle2, XCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -37,9 +34,9 @@ export default function MarketComparison({ data }: { data: MarketComparisonData 
               </div>
             </div>
             
-            <h3 className="text-3xl font-black text-foreground mb-4 leading-tight">
+            <h2 className="text-3xl font-black text-foreground mb-4 leading-tight">
               {data.challengeTitle || "التحديات الحالية"}
-            </h3>
+            </h2>
             
             <p className="text-muted-foreground text-lg leading-relaxed mb-8">
               {data.challengeDescription}
@@ -65,9 +62,9 @@ export default function MarketComparison({ data }: { data: MarketComparisonData 
               </div>
             </div>
             
-            <h3 className="text-3xl font-black text-foreground mb-4 leading-tight relative z-10">
+            <h2 className="text-3xl font-black text-foreground mb-4 leading-tight relative z-10">
               {data.solutionTitle || "حلول يوصل الذكية"}
-            </h3>
+            </h2>
             
             <p className="text-foreground/80 text-lg leading-relaxed mb-8 relative z-10">
               {data.solutionDescription}
