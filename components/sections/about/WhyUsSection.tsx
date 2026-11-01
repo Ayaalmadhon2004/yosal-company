@@ -1,3 +1,4 @@
+import { RevealSection, Stagger, StaggerItem } from "@/components/ui/Motion";
 import { Handshake, Paintbrush, BarChart3, Star } from "lucide-react";
 
 const FEATURES = [
@@ -20,29 +21,29 @@ const FEATURES = [
 
 export default function WhyUsSection() {
   return (
-    <section className="py-24  relative overflow-hidden" dir="rtl">
+    <RevealSection y={0} className="py-24  relative overflow-hidden" dir="rtl">
       {/* تأثيرات خلفية فنية */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full -z-10" />
       
       <div className="container mx-auto px-6">
         
         {/* رأس القسم بتصميم عصري */}
-        <div className="text-center mb-24">
+        <div className="text-center mb-14 md:mb-24">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/30 border border-white/5 text-primary mb-6 backdrop-blur-sm">
             <Star className="w-4 h-4 fill-primary" />
             <span className="font-black text-xs md:text-sm tracking-widest uppercase">ما يميزنا</span>
           </div>
-          <h2 className="text-4xl md:text-6xl font-black text-foreground">
+          <h2 className="text-3xl sm:text-4xl lg:text-6xl font-black text-foreground">
             لماذا يختارنا <span className="text-primary italic">الرواد؟</span>
           </h2>
         </div>
 
         {/* شبكة الميزات */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {FEATURES.map((feature, index) => (
-            <div 
+            <StaggerItem 
               key={index} 
-              className="group relative bg-secondary/10 p-10 rounded-[3rem] border border-white/5 hover:border-primary/30 transition-all duration-700 hover:-translate-y-3 overflow-hidden shadow-2xl"
+              className="group relative bg-secondary/10 p-6 sm:p-10 rounded-[2rem] sm:rounded-[3rem] border border-white/5 hover:border-primary/30 transition-all duration-700 hover:-translate-y-3 overflow-hidden shadow-2xl"
             >
               {/* أيقونة الميزة بتأثير بصري عميق */}
               <div className="relative w-20 h-20  rounded-3xl flex items-center justify-center mb-10 shadow-xl group-hover:rotate-[10deg] transition-transform duration-500 border border-white/5">
@@ -60,10 +61,10 @@ export default function WhyUsSection() {
 
               {/* لمعة خفيفة تظهر عند التحويم */}
               <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-primary/5 blur-[50px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </div>
-    </section>
+    </RevealSection>
   );
 }

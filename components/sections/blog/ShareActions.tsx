@@ -30,19 +30,19 @@ export default function ShareActions() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-between py-10 border-y border-white/5 mt-20 gap-6" dir="rtl">
+    <div className="flex flex-col md:flex-row items-center justify-between py-8 md:py-10 border-y border-white/5 mt-12 md:mt-20 gap-6" dir="rtl">
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
           <Share2 aria-hidden="true" className="w-5 h-5 text-primary" />
         </div>
-        <span className="text-foreground font-black text-lg">أعجبك المقال؟ شاركه مع مجتمعك</span>
+        <span className="text-foreground font-black text-base md:text-lg">أعجبك المقال؟ شاركه مع مجتمعك</span>
       </div>
 
       <div className="flex gap-4 w-full md:w-auto">
         <button
           type="button"
           onClick={handleCopyLink}
-          className="w-full md:w-auto group bg-secondary/20 px-8 py-3 rounded-2xl text-sm font-bold text-muted-foreground border border-white/5 hover:border-primary/40 hover:text-primary transition-all duration-500 active:scale-95 flex items-center justify-center gap-3"
+          className="w-full md:w-auto group bg-secondary/20 px-8 min-h-12 py-3 rounded-2xl text-sm font-bold text-muted-foreground border border-white/5 hover:border-primary/40 hover:text-primary transition-all duration-500 active:scale-95 flex items-center justify-center gap-3"
         >
           <LinkIcon aria-hidden="true" className="w-4 h-4 transition-transform group-hover:rotate-12" />
           <span>نسخ رابط المقال</span>

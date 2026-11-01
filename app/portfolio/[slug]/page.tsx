@@ -1,3 +1,5 @@
+import { RevealSection } from "@/components/ui/Motion";
+import { cache } from "react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -34,7 +36,7 @@ interface ProjectData {
   testimonial?: Testimonial;
 }
 
-async function getProjectDetails(slug: string) {
+const getProjectDetails = cache(async (slug: string) => {
   try {
     const res = await fetch(`https://yosaal-website-backend.onrender.com/api/v1/projects/${slug}`, {
       next: { revalidate: 3600 }
@@ -45,17 +47,19 @@ async function getProjectDetails(slug: string) {
   } catch {
     return null;
   }
-}
+});
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const project: ProjectData | null = await getProjectDetails(slug);
-  if (!project) return { title: "المشروع غير موجود | يوصل", robots: { index: false } };
+  if (!project) return { title: "المشروع غير موجود", robots: { index: false } };
 
-  const description = (project.full_description || "").replace(/\s+/g, " ").trim().slice(0, 160);
+  const description =
+    (project.full_description || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim().slice(0, 160) ||
+    "تعرف على تفاصيل المشروع ونتائجه من أعمال وكالة يوصل.";
   const image = resolveImageUrl(project.image_url);
   return {
-    title: `${project.title} | معرض أعمال يوصل`,
+    title: project.title,
     description,
     alternates: { canonical: `/portfolio/${slug}` },
     openGraph: {
@@ -81,13 +85,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <div className="container mx-auto px-6 max-w-6xl">
         
         {/* الجزء العلوي */}
-        <div className="grid lg:grid-cols-2 gap-12 items-start mb-24">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start mb-16 md:mb-24">
           <div>
-            <h1 className="text-5xl md:text-6xl font-black mb-6 leading-tight">{project.title}</h1>
-            <p className="text-xl text-gray-400 leading-relaxed mb-8">{project.full_description}</p>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight break-words">{project.title}</h1>
+            <p className="text-base md:text-xl text-gray-400 leading-relaxed mb-8">{project.full_description}</p>
           </div>
 
-          <div className="relative aspect-square rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl">
+          <div className="relative aspect-[4/3] lg:aspect-square rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl">
             <Image 
               src={resolveImageUrl(project.image_url)}
               alt={`صورة مشروع ${project.title}`}
@@ -100,9 +104,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </div>
         </div>
 
-        <div className="mb-24">
-          <h2 className="text-3xl font-black mb-8 text-white">المشكلة (التحدي)</h2>
-          <div className="bg-white/5 p-10 rounded-[2.5rem] border border-white/5">
+        <div className="mb-16 md:mb-24">
+          <h2 className="text-2xl md:text-3xl font-black mb-6 md:mb-8 text-white">المشكلة (التحدي)</h2>
+          <div className="bg-white/5 p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-white/5">
             <ul className="space-y-6">
               {project.challenges?.map((challenge, i) => (
                 <li key={i} className="flex items-start gap-4 text-gray-300">
@@ -115,9 +119,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </div>
 
         {/* قسم الحل الاستراتيجي (مدمج ديناميكياً) */}
-        <section className="mb-24">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-black mb-6">الحل الاستراتيجي</h2>
+        <RevealSection className="mb-16 md:mb-24">
+          <div className="text-center mb-10 md:mb-16">
+            <h2 className="text-3xl md:text-4xl font-black mb-6">الحل الاستراتيجي</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {project.strategic_solutions?.map((sol, index) => {
@@ -133,13 +137,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               );
             })}
           </div>
-        </section>
+        </RevealSection>
 
 
         {/* معرض الصور */}
-        <section className="mb-24">
-          <h2 className="text-3xl font-black mb-10">صور تفصيلية للمشروع</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <RevealSection className="mb-16 md:mb-24">
+          <h2 className="text-2xl md:text-3xl font-black mb-8 md:mb-10">صور تفصيلية للمشروع</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {project.gallery?.map((imgUrl, i) => (
               <div key={i} className="relative aspect-video rounded-3xl overflow-hidden border border-white/10 group">
                 <Image
@@ -153,22 +157,22 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               </div>
             ))}
           </div>
-        </section>
+        </RevealSection>
 
         {/* قسم النتائج */}
-        <section className="py-20 my-20 bg-white/5 rounded-[3rem] border border-white/5">
-          <div className="text-center mb-16"><h2 className="text-3xl font-black text-white">نتائج ملموسة</h2></div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 px-8">
+        <RevealSection className="py-12 md:py-20 my-12 md:my-20 bg-white/5 rounded-[2rem] md:rounded-[3rem] border border-white/5">
+          <div className="text-center mb-10 md:mb-16"><h2 className="text-2xl md:text-3xl font-black text-white">نتائج ملموسة</h2></div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 px-4 md:px-8">
             {project.stats?.map((stat, i) => (
               <div key={i} className="text-center">
-                <div className="text-5xl font-black text-primary mb-3">{stat.number}</div>
+                <div className="text-3xl sm:text-4xl md:text-5xl font-black text-primary mb-3">{stat.number}</div>
                 <div className="text-sm text-gray-400 font-medium">{stat.label}</div>
               </div>
             ))}
           </div>
-        </section>
+        </RevealSection>
 
-        <section className="py-24 px-6" dir="rtl">
+        <RevealSection className="py-24 px-6" dir="rtl">
       <div className="container mx-auto max-w-6xl">
         <div className="relative bg-gradient-to-l from-[#B8570B] to-background rounded-4xl p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
           
@@ -186,7 +190,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </Link>
         </div>
       </div>
-    </section>
+    </RevealSection>
       </div>
     </div>
   );

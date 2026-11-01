@@ -1,15 +1,17 @@
-import { Suspense } from "react";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { getPosts, extractPosts } from "@/lib/api";
 import BlogContent from "@/components/sections/blog/BlogContent"; 
 
 export const metadata: Metadata = {
-  title: "مدونة يوصل | أحدث استراتيجيات التسويق والنمو الرقمي",
-  description: "اكتشف مقالات حصرية حول تطوير الأنظمة، الـ SaaS، وأسرار النمو التجاري.",
+  title: "المدونة",
+  description:
+    "اكتشف مقالات حصرية من وكالة يوصل حول التسويق الرقمي، تطوير الأنظمة، الـ SaaS، وأسرار النمو التجاري.",
   alternates: { canonical: "/blog" },
   openGraph: {
-    title: "مدونة يوصل | أحدث استراتيجيات التسويق والنمو الرقمي",
-    description: "مقالات حصرية حول التسويق الرقمي، تطوير الأنظمة، الـ SaaS وأسرار النمو التجاري.",
+    title: "المدونة",
+    description:
+      "اكتشف مقالات حصرية من وكالة يوصل حول التسويق الرقمي، تطوير الأنظمة، الـ SaaS، وأسرار النمو التجاري.",
     url: "/blog",
     type: "website",
     locale: "ar_SA",

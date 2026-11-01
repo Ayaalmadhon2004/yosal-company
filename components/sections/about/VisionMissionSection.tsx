@@ -1,4 +1,4 @@
-import React from "react";
+import { RevealSection } from "@/components/ui/Motion";
 import { Rocket, Eye, TrendingUp, Zap, UserCheck, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -13,7 +13,7 @@ function StatItem({
   color: string; 
 }) {
   return (
-    <div className="flex items-center gap-4 justify-center group cursor-default">
+    <div className="flex items-center gap-4 justify-start sm:justify-center group cursor-default">
       <span className="text-muted-foreground font-bold text-lg group-hover:text-foreground transition-colors">
         {label}
       </span>
@@ -29,7 +29,7 @@ function StatItem({
 
 export default function VisionMissionSection() {
   return (
-    <section className="py-24  relative overflow-hidden" dir="rtl">
+    <RevealSection className="py-24  relative overflow-hidden" dir="rtl">
       {/* تأثير إضاءة خلفي */}
       <div className="absolute top-1/2 left-0 w-72 h-72 bg-primary/10 blur-[120px] rounded-full -z-10" />
 
@@ -39,7 +39,7 @@ export default function VisionMissionSection() {
         <div className="flex flex-col lg:flex-row gap-8 mb-16">
 
           {/* الرؤية - الصندوق الأكبر */}
-          <div className="lg:w-2/3 bg-secondary/10 p-10 md:p-14 rounded-[3rem] border-r-8 border-primary flex flex-col justify-center relative group transition-all duration-500 hover:bg-secondary/20 border border-white/5">
+          <div className="lg:w-2/3 bg-secondary/10 p-6 sm:p-10 md:p-14 rounded-[2rem] sm:rounded-[3rem] border-r-8 border-primary flex flex-col justify-center relative group transition-all duration-500 hover:bg-secondary/20 border border-white/5">
             <div className="max-w-2xl">
               <div className="flex items-center gap-4 mb-8 justify-start">
                 <div className="p-3 bg-primary/10 rounded-2xl">
@@ -47,15 +47,15 @@ export default function VisionMissionSection() {
                 </div>
                 <h2 className="text-4xl font-black text-foreground tracking-tight">رؤيتنا</h2>
               </div>
-              <p className="text-muted-foreground text-xl md:text-2xl leading-relaxed text-right font-medium">
+              <p className="text-muted-foreground text-lg sm:text-xl md:text-2xl leading-relaxed text-right font-medium">
                 أن نكون الشريك الاستراتيجي الأول للشركات الطموحة في العالم العربي، ممهدين الطريق نحو <span className="text-foreground">تحول رقمي ذكي</span> يضع العميل دائماً في قلب التجربة. نسعى لإعادة تعريف معايير النجاح من خلال الابتكار.
               </p>
             </div>
-            <Sparkles className="absolute top-10 left-10 w-8 h-8 text-primary/20" aria-hidden="true" />
+            <Sparkles className="absolute top-10 left-10 w-8 h-8 text-primary/20 animate-pulse" aria-hidden="true" />
           </div>
           
           {/* الرسالة - الصندوق الملون */}
-          <div className="lg:w-1/3 bg-primary p-10 md:p-14 rounded-[3rem] relative overflow-hidden group shadow-2xl shadow-primary/20">
+          <div className="lg:w-1/3 bg-primary p-6 sm:p-10 md:p-14 rounded-[2rem] sm:rounded-[3rem] relative overflow-hidden group shadow-2xl shadow-primary/20">
             <div className="relative z-10 h-full flex flex-col">
               <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-12 shadow-inner">
                 <Rocket className="w-9 h-9 text-white" />
@@ -72,8 +72,8 @@ export default function VisionMissionSection() {
         </div>
 
         {/* شريط المميزات السريعة */}
-        <div className="bg-secondary/5 py-12 px-8 rounded-[2.5rem] border border-white/5 backdrop-blur-sm relative group">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-8">
+        <div className="bg-secondary/5 py-10 px-5 sm:py-12 sm:px-8 rounded-[2rem] sm:rounded-[2.5rem] border border-white/5 backdrop-blur-sm relative group">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-y-8 sm:gap-y-12 gap-x-8">
             <StatItem 
               icon={<TrendingUp className="w-6 h-6 text-blue-500" />} 
               label="نتائج حقيقية" 
@@ -98,6 +98,6 @@ export default function VisionMissionSection() {
         </div>
         
       </div>
-    </section>
+    </RevealSection>
   );
 }

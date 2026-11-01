@@ -1,10 +1,11 @@
+import { RevealSection } from "@/components/ui/Motion";
 
 import React from "react";
 import { CalendarDays } from "lucide-react";
 
 export default function TermsHero() {
   return (
-    <section className="pt-32 pb-12 px-6 " dir="rtl">
+    <RevealSection className="pt-28 sm:pt-32 pb-12 px-6 " dir="rtl">
       <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 items-center max-w-7xl">
         
         {/* الجانب الأيمن: العنوان والوصف */}
@@ -14,7 +15,7 @@ export default function TermsHero() {
             <span className="text-primary font-bold text-sm uppercase tracking-widest">السياسات القانونية</span>
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-black text-foreground mb-8 leading-[1.1]">
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-foreground mb-8 leading-[1.1]">
             شروط <span className="text-primary">الخدمة</span>
           </h1>
           
@@ -28,7 +29,7 @@ export default function TermsHero() {
           {/* تأثير توهج خلف البطاقة */}
           <div className="absolute -inset-1 bg-primary/20 rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-1000" />
           
-          <div className="relative bg-secondary/20 p-10 rounded-[2.5rem] border border-white/5 text-center flex flex-col justify-center items-center backdrop-blur-md">
+          <div className="relative bg-secondary/20 p-6 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] border border-white/5 text-center flex flex-col justify-center items-center backdrop-blur-md">
             <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
               <CalendarDays className="text-primary w-7 h-7" />
             </div>
@@ -47,6 +48,6 @@ export default function TermsHero() {
         </div>
 
       </div>
-    </section>
+    </RevealSection>
   );
 }

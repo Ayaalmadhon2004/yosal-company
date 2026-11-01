@@ -1,9 +1,11 @@
+import { RevealSection } from "@/components/ui/Motion";
 import Image from "next/image";
 import { Sparkles, Trophy, Users } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function StorySection() {
   return (
-    <section className="py-24 overflow-hidden text-right relative" dir="rtl">
+    <RevealSection className="py-24 overflow-hidden text-right relative" dir="rtl">
       <div className="absolute top-1/4 -right-20 w-96 h-96 bg-primary/5 blur-[120px] rounded-full -z-10" />
       
       <div className="container mx-auto px-6 relative z-10">
@@ -15,7 +17,7 @@ export default function StorySection() {
                 <Sparkles className="w-4 h-4" aria-hidden="true" />
                 <span className="font-black text-xs md:text-sm tracking-widest uppercase">رحلة الإبداع</span>
               </div>
-              <h1 className="text-4xl md:text-7xl font-black text-foreground leading-[1.1] tracking-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-foreground leading-[1.1] tracking-tight">
                 نحن لا نصنع حملات، <br />
                 <span className="text-primary italic relative">
                   نحن نبني جسوراً.
@@ -30,7 +32,7 @@ export default function StorySection() {
               بدأت <span className="text-foreground font-bold">&quot;يوصل&quot;</span> من رؤية طموحة: كيف يمكن للتسويق الرقمي أن يكون محركاً حقيقياً للنمو وليس مجرد أرقام عابرة؟ انطلقنا لنغير مفهوم الوصول، حيث نضمن وصول رسالتك للجمهور الصحيح في اللحظة الحاسمة.
             </p>
 
-            <div className="flex flex-wrap gap-10 pt-10 border-t border-white/5">
+            <div className="flex flex-wrap gap-x-10 gap-y-6 pt-10 border-t border-white/5">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
                   <Trophy className="w-6 h-6" aria-hidden="true" />
@@ -54,7 +56,10 @@ export default function StorySection() {
 
           <div className="lg:w-1/2 relative order-1 lg:order-2 group w-full isolate flex justify-center items-center">
             <div 
-              className="relative z-10 w-full max-w-[500px] h-[400px] md:h-[550px] transition-all duration-700 group-hover:scale-[1.03]"
+              className={cn(
+                "relative z-10 w-full max-w-[500px] h-[320px] sm:h-[400px] md:h-[550px] transition-all duration-700",
+                "group-hover:scale-[1.03]"
+              )}
               style={{
                 // هذا الجزء هو السر في تنعيم الحواف وجعلها غير منتظمة بشكل فني
                 maskImage: 'radial-gradient(circle, black 60%, rgba(0,0,0,0) 100%)',
@@ -79,6 +84,6 @@ export default function StorySection() {
 
         </div>
       </div>
-    </section>
+    </RevealSection>
   );
 }

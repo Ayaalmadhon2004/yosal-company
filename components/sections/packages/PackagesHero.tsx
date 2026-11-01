@@ -1,11 +1,12 @@
+import { RevealSection } from "@/components/ui/Motion";
 import { TrendingUp, Sparkles } from "lucide-react";
 
 export default function PackagesHero() {
   return (
-    <section className="relative pt-40 pb-24 overflow-hidden text-center" dir="rtl">
+    <RevealSection className="relative pt-32 md:pt-40 pb-20 md:pb-24 overflow-hidden text-center" dir="rtl">
       {/* خلفية فنية: تأثير التوهج للنمو */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[900px] h-[400px] bg-primary/10 blur-[120px] rounded-full -z-10" />
-      <div className="absolute -top-10 right-0 w-72 h-72 bg-primary/5 blur-[100px] rounded-full -z-10 animate-pulse" />
+      <div className="absolute -top-10 right-0 w-72 h-72 bg-primary/5 blur-[100px] rounded-full -z-10" />
 
       <div className="container mx-auto px-6 relative z-10">
         {/* شارة علوية تعكس الهدف */}
@@ -15,7 +16,7 @@ export default function PackagesHero() {
         </div>
 
         {/* العنوان الرئيسي بتصميم جريء */}
-        <h1 className="text-5xl md:text-7xl font-black text-foreground mb-8 leading-[1.1] tracking-tight">
+        <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-foreground mb-8 leading-[1.1] tracking-tight">
           باقات مصممة <br className="hidden md:block" />
           لـ <span className="text-primary relative inline-block">
             نمو أعمالك
@@ -26,16 +27,16 @@ export default function PackagesHero() {
         </h1>
         
         {/* الوصف الاستراتيجي */}
-        <p className="text-muted-foreground text-lg md:text-xl max-w-3xl mx-auto mb-16 leading-relaxed font-medium">
+        <p className="text-muted-foreground text-lg md:text-xl max-w-3xl mx-auto mb-12 md:mb-16 leading-relaxed font-medium">
           سواء كنت تبحث عن التأسيس أو الانطلاق نحو القمة، باقاتنا صُممت لتغطي كافة احتياجاتك التسويقية بذكاء استراتيجي وأدوات تضمن لك <span className="text-foreground">أعلى عائد على الاستثمار</span>.
         </p>
 
         {/* فاصل بصري مطور */}
-        <div className="flex items-center justify-center gap-6 max-w-md mx-auto">
+        <div className="flex items-center justify-center gap-3 sm:gap-6 max-w-md mx-auto">
           <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent via-primary/30 to-transparent" />
           <div className="flex items-center gap-2">
             <Sparkles aria-hidden="true" className="w-4 h-4 text-primary opacity-60" />
-            <span className="text-primary font-black text-xs md:text-sm tracking-[0.2em] uppercase">
+            <span className="text-primary font-black text-xs md:text-sm tracking-[0.1em] sm:tracking-[0.2em] text-center uppercase">
               استثمر في مستقبلك
             </span>
             <Sparkles aria-hidden="true" className="w-4 h-4 text-primary opacity-60" />
@@ -43,6 +44,6 @@ export default function PackagesHero() {
           <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
         </div>
       </div>
-    </section>
+    </RevealSection>
   );
 }

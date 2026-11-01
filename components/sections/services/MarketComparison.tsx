@@ -1,3 +1,4 @@
+import { RevealSection } from "@/components/ui/Motion";
 import { AlertTriangle, Sparkles, CheckCircle2, XCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -19,7 +20,7 @@ export default function MarketComparison({ data }: { data: MarketComparisonData 
   const { comparisonStyle = "side-by-side" } = data;
 
   return (
-    <section className="py-24 px-6 bg-transparent">
+    <RevealSection className="py-24 px-6 bg-transparent">
       <div className="max-w-[1200px] mx-auto">
         <div className={cn(
           "grid gap-8 items-stretch",
@@ -82,6 +83,6 @@ export default function MarketComparison({ data }: { data: MarketComparisonData 
 
         </div>
       </div>
-    </section>
+    </RevealSection>
   );
 }

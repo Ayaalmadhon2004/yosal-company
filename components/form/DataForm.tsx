@@ -43,7 +43,7 @@ export default function ProjectAuditForm() {
       <div className="bg-[#2d345a] rounded-2xl p-5 mb-8 text-center border border-white/5">
         <span className="text-orange-300 font-bold text-sm block mb-2">عرض خاص</span>
         <h2 className="text-white font-bold text-lg mb-2">احصل على تقييم مجاني لمتجرك/مشروعك</h2>
-        <p className="text-gray-300 text-xs leading-relaxed">
+        <p className="text-gray-300 text-sm leading-relaxed">
           سنقوم بإعطائك المعلومات الكافية لمعرفة خطوتك القادمة في التسويق الإلكتروني عن طريق تحليل سريع لنقاط الضعف والقوة.
         </p>
       </div>

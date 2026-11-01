@@ -7,13 +7,14 @@ import { getDashboardData } from "@/lib/api";
 import UnifiedPortfolio from "@/components/sections/portfolio/UnifiedPortfolio";
 
 export const metadata: Metadata = {
-  title: "معرض أعمالنا | يوصل",
+  title: "أعمالنا",
   description:
-    "تصفح قصص النجاح ومشاريع وكالة يوصل في التسويق الرقمي، تطوير المواقع، المتاجر الإلكترونية، الهويات البصرية والموشن جرافيكس.",
+    "شاهد مشاريع وقصص نجاح وكالة يوصل مع عملائها في السوق السعودي، ونتائج حقيقية في التسويق الرقمي والمتاجر الإلكترونية والمواقع.",
   alternates: { canonical: "/portfolio" },
   openGraph: {
-    title: "معرض أعمالنا | يوصل",
-    description: "قصص نجاح ومشاريع رقمية نفذتها وكالة يوصل لعملائها.",
+    title: "أعمالنا",
+    description:
+      "شاهد مشاريع وقصص نجاح وكالة يوصل مع عملائها في السوق السعودي، ونتائج حقيقية في التسويق الرقمي والمتاجر الإلكترونية والمواقع.",
     url: "/portfolio",
     type: "website",
     locale: "ar_SA",

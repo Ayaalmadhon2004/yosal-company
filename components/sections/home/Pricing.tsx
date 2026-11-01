@@ -1,3 +1,4 @@
+import { Reveal, Stagger, StaggerItem } from "@/components/ui/Motion";
 import { AppCard, AppCardHeader, AppCardTitle, AppCardDescription, AppCardContent } from "@/components/ui/AppCard";
 import { AppButton } from "@/components/ui/AppButton";
 import { Check } from "lucide-react";
@@ -36,14 +37,14 @@ export default function Pricing({ data }: PricingProps) {
   return (
     <section id="pricing" className="py-24 w-full bg-background" dir="rtl">
       <div className="container mx-auto px-6 max-w-7xl">
-        <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-black text-[#F58220] mb-6">
+        <Reveal className="text-center mb-16 md:mb-20">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#F58220] mb-6">
             باقاتنا المرنة
           </h2>
           <p className="text-lg text-gray-300 opacity-90 font-medium">اختر الباقة التي تناسب حجم طموحاتك.</p>
-        </div>
+        </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        <Stagger className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6 xl:gap-8 items-stretch max-w-md mx-auto lg:max-w-none">
           {plans.map((plan) => {
             const isSubscription = plan.name.includes("الاستمرارية");
             const isFeatured = plan.is_featured === 1;
@@ -51,7 +52,7 @@ export default function Pricing({ data }: PricingProps) {
             const whatsappUrl = whatsappLinks[plan.name] || "https://wa.me/970597204869";
 
             return (
-              <div key={plan.id} className="relative group">
+              <StaggerItem key={plan.id} className="relative group">
                 {plan.badge && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
                     <span className="bg-[#B84F08] text-white px-8 py-1.5 rounded-full text-sm font-black shadow-lg">
@@ -103,7 +104,7 @@ export default function Pricing({ data }: PricingProps) {
                               : "border-white/10 bg-transparent"
                           )}>
                             {feature.is_available === 1 && (
-                              <Check className="h-3 w-3 text-[#1A1C2E] stroke-[4px]" />
+                              <Check aria-hidden="true" className="h-3 w-3 text-[#1A1C2E] stroke-[4px]" />
                             )}
                           </div>
                           <span className="text-right leading-tight flex-1">{feature.feature_text}</span>
@@ -133,10 +134,10 @@ export default function Pricing({ data }: PricingProps) {
 
                   </AppCardContent>
                 </AppCard>
-              </div>
+              </StaggerItem>
             );
           })}
-        </div>
+        </Stagger>
       </div>
     </section>
   );

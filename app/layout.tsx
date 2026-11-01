@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Toaster } from "react-hot-toast";
 import Script from "next/script"; // استيراد مكون Script
+import { SITE_URL, SITE_NAME } from "@/lib/seo";
 
 const cairo = Cairo({
   subsets: ['arabic', 'latin'],
@@ -16,7 +17,8 @@ const cairo = Cairo({
   display: 'swap',
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://yosal.com";
+const siteDescription =
+  "وكالة تسويق رقمي متخصصة للسوق السعودي، نقدم استراتيجيات نمو وحلول إبداعية لعلامتك التجارية.";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -26,25 +28,26 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "وكالة يوصل | نصيغ الفخامة الرقمية",
-  description: "وكالة تسويق رقمي متخصصة للسوق السعودي، نقدم استراتيجيات نمو وحلول إبداعية لعلامتك التجارية.",
+  title: {
+    default: "وكالة يوصل | نصيغ الفخامة الرقمية",
+    template: "%s | وكالة يوصل",
+  },
+  description: siteDescription,
   alternates: { canonical: "/" },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     locale: "ar_SA",
-    siteName: "يوصل",
-    url: "/",
+    siteName: SITE_NAME,
     title: "وكالة يوصل | نصيغ الفخامة الرقمية",
-    description:
-      "وكالة تسويق رقمي متخصصة للسوق السعودي، نقدم استراتيجيات نمو وحلول إبداعية لعلامتك التجارية.",
+    description: siteDescription,
+    url: "/",
     images: [{ url: "/assets/logo.png", alt: "يوصل" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "وكالة يوصل | نصيغ الفخامة الرقمية",
-    description:
-      "وكالة تسويق رقمي متخصصة للسوق السعودي، نقدم استراتيجيات نمو وحلول إبداعية لعلامتك التجارية.",
+    description: siteDescription,
     images: ["/assets/logo.png"],
   },
 };

@@ -5,9 +5,9 @@ import WhyUsSection from "@/components/sections/about/WhyUsSection";
 import TeamSection from "@/components/sections/about/TeamSection";
 import ReadyResults from "@/components/sections/ReadyResults";
 
-const TITLE = "من نحن | وكالة يوصل للتسويق الرقمي";
+const TITLE = "من نحن";
 const DESCRIPTION =
-  "تعرّف على وكالة يوصل: رؤيتنا ورسالتنا وفريقنا المتخصص في التسويق الرقمي وبناء العلامات التجارية للسوق السعودي.";
+  "تعرف على قصة وكالة يوصل ورؤيتنا ورسالتنا وفريقنا المتخصص في التسويق الرقمي وصناعة النمو للعلامات التجارية في السوق السعودي.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -17,9 +17,8 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     url: "/about",
-    siteName: "وكالة يوصل",
-    locale: "ar_SA",
     type: "website",
+    locale: "ar_SA",
   },
 };
 

@@ -15,7 +15,7 @@ export default function FaqItem({ question, answer }: { question: string, answer
         <button 
           onClick={() => setIsOpen(!isOpen)}
           aria-expanded={isOpen}
-          className="w-full flex justify-between items-center p-6 font-bold text-lg text-right"
+          className="w-full flex justify-between items-center p-5 sm:p-6 gap-4 font-bold text-base sm:text-lg text-right min-h-14"
         >
           {question}
           <ChevronDown aria-hidden="true" className={cn("transition-transform duration-300 flex-shrink-0", isOpen && "rotate-180")} />
@@ -25,7 +25,7 @@ export default function FaqItem({ question, answer }: { question: string, answer
           "grid transition-all duration-300 ease-in-out px-6",
           isOpen ? "grid-rows-[1fr] pb-6 opacity-100" : "grid-rows-[0fr] opacity-0"
         )}>
-          <p className="text-muted-foreground leading-relaxed overflow-hidden" aria-hidden={!isOpen}>
+          <p className="text-muted-foreground leading-relaxed overflow-hidden">
             {answer}
           </p>
         </div>

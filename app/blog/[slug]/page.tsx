@@ -1,10 +1,11 @@
+import { RevealSection } from "@/components/ui/Motion";
 import Image from "next/image";
 import Link from "next/link";
-import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Calendar, Clock, Share2, Bookmark, ArrowRight } from "lucide-react";
 import { getPostBySlug, getPosts, extractPosts } from "@/lib/api";
 import type { Post } from "@/types/api";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ShareActions from "@/components/sections/blog/ShareActions";
 import {
@@ -20,17 +21,17 @@ const stripHtml = (html: string): string =>
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
-  if (!post) return { title: "المقال غير موجود | يوصل", robots: { index: false } };
+  if (!post) return { title: "المقال غير موجود", robots: { index: false } };
 
   const description = (
     post.short_description ||
     post.excerpt ||
     stripHtml(post.content || "")
-  ).slice(0, 160);
+  ).slice(0, 160) || "مقال من مدونة وكالة يوصل.";
   const image = resolveImageUrl(post.image || post.image_url, "/assets/blog1.png");
 
   return {
-    title: `${post.title} | مدونة يوصل`,
+    title: post.title,
     description,
     alternates: { canonical: `/blog/${slug}` },
     openGraph: {
@@ -96,7 +97,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-background text-right" dir="rtl">
-      <section className="relative bg-background h-[70vh] w-full flex items-end pb-20">
+      <section className="relative bg-background min-h-[70vh] w-full flex items-end pt-32 pb-12 md:pb-20 overflow-hidden">
         <Image
           src={heroSrc}
           alt={post.title}
@@ -110,14 +111,14 @@ export default async function BlogPostPage({ params }: PageProps) {
 
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl space-y-6">
-            <span className="bg-orange-500/20 text-orange-500 px-4 py-1.5 rounded-lg text-sm font-bold border border-orange-500/30">
+            <span className="inline-block max-w-full break-words bg-orange-500/20 text-orange-500 px-4 py-1.5 rounded-lg text-sm font-bold border border-orange-500/30">
               {post.category || "عام"}
             </span>
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight break-words">
               {post.title}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-6 pt-4 text-gray-300 border-t border-gray-800 w-fit">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-4 text-gray-300 border-t border-gray-800 max-w-full">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-orange-700 flex items-center justify-center border border-gray-700 relative overflow-hidden">
                   {avatarSrc ? (
@@ -147,11 +148,11 @@ export default async function BlogPostPage({ params }: PageProps) {
               <span className="flex items-center gap-2 text-sm">
                 <Clock className="w-4 h-4" aria-hidden="true" /> 5 دقائق قراءة
               </span>
-              <div className="flex gap-4 mr-auto md:mr-10">
-                <button type="button" aria-label="مشاركة المقال" className="p-2 bg-white/5 rounded-full hover:bg-orange-500/20 transition-all hover:text-orange-500">
+              <div className="flex gap-2 mr-auto md:mr-10">
+                <button type="button" aria-label="مشاركة المقال" className="w-11 h-11 inline-flex items-center justify-center bg-white/5 rounded-full hover:bg-orange-500/20 transition-all hover:text-orange-500">
                   <Share2 className="w-4 h-4" aria-hidden="true" />
                 </button>
-                <button type="button" aria-label="حفظ المقال" className="p-2 bg-white/5 rounded-full hover:bg-orange-500/20 transition-all hover:text-orange-500">
+                <button type="button" aria-label="حفظ المقال" className="w-11 h-11 inline-flex items-center justify-center bg-white/5 rounded-full hover:bg-orange-500/20 transition-all hover:text-orange-500">
                   <Bookmark className="w-4 h-4" aria-hidden="true" />
                 </button>
               </div>
@@ -160,9 +161,10 @@ export default async function BlogPostPage({ params }: PageProps) {
         </div>
       </section>
 
-      <section className="container mx-auto bg-background px-6 py-20 flex flex-col lg:flex-row gap-16">
-        <aside className="w-full lg:w-80 space-y-10">
-          <nav aria-labelledby="post-toc" className="bg-[#12162b] p-8 rounded-[2rem] border border-gray-800 sticky top-32">
+      {/* قسم عادي بدون RevealSection: المقال الطويل أطول من الشاشة بأضعاف فلا يصل أبداً لنسبة الظهور المطلوبة ويبقى مخفياً */}
+      <section className="container mx-auto bg-background px-6 py-12 md:py-20 flex flex-col lg:flex-row gap-10 lg:gap-16">
+        <aside className="order-2 lg:order-1 w-full lg:w-80 shrink-0 space-y-10">
+          <nav aria-labelledby="post-toc" className="bg-[#12162b] p-8 rounded-[2rem] border border-gray-800 lg:sticky lg:top-32">
             <h2 id="post-toc" className="font-bold mb-6 pb-4 border-b border-gray-800 text-lg text-orange-500">محتويات المقال</h2>
             <ul className="space-y-4 text-gray-300 text-sm">
               <li className="pr-2 border-r border-orange-500">تحليل سلوك المستخدم</li>
@@ -179,9 +181,9 @@ export default async function BlogPostPage({ params }: PageProps) {
             </div>
           </div>
         </aside>
-        <article className="flex-1 min-w-0">
+        <article className="order-1 lg:order-2 flex-1 min-w-0">
           <div
-            className="prose prose-invert prose-orange max-w-none
+            className="prose prose-invert prose-orange max-w-none break-words [overflow-wrap:anywhere] [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-2xl [&_table]:block [&_table]:max-w-full [&_table]:overflow-x-auto [&_pre]:max-w-full [&_pre]:overflow-x-auto [&_iframe]:max-w-full [&_video]:max-w-full [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-white [&_h3]:font-bold [&_h3]:text-white md:[&_h2]:text-3xl [&_h2]:mt-12 [&_h2]:mb-6 [&_h3]:text-xl md:[&_h3]:text-2xl [&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pr-6 [&_ol]:pr-6 [&_li]:text-gray-300 [&_li]:my-2 [&_blockquote]:border-r-4 [&_blockquote]:border-orange-500 [&_blockquote]:pr-4 [&_blockquote]:text-gray-300 [&_a]:text-orange-500 [&_a]:underline [&_th]:border [&_td]:border [&_th]:border-white/10 [&_td]:border-white/10 [&_th]:p-3 [&_td]:p-3 [&_th]:text-right [&_pre]:bg-black/30 [&_pre]:p-4 [&_pre]:rounded-xl
             prose-p:text-gray-300 prose-p:leading-loose prose-p:text-lg
             prose-headings:text-white prose-headings:font-bold
             prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-6 prose-h3:border-r-4 prose-h3:border-orange-500 prose-h3:pr-4"
@@ -191,11 +193,11 @@ export default async function BlogPostPage({ params }: PageProps) {
         </article>
       </section>
 
-      <section className="bg-background py-20 border-t border-gray-800/50">
+      <RevealSection className="bg-background py-20 border-t border-gray-800/50">
         <div className="container mx-auto px-6">
-          <div className="flex justify-between items-center mb-12">
-            <h2 className="text-3xl font-bold text-white">مقالات قد تهمك</h2>
-            <Link href="/blog" className="text-orange-500 flex items-center gap-2 hover:gap-4 transition-all font-bold">
+          <div className="flex flex-wrap justify-between items-center gap-4 mb-10 md:mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-white">مقالات قد تهمك</h2>
+            <Link href="/blog" className="text-orange-500 flex items-center gap-2 hover:gap-4 transition-all font-bold min-h-11">
               تصفح الكل <ArrowRight className="w-4 h-4 rotate-180" aria-hidden="true" />
             </Link>
           </div>
@@ -203,7 +205,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             <RelatedPosts category={post.category} slug={slug} />
           </Suspense>
         </div>
-      </section>
+      </RevealSection>
     </div>
   );
 }

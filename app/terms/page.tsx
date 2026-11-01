@@ -3,14 +3,16 @@ import TermsContent from "@/components/sections/terms/TermsContent";
 import LegalCards from "@/components/sections/terms/LegalCards";
 import type { Metadata } from "next";
 
+const DESCRIPTION =
+  "اطلع على شروط وأحكام استخدام موقع وكالة يوصل وخدماتها، والتزامات الأطراف والسياسات القانونية المنظمة للتعاون.";
 
 export const metadata: Metadata = {
-  title: "شروط الخدمة | يوصل",
-  description: "اطلع على شروط وأحكام استخدام خدمات وكالة يوصل للتسويق الرقمي، وحدود المسؤولية والملكية الفكرية.",
+  title: "الشروط والأحكام",
+  description: DESCRIPTION,
   alternates: { canonical: "/terms" },
   openGraph: {
-    title: "شروط الخدمة | يوصل",
-    description: "شروط وأحكام استخدام خدمات وكالة يوصل للتسويق الرقمي.",
+    title: "الشروط والأحكام",
+    description: DESCRIPTION,
     url: "/terms",
     type: "website",
     locale: "ar_SA",

@@ -1,3 +1,5 @@
+import { RevealSection } from "@/components/ui/Motion";
+
 import { AppButton } from "../ui/AppButton";
 import Link from "next/link";
 
@@ -14,7 +16,7 @@ export default function ReadySection({ variant = "style1" }: ReadySectionProps) 
   const isStyle1 = variant === "style1";
 
   return (
-    <section className="relative py-24 px-6 bg-background" dir="rtl">
+    <RevealSection className="relative py-24 px-6 bg-background" dir="rtl">
       {/* الكرت الأساسي */}
       <div className="max-w-6xl mx-auto relative overflow-hidden rounded-[40px] md:rounded-[60px] bg-[#161839] border border-white/5 py-20 px-8 shadow-2xl">
         
@@ -74,6 +76,6 @@ export default function ReadySection({ variant = "style1" }: ReadySectionProps) 
           </div>
         </div>
       </div>
-    </section>
+    </RevealSection>
   );
 }

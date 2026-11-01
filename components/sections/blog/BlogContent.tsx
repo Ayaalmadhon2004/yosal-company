@@ -1,3 +1,4 @@
+import { Reveal } from "@/components/ui/Motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Search, Calendar, Clock, ArrowLeft } from "lucide-react";
@@ -79,7 +80,7 @@ export default function BlogContent({ posts, params }: { posts: BlogListPost[]; 
               <Link
                 key={cat}
                 href={`/blog?${cat === "الكل" ? "" : `category=${cat}`}`}
-                className={`px-6 py-3 rounded-full text-xs md:text-sm font-bold transition-all duration-300 whitespace-nowrap ${
+                className={`px-6 min-h-11 inline-flex items-center rounded-full text-xs md:text-sm font-bold transition-all duration-300 whitespace-nowrap shrink-0 ${
                   (params.category === cat || (!params.category && cat === "الكل"))
                     ? 'bg-orange-700 text-white shadow-lg shadow-orange-500/20'
                     : 'text-gray-400 hover:bg-white/5 hover:text-white'
@@ -98,21 +99,21 @@ export default function BlogContent({ posts, params }: { posts: BlogListPost[]; 
               type="text"
               defaultValue={search}
               placeholder="ابحث عن مقال..."
-              className="w-full bg-background border border-white/10 rounded-full py-4 pr-14 pl-6 text-white text-xs outline-none focus:border-orange-500 transition-all placeholder:text-gray-400"
+              className="w-full bg-background border border-white/10 rounded-full py-4 pr-14 pl-6 text-white text-sm outline-none focus:border-orange-500 transition-all placeholder:text-gray-400"
             />
           </form>
         </div>
       </section>
 
       {/* شبكة المقالات */}
-      <section className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {posts.map((post) => (
-          <Link
+      {/* كل بطاقة تظهر بشكل مستقل: حاوية Stagger الطويلة لا تصل أبداً لنسبة الظهور المطلوبة على الموبايل فتبقى الشبكة مخفية */}
+      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+        {posts.map((post, index) => (
+          <Reveal key={post.id} className="h-full" delay={(index % 3) * 0.08}><Link
             href={`/blog/${post.slug}`}
-            key={post.id}
-            className="group bg-white/5 rounded-[2.5rem] md:rounded-[2.8rem] overflow-hidden border border-white/5 hover:border-orange-500/30 transition-all duration-500 flex flex-col shadow-lg isolate"
+            className="h-full group bg-white/5 rounded-[2.5rem] md:rounded-[2.8rem] overflow-hidden border border-white/5 hover:border-orange-500/30 transition-all duration-500 flex flex-col shadow-lg isolate"
           >
-            <div className="relative h-56 md:h-60 w-full overflow-hidden">
+            <div className="relative h-56 md:h-60 w-full overflow-hidden bg-white/5">
               <Image
                 src={resolveImageUrl(post.image_url)}
                 alt={post.title}
@@ -138,13 +139,13 @@ export default function BlogContent({ posts, params }: { posts: BlogListPost[]; 
                 <ArrowLeft aria-hidden="true" className="w-4 h-4 text-orange-500" />
               </div>
             </div>
-          </Link>
+          </Link></Reveal>
         ))}
-      </section>
+      </div>
 
       <section className="max-w-6xl mx-auto px-6 py-24 md:py-32">
         <div className="bg-gradient-to-br from-white/5 to-background rounded-[2.5rem] md:rounded-[3.5rem] p-8 md:p-16 text-center border border-white/5 shadow-2xl relative overflow-hidden isolate">
-          <h2 className="text-2xl md:text-5xl font-black text-white mb-8">
+          <h2 className="text-2xl md:text-5xl font-black text-white mb-8 leading-tight">
             انضم إلى مجتمع <span className="text-orange-500">يوصل</span>
           </h2>
           <form aria-label="الاشتراك في النشرة البريدية" className="flex flex-col md:flex-row gap-4 max-w-xl mx-auto">
@@ -154,7 +155,7 @@ export default function BlogContent({ posts, params }: { posts: BlogListPost[]; 
               aria-label="البريد الإلكتروني"
               autoComplete="email"
               placeholder="أدخل بريدك الإلكتروني"
-              className="flex-grow bg-background border border-white/10 rounded-xl md:rounded-2xl px-8 py-5 text-white outline-none focus:border-orange-500 transition-all"
+              className="flex-grow min-w-0 bg-background border border-white/10 rounded-xl md:rounded-2xl px-5 md:px-8 py-5 text-white outline-none focus:border-orange-500 transition-all"
             />
             <button type="submit" className="bg-orange-700 text-white font-bold px-12 py-5 rounded-2xl">اشترك الآن</button>
           </form>

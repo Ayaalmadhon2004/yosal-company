@@ -68,10 +68,10 @@ export default function ReadyForm() {
   };
 
   return (
-    <div className="bg-secondary/40 backdrop-blur-xl border border-white/5 p-8 lg:p-12 rounded-[3rem] shadow-2xl w-full max-w-2xl relative overflow-hidden group">
+    <div className="bg-secondary/40 backdrop-blur-xl border border-white/5 p-5 sm:p-8 lg:p-12 rounded-[2rem] sm:rounded-[3rem] shadow-2xl w-full max-w-2xl relative overflow-hidden group">
       <div className="absolute top-0 left-0 w-32 h-32 bg-primary/5 blur-[80px] -z-10 rounded-full group-hover:bg-primary/10 transition-colors" />
       
-      <div className="flex items-center justify-start mb-12">
+      <div className="flex items-center justify-start mb-8 sm:mb-12">
          <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary">
             <Send className="w-6 h-6 rotate-180" aria-hidden="true" />
          </div>
@@ -92,7 +92,7 @@ export default function ReadyForm() {
               type="text" 
               placeholder="الاسم الكامل"
               required
-              className="w-full bg-[#12162b] border border-white/10 rounded-[1.2rem] p-4 text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/60 font-bold"
+              className="w-full bg-[#12162b] border border-white/10 rounded-[1.2rem] p-4 min-h-12 text-base text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/60 font-bold"
             />
           </div>
 
@@ -107,7 +107,7 @@ export default function ReadyForm() {
               type="email" 
               placeholder="example@mail.com"
               required
-              className="w-full bg-[#12162b] border border-white/10 rounded-[1.2rem] p-4 text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/60 font-bold"
+              className="w-full bg-[#12162b] border border-white/10 rounded-[1.2rem] p-4 min-h-12 text-base text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/60 font-bold"
             />
           </div>
         </div>
@@ -123,7 +123,7 @@ export default function ReadyForm() {
             type="tel" 
             placeholder="05xxxxxxxx"
             required
-            className="w-full bg-[#12162b] border border-white/10 rounded-[1.2rem] p-4 text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/60 font-bold tracking-widest"
+            className="w-full bg-[#12162b] border border-white/10 rounded-[1.2rem] p-4 min-h-12 text-base text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/60 font-bold tracking-widest"
           />
         </div>
 
@@ -137,7 +137,7 @@ export default function ReadyForm() {
             name="project_url" 
             type="text" 
             placeholder="https://yourwebsite.com"
-            className="w-full bg-[#12162b] border border-white/10 rounded-[1.2rem] p-4 text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/60 font-bold"
+            className="w-full bg-[#12162b] border border-white/10 rounded-[1.2rem] p-4 min-h-12 text-base text-foreground outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/60 font-bold"
           />
         </div>
 
@@ -146,7 +146,7 @@ export default function ReadyForm() {
           variant="orange"
           size="lg"
           disabled={loading}
-          className="w-full font-black py-8 rounded-[1.5rem] text-xl bg-[#B84F08] hover:bg-[#9E4306] shadow-xl shadow-primary/20 hover:scale-[1.01] active:scale-95 transition-all group/btn overflow-hidden relative"
+          className="w-full font-black py-6 sm:py-8 rounded-[1.5rem] text-lg sm:text-xl bg-[#B84F08] hover:bg-[#9E4306] shadow-xl shadow-primary/20 hover:scale-[1.01] active:scale-95 transition-all group/btn overflow-hidden relative"
         >
           <span className="relative z-10 flex items-center justify-center gap-3">
             {loading ? "جاري الإرسال..." : "أحصل على التقييم"}

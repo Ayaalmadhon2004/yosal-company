@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { RevealSection } from "@/components/ui/Motion";
 import Image from "next/image";
 import { AlertCircle } from "lucide-react";
 import Services, { type ServiceItem } from "@/components/sections/services/Services";
@@ -6,20 +6,7 @@ import ReadyResults from "@/components/sections/ReadyResults";
 
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
-  title: "خدماتنا الاحترافية | وكالة يوصل",
-  description:
-    "حلول رقمية متكاملة من وكالة يوصل: تطوير المواقع، إدارة التواصل الاجتماعي، الهوية البصرية، تحسين محركات البحث وصناعة المحتوى.",
-  alternates: { canonical: "/services" },
-  openGraph: {
-    title: "خدماتنا الاحترافية | وكالة يوصل",
-    description: "حلول رقمية متكاملة تغطي كافة جوانب التواجد الرقمي لعلامتك التجارية.",
-    url: "/services",
-    type: "website",
-    locale: "ar_SA",
-    images: ["/assets/moon.png"],
-  },
-};
+// Metadata for /services lives in app/services/layout.tsx.
 
 async function getServices(): Promise<ServiceItem[] | null> {
   try {
@@ -41,7 +28,7 @@ export default async function ServicesPage() {
   return (
     <div className="bg-background min-h-screen">
       {/* Hero Section */}
-      <section className="py-24 px-6 overflow-hidden" dir="rtl">
+      <RevealSection className="py-24 px-6 overflow-hidden" dir="rtl">
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col lg:flex-row items-center gap-16">
             <div className="flex-1 text-right order-2 lg:order-1">
@@ -71,7 +58,7 @@ export default async function ServicesPage() {
             </div>
           </div>
         </div>
-      </section>
+      </RevealSection>
 
       <div className="mt-10 min-h-[400px] px-6">
         {services ? (

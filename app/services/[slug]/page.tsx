@@ -40,12 +40,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const normalizedSlug = getNormalizedSlug(slug);
   const data = servicesData[normalizedSlug as keyof typeof servicesData];
-  
+
   if (!data) return { title: "الخدمة غير موجودة", robots: { index: false } };
 
-  const title = `${data.hero.title} | وكالة يوصل`;
+  const title = `${data.hero.title} ${data.hero.highlightText ?? ""}`.trim();
   const url = `/services/${normalizedSlug}`;
-
+  const images = data.hero.image ? [data.hero.image] : undefined;
   return {
     title,
     description: data.hero.description,
@@ -56,8 +56,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       url,
       type: "website",
       locale: "ar_SA",
-      images: [data.hero.image],
+      images,
     },
+    twitter: { title, description: data.hero.description, images },
   };
 }
 
