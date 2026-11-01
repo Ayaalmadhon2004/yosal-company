@@ -2,28 +2,15 @@ import { RevealSection } from "@/components/ui/Motion";
 import Image from "next/image";
 import { AlertCircle } from "lucide-react";
 import Services, { type ServiceItem } from "@/components/sections/services/Services";
+import { getServices } from "@/lib/api";
 import ReadyResults from "@/components/sections/ReadyResults";
 
 export const revalidate = 3600;
 
 // Metadata for /services lives in app/services/layout.tsx.
 
-async function getServices(): Promise<ServiceItem[] | null> {
-  try {
-    const response = await fetch("https://yosaal-website-backend.onrender.com/api/v1/services", {
-      next: { revalidate: 3600 },
-      signal: AbortSignal.timeout(8000),
-    });
-    if (!response.ok) return null;
-    const result = await response.json();
-    return result.status === "Success" && Array.isArray(result.data) ? result.data : null;
-  } catch {
-    return null;
-  }
-}
-
 export default async function ServicesPage() {
-  const services = await getServices();
+  const services = await getServices<ServiceItem>();
 
   return (
     <div className="bg-background min-h-screen">

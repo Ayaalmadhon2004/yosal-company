@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Check, X, Zap } from "lucide-react";
+import { getPackages } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { RevealSection, Stagger, StaggerItem } from "@/components/ui/Motion";
 
@@ -19,29 +20,8 @@ interface PricingPackage {
   features?: PackageFeature[];
 }
 
-const API_URL = "https://yosaal-website-backend.onrender.com/api/v1/packages";
-
-async function getPackages(): Promise<PricingPackage[] | null> {
-  try {
-    const response = await fetch(API_URL, {
-      headers: { Accept: "application/json" },
-      next: { revalidate: 3600 },
-      signal: AbortSignal.timeout(8000),
-    });
-    if (!response.ok) return null;
-    const json = await response.json();
-    if (json && json.status === "Success") {
-      const data = json.data?.data || json.data || [];
-      return Array.isArray(data) ? data : [];
-    }
-    return [];
-  } catch {
-    return null;
-  }
-}
-
 export default async function PricingCards() {
-  const packages = await getPackages();
+  const packages = await getPackages<PricingPackage>();
 
   if (packages === null) {
     return (

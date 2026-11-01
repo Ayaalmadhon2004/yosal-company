@@ -1,3 +1,4 @@
+import { getTestimonials } from "@/lib/api";
 import { Star, ChevronRight, ChevronLeft } from "lucide-react";
 
 export interface Testimonial {
@@ -13,20 +14,8 @@ interface TestimonialsProps {
   data?: Testimonial[]; // جعلنا البيانات اختيارية
 }
 
-async function getTestimonials(): Promise<Testimonial[]> {
-  try {
-    const res = await fetch("https://yosaal-website-backend.onrender.com/api/v1/testimonials", {
-      next: { revalidate: 3600 },
-    });
-    const json = await res.json();
-    return json.status === "Success" && Array.isArray(json.data) ? json.data : [];
-  } catch {
-    return [];
-  }
-}
-
 export default async function Testimonials({ data: propData }: TestimonialsProps) {
-  const data = propData ?? (await getTestimonials());
+  const data = propData ?? (await getTestimonials<Testimonial>());
   if (!data || data.length === 0) return null;
 
   return (

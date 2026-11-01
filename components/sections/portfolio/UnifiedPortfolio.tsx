@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Loader2, ChevronLeft } from "lucide-react";
 import Link from "next/link";
+import { getProjects } from "@/lib/api";
 import { resolveImageUrl, shouldSkipOptimization } from "./imageUtils";
 
 interface Project {
@@ -46,21 +47,10 @@ export default function UnifiedPortfolio({ isHomePage = false, className, initia
     const categorySlug = categoryMapping.find((c) => c.name === activeTab)?.slug || "الكل";
 
     const fetchProjects = async () => {
-      try {
-        const query = categorySlug === "الكل" ? "" : `?category=${categorySlug}`;
-        const response = await fetch(`https://yosaal-website-backend.onrender.com/api/v1/projects${query}`);
-        if (!response.ok) throw new Error("Connection failed");
-
-        const json = await response.json();
-        const projectsData = json.data?.data || json.data || json || [];
-        const finalData = isHomePage ? projectsData.slice(0, 6) : projectsData;
-        if (!cancelled) setProjects(Array.isArray(finalData) ? finalData : []);
-      } catch (error) {
-        console.error("Fetch Error:", error);
-        if (!cancelled) setProjects([]);
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
+      const projectsData = await getProjects<Project>(categorySlug === "الكل" ? undefined : categorySlug);
+      if (cancelled) return;
+      setProjects(isHomePage ? projectsData.slice(0, 6) : projectsData);
+      setLoading(false);
     };
 
     fetchProjects();
