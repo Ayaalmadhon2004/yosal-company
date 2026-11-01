@@ -1,4 +1,5 @@
 "use client";
+import { RevealSection, Stagger, StaggerItem } from "@/components/ui/Motion";
 
 import React from "react";
 import { ArrowLeft, TrendingUp, Users, Target } from "lucide-react";
@@ -30,7 +31,7 @@ export default function ImpactStats() {
   ];
 
   return (
-    <section className="py-24 relative overflow-hidden" dir="rtl">
+    <RevealSection y={0} className="py-24 relative overflow-hidden" dir="rtl">
       {/* لمسة خلفية فنية */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary/5 blur-[120px] rounded-full -z-10 opacity-50" />
 
@@ -42,11 +43,11 @@ export default function ImpactStats() {
         </button>
 
         {/* شبكة الإحصائيات */}
-        <div className="bg-secondary/20 backdrop-blur-md rounded-[3rem] p-12 lg:p-16 grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-0 border border-white/5 relative">
+        <Stagger className="bg-secondary/20 backdrop-blur-md rounded-[3rem] p-12 lg:p-16 grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-0 border border-white/5 relative">
           {stats.map((stat, index) => {
             const Icon = stat.icon;
             return (
-              <div 
+              <StaggerItem 
                 key={stat.id} 
                 className={cn(
                   "relative flex flex-col items-center group",
@@ -71,11 +72,11 @@ export default function ImpactStats() {
 
                 {/* توهج سفلي لكل رقم عند التحويم */}
                 <div className="absolute bottom-0 w-12 h-1 bg-primary/0 group-hover:bg-primary/40 rounded-full transition-all duration-500 blur-sm" />
-              </div>
+              </StaggerItem>
             );
           })}
-        </div>
+        </Stagger>
       </div>
-    </section>
+    </RevealSection>
   );
 }

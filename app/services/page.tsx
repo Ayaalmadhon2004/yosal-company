@@ -1,4 +1,5 @@
 "use client";
+import { RevealSection } from "@/components/ui/Motion";
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
@@ -36,7 +37,7 @@ export default function ServicesPage() {
   return (
     <main className="bg-background min-h-screen">
       {/* Hero Section */}
-      <section className="py-24 px-6 overflow-hidden" dir="rtl">
+      <RevealSection className="py-24 px-6 overflow-hidden" dir="rtl">
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col lg:flex-row items-center gap-16">
             <div className="flex-1 text-right order-2 lg:order-1">
@@ -64,7 +65,7 @@ export default function ServicesPage() {
             </div>
           </div>
         </div>
-      </section>
+      </RevealSection>
 
       <div className="mt-10 min-h-[400px] px-6">
         {loading ? (

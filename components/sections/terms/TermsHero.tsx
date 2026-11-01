@@ -1,11 +1,12 @@
 "use client";
+import { RevealSection } from "@/components/ui/Motion";
 
 import React from "react";
 import { CalendarDays } from "lucide-react";
 
 export default function TermsHero() {
   return (
-    <section className="pt-32 pb-12 px-6 " dir="rtl">
+    <RevealSection className="pt-32 pb-12 px-6 " dir="rtl">
       <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 items-center max-w-7xl">
         
         {/* الجانب الأيمن: العنوان والوصف */}
@@ -48,6 +49,6 @@ export default function TermsHero() {
         </div>
 
       </div>
-    </section>
+    </RevealSection>
   );
 }

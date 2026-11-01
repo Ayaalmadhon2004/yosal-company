@@ -1,11 +1,12 @@
 "use client";
+import { RevealSection } from "@/components/ui/Motion";
 
 import React from "react";
 import { ShieldCheck } from "lucide-react";
 
 export default function PrivacyHero() {
   return (
-    <section className="relative pt-32 pb-20 text-center overflow-hidden" dir="rtl">
+    <RevealSection className="relative pt-32 pb-20 text-center overflow-hidden" dir="rtl">
       {/* عناصر خلفية جمالية (توهج رقمي) */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-[400px] bg-primary/5 blur-[120px] rounded-full -z-10" />
       <div className="absolute top-20 right-10 w-24 h-24 bg-primary/10 blur-3xl rounded-full -z-10 animate-pulse" />
@@ -33,6 +34,6 @@ export default function PrivacyHero() {
           <div className="w-[1px] h-16 bg-gradient-to-b from-primary to-transparent" />
         </div>
       </div>
-    </section>
+    </RevealSection>
   );
 }

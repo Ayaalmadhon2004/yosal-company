@@ -52,6 +52,31 @@ export function Reveal({ children, className, delay = 0, y = OFFSET, x }: Reveal
   );
 }
 
+type SectionAttrs = Pick<React.HTMLAttributes<HTMLElement>, "id" | "dir" | "aria-labelledby">;
+
+/** نفس Reveal لكن بوسم <section> الدلالي؛ y={0} يعطي ظهوراً بالشفافية فقط */
+export function RevealSection({
+  children,
+  className,
+  delay = 0,
+  y = OFFSET,
+  ...attrs
+}: Omit<RevealProps, "x"> & SectionAttrs) {
+  return (
+    <motion.section
+      {...attrs}
+      className={className}
+      variants={fadeUp(y)}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: VIEW_AMOUNT }}
+      transition={{ delay }}
+    >
+      {children}
+    </motion.section>
+  );
+}
+
 interface StaggerProps {
   children: React.ReactNode;
   className?: string;

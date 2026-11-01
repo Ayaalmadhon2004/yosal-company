@@ -1,11 +1,12 @@
 "use client";
+import { RevealSection } from "@/components/ui/Motion";
 
 import React from "react";
 import { Star } from "lucide-react";
 
 export default function PortfolioHero() {
   return (
-    <section className="relative pt-32 md:pt-40 pb-20 overflow-hidden text-center" dir="rtl">
+    <RevealSection className="relative pt-32 md:pt-40 pb-20 overflow-hidden text-center" dir="rtl">
       
       {/* خلفية فنية: تأثير التوهج الإبداعي - تم تحسين الأبعاد للموبايل */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[300px] md:h-[500px] bg-primary/5 blur-[80px] md:blur-[120px] rounded-full -z-10" />
@@ -43,6 +44,6 @@ export default function PortfolioHero() {
           <div className="w-8 md:w-12 h-[1px] bg-gradient-to-r from-primary to-transparent" />
         </div>
       </div>
-    </section>
+    </RevealSection>
   );
 }

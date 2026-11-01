@@ -1,4 +1,5 @@
 "use client";
+import { Stagger, StaggerItem } from "@/components/ui/Motion";
 
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
@@ -112,11 +113,10 @@ export default function UnifiedPortfolio({ isHomePage = false, className, initia
             <Loader2 className="w-10 h-10 text-primary animate-spin" />
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project) => (
-              <Link 
-                href={`/portfolio/${project.slug}`} 
-                key={project.id}
+              <StaggerItem key={project.id} className="h-full"><Link 
+                href={`/portfolio/${project.slug}`}
                 className="group relative overflow-hidden rounded-[2.5rem] aspect-[4/3] bg-secondary/10 border border-white/5 block hover:-translate-y-2 transition-all duration-500"
               >
                 <Image
@@ -135,9 +135,9 @@ export default function UnifiedPortfolio({ isHomePage = false, className, initia
                     {project.title}
                   </h3>
                 </div>
-              </Link>
+              </Link></StaggerItem>
             ))}
-          </div>
+          </Stagger>
         )}
 
         {isHomePage && !loading && projects.length > 0 && (

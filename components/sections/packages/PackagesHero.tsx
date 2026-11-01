@@ -1,11 +1,12 @@
 "use client";
+import { RevealSection } from "@/components/ui/Motion";
 
 import React from "react";
 import { TrendingUp, Sparkles } from "lucide-react";
 
 export default function PackagesHero() {
   return (
-    <section className="relative pt-40 pb-24 overflow-hidden text-center" dir="rtl">
+    <RevealSection className="relative pt-40 pb-24 overflow-hidden text-center" dir="rtl">
       {/* خلفية فنية: تأثير التوهج للنمو */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[900px] h-[400px] bg-primary/10 blur-[120px] rounded-full -z-10" />
       <div className="absolute -top-10 right-0 w-72 h-72 bg-primary/5 blur-[100px] rounded-full -z-10 animate-pulse" />
@@ -46,6 +47,6 @@ export default function PackagesHero() {
           <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
         </div>
       </div>
-    </section>
+    </RevealSection>
   );
 }

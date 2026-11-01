@@ -1,4 +1,5 @@
 "use client";
+import { RevealSection } from "@/components/ui/Motion";
 
 import React from "react";
 import Image from "next/image";
@@ -7,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 export default function StorySection() {
   return (
-    <section className="py-24 overflow-hidden text-right relative" dir="rtl">
+    <RevealSection className="py-24 overflow-hidden text-right relative" dir="rtl">
       <div className="absolute top-1/4 -right-20 w-96 h-96 bg-primary/5 blur-[120px] rounded-full -z-10 animate-pulse" />
       
       <div className="container mx-auto px-6 relative z-10">
@@ -85,6 +86,6 @@ export default function StorySection() {
 
         </div>
       </div>
-    </section>
+    </RevealSection>
   );
 }

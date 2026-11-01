@@ -1,4 +1,5 @@
 "use client";
+import { RevealSection, Stagger, StaggerItem } from "@/components/ui/Motion";
 
 import React, { useEffect, useState } from "react";
 import { Check, X, Loader2, Zap } from "lucide-react";
@@ -76,12 +77,12 @@ export default function PricingCards() {
   }
 
   return (
-    <section className="py-24 px-6 relative overflow-hidden" dir="rtl">
+    <RevealSection y={0} className="py-24 px-6 relative overflow-hidden" dir="rtl">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary/5 blur-[120px] rounded-full -z-10" />
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <Stagger className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         {packages.map((pkg) => (
-          <div 
+          <StaggerItem 
             key={pkg.id}
             className={cn(
               "relative p-8 md:p-10 rounded-[3rem] border transition-all duration-700 flex flex-col group",
@@ -152,9 +153,9 @@ export default function PricingCards() {
             >
               اختيار باقة {pkg.name}
             </AppButton>
-          </div>
+          </StaggerItem>
         ))}
-      </div>
-    </section>
+      </Stagger>
+    </RevealSection>
   );
 }

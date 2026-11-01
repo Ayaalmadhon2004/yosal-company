@@ -1,3 +1,4 @@
+import { Reveal } from "@/components/ui/Motion";
 import PrivacyHero from "@/components/sections/privacy/PrivacyHero";
 import PrivacyGrid from "@/components/sections/privacy/PrivacyGrid";
 import PrivacyContact from "@/components/sections/privacy/PrivacyContact";
@@ -29,16 +30,16 @@ export default function PrivatePage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
 
           <div className="lg:col-span-8 space-y-8 order-1 lg:order-2">
-            <PrivacyIntroduction />
+            <Reveal><PrivacyIntroduction /></Reveal>
             
             {/* قسم جمع واستخدام المعلومات الموضح في التصميم */}
-            <DataCollectionSection />
+            <Reveal><DataCollectionSection /></Reveal>
           </div>
 
           <aside className="lg:col-span-4 space-y-8 order-2 lg:order-1">
             <PrivacySidebar />
             
-            <div className="rounded-[2.5rem] overflow-hidden border border-white/5 shadow-2xl relative group">
+            <Reveal className="rounded-[2.5rem] overflow-hidden border border-white/5 shadow-2xl relative group">
               <div className="absolute inset-0 bg-blue-500/10 group-hover:bg-transparent transition-colors duration-500 z-10" />
               <Image 
                 src="/assets/Coding.png" 
@@ -47,7 +48,7 @@ export default function PrivatePage() {
                 height={300}
                 className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700" 
               />
-            </div>
+            </Reveal>
           </aside>
 
         </div>

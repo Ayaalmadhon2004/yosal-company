@@ -1,11 +1,12 @@
 "use client";
+import { RevealSection } from "@/components/ui/Motion";
 
 import React from "react";
 import { CheckCircle2, Copyright, Box, UserCheck } from "lucide-react";
 
 export default function TermsContent() {
   return (
-    <section className="py-12 px-6 " dir="rtl">
+    <RevealSection className="py-12 px-6 " dir="rtl">
       <div className="container mx-auto space-y-12 max-w-7xl">
         
         {/* القسم الأول: شروط الاستخدام */}
@@ -93,6 +94,6 @@ export default function TermsContent() {
 
         </div>
       </div>
-    </section>
+    </RevealSection>
   );
 }
