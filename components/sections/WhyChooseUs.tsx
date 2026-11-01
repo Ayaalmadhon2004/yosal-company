@@ -1,4 +1,3 @@
-"use client";
 import { RevealSection } from "@/components/ui/Motion";
 
 import Image from "next/image";
@@ -75,8 +74,9 @@ export default function WhyChooseUs({ data }: WhyChooseUsProps) {
                   <div key={`img-${index}`} className="relative h-full w-full overflow-hidden">
                     <Image 
                       src={imgSrc} 
-                      alt="gallery"
+                      alt={`${data.title.trim()} - صورة ${index + 1}`}
                       fill
+                      sizes="(max-width: 1024px) 50vw, 25vw"
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
@@ -85,8 +85,9 @@ export default function WhyChooseUs({ data }: WhyChooseUsProps) {
             ) : (
               <Image 
                 src={data.image as string} 
-                alt="feature"
+                alt={data.title.trim()}
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover transition-transform duration-1000 group-hover:scale-110"
               />
             )}

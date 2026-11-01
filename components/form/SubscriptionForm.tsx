@@ -54,15 +54,19 @@ export default function SubscriptionForm() {
       >
         {/* حقل الإدخال */}
         <div className="relative flex-grow flex items-center">
-          <div className="absolute right-5 text-muted-foreground group-focus-within:text-primary transition-colors">
+          <div className="absolute right-5 text-muted-foreground group-focus-within:text-primary transition-colors" aria-hidden="true">
             <Mail size={18} />
           </div>
+          <label htmlFor="subscribe_email" className="sr-only">البريد الإلكتروني</label>
           <input 
+            id="subscribe_email"
+            name="email"
+            autoComplete="email"
             type="email" 
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="بريدك الإلكتروني للحصول على الإلهام..." 
-            className="w-full bg-transparent pr-12 pl-4 py-4 text-foreground outline-none placeholder:text-muted-foreground/30 font-bold text-sm"
+            className="w-full bg-transparent pr-12 pl-4 py-4 text-foreground outline-none placeholder:text-muted-foreground/60 font-bold text-sm"
             required
           />
         </div>
@@ -73,15 +77,15 @@ export default function SubscriptionForm() {
           disabled={loading}
           className={cn(
             "relative overflow-hidden px-8 py-4 rounded-2xl font-black text-sm transition-all duration-300 flex items-center justify-center gap-2 min-w-[140px]",
-            "bg-primary text-white shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 disabled:opacity-70"
+            "bg-[#B84F08] hover:bg-[#9E4306] text-white shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 disabled:opacity-70"
           )}
         >
           {loading ? (
-            <Loader2 className="w-5 h-5 animate-spin" />
+            <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" />
           ) : (
             <>
               <span>اشترك الآن</span>
-              <CheckCircle2 className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <CheckCircle2 aria-hidden="true" className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
             </>
           )}
           
@@ -91,7 +95,7 @@ export default function SubscriptionForm() {
       </form>
       
       {/* نص طمأنة أسفل الفورم */}
-      <p className="text-xs text-muted-foreground/50 mt-4 text-center font-medium italic">
+      <p className="text-xs text-muted-foreground mt-4 text-center font-medium italic">
         * انضم لـ +2000 مشترك، يمكنك إلغاء الاشتراك في أي وقت (لكنك لن ترغب في ذلك 😉).
       </p>
     </div>

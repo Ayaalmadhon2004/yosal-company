@@ -41,9 +41,9 @@ export default function ProjectAuditForm() {
     <div className="w-full max-w-md mx-auto bg-[#1e233d]/50 border border-orange-500/30 rounded-[30px] p-6 shadow-xl" dir="rtl">
       {/* البوكس العلوي - عرض خاص */}
       <div className="bg-[#2d345a] rounded-2xl p-5 mb-8 text-center border border-white/5">
-        <span className="text-orange-400 font-bold text-sm block mb-2">عرض خاص</span>
-        <h3 className="text-white font-bold text-lg mb-2">احصل على تقييم مجاني لمتجرك/مشروعك</h3>
-        <p className="text-gray-400 text-sm leading-relaxed">
+        <span className="text-orange-300 font-bold text-sm block mb-2">عرض خاص</span>
+        <h2 className="text-white font-bold text-lg mb-2">احصل على تقييم مجاني لمتجرك/مشروعك</h2>
+        <p className="text-gray-300 text-sm leading-relaxed">
           سنقوم بإعطائك المعلومات الكافية لمعرفة خطوتك القادمة في التسويق الإلكتروني عن طريق تحليل سريع لنقاط الضعف والقوة.
         </p>
       </div>
@@ -51,24 +51,24 @@ export default function ProjectAuditForm() {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* حقل الاسم */}
         <div className="space-y-2">
-          <label className="text-white text-sm font-medium mr-1">الاسم الكامل</label>
+          <label htmlFor="audit-full-name" className="text-white text-sm font-medium mr-1">الاسم الكامل</label>
           <input
-            name="full_name"
+            id="audit-full-name" name="full_name" autoComplete="name"
             required
             placeholder="أدخل اسمك هنا ...."
-            className="w-full bg-[#12162b] border border-orange-500/20 rounded-xl p-4 text-white placeholder:text-gray-600 outline-none focus:border-orange-500 transition-all text-right"
+            className="w-full bg-[#12162b] border border-orange-500/20 rounded-xl p-4 text-white placeholder:text-gray-400 outline-none focus:border-orange-500 transition-all text-right"
           />
         </div>
 
         {/* حقل الهاتف */}
         <div className="space-y-2">
-          <label className="text-white text-sm font-medium mr-1">رقم الهاتف</label>
+          <label htmlFor="audit-phone" className="text-white text-sm font-medium mr-1">رقم الهاتف</label>
           <input
-            name="phone"
+            id="audit-phone" name="phone" autoComplete="tel"
             type="tel"
             required
             placeholder="أدخل رقم الهاتف 05xxxxxxxx"
-            className="w-full bg-[#12162b] border border-orange-500/20 rounded-xl p-4 text-white placeholder:text-gray-600 outline-none focus:border-orange-500 transition-all text-right"
+            className="w-full bg-[#12162b] border border-orange-500/20 rounded-xl p-4 text-white placeholder:text-gray-400 outline-none focus:border-orange-500 transition-all text-right"
           />
         </div>
 
@@ -77,12 +77,12 @@ export default function ProjectAuditForm() {
           type="submit"
           variant="orange"
           disabled={loading}
-          className="w-full py-4 rounded-xl text-lg font-bold shadow-lg shadow-orange-600/20"
+          className="w-full py-4 rounded-xl text-lg font-bold shadow-lg shadow-orange-600/20 bg-[#B34F00] hover:bg-[#9A4400]"
         >
           {loading ? "جاري المعالجة..." : "أحصل على التقييم"}
         </AppButton>
 
-        <p className="text-center text-gray-400 text-xs mt-4">
+        <p className="text-center text-gray-300 text-xs mt-4">
           نحن نحترم خصوصيتك. بياناتك آمنة معنا.
         </p>
       </form>

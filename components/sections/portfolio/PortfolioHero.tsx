@@ -1,7 +1,4 @@
-"use client";
 import { RevealSection } from "@/components/ui/Motion";
-
-import React from "react";
 import { Star } from "lucide-react";
 
 export default function PortfolioHero() {

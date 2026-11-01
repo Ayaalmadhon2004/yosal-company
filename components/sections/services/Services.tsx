@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
 import { 
@@ -52,7 +50,7 @@ const getIcon = (iconName: string) => {
   };
 
   const IconComponent = icons[iconName] || Monitor;
-  return <IconComponent className="h-6 w-6" />;
+  return <IconComponent aria-hidden="true" className="h-6 w-6" />;
 };
 
 export default function Services({ data, className }: { data: ServiceItem[], className?: string }) {
@@ -94,7 +92,7 @@ export default function Services({ data, className }: { data: ServiceItem[], cla
                   <ul className="space-y-4 mb-10 flex-grow">
                     {service.features?.map((feature, fIndex) => (
                       <li key={fIndex} className="flex items-center gap-3 text-muted-foreground text-sm font-medium">
-                        <Check className="h-4 w-4 text-primary shrink-0" />
+                        <Check aria-hidden="true" className="h-4 w-4 text-primary shrink-0" />
                         <span className="group-hover:text-foreground transition-colors">
                           {typeof feature === 'string' ? feature : feature.title}
                         </span>
@@ -107,12 +105,12 @@ export default function Services({ data, className }: { data: ServiceItem[], cla
                       href={`/services/${service.slug}`} 
                       className="flex items-center gap-2 min-h-11 text-primary font-bold hover:gap-3 transition-all group/link"
                     >
-                      تفاصيل الخدمة <ArrowLeft className="w-4 h-4 transition-transform group-hover/link:-translate-x-1" />
+                      تفاصيل الخدمة <span className="sr-only">: {service.title}</span> <ArrowLeft aria-hidden="true" className="w-4 h-4 transition-transform group-hover/link:-translate-x-1" />
                     </Link>
 
                     <AppButton asChild className="w-full py-7 rounded-2xl font-black text-lg bg-secondary/20 hover:bg-[#25D366] hover:text-white transition-all duration-300 shadow-lg">
                       <a href={waLink} target="_blank" rel="noopener noreferrer">
-                        اطلب الخدمة 
+                        اطلب الخدمة <span className="sr-only">: {service.title} (يفتح في نافذة جديدة)</span>
                       </a>
                     </AppButton>
                   </div>

@@ -1,10 +1,10 @@
+import type { Metadata } from "next";
 import PortfolioHero from "@/components/sections/portfolio/PortfolioHero";
 import ImpactStats from "@/components/sections/portfolio/ImpactStats";
 import ReadyResult from "@/components/sections/ReadyResults";
 import Stats from "@/components/sections/home/Stats";
 import { getDashboardData } from "@/lib/api";
 import UnifiedPortfolio from "@/components/sections/portfolio/UnifiedPortfolio";
-import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "أعمالنا",
@@ -16,30 +16,25 @@ export const metadata: Metadata = {
     description:
       "شاهد مشاريع وقصص نجاح وكالة يوصل مع عملائها في السوق السعودي، ونتائج حقيقية في التسويق الرقمي والمتاجر الإلكترونية والمواقع.",
     url: "/portfolio",
+    type: "website",
+    locale: "ar_SA",
+    images: ["/assets/pic1.png"],
   },
 };
 
 export default async function PortfolioPage() {
   const dashboardData = await getDashboardData();
-  
-  // إذا لم توجد بيانات، نمرر مصفوفات فارغة لتجنب الانهيار
+
+  // إذا لم توجد بيانات، نمرر مصفوفة فارغة لتجنب الانهيار
   const projects = dashboardData?.portfolio || [];
-  const stats = dashboardData?.statistics || [];
 
   return (
-    <main className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
       <PortfolioHero />
-      
-      {/* تمرير البيانات للمكونات */}
-      <UnifiedPortfolio 
-        isHomePage={false} 
-        initialProjects={projects} 
-      />
-      {/* @ts-expect-error -- data typing is loose here */}
-      <ImpactStats data={stats} />
-      
-      <Stats/>
-      <ReadyResult variant="style2"/>
-    </main>
+      <UnifiedPortfolio isHomePage={false} initialProjects={projects} />
+      <ImpactStats />
+      <Stats />
+      <ReadyResult variant="style2" />
+    </div>
   );
 }

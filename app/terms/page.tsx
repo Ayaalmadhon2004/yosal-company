@@ -1,56 +1,32 @@
-import { Suspense } from "react";
-import dynamic from 'next/dynamic';
 import TermsHero from "@/components/sections/terms/TermsHero";
+import TermsContent from "@/components/sections/terms/TermsContent";
+import LegalCards from "@/components/sections/terms/LegalCards";
 import type { Metadata } from "next";
+
+const DESCRIPTION =
+  "اطلع على شروط وأحكام استخدام موقع وكالة يوصل وخدماتها، والتزامات الأطراف والسياسات القانونية المنظمة للتعاون.";
 
 export const metadata: Metadata = {
   title: "الشروط والأحكام",
-  description:
-    "اطلع على شروط وأحكام استخدام موقع وكالة يوصل وخدماتها، والتزامات الأطراف والسياسات القانونية المنظمة للتعاون.",
+  description: DESCRIPTION,
   alternates: { canonical: "/terms" },
   openGraph: {
     title: "الشروط والأحكام",
-    description:
-      "اطلع على شروط وأحكام استخدام موقع وكالة يوصل وخدماتها، والتزامات الأطراف والسياسات القانونية المنظمة للتعاون.",
+    description: DESCRIPTION,
     url: "/terms",
+    type: "website",
+    locale: "ar_SA",
   },
 };
 
-const SkeletonLoader = () => (
-  <div className="animate-pulse container mx-auto px-6 py-12">
-    <div className="h-8 w-1/3 bg-white/5 rounded-lg mb-6 ml-auto" />
-    <div className="space-y-4">
-      <div className="h-4 w-full bg-white/5 rounded" />
-      <div className="h-4 w-full bg-white/5 rounded" />
-      <div className="h-4 w-3/4 bg-white/5 rounded" />
-    </div>
-  </div>
-);
-
-const TermsContent = dynamic(() => import("@/components/sections/terms/TermsContent"), { 
-  ssr: true,
-  loading: () => <SkeletonLoader />
-});
-
-const LegalCards = dynamic(() => import("@/components/sections/terms/LegalCards"), { 
-  ssr: true,
-  loading: () => <SkeletonLoader />
-});
-
 export default function TermsPage() {
   return (
-    <main className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
       <TermsHero />
-      
       <div className="space-y-4">
-        <Suspense fallback={<SkeletonLoader />}>
-          <TermsContent />
-        </Suspense>
-
-        <Suspense fallback={<SkeletonLoader />}>
-          <LegalCards />
-        </Suspense>
+        <TermsContent />
+        <LegalCards />
       </div>
-    </main>
+    </div>
   );
 }

@@ -47,6 +47,49 @@
   --ring: #E6740F;
 }
 
+/* خلفية خفيفة: تدرجات شعاعية بدلاً من blur filters (أداء رسم أفضل) */
+.bg-blobs {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(60, 63, 115, 0.3) 0, rgba(60, 63, 115, 0) 40%),
+    radial-gradient(circle at 100% 35%, rgba(245, 130, 32, 0.08) 0, rgba(245, 130, 32, 0) 32%),
+    radial-gradient(circle at 35% 100%, rgba(26, 28, 46, 0.5) 0, rgba(26, 28, 46, 0) 45%);
+  contain: strict;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 100000;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+  background: #ffffff;
+  color: #0f112b;
+  font-weight: 700;
+  transform: translateY(-200%);
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+:focus-visible {
+  outline: 2px solid #ffb066;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 @layer components {
   /* العناوين الكبيرة (مثل لماذا يختارنا عمالقة السوق) */
   .text-h1 {
@@ -81,7 +124,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-none;
+    @apply border-border;
   }
   body {
     /* تم ضبط الخلفية لتكون اللون الكحلي العميق المستخرج */
@@ -98,4 +141,56 @@
 @media (prefers-reduced-motion: no-preference) {
   .animate-float-slow { animation: float-slow 18s ease-in-out infinite; }
   .animate-float-slower { animation: float-slow 26s ease-in-out infinite reverse; }
+}
+
+/* ===== أنيميشن الظهور (CSS خالص، بدون JS) ===== */
+/* إزاحة فقط (بدون opacity) حتى تبقى ألوان النص ثابتة للتباين وأدوات الفحص */
+@keyframes reveal-in {
+  from { transform: translate(var(--reveal-x, 0), var(--reveal-y, 24px)); }
+  to { transform: none; }
+}
+@keyframes reveal-in-now {
+  from { opacity: 0; transform: translate(var(--reveal-x, 0), var(--reveal-y, 24px)); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes page-enter {
+  from { transform: translateY(12px); }
+  to { transform: none; }
+}
+
+.page-enter { animation: page-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* ظهور عند الدخول للشاشة: يعمل فقط حيث يُدعم animation-timeline، وإلا يبقى المحتوى ظاهراً */
+@supports (animation-timeline: view()) {
+  .reveal,
+  .stagger-view .stagger-item {
+    animation: reveal-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 35%;
+  }
+  /* حركة فورية متتابعة لأول الصفحة (Hero) */
+  .stagger-now .stagger-item {
+    animation: reveal-in-now 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--stagger-delay, 0s) + var(--stagger, 0.1s) * var(--i, 0));
+  }
+  .stagger-now .stagger-item:nth-child(2) { --i: 1; }
+  .stagger-now .stagger-item:nth-child(3) { --i: 2; }
+  .stagger-now .stagger-item:nth-child(4) { --i: 3; }
+  .stagger-now .stagger-item:nth-child(5) { --i: 4; }
+  .stagger-now .stagger-item:nth-child(6) { --i: 5; }
+  .stagger-now .stagger-item:nth-child(n + 7) { --i: 6; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .stagger-item, .page-enter { animation: none !important; }
+}
+
+/* دخول الـ Navbar: نزول من الأعلى مع fade (CSS خالص) */
+@keyframes nav-enter {
+  from { opacity: 0; transform: translateY(-80px); }
+  to { opacity: 1; transform: none; }
+}
+.nav-enter { animation: nav-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .nav-enter { animation: none !important; }
 }

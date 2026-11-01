@@ -1,7 +1,4 @@
-"use client";
 import { RevealSection } from "@/components/ui/Motion";
-
-import React from "react";
 import Image from "next/image";
 import { Sparkles, Trophy, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -9,7 +6,7 @@ import { cn } from "@/lib/utils";
 export default function StorySection() {
   return (
     <RevealSection className="py-24 overflow-hidden text-right relative" dir="rtl">
-      <div className="absolute top-1/4 -right-20 w-96 h-96 bg-primary/5 blur-[120px] rounded-full -z-10 animate-pulse" />
+      <div className="absolute top-1/4 -right-20 w-96 h-96 bg-primary/5 blur-[120px] rounded-full -z-10" />
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
@@ -17,10 +14,10 @@ export default function StorySection() {
           <div className="lg:w-1/2 space-y-10 order-2 lg:order-1">
             <div>
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/30 border border-white/5 text-primary mb-6 backdrop-blur-sm">
-                <Sparkles className="w-4 h-4" />
+                <Sparkles className="w-4 h-4" aria-hidden="true" />
                 <span className="font-black text-xs md:text-sm tracking-widest uppercase">رحلة الإبداع</span>
               </div>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-foreground leading-[1.1] tracking-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-foreground leading-[1.1] tracking-tight">
                 نحن لا نصنع حملات، <br />
                 <span className="text-primary italic relative">
                   نحن نبني جسوراً.
@@ -28,7 +25,7 @@ export default function StorySection() {
                     <path d="M0 5 Q 25 0 50 5 T 100 5" fill="none" stroke="currentColor" strokeWidth="4" />
                   </svg>
                 </span>
-              </h2>
+              </h1>
             </div>
 
             <p className="text-muted-foreground text-xl leading-relaxed max-w-2xl font-medium">
@@ -38,7 +35,7 @@ export default function StorySection() {
             <div className="flex flex-wrap gap-x-10 gap-y-6 pt-10 border-t border-white/5">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
-                  <Trophy className="w-6 h-6" />
+                  <Trophy className="w-6 h-6" aria-hidden="true" />
                 </div>
                 <div>
                   <span className="text-4xl font-black text-foreground block">+500</span>
@@ -47,7 +44,7 @@ export default function StorySection() {
               </div>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-secondary/40 flex items-center justify-center text-primary border border-white/5">
-                  <Users className="w-6 h-6" />
+                  <Users className="w-6 h-6" aria-hidden="true" />
                 </div>
                 <div>
                   <span className="text-4xl font-black text-foreground block">98%</span>
@@ -71,9 +68,10 @@ export default function StorySection() {
             >
               <Image 
                 src="/assets/about (2).png" 
-                alt="فريق عمل وكالة يوصل"
+                alt="فريق عمل وكالة يوصل أثناء جلسة عمل"
                 fill
                 priority
+                sizes="(max-width: 500px) 100vw, 500px"
                 className="object-cover rounded-[3rem]" // تدوير الزوايا داخلياً
               />
               {/* طبقة تظليل خفيفة فوق الصورة لدمجها مع ألوان البراند */}
@@ -81,7 +79,7 @@ export default function StorySection() {
             </div>
 
             {/* العناصر العائمة الملونة خلف الصورة لتعطي عمق */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-primary/20 blur-[100px] -z-10 animate-pulse" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-primary/20 blur-[100px] -z-10" />
           </div>
 
         </div>

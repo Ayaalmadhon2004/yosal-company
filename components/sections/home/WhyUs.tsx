@@ -41,7 +41,7 @@ export default function WhyUs() {
           <Reveal x={-40} delay={0.2} className="w-full lg:w-1/2 relative aspect-[4/3] sm:aspect-video lg:aspect-square rounded-4xl overflow-hidden border border-white/10">
             <Image 
               src="/assets/dashboard.png"
-              alt="لماذا يختارنا عمالقة السوق"
+              alt="لوحة تحليلات تعرض أداء الحملات التسويقية"
               fill
               className="object-cover opacity-80 transition-transform duration-1000 group-hover:scale-105"
               sizes="(max-width: 1024px) 100vw, 50vw"

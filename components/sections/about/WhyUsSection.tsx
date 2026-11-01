@@ -1,7 +1,4 @@
-"use client";
 import { RevealSection, Stagger, StaggerItem } from "@/components/ui/Motion";
-
-import React from "react";
 import { Handshake, Paintbrush, BarChart3, Star } from "lucide-react";
 
 const FEATURES = [

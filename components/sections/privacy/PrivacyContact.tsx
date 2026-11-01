@@ -1,4 +1,3 @@
-"use client";
 import { RevealSection } from "@/components/ui/Motion";
 
 import React from "react";
@@ -22,9 +21,9 @@ export default function PrivacyContact({
         <div className="absolute -inset-1 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
         <div className="text-right relative z-10 flex-1">
-          <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-foreground mb-4 leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-foreground mb-4 leading-tight">
             هل لديك <span className="text-primary">استفسار؟</span>
-          </h3>
+          </h2>
           <p className="text-muted-foreground text-base md:text-lg font-medium max-w-md">
             فريقنا القانوني والتقني جاهز للرد على أسئلتك حول خصوصية بياناتك ومعالجتها.
           </p>

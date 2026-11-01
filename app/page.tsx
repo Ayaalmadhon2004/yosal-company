@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getDashboardData } from "@/lib/api";
 import { servicesData } from "@/constants/siteData";
@@ -14,10 +15,29 @@ import Faqs from "@/components/sections/home/Faqs";
 import { Reveal } from "@/components/ui/Motion";
 import ReadySection from "@/components/sections/ReadySection";
 
-const SkeletonLoader = () => (
-  <div className="animate-pulse container mx-auto px-6 py-20">
+const TITLE = "وكالة يوصل | نصيغ الفخامة الرقمية";
+const DESCRIPTION =
+  "وكالة تسويق رقمي متخصصة للسوق السعودي، نقدم استراتيجيات نمو وهويات بصرية وحلولاً إبداعية تمنح علامتك التجارية حضوراً ذكياً.";
+
+export const metadata: Metadata = {
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/",
+    siteName: "وكالة يوصل",
+    locale: "ar_SA",
+    type: "website",
+  },
+};
+
+// Fixed-height placeholder so streamed sections do not shift the layout.
+const SkeletonLoader = ({ height = "min-h-[480px]" }: { height?: string }) => (
+  <div className={`container mx-auto px-6 py-20 ${height}`} aria-hidden="true">
     <div className="h-12 w-1/3 bg-white/5 rounded-2xl mb-8" />
-    <div className="h-96 w-full bg-white/5 rounded-[2.5rem]" />
+    <div className="h-72 w-full bg-white/5 rounded-[2.5rem]" />
   </div>
 );
 
@@ -25,7 +45,7 @@ export default async function Home() {
   const data = (await getDashboardData()) || { packages: [] };
 
   return (
-    <main className="block w-full font-sans overflow-x-hidden bg-background text-foreground">
+    <div className="block w-full font-sans overflow-x-hidden bg-background text-foreground">
       <Hero />
       <Problems />
 
@@ -37,8 +57,10 @@ export default async function Home() {
         <WhyUs />
         <Stats />
         <Pricing data={data.packages} />
-        <Reveal>
-          <Testimonials />
+<Reveal>
+          <Suspense fallback={<SkeletonLoader />}>
+            <Testimonials />
+          </Suspense>
         </Reveal>
         <Reveal>
           <CTA />
@@ -55,6 +77,6 @@ export default async function Home() {
           <ReadySection />
         </Reveal>
       </div>
-    </main>
+    </div>
   );
 }

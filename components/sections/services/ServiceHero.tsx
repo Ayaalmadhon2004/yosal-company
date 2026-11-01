@@ -1,7 +1,5 @@
 "use client";
 import { useState } from "react";
-import { RevealSection } from "@/components/ui/Motion";
-
 import Image from "next/image";
 import { MessageSquare, Calendar } from "lucide-react";
 
@@ -50,14 +48,14 @@ export default function ServiceHero({
   };
 
   return (
-    <RevealSection className="relative pt-32 pb-20 overflow-hidden">
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 blur-[150px] rounded-full -z-10 animate-pulse-slow" />
+    <section className="relative pt-32 pb-20 overflow-hidden">
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(230,116,15,0.12)_0%,transparent_65%)] rounded-full -z-10" />
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center text-right" dir="rtl">
           
           <div className="order-2 lg:order-1">
-            <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-bold mb-6 tracking-wide border border-primary/20">
+            <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-orange-300 text-sm font-bold mb-6 tracking-wide border border-primary/20">
               {badge}
             </span>
 
@@ -82,21 +80,23 @@ export default function ServiceHero({
                 href={getWhatsAppLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 sm:px-8 py-4 rounded-2xl bg-[#E6740F] text-white font-black flex items-center gap-3 hover:bg-[#E6740F]/90 transition-all hover:scale-105 active:scale-95 group shadow-lg"
+                className="px-6 sm:px-8 py-4 rounded-2xl bg-[#B34F00] text-white font-black flex items-center gap-3 hover:bg-[#9A4400] transition-all hover:scale-105 active:scale-95 group shadow-lg"
               >
-                <MessageSquare className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                <MessageSquare aria-hidden="true" className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                 ابدأ رحلتك الآن
+                <span className="sr-only">(يفتح في نافذة جديدة)</span>
               </a>
               
               <a 
                 href={getWhatsAppLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 sm:px-8 py-4 rounded-2xl bg-[#EDE7D1] text-[#E6740F] font-black transition-all flex items-center gap-3 hover:opacity-90 hover:scale-105 active:scale-95 group"
+                className="px-6 sm:px-8 py-4 rounded-2xl bg-[#EDE7D1] text-[#A84800] font-black transition-all flex items-center gap-3 hover:opacity-90 hover:scale-105 active:scale-95 group"
                 style={{ boxShadow: '0 0 20px 0 rgba(230, 116, 15, 0.45)' }}
               >
-                <Calendar className="w-5 h-5 text-[#E6740F] group-hover:scale-110 transition-transform" />
+                <Calendar aria-hidden="true" className="w-5 h-5 text-[#A84800] group-hover:scale-110 transition-transform" />
                 احجز استشارة مجانية
+                <span className="sr-only">(يفتح في نافذة جديدة)</span>
               </a>
             </div>
           </div>
@@ -119,13 +119,13 @@ export default function ServiceHero({
               <div className="relative rounded-[50px] overflow-hidden border border-white/10 shadow-2xl aspect-square z-10 bg-[#12162b]">
                 {imageUrl ? (
                   <>
-                    <Image 
+                    <Image
                         src={imageUrl}
-                        alt={title}
+                        alt={`${title} ${highlightText}`.trim()}
                         fill
-                        priority 
-                        unoptimized={imageUrl?.startsWith('http')} // 2. إذا كان الرابط خارجياً، لا تقم بمعالجته
-                        sizes="(max-width: 768px) 100vw, 600px"
+                        priority
+                        fetchPriority="high"
+                        sizes="(max-width: 1024px) calc(100vw - 48px), 576px"
                         className="object-cover transition-transform duration-1000 group-hover:scale-110"
                         onError={() => setImgFailed(true)}
                       />
@@ -133,7 +133,7 @@ export default function ServiceHero({
                   </>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <span className="text-white/5 font-black text-6xl italic">Yoosil</span>
+                    <span aria-hidden="true" className="text-white/5 font-black text-6xl italic">Yoosil</span>
                   </div>
                 )}
               </div>
@@ -142,6 +142,6 @@ export default function ServiceHero({
 
         </div>
       </div>
-    </RevealSection>
+    </section>
   );
 }

@@ -1,4 +1,3 @@
-"use client";
 import { RevealSection } from "@/components/ui/Motion";
 
 import { AppButton } from "../ui/AppButton";
@@ -53,22 +52,22 @@ export default function ReadySection({ variant = "style1" }: ReadySectionProps) 
            <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
             
             {/* الزر الأول (احجز استشارة مجانية) - معبأ باللون البرتقالي الباهت/البيج */}
-            <AppButton className="p-0 overflow-hidden w-full sm:w-auto min-w-[220px] h-14 rounded-full bg-[#F5E6CA] hover:bg-[#ebdcc0] transition-all border-none">
+            <AppButton asChild className="p-0 overflow-hidden w-full sm:w-auto min-w-[220px] h-14 rounded-full bg-[#F5E6CA] hover:bg-[#ebdcc0] transition-all border-none">
               <a 
                 href={LINKS.FREE_CONSULTATION} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-full h-full flex items-center justify-center px-8 text-lg font-bold text-[#E6740F]"
+                className="w-full h-full flex items-center justify-center px-8 text-lg font-bold !text-[#9A4309]"
               >
                 {isStyle1 ? "احجز استشارة مجانية" : "ابدأ مشروعك الآن"}
               </a>
             </AppButton>
             
             {/* الزر الثاني (شاهد أعمالنا) - شفاف مع إطار برتقالي */}
-            <AppButton className="p-0 overflow-hidden w-full sm:w-auto min-w-[220px] h-14 rounded-full bg-transparent border-2 border-[#FF7F11] hover:bg-[#FF7F11]/10 transition-all">
+            <AppButton asChild className="p-0 overflow-hidden w-full sm:w-auto min-w-[220px] h-14 rounded-full bg-transparent border-2 border-[#FF7F11] hover:bg-[#FF7F11]/10 transition-all">
               <Link 
                 href={isStyle1 ? LINKS.PORTFOLIO : LINKS.FREE_CONSULTATION}
-                className="w-full h-full flex items-center justify-center px-8 text-lg font-bold text-[#FF7F11]"
+                className="w-full h-full flex items-center justify-center px-8 text-lg font-bold !text-[#FF7F11]"
               >
                 {isStyle1 ? "شاهد أعمالنا" : "احجز استشارة مجانية"}
               </Link>

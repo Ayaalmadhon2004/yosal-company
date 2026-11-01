@@ -22,13 +22,10 @@ export default function Hero() {
             </div>
             </StaggerItem>
             
-            <StaggerItem>
             <h1 className="text-[28px] sm:text-4xl md:text-5xl lg:text-[34px] xl:text-[40px] text-balance font-black text-foreground leading-[1.6] tracking-tighter mb-8">
-              نصيغ الفخامة 
-              الرقمية لتقود
+              نصيغ الفخامة الرقمية لتقود
               <span className="block">علامتك <span className="text-primary">لمكانتها المستحقة</span></span>
             </h1>
-            </StaggerItem>
             
             <StaggerItem>
             <p className="text-muted-foreground text-body mb-12 max-w-xl leading-relaxed">
@@ -54,7 +51,7 @@ export default function Hero() {
                 asChild
                 variant="primary"
                 size="lg"
-                className="w-full sm:w-auto px-12 py-7 transition-all duration-300"
+                className="w-full sm:w-auto px-12 py-7 transition-all duration-300 bg-[#B84F08] hover:bg-[#9E4306]"
               >
                 <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
                   ابدأ رحلتك الآن

@@ -1,4 +1,3 @@
-"use client";
 import { RevealSection } from "@/components/ui/Motion";
 
 import React from "react";
@@ -9,11 +8,11 @@ export default function PrivacyHero() {
     <RevealSection className="relative pt-28 sm:pt-32 pb-16 sm:pb-20 text-center overflow-hidden" dir="rtl">
       {/* عناصر خلفية جمالية (توهج رقمي) */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-[400px] bg-primary/5 blur-[120px] rounded-full -z-10" />
-      <div className="absolute top-20 right-10 w-24 h-24 bg-primary/10 blur-3xl rounded-full -z-10 animate-pulse" />
+      <div className="absolute top-20 right-10 w-24 h-24 bg-primary/10 blur-3xl rounded-full -z-10" />
 
       <div className="container mx-auto px-6 relative z-10">
         {/* شارة علوية مع أيقونة */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary mb-8 animate-fade-in">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary mb-8 ">
           <ShieldCheck className="w-4 h-4" />
           <span className="font-bold text-xs md:text-sm tracking-wide">الخصوصية والأمان الرقمي</span>
         </div>

@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     description:
       "تواصل مع فريق وكالة يوصل لبدء مشروعك الرقمي القادم. احجز استشارة أو أرسل لنا طلبك وسنعاود الاتصال بك بأسرع وقت.",
     url: "/contact",
+    type: "website",
+    locale: "ar_SA",
+    images: ["/assets/contactUs.png"],
   },
 };
 

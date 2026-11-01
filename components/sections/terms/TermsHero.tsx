@@ -1,4 +1,3 @@
-"use client";
 import { RevealSection } from "@/components/ui/Motion";
 
 import React from "react";
@@ -40,7 +39,7 @@ export default function TermsHero() {
                <span className="text-primary text-4xl font-black">15</span>
                <span className="text-foreground text-2xl font-bold">أكتوبر</span>
             </div>
-            <span className="text-muted-foreground/60 font-medium mb-6">2024</span>
+            <span className="text-muted-foreground font-medium mb-6">2024</span>
             
             <p className="text-muted-foreground text-sm leading-relaxed border-t border-white/5 pt-6">
               نهدف في يوصل إلى بناء جسور الثقة من خلال وضوح القواعد والالتزامات المتبادلة.

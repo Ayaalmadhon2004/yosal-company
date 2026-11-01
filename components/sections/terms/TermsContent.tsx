@@ -1,4 +1,3 @@
-"use client";
 import { RevealSection } from "@/components/ui/Motion";
 
 import React from "react";
@@ -16,7 +15,7 @@ export default function TermsContent() {
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl -translate-y-1/2 translate-x-1/2" />
             
             <div className="flex items-center gap-4 mb-6">
-              <h3 className="text-2xl font-black text-foreground">شروط الاستخدام</h3>
+              <h2 className="text-2xl font-black text-foreground">شروط الاستخدام</h2>
               <Box className="text-primary w-7 h-7 transition-transform group-hover:rotate-12" />
             </div>
             <p className="text-muted-foreground leading-loose text-base sm:text-lg">
@@ -32,7 +31,7 @@ export default function TermsContent() {
             <div className="h-full bg-secondary/20 rounded-[2.5rem] overflow-hidden border border-white/5 relative group">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-50 transition-opacity group-hover:opacity-80" />
                 <div className="flex items-center justify-center h-full">
-                    <div className="w-32 h-32 bg-primary/20 rounded-full blur-3xl animate-pulse" />
+                    <div className="w-32 h-32 bg-primary/20 rounded-full blur-3xl" />
                     <Box className="w-20 h-20 text-primary/40 relative z-10" />
                 </div>
             </div>
@@ -48,7 +47,7 @@ export default function TermsContent() {
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                 <UserCheck className="text-primary w-7 h-7" />
               </div>
-              <h3 className="text-2xl font-black text-foreground">اتفاقية الخدمة</h3>
+              <h2 className="text-2xl font-black text-foreground">اتفاقية الخدمة</h2>
             </div>
             <p className="text-foreground/80 mb-8 leading-relaxed">
               تعتبر العروض الفنية والمالية المقدمة من <span className="text-primary font-bold">يوصل</span> جزءاً لا يتجزأ من هذه الاتفاقية عند قبولها.
@@ -74,7 +73,7 @@ export default function TermsContent() {
                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                 <Copyright className="text-primary w-7 h-7" />
               </div>
-              <h3 className="text-2xl font-black text-foreground">الملكية الفكرية</h3>
+              <h2 className="text-2xl font-black text-foreground">الملكية الفكرية</h2>
             </div>
             <p className="text-muted-foreground leading-relaxed mb-8 text-base sm:text-lg">
               جميع المحتويات، التصاميم، والأكواد البرمجية التي تطورها يوصل تظل ملكية فكرية للوكالة حتى يتم سداد كامل المستحقات، وبعد ذلك تنتقل ملكية المخرجات النهائية للعميل.

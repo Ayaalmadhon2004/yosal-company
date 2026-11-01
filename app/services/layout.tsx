@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     description:
       "استكشف خدمات وكالة يوصل المتكاملة: التخطيط الاستراتيجي، تطوير المواقع، تحسين محركات البحث، إدارة السوشيال ميديا، الهوية البصرية وصناعة المحتوى.",
     url: "/services",
+    type: "website",
+    locale: "ar_SA",
+    images: ["/assets/moon.png"],
   },
 };
 

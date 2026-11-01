@@ -1,33 +1,23 @@
-"use client";
-
 import * as React from "react";
-import {
-  MotionConfig,
-  animate,
-  motion,
-  useInView,
-  useReducedMotion,
-} from "framer-motion";
-import {
-  DURATION,
-  EASE,
-  OFFSET,
-  STAGGER,
-  VIEW_AMOUNT,
-  fadeSide,
-  fadeUp,
-  staggerContainer,
-} from "@/lib/motion";
 
-/** يحترم إعداد "تقليل الحركة" في نظام المستخدم لكل الأنيميشن داخل الموقع */
+export { CountUp } from "./CountUp";
+
+/**
+ * أنيميشن الظهور هنا CSS خالص (انظر .reveal في globals.css):
+ * - لا JavaScript ولا framer-motion، فالمحتوى يصل من السيرفر ظاهراً ويدعم LCP.
+ * - المتصفحات التي لا تدعم animation-timeline تعرض المحتوى مباشرة بدون حركة.
+ * - يحترم prefers-reduced-motion.
+ */
+
+/** احتفظنا به لتوافق الاستيراد؛ لم يعد يحتاج مزوّداً */
 export function MotionProvider({ children }: { children: React.ReactNode }) {
-  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
+  return <>{children}</>;
 }
 
 interface RevealProps {
   children: React.ReactNode;
   className?: string;
-  /** تأخير قبل بدء الحركة (ثانية) */
+  /** تأخير قبل بدء الحركة (ثانية) — يُستخدم فقط مع الحركة الفورية */
   delay?: number;
   /** إزاحة عمودية بالبكسل (موجبة = يصعد من الأسفل) */
   y?: number;
@@ -35,45 +25,39 @@ interface RevealProps {
   x?: number;
 }
 
-/** يُظهر العنصر بنعومة (fade + إزاحة خفيفة) عند دخوله الشاشة، مرة واحدة فقط */
-export function Reveal({ children, className, delay = 0, y = OFFSET, x }: RevealProps) {
-  const variants = x !== undefined ? fadeSide(x) : fadeUp(y);
+function revealStyle(y: number, x?: number): React.CSSProperties {
+  return {
+    "--reveal-x": `${x ?? 0}px`,
+    "--reveal-y": `${x !== undefined ? 0 : y}px`,
+  } as React.CSSProperties;
+}
+
+/** يُظهر العنصر بنعومة (fade + إزاحة خفيفة) عند دخوله الشاشة */
+export function Reveal({ children, className, y = 24, x }: RevealProps) {
   return (
-    <motion.div
-      className={className}
-      variants={variants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: VIEW_AMOUNT }}
-      transition={{ delay }}
-    >
+    <div className={`reveal${className ? ` ${className}` : ""}`} style={revealStyle(y, x)}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
 type SectionAttrs = Pick<React.HTMLAttributes<HTMLElement>, "id" | "dir" | "aria-labelledby">;
 
-/** نفس Reveal لكن بوسم <section> الدلالي؛ y={0} يعطي ظهوراً بالشفافية فقط */
+/** نفس Reveal لكن بوسم <section> الدلالي */
 export function RevealSection({
   children,
   className,
-  delay = 0,
-  y = OFFSET,
+  y = 24,
   ...attrs
-}: Omit<RevealProps, "x"> & SectionAttrs) {
+}: Omit<RevealProps, "x" | "delay"> & SectionAttrs) {
   return (
-    <motion.section
+    <section
       {...attrs}
-      className={className}
-      variants={fadeUp(y)}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: VIEW_AMOUNT }}
-      transition={{ delay }}
+      className={`reveal${className ? ` ${className}` : ""}`}
+      style={revealStyle(y)}
     >
       {children}
-    </motion.section>
+    </section>
   );
 }
 
@@ -90,67 +74,32 @@ interface StaggerProps {
 export function Stagger({
   children,
   className,
-  stagger = STAGGER,
+  stagger = 0.1,
   delay = 0,
   immediate = false,
 }: StaggerProps) {
   return (
-    <motion.div
-      className={className}
-      variants={staggerContainer(stagger, delay)}
-      initial="hidden"
-      {...(immediate
-        ? { animate: "visible" }
-        : { whileInView: "visible", viewport: { once: true, amount: VIEW_AMOUNT } })}
+    <div
+      className={`${immediate ? "stagger-now" : "stagger-view"}${className ? ` ${className}` : ""}`}
+      style={{ "--stagger": `${stagger}s`, "--stagger-delay": `${delay}s` } as React.CSSProperties}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
 export function StaggerItem({
   children,
   className,
-  y = OFFSET,
+  y = 24,
 }: {
   children: React.ReactNode;
   className?: string;
   y?: number;
 }) {
   return (
-    <motion.div className={className} variants={fadeUp(y)}>
+    <div className={`stagger-item${className ? ` ${className}` : ""}`} style={revealStyle(y)}>
       {children}
-    </motion.div>
-  );
-}
-
-/** عدّاد أرقام يتصاعد عند ظهور الإحصائية؛ يحافظ على اللاحقة مثل "+" */
-export function CountUp({ value, className }: { value: string; className?: string }) {
-  const match = value.match(/^(\d+)(.*)$/);
-  const target = match ? Number(match[1]) : 0;
-  const suffix = match ? match[2] : "";
-  const ref = React.useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.3 });
-  const reduce = useReducedMotion();
-
-  React.useEffect(() => {
-    const el = ref.current;
-    if (!match || !el || !inView || reduce) return;
-    // نكتب الرقم مباشرة على العنصر أثناء الحركة (بدون state) حتى لا يحدث re-render،
-    // ويبقى ناتج السيرفر هو الرقم النهائي الصحيح لمحركات البحث ولمن يعطّل الحركة.
-    const controls = animate(0, target, {
-      duration: DURATION.slow * 2,
-      ease: EASE,
-      onUpdate: (latest) => {
-        el.textContent = `${Math.round(latest)}${suffix}`;
-      },
-    });
-    return () => controls.stop();
-  }, [inView, reduce, target, suffix, match]);
-
-  return (
-    <span ref={ref} className={className}>
-      {value}
-    </span>
+    </div>
   );
 }
