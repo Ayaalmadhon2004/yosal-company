@@ -4,11 +4,26 @@ import PrivacyContact from "@/components/sections/privacy/PrivacyContact";
 import PrivacySidebar from "@/components/sections/privacy/PrivacySidebar";
 import PrivacyIntroduction from "@/components/sections/privacy/PrivacyIntroduction";
 import DataCollectionSection from "@/components/sections/privacy/DataCollectionSection";
-import Image from 'next/image';
+import Image from "next/image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "سياسة الخصوصية | يوصل",
+  description: "تعرف على كيفية جمع وحماية واستخدام بياناتك الشخصية في وكالة يوصل للتسويق الرقمي.",
+  alternates: { canonical: "/private" },
+  openGraph: {
+    title: "سياسة الخصوصية | يوصل",
+    description: "تعرف على كيفية جمع وحماية واستخدام بياناتك الشخصية في وكالة يوصل.",
+    url: "/private",
+    type: "website",
+    locale: "ar_SA",
+    images: ["/assets/Coding.png"],
+  },
+};
 
 export default function PrivatePage() {
   return (
-    <main className="min-h-screen bg-background text-white" dir="rtl">
+    <div className="min-h-screen bg-background text-white" dir="rtl">
       <PrivacyHero />
       
       <div className="container mx-auto px-6 pb-20">
@@ -28,7 +43,8 @@ export default function PrivatePage() {
               <div className="absolute inset-0 bg-blue-500/10 group-hover:bg-transparent transition-colors duration-500 z-10" />
               <Image 
                 src="/assets/Coding.png" 
-                alt="Security and Coding Illustration" 
+                alt="رسم توضيحي لحماية البيانات والأمان البرمجي"
+                sizes="(max-width: 1024px) 100vw, 400px" 
                 width={400}
                 height={300}
                 className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700" 
@@ -44,6 +60,6 @@ export default function PrivatePage() {
 
         <PrivacyContact  /> 
       </div>
-    </main>
+    </div>
   );
 }

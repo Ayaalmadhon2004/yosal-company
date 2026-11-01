@@ -1,4 +1,3 @@
-"use client";
 
 import React from "react";
 import { ShieldCheck } from "lucide-react";
@@ -12,7 +11,7 @@ export default function PrivacyHero() {
 
       <div className="container mx-auto px-6 relative z-10">
         {/* شارة علوية مع أيقونة */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary mb-8 animate-fade-in">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary mb-8 ">
           <ShieldCheck className="w-4 h-4" />
           <span className="font-bold text-xs md:text-sm tracking-wide">الخصوصية والأمان الرقمي</span>
         </div>

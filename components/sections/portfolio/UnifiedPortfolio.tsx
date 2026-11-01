@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Loader2, ChevronLeft } from "lucide-react";
 import Link from "next/link";
+import { resolveImageUrl, shouldSkipOptimization } from "./imageUtils";
 
 interface Project {
   id: number | string;
@@ -73,7 +74,7 @@ export default function UnifiedPortfolio({ isHomePage = false, className, initia
   };
 
   return (
-    <section className={cn("py-24 w-full bg-background", className)} dir="rtl">
+    <section id="portfolio-projects" className={cn("py-24 w-full bg-background scroll-mt-24", className)} dir="rtl">
       <div className="container mx-auto px-6 max-w-7xl">
         
         <div className="text-center mb-12">
@@ -93,10 +94,11 @@ export default function UnifiedPortfolio({ isHomePage = false, className, initia
               <button
                 key={cat.slug}
                 onClick={() => handleTabChange(cat.name)}
+                aria-pressed={activeTab === cat.name}
                 className={cn(
                   "px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 border",
                   activeTab === cat.name 
-                    ? "bg-primary text-white border-primary shadow-lg shadow-primary/20" 
+                    ? "bg-orange-700 text-white border-orange-700 shadow-lg shadow-primary/20" 
                     : "bg-secondary/20 text-muted-foreground border-white/5 hover:border-primary/40 hover:text-primary"
                 )}
               >
@@ -109,7 +111,7 @@ export default function UnifiedPortfolio({ isHomePage = false, className, initia
         {/* شبكة المشاريع */}
         {loading ? (
           <div className="flex flex-col items-center justify-center py-32 space-y-4">
-            <Loader2 className="w-10 h-10 text-primary animate-spin" />
+            <Loader2 className="w-10 h-10 text-primary animate-spin" aria-label="جارٍ التحميل" role="status" />
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -120,11 +122,12 @@ export default function UnifiedPortfolio({ isHomePage = false, className, initia
                 className="group relative overflow-hidden rounded-[2.5rem] aspect-[4/3] bg-secondary/10 border border-white/5 block hover:-translate-y-2 transition-all duration-500"
               >
                 <Image
-                  src={project.image_url || "/assets/pic.png"}
-                  alt={project.title}
+                  src={resolveImageUrl(project.image_url)}
+                  alt={`مشروع ${project.title}`}
                   fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  unoptimized
+                  unoptimized={shouldSkipOptimization(resolveImageUrl(project.image_url))}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F1E] via-transparent to-transparent opacity-80" />
                 <div className="absolute bottom-8 right-8 left-8 text-right z-10">

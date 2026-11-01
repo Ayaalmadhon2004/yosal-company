@@ -1,4 +1,3 @@
-"use client";
 
 import React from "react";
 import { LockKeyhole } from "lucide-react";
@@ -14,7 +13,7 @@ export default function PrivacyIntroduction() {
           <LockKeyhole className="text-primary w-7 h-7" />
         </div>
         <div>
-          <h3 className="text-2xl md:text-3xl font-black text-foreground">مقدمة السياسة</h3>
+          <h2 className="text-2xl md:text-3xl font-black text-foreground">مقدمة السياسة</h2>
           <div className="h-1 w-12 bg-primary/40 rounded-full mt-1" />
         </div>
       </div>

@@ -1,4 +1,3 @@
-"use client";
 
 import React from "react";
 import { CheckCircle2, Copyright, Box, UserCheck } from "lucide-react";
@@ -15,7 +14,7 @@ export default function TermsContent() {
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl -translate-y-1/2 translate-x-1/2" />
             
             <div className="flex items-center gap-4 mb-6">
-              <h3 className="text-2xl font-black text-foreground">شروط الاستخدام</h3>
+              <h2 className="text-2xl font-black text-foreground">شروط الاستخدام</h2>
               <Box className="text-primary w-7 h-7 transition-transform group-hover:rotate-12" />
             </div>
             <p className="text-muted-foreground leading-loose text-lg">
@@ -47,7 +46,7 @@ export default function TermsContent() {
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                 <UserCheck className="text-primary w-7 h-7" />
               </div>
-              <h3 className="text-2xl font-black text-foreground">اتفاقية الخدمة</h3>
+              <h2 className="text-2xl font-black text-foreground">اتفاقية الخدمة</h2>
             </div>
             <p className="text-foreground/80 mb-8 leading-relaxed">
               تعتبر العروض الفنية والمالية المقدمة من <span className="text-primary font-bold">يوصل</span> جزءاً لا يتجزأ من هذه الاتفاقية عند قبولها.
@@ -73,7 +72,7 @@ export default function TermsContent() {
                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                 <Copyright className="text-primary w-7 h-7" />
               </div>
-              <h3 className="text-2xl font-black text-foreground">الملكية الفكرية</h3>
+              <h2 className="text-2xl font-black text-foreground">الملكية الفكرية</h2>
             </div>
             <p className="text-muted-foreground leading-relaxed mb-8 text-lg">
               جميع المحتويات، التصاميم، والأكواد البرمجية التي تطورها يوصل تظل ملكية فكرية للوكالة حتى يتم سداد كامل المستحقات، وبعد ذلك تنتقل ملكية المخرجات النهائية للعميل.

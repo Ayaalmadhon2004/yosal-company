@@ -1,8 +1,7 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { Search, Calendar, Clock, ArrowLeft } from "lucide-react";
+import { resolveImageUrl, shouldSkipOptimization } from "@/components/sections/portfolio/imageUtils";
 import ReadyResults from "@/components/sections/ReadyResults";
 
 interface BlogListPost {
@@ -28,7 +27,7 @@ export default function BlogContent({ posts, params }: { posts: BlogListPost[]; 
       <div className="max-w-6xl mx-auto px-6 py-40 text-center bg-background">
         <h2 className="text-white text-2xl font-bold mb-4">لا توجد مقالات حالياً</h2>
         <p className="text-gray-400 mb-8">جرب تغيير الفلترة أو ابحث بكلمات أخرى.</p>
-        <Link href="/blog" className="bg-orange-500 text-white px-8 py-3 rounded-full font-bold hover:bg-orange-600 transition-all">
+        <Link href="/blog" className="bg-orange-700 text-white px-8 py-3 rounded-full font-bold hover:bg-orange-600 transition-all">
           عرض كل المقالات
         </Link>
       </div>
@@ -54,12 +53,13 @@ export default function BlogContent({ posts, params }: { posts: BlogListPost[]; 
         {posts[0] && (
           <Link href={`/blog/${posts[0].slug}`} className="flex-1 relative w-full h-[300px] md:h-[400px] rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-white/5 shadow-2xl bg-white/5 group isolate">
             <Image
-              src={posts[0].image_url || "/images/blog-placeholder.jpg"}
+              src={resolveImageUrl(posts[0].image_url)}
               alt={posts[0].title}
               fill
               priority
               className="object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
-              sizes="(max-width: 768px) 100vw, 50vw"
+              sizes="(max-width: 768px) 100vw, 512px"
+              unoptimized={shouldSkipOptimization(resolveImageUrl(posts[0].image_url))}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
             <div className="absolute bottom-6 right-6 left-6 md:bottom-10 md:right-10 md:left-10">
@@ -79,9 +79,9 @@ export default function BlogContent({ posts, params }: { posts: BlogListPost[]; 
               <Link
                 key={cat}
                 href={`/blog?${cat === "الكل" ? "" : `category=${cat}`}`}
-                className={`px-6 py-2 rounded-full text-xs md:text-sm font-bold transition-all duration-300 whitespace-nowrap ${
+                className={`px-6 py-3 rounded-full text-xs md:text-sm font-bold transition-all duration-300 whitespace-nowrap ${
                   (params.category === cat || (!params.category && cat === "الكل"))
-                    ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/20'
+                    ? 'bg-orange-700 text-white shadow-lg shadow-orange-500/20'
                     : 'text-gray-400 hover:bg-white/5 hover:text-white'
                 }`}
               >
@@ -90,14 +90,15 @@ export default function BlogContent({ posts, params }: { posts: BlogListPost[]; 
             ))}
           </nav>
           
-          <form action="/blog" className="relative w-full md:w-80">
-            <Search className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4" />
+          <form action="/blog" role="search" className="relative w-full md:w-80">
+            <Search aria-hidden="true" className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
             <input
               name="search"
+              aria-label="ابحث عن مقال"
               type="text"
               defaultValue={search}
               placeholder="ابحث عن مقال..."
-              className="w-full bg-background border border-white/10 rounded-full py-4 pr-14 pl-6 text-white text-xs outline-none focus:border-orange-500 transition-all placeholder:text-gray-600"
+              className="w-full bg-background border border-white/10 rounded-full py-4 pr-14 pl-6 text-white text-xs outline-none focus:border-orange-500 transition-all placeholder:text-gray-400"
             />
           </form>
         </div>
@@ -113,15 +114,16 @@ export default function BlogContent({ posts, params }: { posts: BlogListPost[]; 
           >
             <div className="relative h-56 md:h-60 w-full overflow-hidden">
               <Image
-                src={post.image_url || "/images/placeholder.jpg"}
+                src={resolveImageUrl(post.image_url)}
                 alt={post.title}
                 fill
                 className="object-cover opacity-90 group-hover:opacity-100 transition-all duration-700 group-hover:scale-110"
-                sizes="(max-width: 768px) 100vw, 33vw"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 384px"
+                unoptimized={shouldSkipOptimization(resolveImageUrl(post.image_url))}
               />
             </div>
             <div className="p-6 md:p-8 flex flex-col flex-grow">
-              <div className="flex items-center gap-4 text-gray-500 text-[10px] mb-4 font-medium">
+              <div className="flex items-center gap-4 text-gray-400 text-xs mb-4 font-medium">
                 <span className="flex items-center gap-1.5"><Calendar className="w-3 h-3 text-orange-500" /> {post.date || "2024/04/30"}</span>
                 <span className="flex items-center gap-1.5"><Clock className="w-3 h-3 text-orange-500" /> 5 دقائق</span>
               </div>
@@ -133,7 +135,7 @@ export default function BlogContent({ posts, params }: { posts: BlogListPost[]; 
               </p>
               <div className="mt-auto text-white font-bold text-xs flex items-center gap-2 group-hover:gap-3 transition-all">
                 <span>اقرأ المزيد</span>
-                <ArrowLeft className="w-4 h-4 text-orange-500" />
+                <ArrowLeft aria-hidden="true" className="w-4 h-4 text-orange-500" />
               </div>
             </div>
           </Link>
@@ -145,13 +147,16 @@ export default function BlogContent({ posts, params }: { posts: BlogListPost[]; 
           <h2 className="text-2xl md:text-5xl font-black text-white mb-8">
             انضم إلى مجتمع <span className="text-orange-500">يوصل</span>
           </h2>
-          <form className="flex flex-col md:flex-row gap-4 max-w-xl mx-auto">
+          <form aria-label="الاشتراك في النشرة البريدية" className="flex flex-col md:flex-row gap-4 max-w-xl mx-auto">
             <input
               type="email"
+              name="email"
+              aria-label="البريد الإلكتروني"
+              autoComplete="email"
               placeholder="أدخل بريدك الإلكتروني"
               className="flex-grow bg-background border border-white/10 rounded-xl md:rounded-2xl px-8 py-5 text-white outline-none focus:border-orange-500 transition-all"
             />
-            <button className="bg-orange-500 text-white font-bold px-12 py-5 rounded-2xl">اشترك الآن</button>
+            <button type="submit" className="bg-orange-700 text-white font-bold px-12 py-5 rounded-2xl">اشترك الآن</button>
           </form>
         </div>
       </section>

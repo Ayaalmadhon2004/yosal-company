@@ -1,6 +1,3 @@
-"use client";
-
-import React from "react";
 import { Star } from "lucide-react";
 
 export default function PortfolioHero() {
@@ -16,7 +13,7 @@ export default function PortfolioHero() {
         {/* شارة علوية بتصميم عصري - متجاوبة */}
         <div className="inline-flex items-center gap-2 px-4 md:px-5 py-1.5 md:py-2 rounded-full bg-secondary/30 border border-white/5 text-primary mb-6 md:mb-8 backdrop-blur-sm shadow-xl">
           <Star className="w-3.5 h-3.5 md:w-4 md:h-4 fill-primary" />
-          <span className="font-black text-[10px] md:text-sm tracking-wider uppercase">قصص النجاح والأثر</span>
+          <span className="font-black text-xs md:text-sm tracking-wider uppercase">قصص النجاح والأثر</span>
         </div>
 
         {/* العنوان الرئيسي - تم تصغير حجم الخط للموبايل لتجنب التكسر */}

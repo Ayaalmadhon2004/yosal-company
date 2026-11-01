@@ -1,4 +1,3 @@
-"use client";
 
 import React from "react";
 import { Database, ShieldCheck, UserCircle, Globe } from "lucide-react";
@@ -26,7 +25,7 @@ export default function DataCollectionSection() {
   ];
 
   return (
-    <div className="bg-secondary/30 p-8 md:p-10 rounded-[2.5rem] border border-white/5 relative overflow-hidden" dir="rtl">
+    <div id="data-collection" className="scroll-mt-28 bg-secondary/30 p-8 md:p-10 rounded-[2.5rem] border border-white/5 relative overflow-hidden" dir="rtl">
       {/* تأثير ضوئي جانبي */}
       <div className="absolute top-0 left-0 w-32 h-full bg-primary/5 blur-3xl -translate-x-1/2" />
 
@@ -35,7 +34,7 @@ export default function DataCollectionSection() {
           <Database className="text-primary w-6 h-6" />
         </div>
         <div>
-          <h3 className="text-2xl font-black text-foreground">جمع البيانات</h3>
+          <h2 className="text-2xl font-black text-foreground">جمع البيانات</h2>
           <p className="text-muted-foreground text-sm mt-1">كيف نتعامل مع معلوماتك بأمان</p>
         </div>
       </div>
@@ -54,9 +53,9 @@ export default function DataCollectionSection() {
               </div>
               
               <div className="flex-1 border-r border-white/5 pr-6">
-                <h4 className="font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
+                <h3 className="font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
                   {p.title}
-                </h4>
+                </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed group-hover:text-foreground/80 transition-colors">
                   {p.desc}
                 </p>

@@ -1,10 +1,20 @@
 import { Suspense } from "react";
+import type { Metadata } from "next";
 import { getPosts, extractPosts } from "@/lib/api";
 import BlogContent from "@/components/sections/blog/BlogContent"; 
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "مدونة يوصل | أحدث استراتيجيات التسويق والنمو الرقمي",
   description: "اكتشف مقالات حصرية حول تطوير الأنظمة، الـ SaaS، وأسرار النمو التجاري.",
+  alternates: { canonical: "/blog" },
+  openGraph: {
+    title: "مدونة يوصل | أحدث استراتيجيات التسويق والنمو الرقمي",
+    description: "مقالات حصرية حول التسويق الرقمي، تطوير الأنظمة، الـ SaaS وأسرار النمو التجاري.",
+    url: "/blog",
+    type: "website",
+    locale: "ar_SA",
+    images: ["/assets/blog1.png"],
+  },
 };
 
 const BlogSkeleton = () => (
@@ -26,17 +36,17 @@ export default async function BlogPage({
   const params = await searchParams;
   const search = params.search;
   const category = params.category === "الكل" || !params.category ? undefined : params.category;
-  const page = parseInt(params.page || "1");
+  const page = Number.parseInt(params.page || "1", 10) || 1;
 
   // جلب البيانات في السيرفر
   const response = await getPosts(search, category, page);
   const posts = extractPosts(response);
 
   return (
-    <main className="min-h-screen bg-background pt-32 pb-0 text-right font-sans selection:bg-orange-500/30" dir="rtl">
+    <div className="min-h-screen bg-background pt-32 pb-0 text-right font-sans selection:bg-orange-500/30" dir="rtl">
       <Suspense fallback={<BlogSkeleton />}>
         <BlogContent posts={posts} params={params} />
       </Suspense>
-    </main>
+    </div>
   );
 }
