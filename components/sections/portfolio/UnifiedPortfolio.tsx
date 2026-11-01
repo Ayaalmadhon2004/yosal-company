@@ -6,6 +6,14 @@ import Image from "next/image";
 import { Loader2, ChevronLeft } from "lucide-react";
 import Link from "next/link";
 
+interface Project {
+  id: number | string;
+  slug: string;
+  title: string;
+  image_url?: string;
+  category_name?: string;
+}
+
 const categoryMapping = [
   { name: "الكل", slug: "الكل" },
   { name: "التسويق الإلكتروني", slug: "altsoyk-alalktrony" },
@@ -19,48 +27,50 @@ const categoryMapping = [
 interface PortfolioProps {
   isHomePage?: boolean; 
   className?: string;
-  initialProjects?: any[]; // البيانات القادمة من الباك إند عبر الصفحة
+  initialProjects?: Project[]; // البيانات القادمة من الباك إند عبر الصفحة
 }
 
 export default function UnifiedPortfolio({ isHomePage = false, className, initialProjects }: PortfolioProps) {
   // نستخدم البيانات القادمة من props (إن وجدت)، وإلا نبدأ بمصفوفة فارغة
-  const [projects, setProjects] = useState<any[]>(initialProjects || []);
+  const [projects, setProjects] = useState<Project[]>(initialProjects || []);
   const [loading, setLoading] = useState(!initialProjects); // تحميل فقط إذا لم تصل بيانات
   const [activeTab, setActiveTab] = useState("الكل");
 
-  const fetchProjects = async (categorySlug: string) => {
-    setLoading(true);
-    try {
-      const query = categorySlug === "الكل" ? "" : `?category=${categorySlug}`;
-      const response = await fetch(`https://yosaal-website-backend.onrender.com/api/v1/projects${query}`);
-      
-      if (!response.ok) throw new Error("Connection failed");
-      
-      const json = await response.json();
-      
-
-      // هنا التعديل: لنحاول الوصول للبيانات بطريقة أكثر أماناً
-      // إذا كان الـ API يرسل البيانات مباشرة في json.data أو json مباشرة
-      const projectsData = json.data?.data || json.data || json || [];
-      
-      const finalData = isHomePage ? projectsData.slice(0, 6) : projectsData;
-      setProjects(Array.isArray(finalData) ? finalData : []);
-      
-    } catch (error) {
-      console.error("Fetch Error:", error);
-      setProjects([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // مراقبة تغيير التبويبات لجلب بيانات جديدة من الباك إند عند الحاجة[cite: 4]
+  // جلب بيانات جديدة من الباك إند عند تغيير التبويب (أو عند غياب البيانات الأولية)
   useEffect(() => {
-    if (!initialProjects || activeTab !== "الكل") {
-      const currentCategory = categoryMapping.find(c => c.name === activeTab);
-      fetchProjects(currentCategory?.slug || "الكل");
-    }
-  }, [activeTab, initialProjects]);
+    if (initialProjects && activeTab === "الكل") return;
+
+    let cancelled = false;
+    const categorySlug = categoryMapping.find((c) => c.name === activeTab)?.slug || "الكل";
+
+    const fetchProjects = async () => {
+      try {
+        const query = categorySlug === "الكل" ? "" : `?category=${categorySlug}`;
+        const response = await fetch(`https://yosaal-website-backend.onrender.com/api/v1/projects${query}`);
+        if (!response.ok) throw new Error("Connection failed");
+
+        const json = await response.json();
+        const projectsData = json.data?.data || json.data || json || [];
+        const finalData = isHomePage ? projectsData.slice(0, 6) : projectsData;
+        if (!cancelled) setProjects(Array.isArray(finalData) ? finalData : []);
+      } catch (error) {
+        console.error("Fetch Error:", error);
+        if (!cancelled) setProjects([]);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+
+    fetchProjects();
+    return () => {
+      cancelled = true;
+    };
+  }, [activeTab, initialProjects, isHomePage]);
+
+  const handleTabChange = (name: string) => {
+    setActiveTab(name);
+    setLoading(!(initialProjects && name === "الكل"));
+  };
 
   return (
     <section className={cn("py-24 w-full bg-background", className)} dir="rtl">
@@ -82,7 +92,7 @@ export default function UnifiedPortfolio({ isHomePage = false, className, initia
             {categoryMapping.map((cat) => (
               <button
                 key={cat.slug}
-                onClick={() => setActiveTab(cat.name)}
+                onClick={() => handleTabChange(cat.name)}
                 className={cn(
                   "px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 border",
                   activeTab === cat.name 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { AppButton } from '../ui/AppButton';
@@ -28,21 +28,15 @@ const navLinks = [
   { name: 'تواصل معنا', href: '/contact' },
 ];
 
+// true على العميل فقط (يتجنب عدم تطابق الـ hydration)
+const subscribeNoop = () => () => {};
+const useIsMounted = () => useSyncExternalStore(subscribeNoop, () => true, () => false);
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useIsMounted();
 
   const WHATSAPP_CONSULTATION = "https://wa.link/4ddhsa";
-
-  useEffect(() => {
-    setMounted(true);
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => {
     if (isOpen) {

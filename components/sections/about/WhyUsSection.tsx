@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Handshake, Paintbrush, BarChart3, Star } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 const FEATURES = [
   {

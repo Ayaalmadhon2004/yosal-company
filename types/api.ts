@@ -17,8 +17,11 @@ export interface ApiResponse<T = unknown> {
 }
 
 export interface PortfolioProject {
-  id?: number | string;
-  title?: string;
+  id: number | string;
+  slug: string;
+  title: string;
+  image_url?: string;
+  category_name?: string;
   [key: string]: unknown;
 }
 

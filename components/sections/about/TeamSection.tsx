@@ -5,7 +5,6 @@ import Image from "next/image";
 import { TEAM_MEMBERS } from "@/constants/teamData";
 import { AppButton } from "../../ui/AppButton";
 import { Plus, Users } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 export default function TeamSection() {
   return (

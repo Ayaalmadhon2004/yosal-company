@@ -1,7 +1,5 @@
-import { MessageCircle } from "lucide-react";
 import { AppButton } from "../ui/AppButton";
 import DataForm from "../form/DataForm";
-import Link from "next/link";
 
 export default function Hero() {
   const WHATSAPP_LINK = "https://wa.link/4ddhsa";

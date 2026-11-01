@@ -38,7 +38,7 @@ export default function SubscriptionForm() {
       } else {
         throw new Error();
       }
-    } catch (error) {
+    } catch {
       toast.error("حدث خطأ بسيط، حاول مجدداً بعد ثوانٍ.");
     } finally {
       setLoading(false);

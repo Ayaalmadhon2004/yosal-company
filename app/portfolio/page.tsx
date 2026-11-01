@@ -21,7 +21,7 @@ export default async function PortfolioPage() {
         isHomePage={false} 
         initialProjects={projects} 
       />
-      {/*@ts-ignore */}
+      {/* @ts-expect-error -- data typing is loose here */}
       <ImpactStats data={stats} />
       
       <Stats/>

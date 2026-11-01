@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import { Star, ChevronRight, ChevronLeft } from "lucide-react";
-import Image from "next/image";
 
 export interface Testimonial {
   id: number;

@@ -2,7 +2,6 @@
 
 import React from "react";
 import { TrendingUp, Sparkles } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 export default function PackagesHero() {
   return (

@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { cn } from "@/lib/utils";
 import { CalendarDays } from "lucide-react";
 
 export default function TermsHero() {
@@ -21,7 +20,7 @@ export default function TermsHero() {
           </h1>
           
           <p className="text-muted-foreground text-lg md:text-xl leading-relaxed max-w-2xl">
-            في <span className="text-foreground font-bold">"يوصل"</span>، نلتزم بالشفافية والوضوح في كافة تعاملاتنا الرقمية. هذه الاتفاقية تنظم العلاقة القانونية بين الوكالة وعملائها لضمان أفضل تجربة تسويقية.
+            في <span className="text-foreground font-bold">&quot;يوصل&quot;</span>، نلتزم بالشفافية والوضوح في كافة تعاملاتنا الرقمية. هذه الاتفاقية تنظم العلاقة القانونية بين الوكالة وعملائها لضمان أفضل تجربة تسويقية.
           </p>
         </div>
 
