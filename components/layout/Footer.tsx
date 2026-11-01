@@ -82,17 +82,17 @@ export default function Footer() {
   if (!mounted) return null;
 
   return (
-    <footer className="bg-background text-white py-16 border-t border-white/5 relative w-full" dir="rtl">
+    <footer className="bg-background text-white pt-16 pb-36 md:pb-16 border-t border-white/5 relative w-full" dir="rtl">
       
       <ChatSystem />
 
       <div className="container mx-auto px-6 max-w-7xl">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-x-8 gap-y-10 lg:gap-12">
 
           {/* معلومات الوكالة */}
-          <div className="md:col-span-4 text-right flex flex-col items-start">
+          <div className="md:col-span-6 lg:col-span-4 text-right flex flex-col items-start">
             <div className="mb-6">
-              <Link href="/">
+              <Link href="/" className="inline-flex items-center min-h-11">
                 <Image
                   width={180}
                   height={60}
@@ -112,7 +112,7 @@ export default function Footer() {
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 bg-white/5 rounded-xl border border-white/10 hover:border-orange-500/50 hover:text-orange-500 transition-all shadow-sm"
+                  className="p-3 bg-white/5 rounded-xl border border-white/10 hover:border-orange-500/50 hover:text-orange-500 transition-all shadow-sm"
                 >
                   <item.Icon className="h-5 w-5" />
                 </Link>
@@ -121,27 +121,27 @@ export default function Footer() {
           </div>
 
           {/* روابط سريعة */}
-          <div className="md:col-span-2 text-right">
+          <div className="md:col-span-3 lg:col-span-2 text-right">
             <h4 className="text-white font-bold mb-6">روابط سريعة</h4>
-            <ul className="space-y-4 text-gray-400 text-sm">
-              <li><Link href="/" className="hover:text-orange-500 transition-colors">الرئيسية</Link></li>
-              <li><Link href="/services" className="hover:text-orange-500 transition-colors">خدماتنا</Link></li>
-              <li><Link href="/portfolio" className="hover:text-orange-500 transition-colors">أعمالنا</Link></li>
-              <li><Link href="/about" className="hover:text-orange-500 transition-colors">من نحن</Link></li>
-              <li><Link href="/blog" className="hover:text-orange-500 transition-colors">المدونة</Link></li>
-              <li><Link href="/contact" className="hover:text-orange-500 font-bold transition-colors">تواصل معنا</Link></li>
+            <ul className="text-gray-400 text-sm">
+              <li><Link href="/" className="hover:text-orange-500 transition-colors inline-flex items-center min-h-11">الرئيسية</Link></li>
+              <li><Link href="/services" className="hover:text-orange-500 transition-colors inline-flex items-center min-h-11">خدماتنا</Link></li>
+              <li><Link href="/portfolio" className="hover:text-orange-500 transition-colors inline-flex items-center min-h-11">أعمالنا</Link></li>
+              <li><Link href="/about" className="hover:text-orange-500 transition-colors inline-flex items-center min-h-11">من نحن</Link></li>
+              <li><Link href="/blog" className="hover:text-orange-500 transition-colors inline-flex items-center min-h-11">المدونة</Link></li>
+              <li><Link href="/contact" className="hover:text-orange-500 font-bold transition-colors inline-flex items-center min-h-11">تواصل معنا</Link></li>
             </ul>
           </div>
 
-          <div className="md:col-span-2 text-right">
+          <div className="md:col-span-3 lg:col-span-2 text-right">
             <h4 className="text-white font-bold mb-6">قانوني</h4>
-            <ul className="space-y-4 text-gray-400 text-sm">
-              <li><Link href="/private" className="hover:text-orange-500 transition-colors">الخصوصية</Link></li>
-              <li><Link href="/terms" className="hover:text-orange-500 transition-colors">الشروط والأحكام</Link></li>
+            <ul className="text-gray-400 text-sm">
+              <li><Link href="/private" className="hover:text-orange-500 transition-colors inline-flex items-center min-h-11">الخصوصية</Link></li>
+              <li><Link href="/terms" className="hover:text-orange-500 transition-colors inline-flex items-center min-h-11">الشروط والأحكام</Link></li>
             </ul>
           </div>
 
-          <div className="md:col-span-4">
+          <div className="md:col-span-6 lg:col-span-4">
             <div className="bg-[#252841] p-8 rounded-[32px] border border-white/5 relative overflow-hidden">
               <div className="absolute -top-2 -left-2 bg-orange-500/10 p-4 rounded-full blur-xl"></div>
               <HiOutlineMap className="text-orange-500 mb-4 h-6 w-6" />
@@ -157,7 +157,7 @@ export default function Footer() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="البريد الإلكتروني" 
-                  className="bg-transparent flex-grow py-2 text-sm outline-none text-white placeholder:text-gray-600"
+                  className="bg-transparent flex-grow min-w-0 py-3 text-sm outline-none text-white placeholder:text-gray-600"
                   disabled={isLoading}
                 />
                 <button 
@@ -172,7 +172,7 @@ export default function Footer() {
                   )}
                 </button>
               </form>
-              <p className="text-[10px] text-gray-500 mt-4 text-center">بشراكتك معنا، أنت توافق على سياسة الخصوصية الخاصة بنا.</p>
+              <p className="text-xs text-gray-500 mt-4 text-center">بشراكتك معنا، أنت توافق على سياسة الخصوصية الخاصة بنا.</p>
             </div>
           </div>
 

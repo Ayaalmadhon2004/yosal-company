@@ -15,7 +15,7 @@ const buttonVariants = cva(
         beige: "bg-[#EDE7D1] text-[#E6740F] hover:opacity-90 shadow-lg",
       },
       size: {
-        sm: "h-9 px-5 text-sm rounded-xl",
+        sm: "h-11 px-5 text-sm rounded-xl",
         md: "h-12 px-8 text-base rounded-xl",
         lg: "h-14 px-10 text-lg rounded-[14px]", 
       },
