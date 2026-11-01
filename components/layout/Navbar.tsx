@@ -33,7 +33,7 @@ export default function Navbar() {
       <nav
         aria-label="التنقل الرئيسي"
         className={cn(
-          "fixed top-0 w-full z-[9999] transition-colors duration-500", 
+          "nav-enter fixed top-0 w-full z-[9999] transition-colors duration-500", 
           "bg-background border-b border-white/5 py-3 shadow-2xl" 
         )}
         dir="rtl"
