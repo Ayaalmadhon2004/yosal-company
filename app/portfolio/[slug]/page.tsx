@@ -5,7 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { resolveImageUrl, shouldSkipOptimization } from "@/components/sections/portfolio/imageUtils";
-import { Cloud,  ShieldCheck, LucideIcon } from "lucide-react";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/jsonld";
+import { Cloud, ShieldCheck, LucideIcon } from "lucide-react";
 
 // دالة ربط أيقونات الـ API بمكتبة الأيقونات
 const getIcon = (iconName: string): LucideIcon => {
@@ -80,8 +82,15 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   
   if (!project) notFound();
 
+  const breadcrumbs = breadcrumbJsonLd([
+    { name: "الرئيسية", path: "/" },
+    { name: "أعمالنا", path: "/portfolio" },
+    { name: project.title, path: `/portfolio/${slug}` },
+  ]);
+
   return (
     <div className="min-h-screen bg-background text-white pt-24 pb-32" dir="rtl">
+      <JsonLd data={breadcrumbs} />
       <div className="container mx-auto px-6 max-w-6xl">
         
         {/* الجزء العلوي */}
