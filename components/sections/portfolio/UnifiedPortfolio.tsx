@@ -1,5 +1,5 @@
 "use client";
-import { Stagger, StaggerItem } from "@/components/ui/Motion";
+import { Reveal } from "@/components/ui/Motion";
 
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
@@ -95,7 +95,7 @@ export default function UnifiedPortfolio({ isHomePage = false, className, initia
                 key={cat.slug}
                 onClick={() => handleTabChange(cat.name)}
                 className={cn(
-                  "px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 border",
+                  "px-5 sm:px-6 min-h-11 rounded-full text-sm font-bold transition-all duration-300 border",
                   activeTab === cat.name 
                     ? "bg-primary text-white border-primary shadow-lg shadow-primary/20" 
                     : "bg-secondary/20 text-muted-foreground border-white/5 hover:border-primary/40 hover:text-primary"
@@ -113,31 +113,34 @@ export default function UnifiedPortfolio({ isHomePage = false, className, initia
             <Loader2 className="w-10 h-10 text-primary animate-spin" />
           </div>
         ) : (
-          <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project) => (
-              <StaggerItem key={project.id} className="h-full"><Link 
+          // كل بطاقة تظهر بشكل مستقل: حاوية Stagger الطويلة لا تصل أبداً لنسبة الظهور المطلوبة على الموبايل فتبقى الشبكة مخفية
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {projects.map((project, index) => (
+              <Reveal key={project.id} className="h-full" delay={(index % 3) * 0.08}><Link 
                 href={`/portfolio/${project.slug}`}
                 className="group relative overflow-hidden rounded-[2.5rem] aspect-[4/3] bg-secondary/10 border border-white/5 block hover:-translate-y-2 transition-all duration-500"
               >
-                <Image
-                  src={project.image_url || "/assets/pic.png"}
-                  alt={project.title}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  unoptimized
-                />
+                {project.image_url && (
+                  <Image
+                    src={project.image_url}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    unoptimized
+                  />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F1E] via-transparent to-transparent opacity-80" />
-                <div className="absolute bottom-8 right-8 left-8 text-right z-10">
-                  <span className="text-primary text-xs font-black mb-2 block uppercase">
+                <div className="absolute bottom-6 right-6 left-6 sm:bottom-8 sm:right-8 sm:left-8 text-right z-10">
+                  <span className="text-primary text-xs font-black mb-2 block uppercase line-clamp-1">
                     {project.category_name}
                   </span>
-                  <h3 className="text-xl font-black text-white group-hover:text-primary transition-colors">
+                  <h3 className="text-lg sm:text-xl font-black text-white group-hover:text-primary transition-colors line-clamp-2 leading-snug">
                     {project.title}
                   </h3>
                 </div>
-              </Link></StaggerItem>
+              </Link></Reveal>
             ))}
-          </Stagger>
+          </div>
         )}
 
         {isHomePage && !loading && projects.length > 0 && (
