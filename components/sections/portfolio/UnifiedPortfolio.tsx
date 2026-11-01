@@ -38,8 +38,6 @@ export default function UnifiedPortfolio({ isHomePage = false, className, initia
       
       const json = await response.json();
       
-      // لنطبع البيانات لنرى هيكلها الحقيقي
-      console.log("هيكل البيانات المستلم:", json);
 
       // هنا التعديل: لنحاول الوصول للبيانات بطريقة أكثر أماناً
       // إذا كان الـ API يرسل البيانات مباشرة في json.data أو json مباشرة
