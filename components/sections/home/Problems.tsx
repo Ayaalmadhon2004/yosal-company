@@ -17,11 +17,11 @@ export default function Problems() {
           </h2>
         </Reveal>
 
-        <Stagger className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <Stagger className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {problemsData.map((prob) => (
             <StaggerItem key={prob.id} className="h-full">
             <AppCard 
-              className="glass-card p-10 text-center flex flex-col items-center border-none h-full"
+              className="glass-card p-8 lg:p-10 text-center flex flex-col items-center border-none h-full"
             >
               <div className="mb-6">
                 {prob.id === 1 && <Target className="h-12 w-12 text-primary" />}

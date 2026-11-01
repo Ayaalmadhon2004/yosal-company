@@ -43,7 +43,7 @@ export default function Stats() {
         <p className="text-primary text-sm font-bold mb-4 tracking-[0.2em] uppercase">
           مسيرة من الإبداع
         </p>
-        <h2 className="text-4xl md:text-5xl font-black mb-20 text-white">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-12 md:mb-20 text-white">
           أرقام تتحدث عن نجاحاتنا
         </h2>
         </Reveal>

@@ -43,7 +43,7 @@ export default function ProjectAuditForm() {
       <div className="bg-[#2d345a] rounded-2xl p-5 mb-8 text-center border border-white/5">
         <span className="text-orange-400 font-bold text-sm block mb-2">عرض خاص</span>
         <h3 className="text-white font-bold text-lg mb-2">احصل على تقييم مجاني لمتجرك/مشروعك</h3>
-        <p className="text-gray-400 text-xs leading-relaxed">
+        <p className="text-gray-400 text-sm leading-relaxed">
           سنقوم بإعطائك المعلومات الكافية لمعرفة خطوتك القادمة في التسويق الإلكتروني عن طريق تحليل سريع لنقاط الضعف والقوة.
         </p>
       </div>
@@ -82,7 +82,7 @@ export default function ProjectAuditForm() {
           {loading ? "جاري المعالجة..." : "أحصل على التقييم"}
         </AppButton>
 
-        <p className="text-center text-gray-500 text-[10px] mt-4">
+        <p className="text-center text-gray-400 text-xs mt-4">
           نحن نحترم خصوصيتك. بياناتك آمنة معنا.
         </p>
       </form>

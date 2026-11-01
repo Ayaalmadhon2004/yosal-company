@@ -38,7 +38,7 @@ export default function WhyUs() {
             </Stagger>
           </Reveal>
 
-          <Reveal x={-40} delay={0.2} className="w-full lg:w-1/2 relative aspect-square rounded-4xl overflow-hidden border border-white/10">
+          <Reveal x={-40} delay={0.2} className="w-full lg:w-1/2 relative aspect-[4/3] sm:aspect-video lg:aspect-square rounded-4xl overflow-hidden border border-white/10">
             <Image 
               src="/assets/dashboard.png"
               alt="لماذا يختارنا عمالقة السوق"
