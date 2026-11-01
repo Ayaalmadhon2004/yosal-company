@@ -184,6 +184,8 @@ flowchart LR
 ```
 
 - **الـ Backend:** `lib/api.ts` يقرأ `NEXT_PUBLIC_API_URL` ويوفّر `getDashboardData()` (جلب بيانات لوحة الموقع مع `revalidate` كل ساعة) و`sendProjectRequest()` (إرسال طلب مشروع من نماذج التواصل). عند فشل الطلب تُرجَع `null` ويُسجَّل الخطأ.
+- **مصدر واحد للروابط:** كل روابط الـ Backend تمر عبر `API_ENDPOINTS` والدوال المساعدة في `lib/api.ts` (`getServices`, `getPackages`, `getProjects`, `getTestimonials`, `getFaqs`, `subscribeToNewsletter`…)، والأخطاء تُسجَّل عبر `lib/logger.ts`.
+- **Sitemap:** `app/sitemap.ts` يضيف دائماً الصفحات الثابتة وخدمات `servicesData`؛ أما المشاريع والمقالات فتُجلب مع timeout ومحاولة إعادة واحدة، وإن كان السيرفر (Render المجاني) نائماً تُتجاهل دون فشل البناء.
 - **البيانات الثابتة:** مجلد `constants/` يحوي محتوى لا يأتي من الـ API (مقالات المدونة التجريبية، آراء العملاء، الفريق، بيانات الموقع) ويُستورد مباشرة في المكوّنات.
 - **الحالة:** `hooks/useDashboardStore.ts` يشارك بيانات الـ Backend بين المكوّنات.
 
