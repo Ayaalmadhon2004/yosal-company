@@ -11,7 +11,7 @@ export default function TermsContent() {
         
         {/* القسم الأول: شروط الاستخدام */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <div className="lg:col-span-8 bg-secondary/30 p-10 rounded-[2.5rem] border border-white/5 relative overflow-hidden group">
+          <div className="lg:col-span-8 bg-secondary/30 p-6 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] border border-white/5 relative overflow-hidden group">
              {/* تأثير ضوئي خلفي */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl -translate-y-1/2 translate-x-1/2" />
             
@@ -19,10 +19,10 @@ export default function TermsContent() {
               <h3 className="text-2xl font-black text-foreground">شروط الاستخدام</h3>
               <Box className="text-primary w-7 h-7 transition-transform group-hover:rotate-12" />
             </div>
-            <p className="text-muted-foreground leading-loose text-lg">
+            <p className="text-muted-foreground leading-loose text-base sm:text-lg">
               باستخدامك لموقع <span className="text-foreground font-bold">يوصل</span> أو خدماتنا، فإنك توافق صراحة على الالتزام بهذه الشروط. نحن نحتفظ بالحق في تحديث هذه البنود في أي وقت، وسيتم إخطار المستخدمين النشطين بأي تغييرات جوهرية.
             </p>
-            <p className="text-muted-foreground leading-loose text-lg mt-4">
+            <p className="text-muted-foreground leading-loose text-base sm:text-lg mt-4">
               يجب ألا يتم استخدام خدماتنا لأي غرض غير قانوني أو غير مصرح به. يلتزم المستخدم بتقديم معلومات دقيقة ومحدثة عند طلب أي استشارة أو خدمة تسويقية.
             </p>
           </div>
@@ -43,7 +43,7 @@ export default function TermsContent() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
           {/* كرت اتفاقية الخدمة */}
-          <div className="lg:col-span-5 bg-secondary/30 p-10 rounded-[2.5rem] border border-white/5">
+          <div className="lg:col-span-5 bg-secondary/30 p-6 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] border border-white/5">
             <div className="flex items-center gap-4 mb-8">
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                 <UserCheck className="text-primary w-7 h-7" />
@@ -69,14 +69,14 @@ export default function TermsContent() {
           </div>
 
           {/* كرت الملكية الفكرية */}
-          <div className="lg:col-span-7  p-10 rounded-[2.5rem] border border-white/10 shadow-inner relative overflow-hidden">
+          <div className="lg:col-span-7  p-6 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] border border-white/10 shadow-inner relative overflow-hidden">
             <div className="flex items-center gap-4 mb-8">
                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                 <Copyright className="text-primary w-7 h-7" />
               </div>
               <h3 className="text-2xl font-black text-foreground">الملكية الفكرية</h3>
             </div>
-            <p className="text-muted-foreground leading-relaxed mb-8 text-lg">
+            <p className="text-muted-foreground leading-relaxed mb-8 text-base sm:text-lg">
               جميع المحتويات، التصاميم، والأكواد البرمجية التي تطورها يوصل تظل ملكية فكرية للوكالة حتى يتم سداد كامل المستحقات، وبعد ذلك تنتقل ملكية المخرجات النهائية للعميل.
             </p>
             

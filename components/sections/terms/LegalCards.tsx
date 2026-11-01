@@ -9,7 +9,7 @@ export default function LegalCards() {
       <div className="container mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8">
         
         {/* كرت حدود المسؤولية - Dark Theme */}
-        <div className="lg:col-span-3 bg-secondary/30 p-10 rounded-[2.5rem] border border-white/5 relative overflow-hidden group">
+        <div className="lg:col-span-3 bg-secondary/30 p-6 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] border border-white/5 relative overflow-hidden group">
           {/* لمسة جمالية خلفية */}
           <div className="absolute top-0 left-0 w-32 h-32 bg-primary/5 blur-3xl -translate-x-1/2 -translate-y-1/2" />
           
@@ -18,7 +18,7 @@ export default function LegalCards() {
             <ShieldAlert className="text-primary w-8 h-8 transition-transform group-hover:scale-110" aria-hidden="true" />
           </div>
           
-          <p className="text-muted-foreground leading-loose mb-8 font-medium text-lg">
+          <p className="text-muted-foreground leading-loose mb-8 font-medium text-base sm:text-lg">
             لا تتحمل <span className="text-foreground font-bold">يوصل</span> المسؤولية عن أي خسائر تجارية غير مباشرة، أو فقدان بيانات، أو تعطل في الخدمات ناتج عن منصات الطرف الثالث (مثل فيسبوك، جوجل، أو خدمات الاستضافة).
           </p>
           
@@ -31,7 +31,7 @@ export default function LegalCards() {
         </div>
 
         {/* كرت القانون الحاكم - Brand Theme */}
-        <div className="lg:col-span-2 bg-primary p-10 rounded-[2.5rem] text-primary-foreground text-center flex flex-col justify-center items-center shadow-2xl shadow-primary/20 group transition-all duration-500 hover:-translate-y-1">
+        <div className="lg:col-span-2 bg-primary p-6 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] text-primary-foreground text-center flex flex-col justify-center items-center shadow-2xl shadow-primary/20 group transition-all duration-500 hover:-translate-y-1">
           <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mb-6 transition-transform group-hover:rotate-12">
              <Landmark className="w-10 h-10 opacity-90" aria-hidden="true" />
           </div>

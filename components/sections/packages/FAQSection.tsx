@@ -34,7 +34,7 @@ export default function FAQSection() {
             <Sparkles className="w-3 h-3" />
             <span>لديك تساؤلات؟</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-black text-foreground mb-4">الأسئلة الشائعة</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground mb-4">الأسئلة الشائعة</h2>
           <div className="w-16 h-1 bg-primary mx-auto rounded-full opacity-50" />
         </div>
 
@@ -53,11 +53,11 @@ export default function FAQSection() {
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full flex items-center justify-between p-6 md:p-8 text-right outline-none"
+                  className="w-full flex items-center justify-between p-6 md:p-8 text-right outline-none gap-3"
                 >
-                  <div className="flex items-center gap-5">
+                  <div className="flex items-center gap-3 sm:gap-5 min-w-0">
                     <div className={cn(
-                      "w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300",
+                      "w-10 h-10 shrink-0 rounded-xl flex items-center justify-center transition-all duration-300",
                       isOpen ? "bg-primary text-white rotate-[15deg]" : "bg-secondary/50 text-muted-foreground group-hover:text-primary"
                     )}>
                       <HelpCircle className="w-5 h-5" />
@@ -70,7 +70,7 @@ export default function FAQSection() {
                     </span>
                   </div>
                   <ChevronDown className={cn(
-                    "w-6 h-6 text-muted-foreground transition-all duration-500",
+                    "w-6 h-6 shrink-0 text-muted-foreground transition-all duration-500",
                     isOpen && "rotate-180 text-primary"
                   )} />
                 </button>
@@ -83,7 +83,7 @@ export default function FAQSection() {
                   )}
                 >
                   <div className="overflow-hidden">
-                    <div className="p-8 pt-0 text-muted-foreground leading-relaxed text-base md:text-lg mr-14 border-r-2 border-primary/20 ml-6 mb-4">
+                    <div className="p-4 pt-0 sm:p-8 sm:pt-0 text-muted-foreground leading-relaxed text-base md:text-lg mr-6 sm:mr-14 border-r-2 border-primary/20 ml-4 sm:ml-6 mb-4">
                       {faq.answer}
                     </div>
                   </div>
