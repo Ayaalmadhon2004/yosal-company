@@ -1,5 +1,6 @@
 import { AppButton } from "../ui/AppButton";
 import DataForm from "../form/DataForm";
+import { Reveal, Stagger, StaggerItem } from "../ui/Motion";
 
 export default function Hero() {
   const WHATSAPP_LINK = "https://wa.link/4ddhsa";
@@ -11,25 +12,32 @@ export default function Hero() {
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
           
-          <div className="lg:w-1/2 text-right">
+          <Stagger immediate delay={0.1} stagger={0.12} className="lg:w-1/2 text-right">
+            <StaggerItem>
             <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full mb-8">
               <span className="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_var(--primary)]" />
               <span className="text-primary text-tag-sm font-bold">
                 وكالة تسويق رقمي متخصصة للسوق السعودي
               </span>
             </div>
+            </StaggerItem>
             
+            <StaggerItem>
             <h1 className="text-3xl md:text-7xl lg:text-[40px] font-black text-foreground leading-[1.6] tracking-tighter mb-8">
               نصيغ الفخامة 
               الرقمية لتقود <br className="mb-3"/>
              <p >علامتك <span className="text-primary">لمكانتها المستحقة</span>  </p>
             </h1>
+            </StaggerItem>
             
+            <StaggerItem>
             <p className="text-muted-foreground text-body mb-12 max-w-xl leading-relaxed">
               استراتيجيات تسويقية تُرسم بدقة، وهويات بصرية تفيض بالجمال؛ 
               لنمنح اسمك حضوراً ذكياً يتحدث عنك في كل مكان.
             </p>
+            </StaggerItem>
             
+            <StaggerItem>
             <div className="flex flex-wrap gap-6 justify-start items-center">
               <AppButton
                 variant="outline"
@@ -52,11 +60,12 @@ export default function Hero() {
                 </a>
               </AppButton>
             </div>
+            </StaggerItem>
 
-          </div>
+          </Stagger>
 
           {/* الجانب الأيسر: الفورم */}
-          <div className="lg:w-1/2 flex justify-center lg:justify-end w-full">
+          <Reveal x={-40} delay={0.35} className="lg:w-1/2 flex justify-center lg:justify-end w-full">
             <div className="w-full max-w-md relative group">
               {/* تأثير إضاءة خلف الفورم */}
               <div className="absolute inset-0 bg-primary/10 blur-[100px] -z-10 group-hover:bg-primary/20 transition-colors duration-700" />
@@ -64,7 +73,7 @@ export default function Hero() {
                  <DataForm />
               </div>
             </div>
-          </div>
+          </Reveal>
           
         </div>
       </div>

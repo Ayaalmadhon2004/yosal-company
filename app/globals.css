@@ -88,3 +88,14 @@
     @apply bg-brand-dark text-white font-cairo antialiased;
   }
 }
+
+/* ===== حركة الخلفية الهادئة (تتوقف تلقائياً مع "تقليل الحركة") ===== */
+@keyframes float-slow {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(30px, 40px, 0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-float-slow { animation: float-slow 18s ease-in-out infinite; }
+  .animate-float-slower { animation: float-slow 26s ease-in-out infinite reverse; }
+}
