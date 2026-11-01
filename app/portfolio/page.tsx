@@ -4,6 +4,20 @@ import ReadyResult from "@/components/sections/ReadyResults";
 import Stats from "@/components/sections/home/Stats";
 import { getDashboardData } from "@/lib/api";
 import UnifiedPortfolio from "@/components/sections/portfolio/UnifiedPortfolio";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "أعمالنا",
+  description:
+    "شاهد مشاريع وقصص نجاح وكالة يوصل مع عملائها في السوق السعودي، ونتائج حقيقية في التسويق الرقمي والمتاجر الإلكترونية والمواقع.",
+  alternates: { canonical: "/portfolio" },
+  openGraph: {
+    title: "أعمالنا",
+    description:
+      "شاهد مشاريع وقصص نجاح وكالة يوصل مع عملائها في السوق السعودي، ونتائج حقيقية في التسويق الرقمي والمتاجر الإلكترونية والمواقع.",
+    url: "/portfolio",
+  },
+};
 
 export default async function PortfolioPage() {
   const dashboardData = await getDashboardData();

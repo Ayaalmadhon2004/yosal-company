@@ -1,10 +1,19 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getPosts, extractPosts } from "@/lib/api";
 import BlogContent from "@/components/sections/blog/BlogContent"; 
 
-export const metadata = {
-  title: "مدونة يوصل | أحدث استراتيجيات التسويق والنمو الرقمي",
-  description: "اكتشف مقالات حصرية حول تطوير الأنظمة، الـ SaaS، وأسرار النمو التجاري.",
+export const metadata: Metadata = {
+  title: "المدونة",
+  description:
+    "اكتشف مقالات حصرية من وكالة يوصل حول التسويق الرقمي، تطوير الأنظمة، الـ SaaS، وأسرار النمو التجاري.",
+  alternates: { canonical: "/blog" },
+  openGraph: {
+    title: "المدونة",
+    description:
+      "اكتشف مقالات حصرية من وكالة يوصل حول التسويق الرقمي، تطوير الأنظمة، الـ SaaS، وأسرار النمو التجاري.",
+    url: "/blog",
+  },
 };
 
 const BlogSkeleton = () => (

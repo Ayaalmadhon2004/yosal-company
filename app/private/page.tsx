@@ -5,6 +5,20 @@ import PrivacySidebar from "@/components/sections/privacy/PrivacySidebar";
 import PrivacyIntroduction from "@/components/sections/privacy/PrivacyIntroduction";
 import DataCollectionSection from "@/components/sections/privacy/DataCollectionSection";
 import Image from 'next/image';
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "سياسة الخصوصية",
+  description:
+    "تعرف على كيفية جمع وكالة يوصل لبياناتك واستخدامها وحمايتها، وحقوقك في الخصوصية عند استخدام موقعنا وخدماتنا.",
+  alternates: { canonical: "/private" },
+  openGraph: {
+    title: "سياسة الخصوصية",
+    description:
+      "تعرف على كيفية جمع وكالة يوصل لبياناتك واستخدامها وحمايتها، وحقوقك في الخصوصية عند استخدام موقعنا وخدماتنا.",
+    url: "/private",
+  },
+};
 
 export default function PrivatePage() {
   return (

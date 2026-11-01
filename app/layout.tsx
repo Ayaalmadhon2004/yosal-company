@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Toaster } from "react-hot-toast";
 import Script from "next/script"; // استيراد مكون Script
+import { SITE_URL, SITE_NAME } from "@/lib/seo";
 
 const cairo = Cairo({
   subsets: ['arabic', 'latin'],
@@ -13,9 +14,29 @@ const cairo = Cairo({
   display: 'swap',
 });
 
+const siteDescription =
+  "وكالة تسويق رقمي متخصصة للسوق السعودي، نقدم استراتيجيات نمو وحلول إبداعية لعلامتك التجارية.";
+
 export const metadata: Metadata = {
-  title: "وكالة يوصل | نصيغ الفخامة الرقمية",
-  description: "وكالة تسويق رقمي متخصصة للسوق السعودي، نقدم استراتيجيات نمو وحلول إبداعية لعلامتك التجارية.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "وكالة يوصل | نصيغ الفخامة الرقمية",
+    template: "%s | وكالة يوصل",
+  },
+  description: siteDescription,
+  openGraph: {
+    type: "website",
+    locale: "ar_SA",
+    siteName: SITE_NAME,
+    title: "وكالة يوصل | نصيغ الفخامة الرقمية",
+    description: siteDescription,
+    url: "/",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "وكالة يوصل | نصيغ الفخامة الرقمية",
+    description: siteDescription,
+  },
 };
 
 export default function RootLayout({

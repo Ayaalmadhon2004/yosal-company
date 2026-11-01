@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import dynamic from 'next/dynamic';
@@ -30,20 +31,28 @@ const Testimonials = dynamic(() => import("@/components/sections/home/Testimonia
 const Faqs = dynamic(() => import("@/components/sections/home/Faqs"), { ssr: true, loading: () => <SectionSkeleton /> });
 const WhyChooseUs = dynamic(() => import("@/components/sections/WhyChooseUs"), { ssr: true, loading: () => <SectionSkeleton /> });
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const normalizedSlug = getNormalizedSlug(slug);
   const data = servicesData[normalizedSlug as keyof typeof servicesData];
-  
-  if (!data) return { title: "Service Not Found" };
 
+  if (!data) return { title: "الخدمة غير موجودة", robots: { index: false } };
+
+  const title = `${data.hero.title} ${data.hero.highlightText ?? ""}`.trim();
   return {
-    title: `${data.hero.title} | يوصل للخدمات التسويقية`,
+    title,
     description: data.hero.description,
+    alternates: { canonical: `/services/${normalizedSlug}` },
     openGraph: {
-      title: data.hero.title,
+      title,
       description: data.hero.description,
-      images: [data.hero.image],
+      url: `/services/${normalizedSlug}`,
+      images: data.hero.image ? [data.hero.image] : undefined,
+    },
+    twitter: {
+      title,
+      description: data.hero.description,
+      images: data.hero.image ? [data.hero.image] : undefined,
     },
   };
 }
