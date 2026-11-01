@@ -1,4 +1,5 @@
 "use client";
+import { RevealSection } from "@/components/ui/Motion";
 
 import Image from "next/image";
 import { MessageSquare, Calendar } from "lucide-react";
@@ -47,7 +48,7 @@ export default function ServiceHero({
   };
 
   return (
-    <section className="relative pt-32 pb-20 overflow-hidden">
+    <RevealSection className="relative pt-32 pb-20 overflow-hidden">
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 blur-[150px] rounded-full -z-10 animate-pulse-slow" />
       
       <div className="container mx-auto px-6 relative z-10">
@@ -142,6 +143,6 @@ export default function ServiceHero({
 
         </div>
       </div>
-    </section>
+    </RevealSection>
   );
 }

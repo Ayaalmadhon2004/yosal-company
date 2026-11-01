@@ -1,4 +1,5 @@
 "use client";
+import { RevealSection, Stagger, StaggerItem } from "@/components/ui/Motion";
 
 import React from "react";
 import Image from "next/image";
@@ -8,7 +9,7 @@ import { Plus, Users } from "lucide-react";
 
 export default function TeamSection() {
   return (
-    <section className="py-24  relative overflow-hidden" dir="rtl">
+    <RevealSection y={0} className="py-24  relative overflow-hidden" dir="rtl">
       {/* لمسات خلفية فنية */}
       <div className="absolute top-0 left-0 w-64 h-64 bg-primary/5 blur-[100px] rounded-full -z-10" />
 
@@ -39,9 +40,9 @@ export default function TeamSection() {
         </div>
 
         {/* شبكة أعضاء الفريق */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {TEAM_MEMBERS.map((member, index) => (
-            <div key={index} className="group relative">
+            <StaggerItem key={index} className="group relative">
               <div className="relative h-[500px] w-full rounded-[3rem] overflow-hidden border border-white/5 transition-all duration-700 group-hover:shadow-2xl group-hover:shadow-primary/10">
                 
                 {/* الصورة مع الفلتر */}
@@ -74,10 +75,10 @@ export default function TeamSection() {
                    </div>
                 </div>
               </div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </div>
-    </section>
+    </RevealSection>
   );
 }

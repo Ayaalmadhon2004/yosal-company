@@ -1,11 +1,12 @@
 "use client";
+import { RevealSection } from "@/components/ui/Motion";
 
 import React from "react";
 import { ArrowLeft, Sparkles } from "lucide-react";
 
 export default function CustomPlanSection() {
   return (
-    <section className="py-24 px-6 relative overflow-hidden" dir="rtl">
+    <RevealSection className="py-24 px-6 relative overflow-hidden" dir="rtl">
       <div className="container mx-auto max-w-6xl">
         <div className="relative bg-gradient-to-br from-primary to-[#D46D1A] rounded-[3rem] p-10 md:p-20 text-center overflow-hidden group shadow-2xl shadow-primary/20">
           
@@ -37,6 +38,6 @@ export default function CustomPlanSection() {
           <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('/grid-pattern.svg')] bg-center [mask-image:linear-gradient(white,transparent)]" />
         </div>
       </div>
-    </section>
+    </RevealSection>
   );
 }

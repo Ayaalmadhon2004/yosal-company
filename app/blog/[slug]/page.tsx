@@ -1,3 +1,4 @@
+import { RevealSection } from "@/components/ui/Motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Clock, Share2, Bookmark, ArrowRight } from "lucide-react";
@@ -54,7 +55,7 @@ export default async function BlogPostPage({
 
   return (
     <main className="min-h-screen bg-background text-right" dir="rtl">
-      <section className="relative bg-backgroundw h-[70vh] w-full flex items-end pb-20">
+      <RevealSection className="relative bg-backgroundw h-[70vh] w-full flex items-end pb-20">
         <Image 
           src={post.image || post.image_url || "/images/blog-placeholder.jpg"} 
           alt={post.title} 
@@ -113,9 +114,9 @@ export default async function BlogPostPage({
             
           </div>
         </div>
-      </section>
+      </RevealSection>
 
-      <section className="container mx-auto bg-background px-6 py-20 flex flex-col lg:flex-row gap-16">
+      <RevealSection className="container mx-auto bg-background px-6 py-20 flex flex-col lg:flex-row gap-16">
         <aside className="w-full lg:w-80 space-y-10">
           <div className="bg-[#12162b] p-8 rounded-[2rem] border border-gray-800 sticky top-32">
             <h3 className="text-white font-bold mb-6 pb-4 border-b border-gray-800 text-lg text-orange-500">محتويات المقال</h3>
@@ -144,9 +145,9 @@ export default async function BlogPostPage({
           />
           <ShareActions />
         </article>
-      </section>
+      </RevealSection>
 
-      <section className="bg-background py-20 border-t border-gray-800/50">
+      <RevealSection className="bg-background py-20 border-t border-gray-800/50">
         <div className="container mx-auto px-6">
           <div className="flex justify-between items-center mb-12">
             <h2 className="text-3xl font-bold text-white">مقالات قد تهمك</h2>
@@ -169,7 +170,7 @@ export default async function BlogPostPage({
             ))}
           </div>
         </div>
-      </section>
+      </RevealSection>
     </main>
   );
 }

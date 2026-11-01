@@ -1,3 +1,4 @@
+import { RevealSection } from "@/components/ui/Motion";
 import type { Metadata } from "next";
 import { cache } from "react";
 import { notFound } from "next/navigation";
@@ -114,7 +115,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </div>
 
         {/* قسم الحل الاستراتيجي (مدمج ديناميكياً) */}
-        <section className="mb-24">
+        <RevealSection className="mb-24">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-black mb-6">الحل الاستراتيجي</h2>
           </div>
@@ -132,11 +133,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               );
             })}
           </div>
-        </section>
+        </RevealSection>
 
 
         {/* معرض الصور */}
-        <section className="mb-24">
+        <RevealSection className="mb-24">
           <h2 className="text-3xl font-black mb-10">صور تفصيلية للمشروع</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {project.gallery?.map((imgUrl, i) => (
@@ -146,10 +147,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               </div>
             ))}
           </div>
-        </section>
+        </RevealSection>
 
         {/* قسم النتائج */}
-        <section className="py-20 my-20 bg-white/5 rounded-[3rem] border border-white/5">
+        <RevealSection className="py-20 my-20 bg-white/5 rounded-[3rem] border border-white/5">
           <div className="text-center mb-16"><h2 className="text-3xl font-black text-white">نتائج ملموسة</h2></div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 px-8">
             {project.stats?.map((stat, i) => (
@@ -159,9 +160,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               </div>
             ))}
           </div>
-        </section>
+        </RevealSection>
 
-        <section className="py-24 px-6" dir="rtl">
+        <RevealSection className="py-24 px-6" dir="rtl">
       <div className="container mx-auto max-w-6xl">
         <div className="relative bg-gradient-to-l from-[#E6740F] to-background rounded-4xl p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
           
@@ -179,7 +180,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </button>
         </div>
       </div>
-    </section>
+    </RevealSection>
       </div>
     </main>
   );

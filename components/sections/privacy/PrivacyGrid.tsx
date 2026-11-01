@@ -1,4 +1,5 @@
 "use client";
+import { Stagger, StaggerItem } from "@/components/ui/Motion";
 
 import React from "react";
 import { Info, Cookie, ShieldCheck, Scale } from "lucide-react";
@@ -56,9 +57,9 @@ export default function PrivacyGrid() {
           حقوقك كمستخدم
         </h3>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+        <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
           {userRights.map((item, idx) => (
-            <div key={idx} className="space-y-3 p-4 rounded-2xl transition-colors hover:/40 group/item">
+            <StaggerItem key={idx} className="space-y-3 p-4 rounded-2xl transition-colors hover:/40 group/item">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-primary opacity-50 group-hover/item:opacity-100 transition-opacity" />
                 <h4 className="text-foreground font-black text-sm">{item.title}</h4>
@@ -66,9 +67,9 @@ export default function PrivacyGrid() {
               <p className="text-muted-foreground text-[12px] leading-relaxed group-hover/item:text-foreground/80 transition-colors">
                 {item.desc}
               </p>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </div>
     </div>
   );

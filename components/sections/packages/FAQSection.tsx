@@ -1,4 +1,5 @@
 "use client";
+import { RevealSection, Stagger, StaggerItem } from "@/components/ui/Motion";
 
 import React, { useState } from "react";
 import { ChevronDown, HelpCircle, Sparkles } from "lucide-react";
@@ -23,7 +24,7 @@ export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-24  relative overflow-hidden" dir="rtl">
+    <RevealSection y={0} className="py-24  relative overflow-hidden" dir="rtl">
       {/* لمسة خلفية هادئة */}
       <div className="absolute bottom-0 right-0 w-64 h-64 bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
 
@@ -37,11 +38,11 @@ export default function FAQSection() {
           <div className="w-16 h-1 bg-primary mx-auto rounded-full opacity-50" />
         </div>
 
-        <div className="space-y-4">
+        <Stagger className="space-y-4">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
-              <div 
+              <StaggerItem 
                 key={index}
                 className={cn(
                   "group border rounded-[2rem] overflow-hidden transition-all duration-500",
@@ -87,11 +88,11 @@ export default function FAQSection() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </StaggerItem>
             );
           })}
-        </div>
+        </Stagger>
       </div>
-    </section>
+    </RevealSection>
   );
 }

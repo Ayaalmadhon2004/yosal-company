@@ -1,4 +1,5 @@
 "use client";
+import { RevealSection } from "@/components/ui/Motion";
 
 import Image from "next/image";
 import * as LucideIcons from "lucide-react"; // استيراد كل الأيقونات ككائن
@@ -25,7 +26,7 @@ export default function WhyChooseUs({ data }: WhyChooseUsProps) {
   const isImageArray = Array.isArray(data.image);
 
   return (
-    <section className="py-24 bg-transparent overflow-hidden">
+    <RevealSection className="py-24 bg-transparent overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           
@@ -100,6 +101,6 @@ export default function WhyChooseUs({ data }: WhyChooseUsProps) {
 
         </div>
       </div>
-    </section>
+    </RevealSection>
   );
 }

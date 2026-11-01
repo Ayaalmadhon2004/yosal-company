@@ -1,4 +1,5 @@
 "use client";
+import { RevealSection, Stagger, StaggerItem } from "@/components/ui/Motion";
 
 import { Suspense } from "react";
 import dynamic from 'next/dynamic';
@@ -18,7 +19,7 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen bg-background py-20 px-4">
       
-      <section className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 mb-24 text-right" dir="rtl">
+      <RevealSection className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 mb-24 text-right" dir="rtl">
         <div className="w-full md:w-1/2">
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 leading-tight">
             {contactHeroData.title} <span className="text-orange-500">{contactHeroData.highlightText}</span> 🚀
@@ -46,14 +47,14 @@ export default function ContactPage() {
             className="object-contain rounded-2xl" 
           />
         </div>
-      </section>
+      </RevealSection>
 
-      <section className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-24 px-6" dir="rtl">
+      <Stagger className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-24 px-6">
         {contactMethods.map((method) => {
           const IconComponent = icons[method.icon] || MessageSquare;
           
           return (
-            <div 
+            <StaggerItem 
               key={method.id} 
               className={`${method.color} p-8 rounded-[2rem] border ${method.accent || 'border-white/5'} transition-all duration-300 text-right flex flex-col h-full`}
             >
@@ -88,18 +89,18 @@ export default function ContactPage() {
                   {method.action}
                 </a>
               )}
-            </div>
+            </StaggerItem>
           );
         })}
-      </section>
+      </Stagger>
 
-      <section className="max-w-4xl mx-auto text-center" dir="rtl">
+      <RevealSection className="max-w-4xl mx-auto text-center" dir="rtl">
         <p className="text-orange-500 font-bold mb-2">نموذج التواصل المباشر</p>
         <h2 className="text-3xl font-bold text-white mb-10">أخبرنا عن طموحك</h2>
         <Suspense fallback={<div className="h-96 w-full bg-white/5 animate-pulse rounded-3xl" />}>
           <ContactForm />
         </Suspense>
-      </section>
+      </RevealSection>
     </main>
   );
 }

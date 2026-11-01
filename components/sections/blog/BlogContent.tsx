@@ -1,4 +1,5 @@
 "use client";
+import { Stagger, StaggerItem } from "@/components/ui/Motion";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -104,12 +105,11 @@ export default function BlogContent({ posts, params }: { posts: BlogListPost[]; 
       </section>
 
       {/* شبكة المقالات */}
-      <section className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <Stagger className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         {posts.map((post) => (
-          <Link
+          <StaggerItem key={post.id} className="h-full"><Link
             href={`/blog/${post.slug}`}
-            key={post.id}
-            className="group bg-white/5 rounded-[2.5rem] md:rounded-[2.8rem] overflow-hidden border border-white/5 hover:border-orange-500/30 transition-all duration-500 flex flex-col shadow-lg isolate"
+            className="h-full group bg-white/5 rounded-[2.5rem] md:rounded-[2.8rem] overflow-hidden border border-white/5 hover:border-orange-500/30 transition-all duration-500 flex flex-col shadow-lg isolate"
           >
             <div className="relative h-56 md:h-60 w-full overflow-hidden">
               <Image
@@ -136,9 +136,9 @@ export default function BlogContent({ posts, params }: { posts: BlogListPost[]; 
                 <ArrowLeft className="w-4 h-4 text-orange-500" />
               </div>
             </div>
-          </Link>
+          </Link></StaggerItem>
         ))}
-      </section>
+      </Stagger>
 
       <section className="max-w-6xl mx-auto px-6 py-24 md:py-32">
         <div className="bg-gradient-to-br from-white/5 to-background rounded-[2.5rem] md:rounded-[3.5rem] p-8 md:p-16 text-center border border-white/5 shadow-2xl relative overflow-hidden isolate">

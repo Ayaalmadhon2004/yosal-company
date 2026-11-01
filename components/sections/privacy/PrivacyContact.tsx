@@ -1,4 +1,5 @@
 "use client";
+import { RevealSection } from "@/components/ui/Motion";
 
 import React from "react";
 import { Mail, MessageSquare } from "lucide-react";
@@ -14,7 +15,7 @@ export default function PrivacyContact({
   className
 }: PrivacyContactProps) {
   return (
-    <section className={cn("mt-20 px-6 pb-12", className)} dir="rtl">
+    <RevealSection className={cn("mt-20 px-6 pb-12", className)} dir="rtl">
       <div className="max-w-6xl mx-auto border-2 border-primary/30 rounded-[3rem] p-8 md:p-14 flex flex-col lg:flex-row justify-between items-center gap-10 bg-secondary/20 backdrop-blur-md relative overflow-hidden group">
         
         {/* تأثير إضاءة خلفي عند التحويم */}
@@ -58,6 +59,6 @@ export default function PrivacyContact({
           </a>
         </div>
       </div>
-    </section>
+    </RevealSection>
   );
 }

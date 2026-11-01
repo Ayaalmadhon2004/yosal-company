@@ -1,8 +1,9 @@
+import { RevealSection } from "@/components/ui/Motion";
 import { Landmark, ShieldAlert, Info } from "lucide-react";
 
 export default function LegalCards() {
   return (
-    <section className="py-16 px-6" dir="rtl" aria-labelledby="legal-heading">
+    <RevealSection className="py-16 px-6" dir="rtl" aria-labelledby="legal-heading">
       <h2 id="legal-heading" className="sr-only">معلومات قانونية إضافية</h2>
       
       <div className="container mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8">
@@ -42,6 +43,6 @@ export default function LegalCards() {
         </div>
 
       </div>
-    </section>
+    </RevealSection>
   );
 }

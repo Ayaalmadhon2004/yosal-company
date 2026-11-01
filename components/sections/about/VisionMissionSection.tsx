@@ -1,4 +1,5 @@
 "use client";
+import { RevealSection } from "@/components/ui/Motion";
 
 import React from "react";
 import { Rocket, Eye, TrendingUp, Zap, UserCheck, Sparkles } from "lucide-react";
@@ -31,7 +32,7 @@ function StatItem({
 
 export default function VisionMissionSection() {
   return (
-    <section className="py-24  relative overflow-hidden" dir="rtl">
+    <RevealSection className="py-24  relative overflow-hidden" dir="rtl">
       {/* تأثير إضاءة خلفي */}
       <div className="absolute top-1/2 left-0 w-72 h-72 bg-primary/10 blur-[120px] rounded-full -z-10" />
 
@@ -100,6 +101,6 @@ export default function VisionMissionSection() {
         </div>
         
       </div>
-    </section>
+    </RevealSection>
   );
 }

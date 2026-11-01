@@ -1,4 +1,5 @@
 "use client";
+import { RevealSection, Stagger, StaggerItem } from "@/components/ui/Motion";
 
 import React, { useMemo } from "react";
 import { cn } from "@/lib/utils";
@@ -33,7 +34,7 @@ export default function StrategyDeliverables({ data, title }: { data: Deliverabl
   if (!data || !data.length) return null;
 
   return (
-    <section className="py-24 px-6 text-right bg-transparent" dir="rtl">
+    <RevealSection y={0} className="py-24 px-6 text-right bg-transparent" dir="rtl">
       <div className="max-w-[1200px] mx-auto">
         <div className="flex flex-col mb-16 justify-start group">
           <div className="flex items-center gap-4">
@@ -42,11 +43,11 @@ export default function StrategyDeliverables({ data, title }: { data: Deliverabl
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-fr">
+        <Stagger className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-fr">
           {cardsConfig.map((item, index) => {
             const IconComponent = (typeof item.icon === "string" ? ICON_MAP[item.icon] : undefined) || Settings2; 
             return (
-              <div key={`deliverable-${index}`} className={cn(
+              <StaggerItem key={`deliverable-${index}`} className={cn(
                   "rounded-[40px] p-10 relative overflow-hidden flex flex-col justify-center items-start border border-white/5 transition-all duration-500 hover:scale-[1.01] group",
                   item.gridClass,
                   item.isOrange ? "bg-primary shadow-2xl shadow-primary/10" : "bg-[#1A1D2E]/80 backdrop-blur-md"
@@ -60,12 +61,12 @@ export default function StrategyDeliverables({ data, title }: { data: Deliverabl
                     {item.desc}
                   </p>
                 </div>
-              </div>
+              </StaggerItem>
             );
           })}
-        </div>
+        </Stagger>
       </div>
-    </section>
+    </RevealSection>
   );
 }
 /******* */

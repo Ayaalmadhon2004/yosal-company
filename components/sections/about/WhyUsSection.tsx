@@ -1,4 +1,5 @@
 "use client";
+import { RevealSection, Stagger, StaggerItem } from "@/components/ui/Motion";
 
 import React from "react";
 import { Handshake, Paintbrush, BarChart3, Star } from "lucide-react";
@@ -23,7 +24,7 @@ const FEATURES = [
 
 export default function WhyUsSection() {
   return (
-    <section className="py-24  relative overflow-hidden" dir="rtl">
+    <RevealSection y={0} className="py-24  relative overflow-hidden" dir="rtl">
       {/* تأثيرات خلفية فنية */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full -z-10" />
       
@@ -41,9 +42,9 @@ export default function WhyUsSection() {
         </div>
 
         {/* شبكة الميزات */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {FEATURES.map((feature, index) => (
-            <div 
+            <StaggerItem 
               key={index} 
               className="group relative bg-secondary/10 p-10 rounded-[3rem] border border-white/5 hover:border-primary/30 transition-all duration-700 hover:-translate-y-3 overflow-hidden shadow-2xl"
             >
@@ -63,10 +64,10 @@ export default function WhyUsSection() {
 
               {/* لمعة خفيفة تظهر عند التحويم */}
               <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-primary/5 blur-[50px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </div>
-    </section>
+    </RevealSection>
   );
 }
