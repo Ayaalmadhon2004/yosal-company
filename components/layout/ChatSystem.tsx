@@ -1,18 +1,18 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { MessageCircle, Headset, X, Send, ArrowLeft, Sparkles, ChevronLeft } from "lucide-react";
+import { MessageCircle, Headset, X, Send, ArrowLeft, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+// true على العميل فقط (يتجنب عدم تطابق الـ hydration)
+const subscribeNoop = () => () => {};
+const useIsMounted = () => useSyncExternalStore(subscribeNoop, () => true, () => false);
 
 export default function ChatSystem() {
   const [activeView, setActiveView] = useState<"none" | "chat" | "whatsapp">("none");
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useIsMounted();
 
   const WHATSAPP_LINK = "https://wa.me/qr/YDPUM4DFRP4NP1";
 

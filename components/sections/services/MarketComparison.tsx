@@ -4,8 +4,18 @@ import React from "react";
 import { AlertTriangle, Sparkles, CheckCircle2, XCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+interface MarketComparisonData {
+  comparisonStyle?: string;
+  challengeTitle?: string;
+  challengeDescription?: string;
+  challenges?: string[];
+  solutionTitle?: string;
+  solutionDescription?: string;
+  solutions?: string[];
+}
+
 // المكون الآن يقبل الـ data كـ props
-export default function MarketComparison({ data }: { data: any }) {
+export default function MarketComparison({ data }: { data: MarketComparisonData }) {
   // التحقق من أن البيانات موجودة
   if (!data) return null;
 

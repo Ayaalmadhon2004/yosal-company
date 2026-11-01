@@ -20,7 +20,7 @@ export interface ServiceItem {
   description?: string;
   icon?: string;
   iconName?: string;
-  features?: any[];
+  features?: (string | { title: string })[];
 }
 
 // روابط الواتساب المعتمدة بناءً على الـ slugs الحقيقية المستلمة من الباكيند

@@ -48,7 +48,7 @@ const getProjectDetails = cache(async (slug: string) => {
     if (!res.ok) return null;
     const json = await res.json();
     return json.data;
-  } catch (error) {
+  } catch {
     return null;
   }
 });
@@ -141,6 +141,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {project.gallery?.map((imgUrl, i) => (
               <div key={i} className="relative aspect-video rounded-3xl overflow-hidden border border-white/10 group">
+                {/* eslint-disable-next-line @next/next/no-img-element -- remote gallery hosts are not configured for next/image */}
                 <img src={imgUrl} alt={`Gallery ${i}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
               </div>
             ))}

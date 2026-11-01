@@ -85,9 +85,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       />
 
           <div className="space-y-0"> 
-            {/*@ts-ignore */}
             {data.comparison && <Suspense fallback={<SectionSkeleton />}><MarketComparison data={data.comparison} /></Suspense>}
-            {/*@ts-ignore */}
             {data.deliverables && (
           <StrategyDeliverables 
             data={data.deliverables} 

@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo";
 import { servicesData } from "@/constants/servicesData";
-import { getDashboardData, getPosts } from "@/lib/api";
+import { extractPosts, getDashboardData, getPosts } from "@/lib/api";
 
 const PRIORITY = {
   home: 1,
@@ -46,9 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getPosts(),
   ]);
 
-  const posts: SluggedItem[] =
-    postsResponse?.data?.data ||
-    (Array.isArray(postsResponse?.data) ? postsResponse.data : []);
+  const posts: SluggedItem[] = extractPosts(postsResponse);
   const projects: SluggedItem[] = Array.isArray(dashboard?.portfolio)
     ? dashboard.portfolio
     : [];

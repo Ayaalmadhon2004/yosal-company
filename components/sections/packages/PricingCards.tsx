@@ -5,10 +5,26 @@ import { Check, X, Loader2, Zap } from "lucide-react";
 import { AppButton } from "@/components/ui/AppButton";
 import { cn } from "@/lib/utils";
 
+interface PackageFeature {
+  id: number | string;
+  feature_text: string;
+  is_available: boolean;
+}
+
+interface PricingPackage {
+  id: number | string;
+  name: string;
+  badge?: string;
+  short_description?: string;
+  price: string | number;
+  is_featured?: boolean;
+  features?: PackageFeature[];
+}
+
 const API_URL = "https://yosaal-website-backend.onrender.com/api/v1/packages";
 
 export default function PricingCards() {
-  const [packages, setPackages] = useState<any[]>([]);
+  const [packages, setPackages] = useState<PricingPackage[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false); 
 
@@ -64,7 +80,7 @@ export default function PricingCards() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary/5 blur-[120px] rounded-full -z-10" />
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {packages.map((pkg: any) => (
+        {packages.map((pkg) => (
           <div 
             key={pkg.id}
             className={cn(
@@ -101,7 +117,7 @@ export default function PricingCards() {
 
             <div className="space-y-5 mb-12 flex-grow text-right" dir="rtl">
               <p className="text-xs font-black text-primary/60 uppercase tracking-[0.2em] mb-6">ما تتضمنه الباقة:</p>
-              {pkg.features?.map((feature: any) => (
+              {pkg.features?.map((feature) => (
                 <div key={feature.id} className="flex items-start gap-4 group/item">
                   <div className={cn(
                     "shrink-0 w-6 h-6 rounded-lg flex items-center justify-center transition-all duration-300",

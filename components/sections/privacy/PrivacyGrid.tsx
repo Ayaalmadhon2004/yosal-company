@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { cn } from "@/lib/utils";
 import { Info, Cookie, ShieldCheck, Scale } from "lucide-react";
 
 export default function PrivacyGrid() {
@@ -28,7 +27,7 @@ export default function PrivacyGrid() {
         </p>
         <div className="/50 p-5 rounded-2xl border-r-4 border-primary shadow-sm italic">
           <p className="text-xs text-muted-foreground font-medium leading-relaxed">
-            "نحن نلتزم التزاماً تاماً بعدم بيع بياناتك لأي أطراف ثالثة لأغراض ترويجية تحت أي ظرف من الظروف."
+            &quot;نحن نلتزم التزاماً تاماً بعدم بيع بياناتك لأي أطراف ثالثة لأغراض ترويجية تحت أي ظرف من الظروف.&quot;
           </p>
         </div>
       </div>

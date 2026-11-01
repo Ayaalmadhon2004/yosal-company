@@ -5,7 +5,22 @@ import Link from "next/link";
 import { Search, Calendar, Clock, ArrowLeft } from "lucide-react";
 import ReadyResults from "@/components/sections/ReadyResults";
 
-export default function BlogContent({ posts, params }: { posts: any[]; params: any }) {
+interface BlogListPost {
+  id: string | number;
+  slug: string;
+  title: string;
+  image_url?: string;
+  short_description?: string;
+  date?: string;
+}
+
+interface BlogParams {
+  search?: string;
+  category?: string;
+  page?: string;
+}
+
+export default function BlogContent({ posts, params }: { posts: BlogListPost[]; params: BlogParams }) {
   const search = params.search;
 
   if (!posts || posts.length === 0) {
@@ -90,7 +105,7 @@ export default function BlogContent({ posts, params }: { posts: any[]; params: a
 
       {/* شبكة المقالات */}
       <section className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {posts.map((post: any) => (
+        {posts.map((post) => (
           <Link
             href={`/blog/${post.slug}`}
             key={post.id}

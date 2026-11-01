@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from 'next/link';
 import { 
@@ -17,17 +17,17 @@ import { HiOutlineMap } from "react-icons/hi2";
 import ChatSystem from "@/components/layout/ChatSystem"; 
 import { toast } from "react-hot-toast";
 
+// true على العميل فقط (يتجنب عدم تطابق الـ hydration)
+const subscribeNoop = () => () => {};
+const useIsMounted = () => useSyncExternalStore(subscribeNoop, () => true, () => false);
+
 export default function Footer() {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useIsMounted();
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   // الرابط الأساسي للباك إند (Render)
   const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://yosaal-website-backend.onrender.com/api/v1";
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();

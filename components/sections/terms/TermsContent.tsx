@@ -2,7 +2,6 @@
 
 import React from "react";
 import { CheckCircle2, Copyright, Box, UserCheck } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 export default function TermsContent() {
   return (

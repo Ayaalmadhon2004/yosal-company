@@ -1,12 +1,6 @@
 import ReadyForm from "@/components/form/ReadyForm";
-import { Link } from "lucide-react";
 
-interface ReadySectionProps {
-  variant?: "style1" | "style2";
-  className?: string;
-}
-
-export default function ReadySection({ variant = "style1", className }: ReadySectionProps) {
+export default function ReadySection() {
   return (
     <section className=" py-24" dir="rtl">
       <div className="container mx-auto px-6 max-w-7xl">

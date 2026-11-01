@@ -44,7 +44,7 @@ export default function ReadySection({ variant = "style1" }: ReadySectionProps) 
               </>
             ) : (
               <>
-                دعنا نناقش كيف يمكن لـ <span className="text-brand-orange font-bold">"يوصل"</span> أن تضاعف من وصول علامتك التجارية وتحقق أهدافك التسويقية بذكاء.
+                دعنا نناقش كيف يمكن لـ <span className="text-brand-orange font-bold">&quot;يوصل&quot;</span> أن تضاعف من وصول علامتك التجارية وتحقق أهدافك التسويقية بذكاء.
               </>
             )}
           </p>
