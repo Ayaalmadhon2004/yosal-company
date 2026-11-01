@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { getPosts } from "@/lib/api";
+import { getPosts, extractPosts } from "@/lib/api";
 import BlogContent from "@/components/sections/blog/BlogContent"; 
 
 export const metadata = {
@@ -30,7 +30,7 @@ export default async function BlogPage({
 
   // جلب البيانات في السيرفر
   const response = await getPosts(search, category, page);
-  const posts = response?.data?.data || response?.data || (Array.isArray(response) ? response : []);
+  const posts = extractPosts(response);
 
   return (
     <main className="min-h-screen bg-background pt-32 pb-0 text-right font-sans selection:bg-orange-500/30" dir="rtl">
