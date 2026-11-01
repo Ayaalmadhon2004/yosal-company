@@ -42,7 +42,41 @@ export const allTestimonials: Testimonial[] = [
   }
 ];
 
-export const servicesData: Record<string, any> = {
+export interface ServiceDetail {
+  title: string;
+  service_id: number;
+  layoutType: "big-right" | "big-left" | "equal";
+  hero: {
+    badge: string;
+    title: string;
+    highlightText: string;
+    subtitle?: string;
+    description: string;
+    image: string;
+    stats?: { value: string; label: string };
+    buttons?: { label: string; type: "primary" | "secondary" }[];
+  };
+  deliverables: { title: string; desc: string; icon: string; featured?: boolean }[];
+  testimonials: Testimonial[];
+  faqs: { id: number; question: string; answer: string }[];
+  comparison?: {
+    challengeTitle?: string;
+    challengeDescription?: string;
+    challenges: string[];
+    solutionTitle?: string;
+    solutionDescription?: string;
+    solutions: string[];
+  };
+  featuresSection?: {
+    title: string;
+    image: string | string[];
+    features: { title: string; description: string; icon: string }[];
+    stats?: { value: string; label: string };
+  };
+  steps: { number: string; title: string; desc: string }[];
+}
+
+export const servicesData: Record<string, ServiceDetail> = {
   "strategic-planning": {
     title: "ما الذي ستحصل عليه؟",
     service_id: 4,
