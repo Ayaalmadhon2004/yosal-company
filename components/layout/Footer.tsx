@@ -79,7 +79,7 @@ export default function Footer() {
           <div className="md:col-span-3 lg:col-span-2 text-right">
             <h2 className="text-white font-bold mb-6">قانوني</h2>
             <ul className="text-gray-400 text-sm">
-              <li><Link href="/private" className="hover:text-orange-500 transition-colors inline-flex items-center min-h-11">الخصوصية</Link></li>
+              <li><Link href="/privacy" className="hover:text-orange-500 transition-colors inline-flex items-center min-h-11">الخصوصية</Link></li>
               <li><Link href="/terms" className="hover:text-orange-500 transition-colors inline-flex items-center min-h-11">الشروط والأحكام</Link></li>
             </ul>
           </div>

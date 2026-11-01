@@ -23,7 +23,7 @@ const staticRoutes = [
   { path: "/packages", priority: PRIORITY.main },
   { path: "/contact", priority: PRIORITY.medium },
   { path: "/terms", priority: PRIORITY.legal },
-  { path: "/private", priority: PRIORITY.legal },
+  { path: "/privacy", priority: PRIORITY.legal },
 ];
 
 function toEntries(
