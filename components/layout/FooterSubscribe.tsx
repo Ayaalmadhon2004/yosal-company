@@ -55,13 +55,13 @@ export default function FooterSubscribe() {
 
   return (
     <div className="md:col-span-6 lg:col-span-4">
-      <div className="bg-[#252841] p-8 rounded-[32px] border border-white/5 relative overflow-hidden">
+      <div className="bg-brand-panel-alt p-8 rounded-[32px] border border-white/5 relative overflow-hidden">
         <div className="absolute -top-2 -left-2 bg-orange-500/10 p-4 rounded-full" aria-hidden="true"></div>
         <HiOutlineMap className="text-orange-500 mb-4 h-6 w-6" />
         
         <h2 className="text-lg font-black mb-4 text-white">كُن أول من يصله الإلهام</h2>
         
-        <form onSubmit={handleSubscribe} className="flex items-center gap-2 bg-[#1A1C2E] p-1.5 rounded-2xl border border-white/10 group focus-within:border-orange-500/50 transition-all">
+        <form onSubmit={handleSubscribe} className="flex items-center gap-2 bg-brand-deep p-1.5 rounded-2xl border border-white/10 group focus-within:border-orange-500/50 transition-all">
           <div className="pr-4">
              <IoMailOutline className="h-5 w-5 text-gray-400 group-focus-within:text-orange-500 transition-colors" />
           </div>

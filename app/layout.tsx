@@ -73,7 +73,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={`${cairo.className} bg-[#0F112B] bg-background text-white antialiased min-h-screen relative overflow-x-hidden flex flex-col`}>
+      <body className={`${cairo.className} bg-background text-white antialiased min-h-screen relative overflow-x-hidden flex flex-col`}>
         
         <div className="bg-blobs" aria-hidden="true" />
 

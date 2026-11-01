@@ -52,7 +52,7 @@ export default function Stats() {
           {statsData.map((stat) => (
             <StaggerItem key={stat.id} className="h-full">
             <div 
-              className="h-full group relative bg-[#1a1f35]/40 p-8 md:p-10 rounded-[2rem] border border-white/5 transition-all duration-500 hover:bg-[#1a1f35]/60 hover:-translate-y-3 hover:shadow-2xl hover:shadow-primary/10"
+              className="h-full group relative bg-brand-card/40 p-8 md:p-10 rounded-[2rem] border border-white/5 transition-all duration-500 hover:bg-brand-card/60 hover:-translate-y-3 hover:shadow-2xl hover:shadow-primary/10"
             >
               <div className="bg-primary w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-8 shadow-[0_8px_20px_rgba(245,130,32,0.3)] transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
                 {stat.icon === "video" && <Video className="h-7 w-7 text-white" />}

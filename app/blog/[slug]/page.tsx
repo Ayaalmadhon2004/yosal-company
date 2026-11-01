@@ -62,7 +62,7 @@ async function RelatedPosts({ category, slug }: { category?: string; slug: strin
           <Link
             href={`/blog/${item.slug}`}
             key={item.slug}
-            className="group bg-[#12162b] rounded-3xl p-4 border border-gray-800 hover:border-orange-500/30 transition-all shadow-lg"
+            className="group bg-brand-surface rounded-3xl p-4 border border-gray-800 hover:border-orange-500/30 transition-all shadow-lg"
           >
             <div className="relative h-44 rounded-2xl overflow-hidden mb-4">
               <Image
@@ -107,7 +107,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           sizes="100vw"
           unoptimized={shouldSkipOptimization(heroSrc)}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0d1d] via-[#0a0d1d]/60 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-night via-brand-night/60 to-transparent"></div>
 
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl space-y-6">
@@ -164,7 +164,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       {/* قسم عادي بدون RevealSection: المقال الطويل أطول من الشاشة بأضعاف فلا يصل أبداً لنسبة الظهور المطلوبة ويبقى مخفياً */}
       <section className="container mx-auto bg-background px-6 py-12 md:py-20 flex flex-col lg:flex-row gap-10 lg:gap-16">
         <aside className="order-2 lg:order-1 w-full lg:w-80 shrink-0 space-y-10">
-          <nav aria-labelledby="post-toc" className="bg-[#12162b] p-8 rounded-[2rem] border border-gray-800 lg:sticky lg:top-32">
+          <nav aria-labelledby="post-toc" className="bg-brand-surface p-8 rounded-[2rem] border border-gray-800 lg:sticky lg:top-32">
             <h2 id="post-toc" className="font-bold mb-6 pb-4 border-b border-gray-800 text-lg text-orange-500">محتويات المقال</h2>
             <ul className="space-y-4 text-gray-300 text-sm">
               <li className="pr-2 border-r border-orange-500">تحليل سلوك المستخدم</li>
@@ -173,11 +173,11 @@ export default async function BlogPostPage({ params }: PageProps) {
             </ul>
           </nav>
 
-          <div className="bg-orange-500 p-8 rounded-[2.5rem] text-[#0a0d1d] relative overflow-hidden group shadow-2xl">
+          <div className="bg-orange-500 p-8 rounded-[2.5rem] text-brand-night relative overflow-hidden group shadow-2xl">
             <div className="relative z-10">
               <h2 className="font-black text-2xl mb-4 leading-tight">دليل التجارة الإلكترونية الشامل</h2>
               <p className="text-sm font-medium mb-6">احصل على نسختك المجانية الآن وتعلم أسرار البيع في 2026.</p>
-              <button type="button" className="bg-[#0a0d1d] text-white w-full py-4 rounded-2xl font-bold hover:scale-105 transition-transform shadow-lg">تحميل الآن</button>
+              <button type="button" className="bg-brand-night text-white w-full py-4 rounded-2xl font-bold hover:scale-105 transition-transform shadow-lg">تحميل الآن</button>
             </div>
           </div>
         </aside>

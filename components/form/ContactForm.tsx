@@ -142,7 +142,7 @@ export default function ContactForm() {
           </div>
         </div>
 
-        <button type="submit" disabled={loading} className="w-full mt-10 bg-[#B34F00] hover:bg-[#9A4400] text-white font-black min-h-14 py-4 sm:py-5 rounded-[1.5rem] transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-xl shadow-primary/20">
+        <button type="submit" disabled={loading} className="w-full mt-10 bg-brand-cta hover:bg-brand-cta-hover text-white font-black min-h-14 py-4 sm:py-5 rounded-[1.5rem] transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-xl shadow-primary/20">
           {loading ? <><Loader2 aria-hidden="true" className="w-6 h-6 animate-spin" /><span className="sr-only">جاري الإرسال</span></> : <><span className="text-lg">إرسال طلبك الآن</span><Send aria-hidden="true" className="w-5 h-5 rotate-180" /></>}
         </button>
 

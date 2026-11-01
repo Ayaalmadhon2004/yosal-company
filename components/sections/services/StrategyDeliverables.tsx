@@ -43,7 +43,7 @@ export default function StrategyDeliverables({ data, title }: { data: Deliverabl
               <StaggerItem key={`deliverable-${index}`} className={cn(
                   "rounded-[40px] p-10 relative overflow-hidden flex flex-col justify-center items-start border border-white/5 transition-all duration-500 hover:scale-[1.01] group",
                   item.gridClass,
-                  item.isOrange ? "bg-[#B34F00] shadow-2xl shadow-primary/10" : "bg-[#1A1D2E]/80 backdrop-blur-md"
+                  item.isOrange ? "bg-brand-cta shadow-2xl shadow-primary/10" : "bg-brand-panel/80 backdrop-blur-md"
                 )}>
                 <div className="relative z-10 w-full">
                   <div className={cn("mb-6 p-4 rounded-2xl inline-block transition-colors duration-500", item.isOrange ? "bg-white/10 text-white" : "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white")}>
