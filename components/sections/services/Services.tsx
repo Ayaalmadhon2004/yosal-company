@@ -105,7 +105,7 @@ export default function Services({ data, className }: { data: ServiceItem[], cla
                   <div className="mt-auto space-y-4">
                     <Link 
                       href={`/services/${service.slug}`} 
-                      className="flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all group/link"
+                      className="flex items-center gap-2 min-h-11 text-primary font-bold hover:gap-3 transition-all group/link"
                     >
                       تفاصيل الخدمة <ArrowLeft className="w-4 h-4 transition-transform group-hover/link:-translate-x-1" />
                     </Link>
