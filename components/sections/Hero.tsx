@@ -20,9 +20,8 @@ export default function Hero() {
             </div>
             
             <h1 className="text-3xl md:text-7xl lg:text-[40px] font-black text-foreground leading-[1.6] tracking-tighter mb-8">
-              نصيغ الفخامة 
-              الرقمية لتقود <br className="mb-3"/>
-             <p >علامتك <span className="text-primary">لمكانتها المستحقة</span>  </p>
+              نصيغ الفخامة الرقمية لتقود
+              <span className="block">علامتك <span className="text-primary">لمكانتها المستحقة</span></span>
             </h1>
             
             <p className="text-muted-foreground text-body mb-12 max-w-xl leading-relaxed">
@@ -32,12 +31,13 @@ export default function Hero() {
             
             <div className="flex flex-wrap gap-6 justify-start items-center">
               <AppButton
+                asChild
                 variant="outline"
                 size="lg"
                 className="px-12 py-7 flex items-center gap-3 transition-all"
               >
                 <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                  <span className="order-1">واتساب</span>
+                  واتساب
                 </a>
               </AppButton>
 
@@ -45,7 +45,7 @@ export default function Hero() {
                 asChild
                 variant="primary"
                 size="lg"
-                className="px-12 py-7 transition-all duration-300"
+                className="px-12 py-7 transition-all duration-300 bg-[#B84F08] hover:bg-[#9E4306]"
               >
                 <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
                   ابدأ رحلتك الآن

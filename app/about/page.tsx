@@ -1,60 +1,40 @@
-import { Suspense } from "react";
-import dynamic from 'next/dynamic';
+import type { Metadata } from "next";
 import StorySection from "@/components/sections/about/StorySection";
+import VisionMissionSection from "@/components/sections/about/VisionMissionSection";
+import WhyUsSection from "@/components/sections/about/WhyUsSection";
+import TeamSection from "@/components/sections/about/TeamSection";
+import ReadyResults from "@/components/sections/ReadyResults";
 
-// Loader احترافي متناسق مع زوايا فيجما (40px) وألوان البراند
-const SkeletonLoader = () => (
-  <div className="animate-pulse container mx-auto px-6 py-20">
-    <div className="h-10 w-1/4 bg-brand-accent/20 rounded-xl mb-6" />
-    <div className="h-64 w-full bg-brand-accent/10 rounded-[40px]" />
-  </div>
-);
+const TITLE = "من نحن | وكالة يوصل للتسويق الرقمي";
+const DESCRIPTION =
+  "تعرّف على وكالة يوصل: رؤيتنا ورسالتنا وفريقنا المتخصص في التسويق الرقمي وبناء العلامات التجارية للسوق السعودي.";
 
-// استيراد المكونات ديناميكياً لتحسين أداء الصفحة (LCP)
-const VisionMissionSection = dynamic(() => import("@/components/sections/about/VisionMissionSection"), { 
-  ssr: true,
-  loading: () => <SkeletonLoader /> 
-});
-const WhyUsSection = dynamic(() => import("@/components/sections/about/WhyUsSection"), { 
-  ssr: true,
-  loading: () => <SkeletonLoader /> 
-});
-const TeamSection = dynamic(() => import("@/components/sections/about/TeamSection"), { 
-  ssr: true,
-  loading: () => <SkeletonLoader /> 
-});
-const ReadyResults = dynamic(() => import("@/components/sections/ReadyResults"), { 
-  ssr: true,
-  loading: () => <SkeletonLoader /> 
-});
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/about",
+    siteName: "وكالة يوصل",
+    locale: "ar_SA",
+    type: "website",
+  },
+};
 
+// The root layout already renders <main>, so this page only returns sections.
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-background text-white overflow-x-hidden">
-      
-      <section className="relative z-10">
-        <StorySection />
-      </section>
-      
+    <div className="min-h-screen bg-background text-white overflow-x-hidden">
+      <StorySection />
+
       <div className="space-y-20 pb-20">
-        
-        <Suspense fallback={<SkeletonLoader />}>
-          <VisionMissionSection />
-        </Suspense>
-
-        <Suspense fallback={<SkeletonLoader />}>
-          <WhyUsSection />
-        </Suspense>
-
-        <Suspense fallback={<SkeletonLoader />}>
-          <TeamSection />
-        </Suspense>
-
-        <Suspense fallback={<SkeletonLoader />}>
-          <ReadyResults variant="style2"/>
-        </Suspense>
-        
+        <VisionMissionSection />
+        <WhyUsSection />
+        <TeamSection />
+        <ReadyResults variant="style2" />
       </div>
-    </main>
+    </div>
   );
 }

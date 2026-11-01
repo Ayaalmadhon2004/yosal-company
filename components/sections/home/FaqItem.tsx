@@ -14,17 +14,18 @@ export default function FaqItem({ question, answer }: { question: string, answer
       <div className="relative">
         <button 
           onClick={() => setIsOpen(!isOpen)}
+          aria-expanded={isOpen}
           className="w-full flex justify-between items-center p-6 font-bold text-lg text-right"
         >
           {question}
-          <ChevronDown className={cn("transition-transform duration-300 flex-shrink-0", isOpen && "rotate-180")} />
+          <ChevronDown aria-hidden="true" className={cn("transition-transform duration-300 flex-shrink-0", isOpen && "rotate-180")} />
         </button>
         
         <div className={cn(
           "grid transition-all duration-300 ease-in-out px-6",
           isOpen ? "grid-rows-[1fr] pb-6 opacity-100" : "grid-rows-[0fr] opacity-0"
         )}>
-          <p className="text-muted-foreground leading-relaxed overflow-hidden">
+          <p className="text-muted-foreground leading-relaxed overflow-hidden" aria-hidden={!isOpen}>
             {answer}
           </p>
         </div>

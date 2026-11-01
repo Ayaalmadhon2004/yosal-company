@@ -5,7 +5,7 @@ export default function CTA() {
   return (
     <section className="py-20" dir="rtl">
       <div className="container mx-auto px-6 max-w-7xl">
-        <div className="relative overflow-hidden rounded-[3rem] bg-gradient-to-br from-primary via-primary/90 to-[#804411] p-12 md:p-20 text-center shadow-2xl shadow-primary/20">
+        <div className="relative overflow-hidden rounded-[3rem] bg-gradient-to-br from-[#B84F08] via-[#A94707] to-[#6E3A0E] p-12 md:p-20 text-center shadow-2xl shadow-primary/20">
           
           <div className="relative z-10 max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-5xl font-black text-white mb-6 leading-[1.2]">
@@ -19,14 +19,14 @@ export default function CTA() {
             <AppButton
               asChild
               size="lg"
-              className="bg-white text-primary hover:bg-gray-100 rounded-2xl px-10 py-7 text-lg md:text-xl font-bold shadow-xl hover:scale-[1.02] transition-all duration-300 flex items-center gap-3 mx-auto"
+              className="bg-white text-[#B84F08] hover:bg-gray-100 rounded-2xl px-10 py-7 text-lg md:text-xl font-bold shadow-xl hover:scale-[1.02] transition-all duration-300 flex items-center gap-3 mx-auto"
             >
               <a 
                 href="https://wa.link/4ddhsa" 
                 target="_blank" 
                 rel="noopener noreferrer"
               >
-                <MessageCircle className="w-6 h-6" /> {/* إضافة الأيقونة */}
+                <MessageCircle className="w-6 h-6" aria-hidden="true" /> {/* إضافة الأيقونة */}
                 احجز استشارة مجانية الآن
               </a>
             </AppButton>

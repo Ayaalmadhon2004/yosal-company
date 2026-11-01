@@ -10,7 +10,7 @@ interface ApiFaq {
 async function getFaqsFromApi(): Promise<ApiFaq[]> {
   try {
     const res = await fetch('https://yosaal-website-backend.onrender.com/api/v1/faqs', {
-      cache: 'no-store'
+      next: { revalidate: 3600 }
     });
     const result = await res.json();
     return result.data || [];

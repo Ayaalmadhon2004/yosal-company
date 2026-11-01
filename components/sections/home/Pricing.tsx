@@ -1,6 +1,3 @@
-"use client";
-
-import React from "react";
 import { AppCard, AppCardHeader, AppCardTitle, AppCardDescription, AppCardContent } from "@/components/ui/AppCard";
 import { AppButton } from "@/components/ui/AppButton";
 import { Check } from "lucide-react";
@@ -57,7 +54,7 @@ export default function Pricing({ data }: PricingProps) {
               <div key={plan.id} className="relative group">
                 {plan.badge && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
-                    <span className="bg-[#F58220] text-white px-8 py-1.5 rounded-full text-sm font-black shadow-lg">
+                    <span className="bg-[#B84F08] text-white px-8 py-1.5 rounded-full text-sm font-black shadow-lg">
                       {plan.badge}
                     </span>
                   </div>
@@ -96,7 +93,7 @@ export default function Pricing({ data }: PricingProps) {
                           key={feature.id} 
                           className={cn(
                             "flex items-start justify-start gap-3 text-[15px] font-medium transition-all",
-                            feature.is_available === 1 ? "text-white" : "text-white/20"
+                            feature.is_available === 1 ? "text-white" : "text-white/60 line-through"
                           )}
                         >
                           <div className={cn(
@@ -119,7 +116,9 @@ export default function Pricing({ data }: PricingProps) {
                       variant={isFeatured ? "primary" : "outline"}
                       className={cn(
                         " text-lg font-black rounded-2xl transition-all flex items-center justify-center", 
-                        !isFeatured && "border-[#F58220] text-[#F58220] hover:bg-[#F58220]/10"
+                        isFeatured
+                          ? "bg-[#B84F08] hover:bg-[#9E4306]"
+                          : "border-[#F58220] text-[#F58220] hover:bg-[#F58220]/10"
                       )}
                     >
                       <a 

@@ -1,6 +1,3 @@
-"use client";
-
-import React from "react";
 import { Handshake, Paintbrush, BarChart3, Star } from "lucide-react";
 
 const FEATURES = [

@@ -1,6 +1,3 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
 import { Star, ChevronRight, ChevronLeft } from "lucide-react";
 
 export interface Testimonial {
@@ -16,29 +13,20 @@ interface TestimonialsProps {
   data?: Testimonial[]; // جعلنا البيانات اختيارية
 }
 
-export default function Testimonials({ data: propData }: TestimonialsProps) {
-  const [data, setData] = useState<Testimonial[]>(propData || []);
-  const [loading, setLoading] = useState(!propData);
+async function getTestimonials(): Promise<Testimonial[]> {
+  try {
+    const res = await fetch("https://yosaal-website-backend.onrender.com/api/v1/testimonials", {
+      next: { revalidate: 3600 },
+    });
+    const json = await res.json();
+    return json.status === "Success" && Array.isArray(json.data) ? json.data : [];
+  } catch {
+    return [];
+  }
+}
 
-  useEffect(() => {
-    // إذا لم تأتِ بيانات من الـ Props، نجلبها من الـ API
-    if (!propData) {
-      fetch("https://yosaal-website-backend.onrender.com/api/v1/testimonials")
-        .then((res) => res.json())
-        .then((res) => {
-          if (res.status === "Success") {
-            setData(res.data);
-          }
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.error("Error fetching testimonials:", err);
-          setLoading(false);
-        });
-    }
-  }, [propData]);
-
-  if (loading) return <div className="py-24 text-center">جاري تحميل الآراء...</div>;
+export default async function Testimonials({ data: propData }: TestimonialsProps) {
+  const data = propData ?? (await getTestimonials());
   if (!data || data.length === 0) return null;
 
   return (

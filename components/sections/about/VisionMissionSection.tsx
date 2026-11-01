@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { Rocket, Eye, TrendingUp, Zap, UserCheck, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -47,13 +45,13 @@ export default function VisionMissionSection() {
                 <div className="p-3 bg-primary/10 rounded-2xl">
                   <Eye className="w-10 h-10 text-primary" />
                 </div>
-                <h3 className="text-4xl font-black text-foreground tracking-tight">رؤيتنا</h3>
+                <h2 className="text-4xl font-black text-foreground tracking-tight">رؤيتنا</h2>
               </div>
               <p className="text-muted-foreground text-xl md:text-2xl leading-relaxed text-right font-medium">
                 أن نكون الشريك الاستراتيجي الأول للشركات الطموحة في العالم العربي، ممهدين الطريق نحو <span className="text-foreground">تحول رقمي ذكي</span> يضع العميل دائماً في قلب التجربة. نسعى لإعادة تعريف معايير النجاح من خلال الابتكار.
               </p>
             </div>
-            <Sparkles className="absolute top-10 left-10 w-8 h-8 text-primary/20 animate-pulse" />
+            <Sparkles className="absolute top-10 left-10 w-8 h-8 text-primary/20" aria-hidden="true" />
           </div>
           
           {/* الرسالة - الصندوق الملون */}
@@ -62,7 +60,7 @@ export default function VisionMissionSection() {
               <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-12 shadow-inner">
                 <Rocket className="w-9 h-9 text-white" />
               </div>
-              <h3 className="text-4xl font-black text-background mb-8 tracking-tight">رسالتنا</h3>
+              <h2 className="text-4xl font-black text-background mb-8 tracking-tight">رسالتنا</h2>
               <p className="text-background text-xl font-black leading-relaxed opacity-95">
                 تمكين العلامات التجارية من الوصول إلى أهدافها عبر حلول مبنية على البيانات، تجمع بين <span className="underline decoration-background/30 underline-offset-4">الإبداع الفني</span> والدقة التقنية.
               </p>
