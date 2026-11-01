@@ -30,8 +30,8 @@ export default function ProjectAuditForm() {
       } else {
         throw new Error(result.message || "حدث خطأ في البيانات");
       }
-    } catch (err: any) {
-      toast.error(err.message || "فشل الإرسال، حاول مجدداً");
+    } catch (err) {
+      toast.error((err instanceof Error && err.message) || "فشل الإرسال، حاول مجدداً");
     } finally {
       setLoading(false);
     }

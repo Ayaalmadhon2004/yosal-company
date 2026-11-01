@@ -31,7 +31,7 @@ export default function StorySection() {
             </div>
 
             <p className="text-muted-foreground text-xl leading-relaxed max-w-2xl font-medium">
-              بدأت <span className="text-foreground font-bold">"يوصل"</span> من رؤية طموحة: كيف يمكن للتسويق الرقمي أن يكون محركاً حقيقياً للنمو وليس مجرد أرقام عابرة؟ انطلقنا لنغير مفهوم الوصول، حيث نضمن وصول رسالتك للجمهور الصحيح في اللحظة الحاسمة.
+              بدأت <span className="text-foreground font-bold">&quot;يوصل&quot;</span> من رؤية طموحة: كيف يمكن للتسويق الرقمي أن يكون محركاً حقيقياً للنمو وليس مجرد أرقام عابرة؟ انطلقنا لنغير مفهوم الوصول، حيث نضمن وصول رسالتك للجمهور الصحيح في اللحظة الحاسمة.
             </p>
 
             <div className="flex flex-wrap gap-10 pt-10 border-t border-white/5">

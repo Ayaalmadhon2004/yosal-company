@@ -52,8 +52,8 @@ export default function ReadyForm() {
       } else {
         throw new Error(result.message || "حدث خطأ في معالجة البيانات");
       }
-    } catch (err: any) {
-      toast.error(err.message || "عذراً، فشل الإرسال. يرجى المحاولة لاحقاً.", {
+    } catch (err) {
+      toast.error((err instanceof Error && err.message) || "عذراً، فشل الإرسال. يرجى المحاولة لاحقاً.", {
         style: {
           background: 'var(--secondary)',
           color: 'var(--foreground)',

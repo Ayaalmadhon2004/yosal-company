@@ -2,7 +2,6 @@
 
 import React from "react";
 import { ArrowLeft, Sparkles } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 export default function CustomPlanSection() {
   return (

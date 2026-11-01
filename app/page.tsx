@@ -1,13 +1,16 @@
-// app/page.tsx (أو مسار الصفحة الرئيسية لديكِ)
 import { Suspense } from "react";
-import dynamic from 'next/dynamic';
 import { getDashboardData } from "@/lib/api";
-import { faqsData, servicesData } from "@/constants/siteData"; // تأكدي أن المسار صحيح كما في ملفاتك
-import Hero from "../components/sections/Hero";
-import Problems from "../components/sections/home/Problems"; 
+import { servicesData } from "@/constants/siteData";
+import Hero from "@/components/sections/Hero";
+import Problems from "@/components/sections/home/Problems";
+import Services from "@/components/sections/services/Services";
+import Portfolio from "@/components/sections/portfolio/UnifiedPortfolio";
 import WhyUs from "@/components/sections/home/WhyUs";
 import Stats from "@/components/sections/home/Stats";
+import Pricing from "@/components/sections/home/Pricing";
+import Testimonials from "@/components/sections/home/Testimonials";
 import CTA from "@/components/sections/home/CTA";
+import Faqs from "@/components/sections/home/Faqs";
 import ReadySection from "@/components/sections/ReadySection";
 
 const SkeletonLoader = () => (
@@ -17,72 +20,29 @@ const SkeletonLoader = () => (
   </div>
 );
 
-const Services = dynamic(() => import("../components/sections/services/Services"), { 
-  loading: () => <SkeletonLoader />
-});
-
-const Portfolio = dynamic(() => import("../components/sections/portfolio/UnifiedPortfolio"), { 
-  loading: () => <SkeletonLoader />
-});
-
-const Testimonials = dynamic(() => import("../components/sections/home/Testimonials"), { 
-  loading: () => <SkeletonLoader />
-});
-
-const Pricing = dynamic(() => import("../components/sections/home/Pricing"), {
-  loading: () => <SkeletonLoader />
-});
-
-const Faqs = dynamic(() => import("../components/sections/home/Faqs"), {
-  loading: () => <SkeletonLoader />
-});
-
 export default async function Home() {
-  const data = await getDashboardData() || {
-    services: [], projects: [], statistics: [], packages: [], testimonials: []
-  };
-
-  const allFaqs = Object.values(faqsData).flat();
-
-  const randomFaqs = [...allFaqs]
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 4);
-
-   console.log("faqData value:", randomFaqs); 
+  const data = (await getDashboardData()) || { packages: [] };
 
   return (
     <main className="block w-full font-sans overflow-x-hidden bg-background text-foreground">
       <Hero />
-      <Problems /> 
-      
+      <Problems />
+
       <div className="flex flex-col relative">
-        <Suspense fallback={<SkeletonLoader />}>
-          <Services data={servicesData} />
-        </Suspense>
-
-        <Suspense fallback={<SkeletonLoader />}>
-          <Portfolio isHomePage={true} />
-        </Suspense>
-
+        <Services data={servicesData} />
+        <Portfolio isHomePage />
         <WhyUs />
         <Stats />
-
-        <Suspense fallback={<SkeletonLoader />}>
-          <Pricing data={data.packages} />
-        </Suspense>
-
-        <Suspense fallback={<SkeletonLoader />}>
-          <Testimonials />
-        </Suspense>
-
+        <Pricing data={data.packages} />
+        <Testimonials />
         <CTA />
 
+        {/* Faqs is async (fetches on the server), so stream it behind a fallback */}
         <Suspense fallback={<SkeletonLoader />}>
-          <Faqs  />
+          <Faqs />
         </Suspense>
-        
 
-        <ReadySection  />
+        <ReadySection />
       </div>
     </main>
   );

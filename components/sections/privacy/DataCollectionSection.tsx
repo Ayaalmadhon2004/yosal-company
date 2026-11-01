@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Database, ShieldCheck, UserCircle, Globe } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 export default function DataCollectionSection() {
   const points = [

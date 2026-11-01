@@ -1,8 +1,7 @@
 "use client";
 
 import React from "react";
-import { ShieldCheck, LockKeyhole } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { LockKeyhole } from "lucide-react";
 
 export default function PrivacyIntroduction() {
   return (
@@ -22,12 +21,12 @@ export default function PrivacyIntroduction() {
 
       <div className="space-y-6 relative z-10">
         <p className="text-muted-foreground leading-relaxed text-lg md:text-xl">
-          نحن في <span className="text-foreground font-bold">"يوصل"</span> ندرك تماماً أن البيانات هي المحرك الأساسي للعصر الرقمي، ولذلك نضع حمايتها في مقدمة أولوياتنا. تهدف هذه السياسة إلى إطلاعك بشفافية تامة على ممارساتنا المتعلقة بجمع، استخدام، وحماية معلوماتك الشخصية.
+          نحن في <span className="text-foreground font-bold">&quot;يوصل&quot;</span> ندرك تماماً أن البيانات هي المحرك الأساسي للعصر الرقمي، ولذلك نضع حمايتها في مقدمة أولوياتنا. تهدف هذه السياسة إلى إطلاعك بشفافية تامة على ممارساتنا المتعلقة بجمع، استخدام، وحماية معلوماتك الشخصية.
         </p>
         
         <div className="p-6 /40 rounded-2xl border-r-4 border-primary/60">
           <p className="text-muted-foreground leading-relaxed text-lg font-medium italic">
-            "بمجرد استخدامك لمنصتنا أو الاستفادة من خدماتنا، فإنك تضع ثقتك في كيفية معالجتنا للبيانات؛ ونحن نلتزم بأن نكون عند مستوى هذه الثقة وفق أعلى معايير الخصوصية العالمية."
+            &quot;بمجرد استخدامك لمنصتنا أو الاستفادة من خدماتنا، فإنك تضع ثقتك في كيفية معالجتنا للبيانات؛ ونحن نلتزم بأن نكون عند مستوى هذه الثقة وفق أعلى معايير الخصوصية العالمية.&quot;
           </p>
         </div>
       </div>

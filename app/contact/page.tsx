@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import dynamic from 'next/dynamic';
 import Image from "next/image";
 import { contactHeroData, contactMethods } from "@/constants/siteData";
-import { MessageSquare, Calendar, Mail } from "lucide-react";
+import { MessageSquare, Calendar, Mail, type LucideIcon } from "lucide-react";
 import { AppButton } from "@/components/ui/AppButton";
 
 const ContactForm = dynamic(() => import("@/components/form/ContactForm"), {
@@ -13,7 +13,7 @@ const ContactForm = dynamic(() => import("@/components/form/ContactForm"), {
 });
 
 export default function ContactPage() {
-  const icons: any = { MessageSquare, Calendar, Mail };
+  const icons: Record<string, LucideIcon> = { MessageSquare, Calendar, Mail };
 
   return (
     <main className="min-h-screen bg-background py-20 px-4">

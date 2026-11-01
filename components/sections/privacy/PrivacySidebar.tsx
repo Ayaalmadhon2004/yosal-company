@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { cn } from "@/lib/utils";
 import { ChevronLeft, ListFilter } from "lucide-react";
 
 export default function PrivacySidebar() {

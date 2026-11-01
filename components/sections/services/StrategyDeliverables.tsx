@@ -2,9 +2,9 @@
 
 import React, { useMemo } from "react";
 import { cn } from "@/lib/utils";
-import { Share2, Video, Settings2, Palette } from "lucide-react";
+import { Share2, Video, Settings2, Palette, type LucideIcon } from "lucide-react";
 
-const ICON_MAP: any = {
+const ICON_MAP: Record<string, LucideIcon> = {
   Share2,
   Video,
   Settings2,
@@ -12,14 +12,20 @@ const ICON_MAP: any = {
 };
 
 // تم تعديل المكون ليقبل data و title كـ props
-export default function StrategyDeliverables({ data, title }: { data: any[], title: string }) {
+interface DeliverableItem {
+  title: string;
+  desc: string;
+  icon?: unknown;
+}
+
+export default function StrategyDeliverables({ data, title }: { data: DeliverableItem[], title: string }) {
   
   const cardsConfig = useMemo(() => {
     if (!data) return [];
     
-    return data.slice(0, 4).map((item: any, index: number) => {
-      let gridClass = "md:col-span-6";
-      let isOrange = index === 1; // منطق بسيط للألوان
+    return data.slice(0, 4).map((item, index) => {
+      const gridClass = "md:col-span-6";
+      const isOrange = index === 1; // منطق بسيط للألوان
       return { ...item, gridClass, isOrange };
     });
   }, [data]);
@@ -37,8 +43,8 @@ export default function StrategyDeliverables({ data, title }: { data: any[], tit
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-fr">
-          {cardsConfig.map((item: any, index: number) => {
-            const IconComponent = ICON_MAP[item.icon] || Settings2; 
+          {cardsConfig.map((item, index) => {
+            const IconComponent = (typeof item.icon === "string" ? ICON_MAP[item.icon] : undefined) || Settings2; 
             return (
               <div key={`deliverable-${index}`} className={cn(
                   "rounded-[40px] p-10 relative overflow-hidden flex flex-col justify-center items-start border border-white/5 transition-all duration-500 hover:scale-[1.01] group",

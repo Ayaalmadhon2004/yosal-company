@@ -78,7 +78,7 @@ export default function ContactForm() {
       } else {
         throw new Error(result.message || "حدث خطأ في استقبال البيانات.");
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error("Submission Error:", error);
       setStatus({ type: "error", msg: "عذراً، فشل الإرسال. تأكدي من اتصالك بالإنترنت وحاولي مجدداً." });
     } finally {
