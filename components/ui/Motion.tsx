@@ -13,7 +13,7 @@ import {
   EASE,
   OFFSET,
   STAGGER,
-  VIEW_AMOUNT,
+  VIEWPORT,
   fadeSide,
   fadeUp,
   staggerContainer,
@@ -44,7 +44,7 @@ export function Reveal({ children, className, delay = 0, y = OFFSET, x }: Reveal
       variants={variants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: VIEW_AMOUNT }}
+      viewport={VIEWPORT}
       transition={{ delay }}
     >
       {children}
@@ -69,7 +69,7 @@ export function RevealSection({
       variants={fadeUp(y)}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: VIEW_AMOUNT }}
+      viewport={VIEWPORT}
       transition={{ delay }}
     >
       {children}
@@ -101,7 +101,7 @@ export function Stagger({
       initial="hidden"
       {...(immediate
         ? { animate: "visible" }
-        : { whileInView: "visible", viewport: { once: true, amount: VIEW_AMOUNT } })}
+        : { whileInView: "visible", viewport: VIEWPORT })}
     >
       {children}
     </motion.div>

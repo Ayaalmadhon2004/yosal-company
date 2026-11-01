@@ -15,8 +15,13 @@ export const OFFSET = 24;
 /** الفاصل الزمني بين عناصر المجموعة الواحدة (ثانية) */
 export const STAGGER = 0.1;
 
-/** نسبة ظهور العنصر في الشاشة قبل بدء حركته */
-export const VIEW_AMOUNT = 0.2;
+/**
+ * شرط بدء حركة الظهور عند التمرير.
+ * نستخدم "some" (أي جزء مرئي) مع هامش سفلي صغير بدل نسبة مئوية من ارتفاع العنصر:
+ * النسبة (مثل 0.2) لا تتحقق أبداً للعناصر الطويلة على الشاشات الصغيرة
+ * (عنصر أطول من 5 أضعاف ارتفاع الشاشة)، فيبقى محتواها مخفياً للأبد.
+ */
+export const VIEWPORT = { once: true, amount: "some", margin: "0px 0px -10% 0px" } as const;
 
 export const baseTransition: Transition = {
   duration: DURATION.base,
