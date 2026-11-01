@@ -39,7 +39,7 @@ export default function Footer() {
                   width={180}
                   height={60}
                   src="/assets/logo.png" 
-                  alt="Yoosel Logo" 
+                  alt="شعار يوصل" 
                   className="h-10 md:h-12 w-auto object-contain" 
                 />
               </Link>
@@ -66,7 +66,7 @@ export default function Footer() {
           {/* روابط سريعة */}
           <div className="md:col-span-3 lg:col-span-2 text-right">
             <h2 className="text-white font-bold mb-6">روابط سريعة</h2>
-            <ul className="text-gray-400 text-sm">
+            <ul aria-label="روابط سريعة" className="text-gray-400 text-sm">
               <li><Link href="/" className="hover:text-orange-500 transition-colors inline-flex items-center min-h-11">الرئيسية</Link></li>
               <li><Link href="/services" className="hover:text-orange-500 transition-colors inline-flex items-center min-h-11">خدماتنا</Link></li>
               <li><Link href="/portfolio" className="hover:text-orange-500 transition-colors inline-flex items-center min-h-11">أعمالنا</Link></li>
@@ -78,7 +78,7 @@ export default function Footer() {
 
           <div className="md:col-span-3 lg:col-span-2 text-right">
             <h2 className="text-white font-bold mb-6">قانوني</h2>
-            <ul className="text-gray-400 text-sm">
+            <ul aria-label="روابط قانونية" className="text-gray-400 text-sm">
               <li><Link href="/private" className="hover:text-orange-500 transition-colors inline-flex items-center min-h-11">الخصوصية</Link></li>
               <li><Link href="/terms" className="hover:text-orange-500 transition-colors inline-flex items-center min-h-11">الشروط والأحكام</Link></li>
             </ul>
