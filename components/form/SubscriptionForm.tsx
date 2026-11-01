@@ -1,16 +1,51 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import toast from "react-hot-toast";
 import { Mail, Sparkles, Loader2, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Honeypot from "@/components/form/Honeypot";
+import FieldError from "@/components/form/FieldError";
+import {
+  FORM_MESSAGES,
+  cooldownMessage,
+  getCooldownRemaining,
+  isHoneypotFilled,
+  isValidEmail,
+  markSubmitted,
+} from "@/lib/formGuards";
+
+const COOLDOWN_KEY = "subscription-form";
 
 export default function SubscriptionForm() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [formError, setFormError] = useState("");
+  const emailId = useId();
+  const errorId = `${emailId}-error`;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const formEl = e.currentTarget as HTMLFormElement;
+    setFormError("");
+    if (isHoneypotFilled(new FormData(formEl))) {
+      setEmail("");
+      return;
+    }
+    const emailMsg = !email.trim()
+      ? FORM_MESSAGES.emailRequired
+      : isValidEmail(email) ? "" : FORM_MESSAGES.emailInvalid;
+    setEmailError(emailMsg);
+    if (emailMsg) {
+      document.getElementById(emailId)?.focus();
+      return;
+    }
+    const remaining = getCooldownRemaining(COOLDOWN_KEY);
+    if (remaining > 0) {
+      setFormError(cooldownMessage(remaining));
+      return;
+    }
     setLoading(true);
 
     try {
@@ -34,12 +69,13 @@ export default function SubscriptionForm() {
             border: '1px solid rgba(255, 138, 51, 0.2)',
           }
         });
+        markSubmitted(COOLDOWN_KEY);
         setEmail("");
       } else {
         throw new Error();
       }
     } catch {
-      toast.error("حدث خطأ بسيط، حاول مجدداً بعد ثوانٍ.");
+      toast.error("حدث خطأ بسيط، يرجى المحاولة مرة أخرى بعد ثوانٍ.");
     } finally {
       setLoading(false);
     }
@@ -49,6 +85,7 @@ export default function SubscriptionForm() {
     <div className="w-full max-w-xl mx-auto group">
       <form 
         onSubmit={handleSubmit} 
+        noValidate
         className="relative flex flex-col sm:flex-row gap-3 p-2 bg-secondary/30 backdrop-blur-md rounded-[2rem] border border-white/5 focus-within:border-primary/30 transition-all duration-500 shadow-2xl"
         dir="rtl"
       >
@@ -57,9 +94,10 @@ export default function SubscriptionForm() {
           <div className="absolute right-5 text-muted-foreground group-focus-within:text-primary transition-colors" aria-hidden="true">
             <Mail size={18} />
           </div>
-          <label htmlFor="subscribe_email" className="sr-only">البريد الإلكتروني</label>
+          <Honeypot />
+          <label htmlFor={emailId} className="sr-only">البريد الإلكتروني (مطلوب)</label>
           <input 
-            id="subscribe_email"
+            id={emailId}
             name="email"
             autoComplete="email"
             type="email" 
@@ -68,6 +106,9 @@ export default function SubscriptionForm() {
             placeholder="بريدك الإلكتروني للحصول على الإلهام..." 
             className="w-full bg-transparent pr-12 pl-4 py-4 text-foreground outline-none placeholder:text-muted-foreground/60 font-bold text-sm"
             required
+            aria-required="true"
+            aria-invalid={emailError ? true : undefined}
+            aria-describedby={emailError || formError ? errorId : undefined}
           />
         </div>
 
@@ -75,6 +116,7 @@ export default function SubscriptionForm() {
         <button 
           type="submit"
           disabled={loading}
+          aria-busy={loading}
           className={cn(
             "relative overflow-hidden px-8 py-4 rounded-2xl font-black text-sm transition-all duration-300 flex items-center justify-center gap-2 min-w-[140px]",
             "bg-[#B84F08] hover:bg-[#9E4306] text-white shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 disabled:opacity-70"
@@ -93,10 +135,11 @@ export default function SubscriptionForm() {
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer" />
         </button>
       </form>
+      <FieldError id={errorId} message={emailError || formError} />
       
       {/* نص طمأنة أسفل الفورم */}
       <p className="text-xs text-muted-foreground mt-4 text-center font-medium italic">
-        * انضم لـ +2000 مشترك، يمكنك إلغاء الاشتراك في أي وقت (لكنك لن ترغب في ذلك 😉).
+        * ينضم إليك +2000 مشترك، يمكنك إلغاء الاشتراك في أي وقت (لكنك لن ترغب في ذلك 😉).
       </p>
     </div>
   );
