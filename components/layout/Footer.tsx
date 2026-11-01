@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa6";
 import FooterSubscribe from "./FooterSubscribe";
 import ChatLoader from "./ChatLoader";
+import { CookieSettingsButton } from "./CookieConsent";
 
 export default function Footer() {
   const socialIcons = [
@@ -81,6 +82,7 @@ export default function Footer() {
             <ul className="text-gray-400 text-sm">
               <li><Link href="/private" className="hover:text-orange-500 transition-colors inline-flex items-center min-h-11">الخصوصية</Link></li>
               <li><Link href="/terms" className="hover:text-orange-500 transition-colors inline-flex items-center min-h-11">الشروط والأحكام</Link></li>
+              <li><CookieSettingsButton /></li>
             </ul>
           </div>
 
