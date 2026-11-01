@@ -91,7 +91,7 @@ export default function SubscriptionForm() {
       </form>
       
       {/* نص طمأنة أسفل الفورم */}
-      <p className="text-[10px] text-muted-foreground/50 mt-4 text-center font-medium italic">
+      <p className="text-xs text-muted-foreground/50 mt-4 text-center font-medium italic">
         * انضم لـ +2000 مشترك، يمكنك إلغاء الاشتراك في أي وقت (لكنك لن ترغب في ذلك 😉).
       </p>
     </div>
