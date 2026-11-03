@@ -49,7 +49,6 @@ const nextConfig: NextConfig = {
     optimizePackageImports: [
       "lucide-react",
       "react-icons",
-      "framer-motion",
       "@radix-ui/react-slot",
     ],
   },
