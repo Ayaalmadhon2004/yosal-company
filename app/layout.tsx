@@ -3,10 +3,12 @@ import { Cairo } from 'next/font/google';
 import "./globals.css"; 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import CookieConsent from "@/components/layout/CookieConsent";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Toaster } from "react-hot-toast";
 import { SITE_URL, SITE_NAME } from "@/lib/seo";
 import SiteJsonLd from "@/components/seo/SiteJsonLd";
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "G-QBZ07DT6PS";
 
 const cairo = Cairo({
   subsets: ['arabic', 'latin'],
@@ -87,7 +89,7 @@ export default function RootLayout({
         
         <Footer />
 
-        <CookieConsent />
+        <GoogleAnalytics gaId={GA_ID} />
       </body>
     </html>
   );
