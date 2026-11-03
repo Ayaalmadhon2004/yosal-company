@@ -68,16 +68,24 @@ export default function ContactForm() {
     }
 
     try {
+      // الباك إند يستقبل فقط: name, phone, email, project_url, attachment.
+      // لذلك تُجمَّع تفاصيل المشروع كلها داخل project_url كما كان في الأصل.
+      const fullDetails = [
+        `الخدمة: ${formData.get("service_type")}`,
+        `الميزانية: ${formData.get("budget")}$`,
+        `الأهداف: ${formData.get("main_goals")}`,
+        `الوصف: ${formData.get("description")}`,
+        projectUrl ? `الرابط: ${projectUrl}` : null,
+        selectedFile ? `المرفقات: يوجد ملف مرفق باسم (${selectedFile.name})` : "المرفقات: لا يوجد",
+      ]
+        .filter(Boolean)
+        .join("\n");
+
       const result = await submitProjectRequest({
         name: String(formData.get("project_name") ?? ""),
         phone,
         email,
-        // نفس قيمة النموذج الآخر (ReadyForm) عند عدم وجود رابط
-        project_url: projectUrl || "لا يوجد رابط",
-        service_type: String(formData.get("service_type") ?? ""),
-        budget: String(formData.get("budget") ?? ""),
-        main_goals: String(formData.get("main_goals") ?? ""),
-        description: String(formData.get("description") ?? ""),
+        project_url: fullDetails,
         attachment: selectedFile ?? undefined,
       });
 
@@ -153,7 +161,7 @@ export default function ContactForm() {
             <label htmlFor="cf-project_url" className="text-foreground text-sm font-black pr-2 flex items-center gap-2">
               <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-primary" /> رابط المشروع أو الموقع (اختياري)
             </label>
-            <input id="cf-project_url" name="project_url" type="url" inputMode="url" autoComplete="url" dir="ltr" className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 min-h-12 text-base text-foreground focus:border-primary/50 outline-none focus-visible:ring-2 focus-visible:ring-primary font-bold placeholder:text-white/60 text-right" placeholder="https://yourwebsite.com" />
+            <input id="cf-project_url" name="project_url" type="text" inputMode="url" autoComplete="url" dir="ltr" className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 min-h-12 text-base text-foreground focus:border-primary/50 outline-none focus-visible:ring-2 focus-visible:ring-primary font-bold placeholder:text-white/60 text-right" placeholder="https://yourwebsite.com" />
           </div>
         </div>
 
