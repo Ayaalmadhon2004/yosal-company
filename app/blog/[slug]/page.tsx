@@ -8,6 +8,9 @@ import type { Post } from "@/types/api";
 import { sanitizeBlogHtml } from "@/lib/sanitize";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import JsonLd from "@/components/seo/JsonLd";
+import { absoluteUrl, breadcrumbJsonLd, organizationRef } from "@/lib/jsonld";
+import { SITE_NAME } from "@/lib/seo";
 import ShareActions from "@/components/sections/blog/ShareActions";
 import {
   resolveImageUrl,
@@ -96,8 +99,28 @@ export default async function BlogPostPage({ params }: PageProps) {
   const heroSrc = resolveImageUrl(post.image || post.image_url, "/assets/blog1.png");
   const avatarSrc = post.author_avatar ? resolveImageUrl(post.author_avatar) : null;
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description:
+      post.short_description || post.excerpt || stripHtml(post.content || "").slice(0, 160) || undefined,
+    image: [absoluteUrl(heroSrc)],
+    inLanguage: "ar",
+    mainEntityOfPage: absoluteUrl(`/blog/${slug}`),
+    author: { "@type": "Person", name: post.author_name || SITE_NAME },
+    publisher: { "@type": "Organization", name: SITE_NAME, ...organizationRef },
+    ...(post.category ? { articleSection: post.category } : {}),
+  };
+  const breadcrumbs = breadcrumbJsonLd([
+    { name: "الرئيسية", path: "/" },
+    { name: "المدونة", path: "/blog" },
+    { name: post.title, path: `/blog/${slug}` },
+  ]);
+
   return (
     <div className="min-h-screen bg-background text-right" dir="rtl">
+      <JsonLd data={[articleJsonLd, breadcrumbs]} />
       <section className="relative bg-background min-h-[70vh] w-full flex items-end pt-32 pb-12 md:pb-20 overflow-hidden">
         <Image
           src={heroSrc}
