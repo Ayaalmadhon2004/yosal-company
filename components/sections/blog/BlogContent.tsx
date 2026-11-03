@@ -4,6 +4,11 @@ import Link from "next/link";
 import { Search, Calendar, Clock, ArrowLeft } from "lucide-react";
 import { resolveImageUrl, shouldSkipOptimization } from "@/components/sections/portfolio/imageUtils";
 import ReadyResults from "@/components/sections/ReadyResults";
+import BlogNewsletterForm from "@/components/form/BlogNewsletterForm";
+
+// أعمدة الشبكة على الشاشات الكبيرة، وخطوة تأخير ظهور البطاقات داخل الصف الواحد
+const GRID_COLUMNS = 3;
+const REVEAL_STEP_SECONDS = 0.08;
 
 interface BlogListPost {
   id: string | number;
@@ -109,7 +114,7 @@ export default function BlogContent({ posts, params }: { posts: BlogListPost[]; 
       {/* كل بطاقة تظهر بشكل مستقل: حاوية Stagger الطويلة لا تصل أبداً لنسبة الظهور المطلوبة على الموبايل فتبقى الشبكة مخفية */}
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
         {posts.map((post, index) => (
-          <Reveal key={post.id} className="h-full" delay={(index % 3) * 0.08}><Link
+          <Reveal key={post.id} className="h-full" delay={(index % GRID_COLUMNS) * REVEAL_STEP_SECONDS}><Link
             href={`/blog/${post.slug}`}
             className="h-full group bg-white/5 rounded-[2.5rem] md:rounded-[2.8rem] overflow-hidden border border-white/5 hover:border-orange-500/30 transition-all duration-500 flex flex-col shadow-lg isolate"
           >
@@ -148,17 +153,7 @@ export default function BlogContent({ posts, params }: { posts: BlogListPost[]; 
           <h2 className="text-2xl md:text-5xl font-black text-white mb-8 leading-tight">
             انضم إلى مجتمع <span className="text-orange-500">يوصل</span>
           </h2>
-          <form aria-label="الاشتراك في النشرة البريدية" className="flex flex-col md:flex-row gap-4 max-w-xl mx-auto">
-            <input
-              type="email"
-              name="email"
-              aria-label="البريد الإلكتروني"
-              autoComplete="email"
-              placeholder="أدخل بريدك الإلكتروني"
-              className="flex-grow min-w-0 bg-background border border-white/10 rounded-xl md:rounded-2xl px-5 md:px-8 py-5 text-white outline-none focus:border-orange-500 transition-all"
-            />
-            <button type="submit" className="bg-orange-700 text-white font-bold px-12 py-5 rounded-2xl">اشترك الآن</button>
-          </form>
+          <BlogNewsletterForm />
         </div>
       </section>
 
