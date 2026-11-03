@@ -5,10 +5,6 @@ const isProd = process.env.NODE_ENV === "production";
 const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
-    // SVGs are served with a locked-down CSP and forced download, as recommended by the Next.js docs.
-    dangerouslyAllowSVG: true,
-    contentDispositionType: "attachment",
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     qualities: [25, 50, 75, 80, 100],
     remotePatterns: [
       // Local backend, only allowed during development.
