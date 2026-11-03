@@ -1,18 +1,62 @@
 "use client";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { sendProjectRequest } from "@/lib/api";
 import toast from "react-hot-toast";
 import { AppButton } from "../ui/AppButton";
+import Honeypot from "./Honeypot";
+import FieldError, { RequiredMark } from "./FieldError";
+import {
+  FORM_MESSAGES,
+  cooldownMessage,
+  getCooldownRemaining,
+  isHoneypotFilled,
+  isValidPhone,
+  markSubmitted,
+} from "@/lib/formGuards";
+
+const COOLDOWN_KEY = "audit-form";
 
 export default function ProjectAuditForm() {
   const [loading, setLoading] = useState(false);
+  const [nameError, setNameError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  const [formError, setFormError] = useState("");
+  const uid = useId();
+  const nameId = `${uid}-name`;
+  const phoneId = `${uid}-phone`;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
-
     const form = e.currentTarget;
     const formData = new FormData(form);
+    setFormError("");
+
+    // فخ الروبوتات: نجاح صامت دون استدعاء الـ API
+    if (isHoneypotFilled(formData)) {
+      form.reset();
+      return;
+    }
+
+    const nameValue = ((formData.get("full_name") as string) || "").trim();
+    const phoneValue = (formData.get("phone") as string) || "";
+    const nameMsg = nameValue ? "" : FORM_MESSAGES.nameRequired;
+    const phoneMsg = !phoneValue.trim()
+      ? FORM_MESSAGES.phoneRequired
+      : isValidPhone(phoneValue) ? "" : FORM_MESSAGES.phoneInvalid;
+    setNameError(nameMsg);
+    setPhoneError(phoneMsg);
+    if (nameMsg || phoneMsg) {
+      document.getElementById(nameMsg ? nameId : phoneId)?.focus();
+      return;
+    }
+
+    const remaining = getCooldownRemaining(COOLDOWN_KEY);
+    if (remaining > 0) {
+      setFormError(cooldownMessage(remaining));
+      return;
+    }
+
+    setLoading(true);
     
       const data = {
         name: formData.get("full_name") as string,
@@ -26,12 +70,13 @@ export default function ProjectAuditForm() {
 
       if (result.status === "Success") {
         toast.success("تم إرسال طلبك بنجاح! فريقنا سيتواصل معك.");
+        markSubmitted(COOLDOWN_KEY);
         form.reset();
       } else {
         throw new Error(result.message || "حدث خطأ في البيانات");
       }
     } catch (err: unknown) {
-      toast.error((err instanceof Error ? err.message : "") || "فشل الإرسال، حاول مجدداً");
+      toast.error((err instanceof Error ? err.message : "") || "تعذر الإرسال، يرجى المحاولة مرة أخرى.");
     } finally {
       setLoading(false);
     }
@@ -48,29 +93,44 @@ export default function ProjectAuditForm() {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} noValidate className="space-y-6">
+        <Honeypot />
+        <p className="text-gray-300 text-xs">الحقول المميزة بعلامة <span aria-hidden="true">*</span> مطلوبة.</p>
         {/* حقل الاسم */}
         <div className="space-y-2">
-          <label htmlFor="audit-full-name" className="text-white text-sm font-medium mr-1">الاسم الكامل</label>
+          <label htmlFor={nameId} className="text-white text-sm font-medium mr-1">الاسم الكامل <RequiredMark /></label>
           <input
-            id="audit-full-name" name="full_name" autoComplete="name"
+            id={nameId} name="full_name" autoComplete="name"
             required
-            placeholder="أدخل اسمك هنا ...."
+            aria-required="true"
+            aria-invalid={nameError ? true : undefined}
+            aria-describedby={nameError ? `${nameId}-error` : undefined}
+            placeholder="الاسم الكامل"
             className="w-full bg-[#12162b] border border-orange-500/20 rounded-xl p-4 text-white placeholder:text-gray-400 outline-none focus:border-orange-500 transition-all text-right"
           />
+          <FieldError id={`${nameId}-error`} message={nameError} />
         </div>
 
         {/* حقل الهاتف */}
         <div className="space-y-2">
-          <label htmlFor="audit-phone" className="text-white text-sm font-medium mr-1">رقم الهاتف</label>
+          <label htmlFor={phoneId} className="text-white text-sm font-medium mr-1">رقم الهاتف <RequiredMark /></label>
           <input
-            id="audit-phone" name="phone" autoComplete="tel"
+            id={phoneId} name="phone" autoComplete="tel"
             type="tel"
+            inputMode="tel"
             required
-            placeholder="أدخل رقم الهاتف 05xxxxxxxx"
+            aria-required="true"
+            aria-invalid={phoneError ? true : undefined}
+            aria-describedby={phoneError ? `${phoneId}-error` : undefined}
+            placeholder="رقم الهاتف 05xxxxxxxx"
             className="w-full bg-[#12162b] border border-orange-500/20 rounded-xl p-4 text-white placeholder:text-gray-400 outline-none focus:border-orange-500 transition-all text-right"
           />
+          <FieldError id={`${phoneId}-error`} message={phoneError} />
         </div>
+
+        {formError && (
+          <p role="alert" className="text-red-300 text-sm font-bold">{formError}</p>
+        )}
 
         {/* زر التقييم */}
         <AppButton

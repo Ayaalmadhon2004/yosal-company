@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import { submitProjectRequest } from "@/lib/api";
 import type { ProjectRequestPayload } from "@/types/api";
 
-export const useDashboardStore = () => {
+export const useProjectRequest = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const storeRequest = async (formData: ProjectRequestPayload) => {

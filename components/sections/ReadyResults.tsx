@@ -57,7 +57,7 @@ export default function ReadySection({ variant = "style1" }: ReadySectionProps) 
                 href={LINKS.FREE_CONSULTATION} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-full h-full flex items-center justify-center px-8 text-lg font-bold !text-[#9A4309]"
+                className="flex items-center justify-center px-8 text-lg font-bold !text-[#9A4309]"
               >
                 {isStyle1 ? "احجز استشارة مجانية" : "ابدأ مشروعك الآن"}
               </a>
@@ -67,7 +67,7 @@ export default function ReadySection({ variant = "style1" }: ReadySectionProps) 
             <AppButton asChild className="p-0 overflow-hidden w-full sm:w-auto min-w-[220px] h-14 rounded-full bg-transparent border-2 border-[#FF7F11] hover:bg-[#FF7F11]/10 transition-all">
               <Link 
                 href={isStyle1 ? LINKS.PORTFOLIO : LINKS.FREE_CONSULTATION}
-                className="w-full h-full flex items-center justify-center px-8 text-lg font-bold !text-[#FF7F11]"
+                className="flex items-center justify-center px-8 text-lg font-bold !text-[#FF7F11]"
               >
                 {isStyle1 ? "شاهد أعمالنا" : "احجز استشارة مجانية"}
               </Link>

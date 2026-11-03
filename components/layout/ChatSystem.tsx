@@ -5,17 +5,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { MessageCircle, Headset, X, Send, ArrowLeft, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { WHATSAPP_LINK } from "@/constants/siteData";
 
 const MD_BREAKPOINT = 768;
 
 export default function ChatSystem() {
   const [activeView, setActiveView] = useState<"none" | "chat" | "whatsapp">("none");
 
-  const WHATSAPP_LINK = "https://wa.me/qr/YDPUM4DFRP4NP1";
-
   const handleWhatsAppClick = () => {
     if (window.innerWidth < MD_BREAKPOINT) {
-      window.location.href = WHATSAPP_LINK;
+      window.open(WHATSAPP_LINK, "_blank", "noopener,noreferrer");
     } else {
       setActiveView(activeView === "whatsapp" ? "none" : "whatsapp");
     }
@@ -135,6 +134,8 @@ export default function ChatSystem() {
 
           <Link
             href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
             className="bg-[#15803D] text-white block py-5 rounded-2xl font-black text-xl shadow-xl shadow-[#22C55E]/30 hover:bg-[#166534] hover:-translate-y-1 transition-all"
           >
             فتح الواتساب الآن

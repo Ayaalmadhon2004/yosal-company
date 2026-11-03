@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import CookieConsent from "@/components/layout/CookieConsent";
 import { Toaster } from "react-hot-toast";
 import { SITE_URL, SITE_NAME } from "@/lib/seo";
+import SiteJsonLd from "@/components/seo/SiteJsonLd";
 
 const cairo = Cairo({
   subsets: ['arabic', 'latin'],
@@ -42,13 +43,11 @@ export const metadata: Metadata = {
     title: "وكالة يوصل | نصيغ الفخامة الرقمية",
     description: siteDescription,
     url: "/",
-    images: [{ url: "/assets/logo.png", alt: "يوصل" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "وكالة يوصل | نصيغ الفخامة الرقمية",
     description: siteDescription,
-    images: ["/assets/logo.png"],
   },
 };
 
@@ -61,6 +60,7 @@ export default function RootLayout({
     <html lang="ar" dir="rtl" className={`${cairo.variable} scroll-smooth`}>
       <body className={`${cairo.className} bg-[#0F112B] bg-background text-white antialiased min-h-screen relative overflow-x-hidden flex flex-col`}>
         
+        <SiteJsonLd />
         <div className="bg-blobs" aria-hidden="true" />
 
         <a href="#main-content" className="skip-link">
