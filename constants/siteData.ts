@@ -104,7 +104,9 @@ export const servicesData: Service[] = [
     iconName: "monitor",
     features: ["إعداد لوحات تحكم (Dashboards)", "تتبع سلوك المستخدمين", "توصيات تطوير الأداء"],
     isFeatured: false,
-    ctaText: "حلل بياناتك"
+    ctaText: "حلل بياناتك",
+    // لا توجد صفحة تفاصيل لهذه الخدمة في constants/servicesData.ts
+    hasDetailsPage: false,
   }
 ];
 
