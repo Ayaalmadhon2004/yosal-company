@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { Calendar, Clock, Share2, Bookmark, ArrowRight } from "lucide-react";
 import { getPostBySlug, getPosts, extractPosts } from "@/lib/api";
 import type { Post } from "@/types/api";
+import { sanitizeBlogHtml } from "@/lib/sanitize";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import JsonLd from "@/components/seo/JsonLd";
@@ -210,7 +211,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             prose-p:text-gray-300 prose-p:leading-loose prose-p:text-lg
             prose-headings:text-white prose-headings:font-bold
             prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-6 prose-h3:border-r-4 prose-h3:border-orange-500 prose-h3:pr-4"
-            dangerouslySetInnerHTML={{ __html: post.content || post.short_description || "" }}
+            dangerouslySetInnerHTML={{ __html: sanitizeBlogHtml(post.content || post.short_description) }}
           />
           <ShareActions />
         </article>

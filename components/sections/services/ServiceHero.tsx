@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { MessageSquare, Calendar } from "lucide-react";
+import { shouldSkipOptimization } from "@/components/sections/portfolio/imageUtils";
 
 interface ServiceHeroProps {
   badge: string;
@@ -127,6 +128,7 @@ export default function ServiceHero({
                         fetchPriority="high"
                         sizes="(max-width: 1024px) calc(100vw - 48px), 576px"
                         className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                        unoptimized={shouldSkipOptimization(imageUrl)}
                         onError={() => setImgFailed(true)}
                       />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />

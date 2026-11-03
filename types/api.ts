@@ -4,6 +4,11 @@ export interface ProjectRequestPayload {
   name?: string;
   email?: string;
   project_url?: string;
+  /** Free-text project description (also sent by ReadyForm; backend support to be confirmed). */
+  description?: string;
+  service_type?: string;
+  budget?: string;
+  main_goals?: string;
   /** Optional file sent as multipart body (the other fields travel as query params). */
   attachment?: File;
 }
