@@ -20,6 +20,8 @@ export interface ServiceItem {
   icon?: string;
   iconName?: string;
   features?: (string | { title: string })[];
+  /** false = لا توجد صفحة تفاصيل لهذه الخدمة، فلا يُعرض رابط "تفاصيل الخدمة". */
+  hasDetailsPage?: boolean;
 }
 
 // روابط الواتساب المعتمدة بناءً على الـ slugs الحقيقية المستلمة من الباكيند
@@ -101,12 +103,14 @@ export default function Services({ data, className }: { data: ServiceItem[], cla
                   </ul>
                   
                   <div className="mt-auto space-y-4">
-                    <Link 
-                      href={`/services/${service.slug}`} 
-                      className="flex items-center gap-2 min-h-11 text-primary font-bold hover:gap-3 transition-all group/link"
-                    >
-                      تفاصيل الخدمة <span className="sr-only">: {service.title}</span> <ArrowLeft aria-hidden="true" className="w-4 h-4 transition-transform group-hover/link:-translate-x-1" />
-                    </Link>
+                    {service.hasDetailsPage !== false && (
+                      <Link 
+                        href={`/services/${service.slug}`} 
+                        className="flex items-center gap-2 min-h-11 text-primary font-bold hover:gap-3 transition-all group/link"
+                      >
+                        تفاصيل الخدمة <span className="sr-only">: {service.title}</span> <ArrowLeft aria-hidden="true" className="w-4 h-4 transition-transform group-hover/link:-translate-x-1" />
+                      </Link>
+                    )}
 
                     <AppButton asChild className="w-full py-7 rounded-2xl font-black text-lg bg-secondary/20 hover:bg-[#25D366] hover:text-white transition-all duration-300 shadow-lg">
                       <a href={waLink} target="_blank" rel="noopener noreferrer">

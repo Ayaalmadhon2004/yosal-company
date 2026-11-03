@@ -25,6 +25,8 @@ export interface Service {
   isFeatured: boolean;
   ctaText: string;
   slug: string; // أضيفي الـ slug لأنه مستخدم في الروابط
+  /** false = لا توجد صفحة تفاصيل لهذه الخدمة، فلا يُعرض رابط "تفاصيل الخدمة" (الافتراضي true). */
+  hasDetailsPage?: boolean;
 }
 
 export interface Feature {
