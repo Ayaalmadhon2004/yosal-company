@@ -3,9 +3,10 @@ import { Cairo } from 'next/font/google';
 import "./globals.css"; 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import CookieConsent from "@/components/layout/CookieConsent";
 import { Toaster } from "react-hot-toast";
-import Script from "next/script"; // استيراد مكون Script
 import { SITE_URL, SITE_NAME } from "@/lib/seo";
+import SiteJsonLd from "@/components/seo/SiteJsonLd";
 
 const cairo = Cairo({
   subsets: ['arabic', 'latin'],
@@ -42,13 +43,11 @@ export const metadata: Metadata = {
     title: "وكالة يوصل | نصيغ الفخامة الرقمية",
     description: siteDescription,
     url: "/",
-    images: [{ url: "/assets/logo.png", alt: "يوصل" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "وكالة يوصل | نصيغ الفخامة الرقمية",
     description: siteDescription,
-    images: ["/assets/logo.png"],
   },
 };
 
@@ -59,22 +58,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ar" dir="rtl" className={`${cairo.variable} scroll-smooth`}>
-      <head>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-QBZ07DT6PS"
-          strategy="lazyOnload"
-        />
-        <Script id="google-analytics" strategy="lazyOnload">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-QBZ07DT6PS');
-          `}
-        </Script>
-      </head>
       <body className={`${cairo.className} bg-background text-white antialiased min-h-screen relative overflow-x-hidden flex flex-col`}>
         
+        <SiteJsonLd />
         <div className="bg-blobs" aria-hidden="true" />
 
         <a href="#main-content" className="skip-link">
@@ -100,6 +86,8 @@ export default function RootLayout({
         />
         
         <Footer />
+
+        <CookieConsent />
       </body>
     </html>
   );

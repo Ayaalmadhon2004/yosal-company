@@ -45,7 +45,7 @@ export default function Navbar() {
           <Link href="/" className="relative group inline-flex items-center min-h-11" aria-label="يوصل - الصفحة الرئيسية">
             <Image 
               src="/assets/logo.png" 
-              alt="Yoosel Logo" 
+              alt="شعار يوصل" 
               width={140}
               height={50}
               priority

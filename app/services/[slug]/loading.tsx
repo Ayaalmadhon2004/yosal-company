@@ -2,7 +2,7 @@
 
 export default function Loading() {
   return (
-    <main className="min-h-screen bg-[#0F111A] relative overflow-hidden" dir="rtl">
+    <div className="min-h-screen bg-[#0F111A] relative overflow-hidden" dir="rtl">
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-orange-vivid/5 blur-[150px] rounded-full -z-10" />
       
       <div className="container mx-auto px-6 pt-32 pb-20 relative z-10">
@@ -43,6 +43,6 @@ export default function Loading() {
       <div className="container mx-auto px-6 mt-20 opacity-20">
          <div className="h-64 w-full bg-white/5 rounded-[40px] animate-pulse" />
       </div>
-    </main>
+    </div>
   );
 }

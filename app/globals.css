@@ -223,3 +223,20 @@
 @media (prefers-reduced-motion: reduce) {
   .nav-enter { animation: none !important; }
 }
+
+/* ===== تقليل الحركة: يعمل فقط عندما يطلبه نظام التشغيل ===== */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  .animate-float-slow,
+  .animate-float-slower,
+  .animate-pulse,
+  .animate-bounce,
+  .animate-bounce-slow,
+  .animate-ping-slow {
+    animation: none !important;
+  }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+}

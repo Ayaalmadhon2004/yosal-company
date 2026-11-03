@@ -1,6 +1,19 @@
 // lib/data.ts
 import { Testimonial, Service} from "@/types";
 
+// رابط الواتساب الموحّد: يُبنى من NEXT_PUBLIC_WHATSAPP_NUMBER (أرقام فقط بالصيغة الدولية)
+// ويعود لرابط الـ QR القديم إذا لم يُضبط المتغير.
+const WHATSAPP_FALLBACK_LINK = "https://wa.me/qr/YDPUM4DFRP4NP1";
+const WHATSAPP_GREETING = "مرحباً يوصل، أرغب في الاستفسار عن خدماتكم.";
+// يُبقي الأرقام فقط: "+970 59-720" -> "97059720"
+const whatsappNumber: string = [...(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "")]
+  .filter((ch) => ch >= "0" && ch <= "9")
+  .join("");
+
+export const WHATSAPP_LINK: string = whatsappNumber
+  ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(WHATSAPP_GREETING)}`
+  : WHATSAPP_FALLBACK_LINK;
+
 export const allTestimonials: Testimonial[] = [
   {
     id: 1,
@@ -365,7 +378,7 @@ export const contactMethods = [
     desc: "رد سريع خلال دقائق عبر منصتنا المباشرة.",
     icon: "MessageSquare",
     action: "ابدأ المحادثة الآن",
-    link: "https://wa.me/qr/YDPUM4DFRP4NP1",
+    link: WHATSAPP_LINK,
     color: "bg-brand-panel-deep",
     isSpecial: true, 
   },

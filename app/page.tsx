@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { getDashboardData } from "@/lib/api";
+import { getDashboardData, getProjects } from "@/lib/api";
 import { servicesData } from "@/constants/siteData";
+import type { PortfolioProject } from "@/types/api";
 import Hero from "@/components/sections/Hero";
 import Problems from "@/components/sections/home/Problems";
 import Services from "@/components/sections/services/Services";
@@ -42,7 +43,8 @@ const SkeletonLoader = ({ height = "min-h-[480px]" }: { height?: string }) => (
 );
 
 export default async function Home() {
-  const data = (await getDashboardData()) || { packages: [] };
+  const [dashboard, projects] = await Promise.all([getDashboardData(), getProjects<PortfolioProject>()]);
+  const data = dashboard || { packages: [] };
 
   return (
     <div className="block w-full font-sans overflow-x-hidden bg-background text-foreground">
@@ -52,7 +54,7 @@ export default async function Home() {
       <div className="flex flex-col relative">
         <Services data={servicesData} />
         <Reveal>
-          <Portfolio isHomePage />
+          <Portfolio isHomePage initialProjects={projects.length ? projects.slice(0, 6) : undefined} />
         </Reveal>
         <WhyUs />
         <Stats />

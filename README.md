@@ -141,6 +141,7 @@ npm run dev                 # تطوير: http://localhost:3000
 | :-- | :-- |
 | `npm run dev` | تشغيل نسخة التطوير |
 | `npm run lint` | فحص ESLint |
+| `npm test` | تشغيل اختبارات الوحدة (Vitest) |
 | `npm run build` | بناء نسخة الإنتاج |
 | `npm run start` | تشغيل نسخة الإنتاج (بعد `build`) |
 
@@ -158,14 +159,14 @@ npm run dev                 # تطوير: http://localhost:3000
 ```text
 yosal-company/
 ├── app/                  المسارات (about, blog/[slug], contact, packages,
-│                         portfolio/[slug], private, services/[slug], terms) + layout.tsx
+│                         portfolio/[slug], privacy, services/[slug], terms) + layout.tsx
 ├── components/
 │   ├── layout/           Navbar, Footer, ChatSystem
 │   ├── sections/         أقسام الصفحات (home, about, blog, packages, ...)
 │   ├── form/             ContactForm, DataForm, ReadyForm, SubscriptionForm
 │   └── ui/               AppButton, AppCard
 ├── constants/            بيانات ثابتة (blogData, servicesData, siteData, teamData)
-├── hooks/                useDashboardStore (حالة البيانات)
+├── hooks/                useProjectRequest (إرسال طلب المشروع)
 ├── lib/                  api.ts (استدعاءات الـ Backend), utils.ts
 ├── types/                تعريفات TypeScript
 ├── public/               الصور والملفات الثابتة (assets/logo.png ...)
@@ -180,12 +181,14 @@ flowchart LR
     B -->|getDashboardData<br/>revalidate كل ساعة| C[(Backend API)]
     B -->|sendProjectRequest| C
     B --> D[constants/<br/>بيانات ثابتة]
-    B --> E[useDashboardStore<br/>حالة مشتركة]
+    B --> E[useProjectRequest<br/>إرسال الطلب]
 ```
 
 - **الـ Backend:** `lib/api.ts` يقرأ `NEXT_PUBLIC_API_URL` ويوفّر `getDashboardData()` (جلب بيانات لوحة الموقع مع `revalidate` كل ساعة) و`sendProjectRequest()` (إرسال طلب مشروع من نماذج التواصل). عند فشل الطلب تُرجَع `null` ويُسجَّل الخطأ.
+- **مصدر واحد للروابط:** كل روابط الـ Backend تمر عبر `API_ENDPOINTS` والدوال المساعدة في `lib/api.ts` (`getServices`, `getPackages`, `getProjects`, `getTestimonials`, `getFaqs`, `subscribeToNewsletter`…)، والأخطاء تُسجَّل عبر `lib/logger.ts`.
+- **Sitemap:** `app/sitemap.ts` يضيف دائماً الصفحات الثابتة وخدمات `servicesData`؛ أما المشاريع والمقالات فتُجلب مع timeout ومحاولة إعادة واحدة، وإن كان السيرفر (Render المجاني) نائماً تُتجاهل دون فشل البناء.
 - **البيانات الثابتة:** مجلد `constants/` يحوي محتوى لا يأتي من الـ API (مقالات المدونة التجريبية، آراء العملاء، الفريق، بيانات الموقع) ويُستورد مباشرة في المكوّنات.
-- **الحالة:** `hooks/useDashboardStore.ts` يشارك بيانات الـ Backend بين المكوّنات.
+- **الحالة:** `hooks/useProjectRequest.ts` يرسل طلب المشروع إلى الـ Backend مع إشعارات toast وحالة التحميل.
 
 ## 🤝 آلية المساهمة
 
