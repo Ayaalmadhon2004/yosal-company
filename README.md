@@ -165,7 +165,7 @@ yosal-company/
 │   ├── form/             ContactForm, DataForm, ReadyForm, SubscriptionForm
 │   └── ui/               AppButton, AppCard
 ├── constants/            بيانات ثابتة (blogData, servicesData, siteData, teamData)
-├── hooks/                useDashboardStore (حالة البيانات)
+├── hooks/                useProjectRequest (إرسال طلب المشروع)
 ├── lib/                  api.ts (استدعاءات الـ Backend), utils.ts
 ├── types/                تعريفات TypeScript
 ├── public/               الصور والملفات الثابتة (assets/logo.png ...)
@@ -180,12 +180,12 @@ flowchart LR
     B -->|getDashboardData<br/>revalidate كل ساعة| C[(Backend API)]
     B -->|sendProjectRequest| C
     B --> D[constants/<br/>بيانات ثابتة]
-    B --> E[useDashboardStore<br/>حالة مشتركة]
+    B --> E[useProjectRequest<br/>إرسال الطلب]
 ```
 
 - **الـ Backend:** `lib/api.ts` يقرأ `NEXT_PUBLIC_API_URL` ويوفّر `getDashboardData()` (جلب بيانات لوحة الموقع مع `revalidate` كل ساعة) و`sendProjectRequest()` (إرسال طلب مشروع من نماذج التواصل). عند فشل الطلب تُرجَع `null` ويُسجَّل الخطأ.
 - **البيانات الثابتة:** مجلد `constants/` يحوي محتوى لا يأتي من الـ API (مقالات المدونة التجريبية، آراء العملاء، الفريق، بيانات الموقع) ويُستورد مباشرة في المكوّنات.
-- **الحالة:** `hooks/useDashboardStore.ts` يشارك بيانات الـ Backend بين المكوّنات.
+- **الحالة:** `hooks/useProjectRequest.ts` يرسل طلب المشروع إلى الـ Backend مع إشعارات toast وحالة التحميل.
 
 ## 🤝 آلية المساهمة
 
