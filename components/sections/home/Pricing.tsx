@@ -38,7 +38,7 @@ export default function Pricing({ data }: PricingProps) {
     <section id="pricing" className="py-24 w-full bg-background" dir="rtl">
       <div className="container mx-auto px-6 max-w-7xl">
         <Reveal className="text-center mb-16 md:mb-20">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#F58220] mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-brand-orange-light mb-6">
             باقاتنا المرنة
           </h2>
           <p className="text-lg text-gray-300 opacity-90 font-medium">اختر الباقة التي تناسب حجم طموحاتك.</p>
@@ -55,7 +55,7 @@ export default function Pricing({ data }: PricingProps) {
               <StaggerItem key={plan.id} className="relative group">
                 {plan.badge && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
-                    <span className="bg-[#B84F08] text-white px-8 py-1.5 rounded-full text-sm font-black shadow-lg">
+                    <span className="bg-brand-cta-alt text-white px-8 py-1.5 rounded-full text-sm font-black shadow-lg">
                       {plan.badge}
                     </span>
                   </div>
@@ -65,8 +65,8 @@ export default function Pricing({ data }: PricingProps) {
                   className={cn(
                     "h-full flex flex-col transition-all duration-500 border-none rounded-[32px] p-2",
                     isFeatured 
-                      ? "bg-[#1E213A] ring-2 ring-[#F58220] shadow-2xl z-10 scale-105" 
-                      : "bg-[#252841]/40"
+                      ? "bg-[#1E213A] ring-2 ring-brand-orange-light shadow-2xl z-10 scale-105" 
+                      : "bg-brand-panel-alt/40"
                   )}
                 >
                   <AppCardHeader className="text-right p-8 pb-2">
@@ -81,7 +81,7 @@ export default function Pricing({ data }: PricingProps) {
                       <span className="text-gray-300 text-lg font-bold">
                         ر.س {isSubscription && <span className="text-base font-normal"> / شهر</span>}
                       </span>
-                      <span className="text-5xl font-black text-[#F58220] leading-none">
+                      <span className="text-5xl font-black text-brand-orange-light leading-none">
                         {plan.price}
                       </span>
                     </div>
@@ -100,11 +100,11 @@ export default function Pricing({ data }: PricingProps) {
                           <div className={cn(
                             "shrink-0 mt-1 flex items-center justify-center w-5 h-5 rounded-full border transition-colors",
                             feature.is_available === 1 
-                              ? "bg-[#F58220] border-[#F58220]" 
+                              ? "bg-brand-orange-light border-brand-orange-light" 
                               : "border-white/10 bg-transparent"
                           )}>
                             {feature.is_available === 1 && (
-                              <Check aria-hidden="true" className="h-3 w-3 text-[#1A1C2E] stroke-[4px]" />
+                              <Check aria-hidden="true" className="h-3 w-3 text-brand-deep stroke-[4px]" />
                             )}
                           </div>
                           <span className="text-right leading-tight flex-1">{feature.feature_text}</span>
@@ -118,8 +118,8 @@ export default function Pricing({ data }: PricingProps) {
                       className={cn(
                         " text-lg font-black rounded-2xl transition-all flex items-center justify-center", 
                         isFeatured
-                          ? "bg-[#B84F08] hover:bg-[#9E4306]"
-                          : "border-[#F58220] text-[#F58220] hover:bg-[#F58220]/10"
+                          ? "bg-brand-cta-alt hover:bg-brand-cta-alt-hover"
+                          : "border-brand-orange-light text-brand-orange-light hover:bg-brand-orange-light/10"
                       )}
                     >
                       <a 

@@ -23,7 +23,7 @@ export default function ContactPage() {
           </p>
           <a
             href="#form"
-            className="inline-flex items-center justify-center h-14 rounded-full bg-[#B34F00] hover:bg-[#9A4400] text-white text-lg font-bold px-10 py-3 transition-colors"
+            className="inline-flex items-center justify-center h-14 rounded-full bg-brand-cta hover:bg-brand-cta-hover text-white text-lg font-bold px-10 py-3 transition-colors"
           >
             ابدأ رحلتك الآن
           </a>
@@ -52,7 +52,7 @@ export default function ContactPage() {
               className={`${method.color} p-6 sm:p-8 rounded-[2rem] border ${method.accent || 'border-white/5'} transition-all duration-300 text-right flex flex-col h-full`}
             >
               <div className="bg-[#252a46] w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ml-auto shadow-lg" aria-hidden="true">
-                <IconComponent className="text-[#F58220] w-7 h-7" />
+                <IconComponent className="text-brand-orange-light w-7 h-7" />
               </div>
 
               <h2 className="text-xl font-black text-white mb-3 tracking-tight">

@@ -106,7 +106,7 @@ export default function ProjectAuditForm() {
             aria-invalid={nameError ? true : undefined}
             aria-describedby={nameError ? `${nameId}-error` : undefined}
             placeholder="الاسم الكامل"
-            className="w-full bg-[#12162b] border border-orange-500/20 rounded-xl p-4 text-white placeholder:text-gray-400 outline-none focus:border-orange-500 transition-all text-right"
+            className="w-full bg-brand-surface border border-orange-500/20 rounded-xl p-4 text-white placeholder:text-gray-400 outline-none focus:border-orange-500 transition-all text-right"
           />
           <FieldError id={`${nameId}-error`} message={nameError} />
         </div>
@@ -123,7 +123,7 @@ export default function ProjectAuditForm() {
             aria-invalid={phoneError ? true : undefined}
             aria-describedby={phoneError ? `${phoneId}-error` : undefined}
             placeholder="رقم الهاتف 05xxxxxxxx"
-            className="w-full bg-[#12162b] border border-orange-500/20 rounded-xl p-4 text-white placeholder:text-gray-400 outline-none focus:border-orange-500 transition-all text-right"
+            className="w-full bg-brand-surface border border-orange-500/20 rounded-xl p-4 text-white placeholder:text-gray-400 outline-none focus:border-orange-500 transition-all text-right"
           />
           <FieldError id={`${phoneId}-error`} message={phoneError} />
         </div>
@@ -137,7 +137,7 @@ export default function ProjectAuditForm() {
           type="submit"
           variant="orange"
           disabled={loading}
-          className="w-full py-4 rounded-xl text-lg font-bold shadow-lg shadow-orange-600/20 bg-[#B34F00] hover:bg-[#9A4400]"
+          className="w-full py-4 rounded-xl text-lg font-bold shadow-lg shadow-orange-600/20 bg-brand-cta hover:bg-brand-cta-hover"
         >
           {loading ? "جاري المعالجة..." : "أحصل على التقييم"}
         </AppButton>

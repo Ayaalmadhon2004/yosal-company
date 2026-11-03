@@ -81,7 +81,7 @@ export default function ServiceHero({
                 href={getWhatsAppLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 sm:px-8 py-4 rounded-2xl bg-[#B34F00] text-white font-black flex items-center gap-3 hover:bg-[#9A4400] transition-all hover:scale-105 active:scale-95 group shadow-lg"
+                className="px-6 sm:px-8 py-4 rounded-2xl bg-brand-cta text-white font-black flex items-center gap-3 hover:bg-brand-cta-hover transition-all hover:scale-105 active:scale-95 group shadow-lg"
               >
                 <MessageSquare aria-hidden="true" className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                 ابدأ رحلتك الآن
@@ -92,10 +92,10 @@ export default function ServiceHero({
                 href={getWhatsAppLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 sm:px-8 py-4 rounded-2xl bg-[#EDE7D1] text-[#A84800] font-black transition-all flex items-center gap-3 hover:opacity-90 hover:scale-105 active:scale-95 group"
+                className="px-6 sm:px-8 py-4 rounded-2xl bg-brand-beige text-brand-rust font-black transition-all flex items-center gap-3 hover:opacity-90 hover:scale-105 active:scale-95 group"
                 style={{ boxShadow: '0 0 20px 0 rgba(230, 116, 15, 0.45)' }}
               >
-                <Calendar aria-hidden="true" className="w-5 h-5 text-[#A84800] group-hover:scale-110 transition-transform" />
+                <Calendar aria-hidden="true" className="w-5 h-5 text-brand-rust group-hover:scale-110 transition-transform" />
                 احجز استشارة مجانية
                 <span className="sr-only">(يفتح في نافذة جديدة)</span>
               </a>
@@ -117,7 +117,7 @@ export default function ServiceHero({
               )}
 
               {/* غلاف الصورة */}
-              <div className="relative rounded-[50px] overflow-hidden border border-white/10 shadow-2xl aspect-square z-10 bg-[#12162b]">
+              <div className="relative rounded-[50px] overflow-hidden border border-white/10 shadow-2xl aspect-square z-10 bg-brand-surface">
                 {imageUrl ? (
                   <>
                     <Image

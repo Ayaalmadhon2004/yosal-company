@@ -10,6 +10,35 @@
   --color-brand-navy: #161839;    
   --color-brand-orange: #E6740F;  /* القيمة الدقيقة من لقطة شاشة الزر */
   --color-brand-accent: #3C3F73;  /* الكحلي الفاتح المستخدم في الحقول */
+  --color-brand-beige: #EDE7D1;
+
+  /* Orange accents */
+  --color-brand-orange-light: #F58220;
+  --color-brand-orange-vivid: #FF8A00;
+  --color-brand-orange-soft: #FF7F11;
+  --color-brand-copper: #B8570B;
+  --color-brand-rust: #A84800;
+
+  /* CTA button fills (AA-contrast with white text) and their hover states */
+  --color-brand-cta: #B34F00;
+  --color-brand-cta-hover: #9A4400;
+  --color-brand-cta-alt: #B84F08;
+  --color-brand-cta-alt-hover: #9E4306;
+  --color-brand-cta-deep: #B85A00;
+  --color-brand-cta-deep-hover: #9A4A00;
+
+  /* Dark surfaces */
+  --color-brand-surface: #12162b;
+  --color-brand-deep: #1A1C2E;
+  --color-brand-night: #0a0d1d;
+  --color-brand-panel: #1A1D2E;
+  --color-brand-panel-alt: #252841;
+  --color-brand-card: #1a1f35;
+  --color-brand-panel-deep: #1C213E;
+
+  /* WhatsApp / chat greens */
+  --color-whatsapp: #22C55E;
+  --color-whatsapp-dark: #15803D;
 
   --font-cairo: var(--font-cairo);
   --font-sans: var(--font-cairo), ui-sans-serif, system-ui;

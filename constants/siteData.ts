@@ -379,7 +379,7 @@ export const contactMethods = [
     icon: "MessageSquare",
     action: "ابدأ المحادثة الآن",
     link: WHATSAPP_LINK,
-    color: "bg-[#1C213E]",
+    color: "bg-brand-panel-deep",
     isSpecial: true, 
   },
   {
@@ -389,9 +389,9 @@ export const contactMethods = [
     icon: "Calendar",
     action: "احجز الآن",
     link: "https://calendly.com/your-link",
-    color: "bg-[#1C213E]",
-    accent: "border-[#F58220]", 
-    hover: "hover:bg-[#F58220]/10"
+    color: "bg-brand-panel-deep",
+    accent: "border-brand-orange-light", 
+    hover: "hover:bg-brand-orange-light/10"
   },
    {
     id: 3,
@@ -400,7 +400,7 @@ export const contactMethods = [
     icon: "FileText",
     action: "تعبئة النموذج",
     link: "/contact#form",
-    color: "bg-[#1C213E]", 
+    color: "bg-brand-panel-deep", 
     accent: "border-gray-700",
     hover: "hover:border-orange-500"
   }

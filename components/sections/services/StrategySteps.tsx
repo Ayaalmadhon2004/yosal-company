@@ -24,7 +24,7 @@ export default function StrategySteps({ steps = [], sectionTitle = "رحلتنا
           <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
             {steps.map((step, index) => (
               <StaggerItem key={`step-${index}`} className="flex flex-col items-center group relative">
-                <div className="w-16 h-16 rounded-full bg-[#B34F00] flex items-center justify-center text-2xl font-black text-white mb-10 shadow-lg shadow-primary/20 transition-transform duration-300 group-hover:scale-110 relative">
+                <div className="w-16 h-16 rounded-full bg-brand-cta flex items-center justify-center text-2xl font-black text-white mb-10 shadow-lg shadow-primary/20 transition-transform duration-300 group-hover:scale-110 relative">
                   {step.number}
                   <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping-slow pointer-events-none" />
                 </div>

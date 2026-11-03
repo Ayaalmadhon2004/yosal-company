@@ -29,7 +29,7 @@ export default function ChatSystem() {
       >
         <button
           onClick={handleWhatsAppClick}
-          className="w-14 h-14 md:w-16 md:h-16 bg-[#15803D] rounded-[2rem] flex items-center justify-center shadow-2xl shadow-[#22C55E]/40 hover:scale-110 active:scale-95 transition-all duration-300 group"
+          className="w-14 h-14 md:w-16 md:h-16 bg-whatsapp-dark rounded-[2rem] flex items-center justify-center shadow-2xl shadow-whatsapp/40 hover:scale-110 active:scale-95 transition-all duration-300 group"
           title="تواصل عبر واتساب"
           aria-label="تواصل عبر واتساب"
         >
@@ -123,7 +123,7 @@ export default function ChatSystem() {
             <X size={24} />
           </button>
 
-          <div className="w-24 h-24 bg-[#22C55E]/10 rounded-[2.5rem] flex items-center justify-center mx-auto mb-8 text-[#22C55E] animate-bounce">
+          <div className="w-24 h-24 bg-whatsapp/10 rounded-[2.5rem] flex items-center justify-center mx-auto mb-8 text-whatsapp animate-bounce">
             <MessageCircle size={48} />
           </div>
 
@@ -136,7 +136,7 @@ export default function ChatSystem() {
             href={WHATSAPP_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-[#15803D] text-white block py-5 rounded-2xl font-black text-xl shadow-xl shadow-[#22C55E]/30 hover:bg-[#166534] hover:-translate-y-1 transition-all"
+            className="bg-whatsapp-dark text-white block py-5 rounded-2xl font-black text-xl shadow-xl shadow-whatsapp/30 hover:bg-[#166534] hover:-translate-y-1 transition-all"
           >
             فتح الواتساب الآن
           </Link>

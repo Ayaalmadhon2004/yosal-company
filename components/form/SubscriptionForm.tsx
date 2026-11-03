@@ -106,7 +106,7 @@ export default function SubscriptionForm() {
           aria-busy={loading}
           className={cn(
             "relative overflow-hidden px-8 py-4 rounded-2xl font-black text-sm transition-all duration-300 flex items-center justify-center gap-2 min-w-[140px]",
-            "bg-[#B84F08] hover:bg-[#9E4306] text-white shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 disabled:opacity-70"
+            "bg-brand-cta-alt hover:bg-brand-cta-alt-hover text-white shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 disabled:opacity-70"
           )}
         >
           {loading ? (

@@ -14,7 +14,7 @@ export default function NotFound() {
       className="min-h-[70vh] flex items-center justify-center px-6 py-24 text-center"
     >
       <div className="max-w-xl">
-        <p className="text-8xl md:text-9xl font-black text-[#F58220] mb-6" aria-hidden="true">
+        <p className="text-8xl md:text-9xl font-black text-brand-orange-light mb-6" aria-hidden="true">
           404
         </p>
         <h1 className="text-3xl md:text-4xl font-black text-white mb-4">

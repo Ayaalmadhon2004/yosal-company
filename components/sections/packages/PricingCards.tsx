@@ -105,7 +105,7 @@ export default async function PricingCards() {
               className={cn(
                 "inline-flex items-center justify-center w-full rounded-2xl py-5 font-black text-lg transition-all duration-500 active:scale-95",
                 pkg.is_featured
-                  ? "bg-[#B34F00] hover:bg-[#9A4400] text-white shadow-lg shadow-primary/20"
+                  ? "bg-brand-cta hover:bg-brand-cta-hover text-white shadow-lg shadow-primary/20"
                   : "border border-primary text-white hover:bg-primary/10"
               )}
             >

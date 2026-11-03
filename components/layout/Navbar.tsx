@@ -68,7 +68,7 @@ export default function Navbar() {
                 </Link>
 
                 {link.dropdown && (
-                  <div className="absolute top-[calc(100%+15px)] right-0 w-72 bg-[#1A1D2E] border border-white/10 rounded-[1.5rem] shadow-2xl opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible group-focus-within/item:opacity-100 group-focus-within/item:visible transition-all duration-300 p-4 z-[100]">
+                  <div className="absolute top-[calc(100%+15px)] right-0 w-72 bg-brand-panel border border-white/10 rounded-[1.5rem] shadow-2xl opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible group-focus-within/item:opacity-100 group-focus-within/item:visible transition-all duration-300 p-4 z-[100]">
                     <div className="grid grid-cols-1 gap-1">
                       {link.dropdown.map((item) => (
                         <Link

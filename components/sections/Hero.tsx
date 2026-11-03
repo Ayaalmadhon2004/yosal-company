@@ -51,7 +51,7 @@ export default function Hero() {
                 asChild
                 variant="primary"
                 size="lg"
-                className="w-full sm:w-auto px-12 py-7 transition-all duration-300 bg-[#B84F08] hover:bg-[#9E4306]"
+                className="w-full sm:w-auto px-12 py-7 transition-all duration-300 bg-brand-cta-alt hover:bg-brand-cta-alt-hover"
               >
                 <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
                   ابدأ رحلتك الآن

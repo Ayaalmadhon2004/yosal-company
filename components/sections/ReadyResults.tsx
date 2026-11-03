@@ -18,7 +18,7 @@ export default function ReadySection({ variant = "style1" }: ReadySectionProps) 
   return (
     <RevealSection className="relative py-24 px-6 bg-background" dir="rtl">
       {/* الكرت الأساسي */}
-      <div className="max-w-6xl mx-auto relative overflow-hidden rounded-[40px] md:rounded-[60px] bg-[#161839] border border-white/5 py-20 px-8 shadow-2xl">
+      <div className="max-w-6xl mx-auto relative overflow-hidden rounded-[40px] md:rounded-[60px] bg-brand-navy border border-white/5 py-20 px-8 shadow-2xl">
         
         {/* الدائرة المتوهجة العلوية (يمين) - كما في الصورة */}
         <div 
@@ -64,10 +64,10 @@ export default function ReadySection({ variant = "style1" }: ReadySectionProps) 
             </AppButton>
             
             {/* الزر الثاني (شاهد أعمالنا) - شفاف مع إطار برتقالي */}
-            <AppButton asChild className="p-0 overflow-hidden w-full sm:w-auto min-w-[220px] h-14 rounded-full bg-transparent border-2 border-[#FF7F11] hover:bg-[#FF7F11]/10 transition-all">
+            <AppButton asChild className="p-0 overflow-hidden w-full sm:w-auto min-w-[220px] h-14 rounded-full bg-transparent border-2 border-brand-orange-soft hover:bg-brand-orange-soft/10 transition-all">
               <Link 
                 href={isStyle1 ? LINKS.PORTFOLIO : LINKS.FREE_CONSULTATION}
-                className="flex items-center justify-center px-8 text-lg font-bold !text-[#FF7F11]"
+                className="flex items-center justify-center px-8 text-lg font-bold !text-brand-orange-soft"
               >
                 {isStyle1 ? "شاهد أعمالنا" : "احجز استشارة مجانية"}
               </Link>

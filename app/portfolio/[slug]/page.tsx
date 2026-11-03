@@ -173,7 +173,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
         <RevealSection className="py-24 px-6" dir="rtl">
       <div className="container mx-auto max-w-6xl">
-        <div className="relative bg-gradient-to-l from-[#B8570B] to-background rounded-4xl p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
+        <div className="relative bg-gradient-to-l from-brand-copper to-background rounded-4xl p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
           
           {/* النص */}
           <div className="text-white space-y-4 text-center md:text-right">
@@ -184,7 +184,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </div>
 
           {/* الزر */}
-          <Link href="/contact" className="bg-white text-[#B8570B] px-10 py-5 rounded-xl btn-text hover:bg-opacity-90 transition-all duration-300 shadow-lg whitespace-nowrap">
+          <Link href="/contact" className="bg-white text-brand-copper px-10 py-5 rounded-xl btn-text hover:bg-opacity-90 transition-all duration-300 shadow-lg whitespace-nowrap">
             ابدأ مشروعك الآن
           </Link>
         </div>

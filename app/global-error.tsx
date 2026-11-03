@@ -22,7 +22,7 @@ export default function GlobalError({
         className="min-h-screen flex items-center justify-center px-6 text-center"
       >
         <div className="max-w-xl">
-          <p className="text-6xl font-black text-[#F58220] mb-6" aria-hidden="true">
+          <p className="text-6xl font-black text-brand-orange-light mb-6" aria-hidden="true">
             !
           </p>
           <h1 className="text-3xl md:text-4xl font-black mb-4">
