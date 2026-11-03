@@ -141,7 +141,7 @@ export default function ProjectAuditForm() {
             aria-required="true"
             aria-invalid={phoneError ? true : undefined}
             aria-describedby={phoneError ? `${phoneId}-error` : undefined}
-            placeholder="رقم الهاتف 05xxxxxxxx"
+            placeholder="05xxxxxxxx"
             className="w-full bg-brand-surface border border-orange-500/20 rounded-xl p-4 text-white placeholder:text-gray-400 outline-none focus:border-orange-500 transition-all text-right"
           />
           <FieldError id={`${phoneId}-error`} message={phoneError} />
