@@ -10,20 +10,33 @@ import {
   cooldownMessage,
   getCooldownRemaining,
   isHoneypotFilled,
+  isValidEmail,
   isValidPhone,
   markSubmitted,
 } from "@/lib/formGuards";
 
 const COOLDOWN_KEY = "audit-form";
 
+function validatePhone(value: string): string {
+  if (!value.trim()) return FORM_MESSAGES.phoneRequired;
+  return isValidPhone(value) ? "" : FORM_MESSAGES.phoneInvalid;
+}
+
+function validateEmail(value: string): string {
+  if (!value) return FORM_MESSAGES.emailRequired;
+  return isValidEmail(value) ? "" : FORM_MESSAGES.emailInvalid;
+}
+
 export default function ProjectAuditForm() {
   const [loading, setLoading] = useState(false);
   const [nameError, setNameError] = useState("");
   const [phoneError, setPhoneError] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [formError, setFormError] = useState("");
   const uid = useId();
   const nameId = `${uid}-name`;
   const phoneId = `${uid}-phone`;
+  const emailId = `${uid}-email`;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,14 +52,20 @@ export default function ProjectAuditForm() {
 
     const nameValue = ((formData.get("full_name") as string) || "").trim();
     const phoneValue = (formData.get("phone") as string) || "";
+    const emailValue = ((formData.get("email") as string) || "").trim();
     const nameMsg = nameValue ? "" : FORM_MESSAGES.nameRequired;
-    const phoneMsg = !phoneValue.trim()
-      ? FORM_MESSAGES.phoneRequired
-      : isValidPhone(phoneValue) ? "" : FORM_MESSAGES.phoneInvalid;
+    const phoneMsg = validatePhone(phoneValue);
+    const emailMsg = validateEmail(emailValue);
     setNameError(nameMsg);
     setPhoneError(phoneMsg);
-    if (nameMsg || phoneMsg) {
-      document.getElementById(nameMsg ? nameId : phoneId)?.focus();
+    setEmailError(emailMsg);
+    const firstInvalidId = [
+      { message: nameMsg, id: nameId },
+      { message: phoneMsg, id: phoneId },
+      { message: emailMsg, id: emailId },
+    ].find((field) => field.message)?.id;
+    if (firstInvalidId) {
+      document.getElementById(firstInvalidId)?.focus();
       return;
     }
 
@@ -61,7 +80,7 @@ export default function ProjectAuditForm() {
       const data = {
         name: formData.get("full_name") as string,
         phone: formData.get("phone") as string,
-        email: `audit_${Date.now()}@yosaal.com`, 
+        email: emailValue,
         project_url: "طلب تقييم داخلي",
       };
 
@@ -126,6 +145,24 @@ export default function ProjectAuditForm() {
             className="w-full bg-brand-surface border border-orange-500/20 rounded-xl p-4 text-white placeholder:text-gray-400 outline-none focus:border-orange-500 transition-all text-right"
           />
           <FieldError id={`${phoneId}-error`} message={phoneError} />
+        </div>
+
+        {/* حقل البريد الإلكتروني */}
+        <div className="space-y-2">
+          <label htmlFor={emailId} className="text-white text-sm font-medium mr-1">البريد الإلكتروني <RequiredMark /></label>
+          <input
+            id={emailId} name="email" autoComplete="email"
+            type="email"
+            inputMode="email"
+            dir="ltr"
+            required
+            aria-required="true"
+            aria-invalid={emailError ? true : undefined}
+            aria-describedby={emailError ? `${emailId}-error` : undefined}
+            placeholder="example@mail.com"
+            className="w-full bg-brand-surface border border-orange-500/20 rounded-xl p-4 text-white placeholder:text-gray-400 outline-none focus:border-orange-500 transition-all text-right"
+          />
+          <FieldError id={`${emailId}-error`} message={emailError} />
         </div>
 
         {formError && (
