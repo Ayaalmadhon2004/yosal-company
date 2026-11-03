@@ -3,6 +3,7 @@ import { RevealSection } from "@/components/ui/Motion";
 import React from "react";
 import { Mail, MessageSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { WHATSAPP_LINK } from "@/constants/siteData";
 
 interface PrivacyContactProps {
   whatsappLink?: string;
@@ -10,7 +11,7 @@ interface PrivacyContactProps {
 }
 
 export default function PrivacyContact({ 
-  whatsappLink = "https://wa.me/qr/YDPUM4DFRP4NP1",
+  whatsappLink = WHATSAPP_LINK,
   className
 }: PrivacyContactProps) {
   return (
