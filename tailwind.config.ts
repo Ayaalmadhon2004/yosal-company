@@ -1,4 +1,3 @@
-import animate from "tailwindcss-animate";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -68,9 +67,7 @@ const config: Config = {
       }
     },
   },
-  plugins: [
-    animate, // لدعم الحركات اللي أضفناها في الفورم
-  ],
+  plugins: [],
 };
 
 export default config;
