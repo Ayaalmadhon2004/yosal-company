@@ -26,8 +26,7 @@ jobs:
 
   audit:
     runs-on: ubuntu-latest
-    # Informational for now; remove continue-on-error once findings are resolved.
-    continue-on-error: true
+    # Fails the check on high or critical advisories in production dependencies.
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
