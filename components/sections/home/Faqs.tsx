@@ -1,3 +1,4 @@
+import { getFaqs } from "@/lib/api";
 import FaqItem from "./FaqItem";
 
 interface ApiFaq {
@@ -5,18 +6,6 @@ interface ApiFaq {
   question: string;
   answer: string;
   service_id?: number;
-}
-
-async function getFaqsFromApi(): Promise<ApiFaq[]> {
-  try {
-    const res = await fetch('https://yosaal-website-backend.onrender.com/api/v1/faqs', {
-      next: { revalidate: 3600 }
-    });
-    const result = await res.json();
-    return result.data || [];
-  } catch {
-    return [];
-  }
 }
 
 // ترتيب عشوائي لأسئلة الصفحة الرئيسية (دالة نقية خارج المكون)
@@ -29,7 +18,7 @@ interface FaqsProps {
 }
 
 export default async function Faqs({ serviceId }: FaqsProps) {
-  const allData = await getFaqsFromApi();
+  const allData = await getFaqs<ApiFaq>();
 
   let displayData: ApiFaq[];
 

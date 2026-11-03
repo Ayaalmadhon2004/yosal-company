@@ -15,7 +15,11 @@ export function resolveImageUrl(url: string | undefined | null, fallback = "/ass
   return `${BACKEND_ORIGIN}${url.startsWith("/") ? url : `/${url}`}`;
 }
 
-/** True when next/image cannot optimize the source (host not configured). Local paths are optimizable. */
+/**
+ * True when next/image cannot optimize the source (host not in `images.remotePatterns`).
+ * Absolute URLs coming from the API may point at arbitrary hosts, so only those are rendered
+ * `unoptimized`; known hosts and local paths always go through the optimizer.
+ */
 export function shouldSkipOptimization(src: string): boolean {
   if (!/^https?:\/\//i.test(src)) return false;
   try {

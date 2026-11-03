@@ -5,6 +5,19 @@ import { Send, Upload, CheckCircle2, AlertCircle, Loader2, FileText, X } from "l
 import { cn } from "@/lib/utils";
 import { submitProjectRequest } from "@/lib/api";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+// جوال سعودي (05xxxxxxxx / 5xxxxxxxx / +9665xxxxxxxx) أو رقم دولي بصيغة E.164
+const PHONE_REGEX = /^(?:(?:\+|00)?966|0)?5\d{8}$|^\+[1-9]\d{7,14}$/;
+
+function isValidUrl(value: string): boolean {
+  try {
+    const u = new URL(value);
+    return u.protocol === "http:" || u.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
 export default function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -33,21 +46,38 @@ export default function ContactForm() {
 
     const formData = new FormData(form);
 
-    try {
-      // تجهيز بيانات المشروع كـ Params لضمان القبول من جهة السيرفر
-      const fullDetails = `
-        الخدمة: ${formData.get("service_type")}
-        الميزانية: ${formData.get("budget")}$
-        الأهداف: ${formData.get("main_goals")}
-        الوصف: ${formData.get("description")}
-        ${selectedFile ? `المرفقات: يوجد ملف مرفق باسم (${selectedFile.name})` : 'المرفقات: لا يوجد'}
-      `.trim();
+    const phone = String(formData.get("phone") ?? "").trim();
+    const email = String(formData.get("email") ?? "").trim();
+    const rawUrl = String(formData.get("project_url") ?? "").trim();
 
+    if (!EMAIL_REGEX.test(email)) {
+      setStatus({ type: "error", msg: "يرجى إدخال بريد إلكتروني صحيح." });
+      setLoading(false);
+      return;
+    }
+    if (!PHONE_REGEX.test(phone.replace(/[\s-]/g, ""))) {
+      setStatus({ type: "error", msg: "يرجى إدخال رقم جوال صحيح، مثل 05xxxxxxxx أو +9665xxxxxxxx." });
+      setLoading(false);
+      return;
+    }
+    const projectUrl = rawUrl && !/^https?:\/\//i.test(rawUrl) ? `https://${rawUrl}` : rawUrl;
+    if (projectUrl && !isValidUrl(projectUrl)) {
+      setStatus({ type: "error", msg: "يرجى إدخال رابط صحيح للمشروع أو تركه فارغاً." });
+      setLoading(false);
+      return;
+    }
+
+    try {
       const result = await submitProjectRequest({
-        name: formData.get("project_name") as string,
-        phone: "0500000000", // قيمة افتراضية للباك آند
-        email: `request_${Date.now()}@yosaal.com`,
-        project_url: fullDetails,
+        name: String(formData.get("project_name") ?? ""),
+        phone,
+        email,
+        // نفس قيمة النموذج الآخر (ReadyForm) عند عدم وجود رابط
+        project_url: projectUrl || "لا يوجد رابط",
+        service_type: String(formData.get("service_type") ?? ""),
+        budget: String(formData.get("budget") ?? ""),
+        main_goals: String(formData.get("main_goals") ?? ""),
+        description: String(formData.get("description") ?? ""),
         attachment: selectedFile ?? undefined,
       });
 
@@ -60,7 +90,7 @@ export default function ContactForm() {
       }
     } catch (error: unknown) {
       console.error("Submission Error:", error);
-      setStatus({ type: "error", msg: "عذراً، فشل الإرسال. تأكدي من اتصالك بالإنترنت وحاولي مجدداً." });
+      setStatus({ type: "error", msg: "عذراً، فشل الإرسال. يرجى التأكد من الاتصال بالإنترنت والمحاولة مرة أخرى." });
     } finally {
       setLoading(false);
     }
@@ -95,7 +125,7 @@ export default function ContactForm() {
             <label htmlFor="cf-budget" className="text-foreground text-sm font-black pr-2 flex items-center gap-2">
               <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-primary" /> الميزانية المتوقعة ($)
             </label>
-            <input id="cf-budget" name="budget" type="number" className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 min-h-12 text-base text-foreground focus:border-primary/50 outline-none focus-visible:ring-2 focus-visible:ring-primary font-bold placeholder:text-white/60" placeholder="مثلاً: 5000" required />
+            <input id="cf-budget" name="budget" type="number" min="0" autoComplete="off" className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 min-h-12 text-base text-foreground focus:border-primary/50 outline-none focus-visible:ring-2 focus-visible:ring-primary font-bold placeholder:text-white/60" placeholder="مثلاً: 5000" required />
           </div>
 
           <div className="space-y-3">
@@ -103,6 +133,27 @@ export default function ContactForm() {
               <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-primary" /> الهدف الأساسي
             </label>
             <input id="cf-main_goals" name="main_goals" type="text" autoComplete="off" className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 min-h-12 text-base text-foreground focus:border-primary/50 outline-none focus-visible:ring-2 focus-visible:ring-primary font-bold placeholder:text-white/60" placeholder="مثلاً: التوسع في السوق السعودي" required />
+          </div>
+
+          <div className="space-y-3">
+            <label htmlFor="cf-phone" className="text-foreground text-sm font-black pr-2 flex items-center gap-2">
+              <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-primary" /> رقم الجوال
+            </label>
+            <input id="cf-phone" name="phone" type="tel" inputMode="tel" autoComplete="tel" dir="ltr" className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 min-h-12 text-base text-foreground focus:border-primary/50 outline-none focus-visible:ring-2 focus-visible:ring-primary font-bold placeholder:text-white/60 text-right" required placeholder="05xxxxxxxx" />
+          </div>
+
+          <div className="space-y-3">
+            <label htmlFor="cf-email" className="text-foreground text-sm font-black pr-2 flex items-center gap-2">
+              <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-primary" /> البريد الإلكتروني
+            </label>
+            <input id="cf-email" name="email" type="email" autoComplete="email" dir="ltr" className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 min-h-12 text-base text-foreground focus:border-primary/50 outline-none focus-visible:ring-2 focus-visible:ring-primary font-bold placeholder:text-white/60 text-right" required placeholder="example@mail.com" />
+          </div>
+
+          <div className="space-y-3">
+            <label htmlFor="cf-project_url" className="text-foreground text-sm font-black pr-2 flex items-center gap-2">
+              <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-primary" /> رابط المشروع أو الموقع (اختياري)
+            </label>
+            <input id="cf-project_url" name="project_url" type="url" inputMode="url" autoComplete="url" dir="ltr" className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 min-h-12 text-base text-foreground focus:border-primary/50 outline-none focus-visible:ring-2 focus-visible:ring-primary font-bold placeholder:text-white/60 text-right" placeholder="https://yourwebsite.com" />
           </div>
         </div>
 
