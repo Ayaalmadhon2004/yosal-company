@@ -12,19 +12,19 @@ export const metadata: Metadata = {
   title: "سياسة الخصوصية",
   description:
     "تعرف على كيفية جمع وكالة يوصل لبياناتك واستخدامها وحمايتها، وحقوقك في الخصوصية عند استخدام موقعنا وخدماتنا.",
-  alternates: { canonical: "/private" },
+  alternates: { canonical: "/privacy" },
   openGraph: {
     title: "سياسة الخصوصية",
     description:
       "تعرف على كيفية جمع وكالة يوصل لبياناتك واستخدامها وحمايتها، وحقوقك في الخصوصية عند استخدام موقعنا وخدماتنا.",
-    url: "/private",
+    url: "/privacy",
     type: "website",
     locale: "ar_SA",
     images: ["/assets/Coding.png"],
   },
 };
 
-export default function PrivatePage() {
+export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-background text-white" dir="rtl">
       <PrivacyHero />

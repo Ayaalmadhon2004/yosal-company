@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { resolveImageUrl, shouldSkipOptimization } from "@/components/sections/portfolio/imageUtils";
+import { getProjectBySlug } from "@/lib/api";
 import { Cloud,  ShieldCheck, LucideIcon } from "lucide-react";
 
 // دالة ربط أيقونات الـ API بمكتبة الأيقونات
@@ -36,18 +37,7 @@ interface ProjectData {
   testimonial?: Testimonial;
 }
 
-const getProjectDetails = cache(async (slug: string) => {
-  try {
-    const res = await fetch(`https://yosaal-website-backend.onrender.com/api/v1/projects/${slug}`, {
-      next: { revalidate: 3600 }
-    });
-    if (!res.ok) return null;
-    const json = await res.json();
-    return json.data;
-  } catch {
-    return null;
-  }
-});
+const getProjectDetails = cache((slug: string) => getProjectBySlug<ProjectData>(slug));
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
