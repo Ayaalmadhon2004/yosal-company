@@ -63,12 +63,8 @@ const nextConfig: NextConfig = {
       { key: "X-Frame-Options", value: "SAMEORIGIN" },
       { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
     ];
-    const immutable = [
-      { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
-    ];
     return [
       { source: "/:path*", headers: security },
-      { source: "/_next/static/:path*", headers: immutable },
       {
         source: "/assets/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=2592000, stale-while-revalidate=86400" }],
