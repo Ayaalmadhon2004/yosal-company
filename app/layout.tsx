@@ -3,8 +3,8 @@ import { Cairo } from 'next/font/google';
 import "./globals.css"; 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import CookieConsent from "@/components/layout/CookieConsent";
 import { Toaster } from "react-hot-toast";
-import Script from "next/script"; // استيراد مكون Script
 import { SITE_URL, SITE_NAME } from "@/lib/seo";
 import SiteJsonLd from "@/components/seo/SiteJsonLd";
 
@@ -58,20 +58,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ar" dir="rtl" className={`${cairo.variable} scroll-smooth`}>
-      <head>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-QBZ07DT6PS"
-          strategy="lazyOnload"
-        />
-        <Script id="google-analytics" strategy="lazyOnload">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-QBZ07DT6PS');
-          `}
-        </Script>
-      </head>
       <body className={`${cairo.className} bg-[#0F112B] bg-background text-white antialiased min-h-screen relative overflow-x-hidden flex flex-col`}>
         
         <SiteJsonLd />
@@ -100,6 +86,8 @@ export default function RootLayout({
         />
         
         <Footer />
+
+        <CookieConsent />
       </body>
     </html>
   );
