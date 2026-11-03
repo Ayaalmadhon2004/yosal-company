@@ -158,7 +158,7 @@ npm run dev                 # تطوير: http://localhost:3000
 ```text
 yosal-company/
 ├── app/                  المسارات (about, blog/[slug], contact, packages,
-│                         portfolio/[slug], private, services/[slug], terms) + layout.tsx
+│                         portfolio/[slug], privacy, services/[slug], terms) + layout.tsx
 ├── components/
 │   ├── layout/           Navbar, Footer, ChatSystem
 │   ├── sections/         أقسام الصفحات (home, about, blog, packages, ...)

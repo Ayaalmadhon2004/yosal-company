@@ -57,6 +57,9 @@ const nextConfig: NextConfig = {
       "@radix-ui/react-slot",
     ],
   },
+  async redirects() {
+    return [{ source: "/private", destination: "/privacy", permanent: true }];
+  },
   async headers() {
     const security = [
       { key: "X-Content-Type-Options", value: "nosniff" },
