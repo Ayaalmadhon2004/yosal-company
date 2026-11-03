@@ -7,6 +7,8 @@ import MarketComparison from "@/components/sections/services/MarketComparison";
 import StrategyDeliverables from "@/components/sections/services/StrategyDeliverables";
 import StrategySteps from "@/components/sections/services/StrategySteps";
 import ServiceHero from "@/components/sections/services/ServiceHero";
+import JsonLd from "@/components/seo/JsonLd";
+import { absoluteUrl, breadcrumbJsonLd, organizationRef } from "@/lib/jsonld";
 
 const getNormalizedSlug = (slug: string) => {
   const s = slug?.toLowerCase().trim();
@@ -75,9 +77,27 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   const isContentProduction = normalizedSlug === "content-production";
 
+  const serviceTitle = `${data.hero.title} ${data.hero.highlightText ?? ""}`.trim();
+  const serviceJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: serviceTitle,
+    description: data.hero.description,
+    url: absoluteUrl(`/services/${normalizedSlug}`),
+    inLanguage: "ar",
+    provider: organizationRef,
+    ...(data.hero.image ? { image: absoluteUrl(data.hero.image) } : {}),
+  };
+  const breadcrumbs = breadcrumbJsonLd([
+    { name: "الرئيسية", path: "/" },
+    { name: "خدماتنا", path: "/services" },
+    { name: serviceTitle, path: `/services/${normalizedSlug}` },
+  ]);
+
   return (
     <div className="min-h-screen bg-background selection:bg-primary/30">
-      <ServiceHero 
+      <JsonLd data={[serviceJsonLd, breadcrumbs]} />
+      <ServiceHero
         badge={data.hero.badge}
         title={data.hero.title}
         highlightText={data.hero.highlightText}

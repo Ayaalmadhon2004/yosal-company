@@ -26,7 +26,7 @@ export default function BlogContent({ posts, params }: { posts: BlogListPost[]; 
   if (!posts || posts.length === 0) {
     return (
       <div className="max-w-6xl mx-auto px-6 py-40 text-center bg-background">
-        <h2 className="text-white text-2xl font-bold mb-4">لا توجد مقالات حالياً</h2>
+        <h1 className="text-white text-2xl font-bold mb-4">لا توجد مقالات حالياً</h1>
         <p className="text-gray-400 mb-8">جرب تغيير الفلترة أو ابحث بكلمات أخرى.</p>
         <Link href="/blog" className="bg-orange-700 text-white px-8 py-3 rounded-full font-bold hover:bg-orange-600 transition-all">
           عرض كل المقالات

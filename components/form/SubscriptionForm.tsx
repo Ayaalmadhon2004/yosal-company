@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import toast from "react-hot-toast";
 import { Mail, Sparkles, Loader2, CheckCircle2 } from "lucide-react";
+import { subscribeToNewsletter } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import Honeypot from "@/components/form/Honeypot";
 import FieldError from "@/components/form/FieldError";
@@ -48,37 +49,23 @@ export default function SubscriptionForm() {
     }
     setLoading(true);
 
-    try {
-      // تم تحديث الرابط ليتوافق مع هيكلية الـ API الخاص بكِ إذا توفر للنشرة
-      const res = await fetch("https://yosaal-website-backend.onrender.com/api/v1/subscribe", {
-        method: "POST",
-        body: JSON.stringify({ email }),
-        headers: { 
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
+    const result = await subscribeToNewsletter(email, "body");
+    if (result.ok) {
+      toast.success("أهلاً بك في عائلة يوصل! سيصلك الإلهام قريباً.", {
+        icon: <Sparkles className="text-primary" />,
+        style: {
+          background: 'var(--secondary)',
+          color: 'var(--foreground)',
+          borderRadius: '1rem',
+          border: '1px solid rgba(255, 138, 51, 0.2)',
+        }
       });
-
-      if (res.ok) {
-        toast.success("أهلاً بك في عائلة يوصل! سيصلك الإلهام قريباً.", {
-          icon: <Sparkles className="text-primary" />,
-          style: {
-            background: 'var(--secondary)',
-            color: 'var(--foreground)',
-            borderRadius: '1rem',
-            border: '1px solid rgba(255, 138, 51, 0.2)',
-          }
-        });
-        markSubmitted(COOLDOWN_KEY);
-        setEmail("");
-      } else {
-        throw new Error();
-      }
-    } catch {
-      toast.error("حدث خطأ بسيط، يرجى المحاولة مرة أخرى بعد ثوانٍ.");
-    } finally {
-      setLoading(false);
+      markSubmitted(COOLDOWN_KEY);
+      setEmail("");
+    } else {
+      toast.error("حدث خطأ بسيط، حاول مجدداً بعد ثوانٍ.");
     }
+    setLoading(false);
   };
 
   return (
