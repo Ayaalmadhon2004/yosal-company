@@ -4,14 +4,12 @@ import React, { useState } from "react";
 import { IoMailOutline, IoSendSharp } from "react-icons/io5";
 import { HiOutlineMap } from "react-icons/hi2";
 import { toast } from "react-hot-toast";
+import { subscribeToNewsletter } from "@/lib/api";
 
 /** نموذج الاشتراك في النشرة (جزيرة عميل داخل الـ Footer) */
 export default function FooterSubscribe() {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  // الرابط الأساسي للباك إند (Render)
-  const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://yosaal-website-backend.onrender.com/api/v1";
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,34 +21,18 @@ export default function FooterSubscribe() {
 
     setIsLoading(true);
 
-    try {
-      // بناء الرابط مع الـ Query Params كما يتوقع الباك إند
-      const url = `${BASE_URL}/subscribe?email=${encodeURIComponent(email)}`;
-
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        },
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        toast.success("تم الاشتراك بنجاح! شكراً لك.");
-        setEmail(""); // تفريغ الحقل بعد النجاح
-      } else {
-        // عرض رسالة الخطأ القادمة من الباك إند إن وجدت
-        toast.error(result.message || "حدث خطأ أثناء الاشتراك");
-      }
-    } catch (error) {
+    const result = await subscribeToNewsletter(email, "query");
+    if (result.ok) {
+      toast.success("تم الاشتراك بنجاح! شكراً لك.");
+      setEmail(""); // تفريغ الحقل بعد النجاح
+    } else if (result.network) {
       // تنبيه المستخدم في حال كان السيرفر في وضع الخمول (Sleep Mode)
       toast.error("يبدو أن السيرفر يستغرق وقتاً للاستيقاظ، يرجى المحاولة مرة أخرى");
-      console.error("Subscription Error:", error);
-    } finally {
-      setIsLoading(false);
+    } else {
+      // عرض رسالة الخطأ القادمة من الباك إند إن وجدت
+      toast.error(result.message || "حدث خطأ أثناء الاشتراك");
     }
+    setIsLoading(false);
   };
 
   return (
